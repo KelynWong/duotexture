@@ -43,18 +43,18 @@
     </nav>
 
     <section class="col-12 p-5 row">
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validateAccount.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e</p>
         
         <div class="form-group">
           <label for="emailInput">Email address</label>
-          <input type="email" name="email"  class="form-control my-input" id="emailInput" placeholder="Email" aria-describedby="emailHelp">
+          <input type="email" name="emailInput" class="form-control my-input" id="emailInput" placeholder="Email" aria-describedby="emailHelp">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
           <label for="passwordInput">Password</label>
-          <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+          <input type="password" name="passwordInput" class="form-control" id="passwordInput" placeholder="Password">
         </div>
 
         <button type="submit" class="btn btn-primary">Login</button>
