@@ -51,11 +51,11 @@
 		<%
 		try{
 			if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
-		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("adminUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("adminUsername")%></a>
 		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
 			<%
 			}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
-		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("memberUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("memberUsername")%></a>
 		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
 			<%
 			}else{ %>
@@ -75,7 +75,7 @@
     </nav>
 
     <section class="col-12 p-5 row">
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validateSignUp.jsp" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_sign_out.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - S i g n U p F o r m</p>
 
         <div class="form-row">
