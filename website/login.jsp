@@ -82,12 +82,10 @@
             	
             	if(account.equals("none")){
             		errorMessage = "Account does not exists. Please try again.";
-            	}	
-        %>
-        
-        <small class="text-danger"><%= errorMessage %><br><br></small>
-        
-        <%
+		        %>
+		        <small class="text-danger"><%= errorMessage %><br><br></small>
+		        <%
+		        }
 	        }catch(Exception e){
 	        }
         %>
