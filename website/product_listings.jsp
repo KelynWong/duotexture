@@ -96,8 +96,9 @@
     </nav>
 
     <section class="col-12 p-5 row justify-content-center">
-        <form class="form-inline col-11 justify-content-center">
-            <input class="form-control col-10" type="search" placeholder="Search" aria-label="Search">
+    	<% int getCategoryId = Integer.parseInt(request.getParameter("categoryId")); %>
+        <form class="form-inline col-11 justify-content-center" action="search.jsp?categoryId=<%= getCategoryId %>" method="post">
+            <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
             <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
             <%
             try{
@@ -113,14 +114,13 @@
         </form>
 
 		<%
-		try {           
+		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);   
 			Statement stmt = conn.createStatement(); 
 			
 			String getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE categoryId=?";    
-			int getCategoryId = Integer.parseInt(request.getParameter("categoryId"));
 			PreparedStatement pstmt = conn.prepareStatement(getAllProductsByCategoryIdQuery);
 		    pstmt.setInt(1, getCategoryId);
 			ResultSet getAllProductsByCategoryIdResult = pstmt.executeQuery(); 
