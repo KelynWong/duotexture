@@ -17,8 +17,8 @@
 		Connection conn = DriverManager.getConnection(connURL);
 		Statement stmt = conn.createStatement();
 		
-		String getAllAdmins = "SELECT * FROM administrators;";
-		ResultSet getAllAdminsResult = stmt.executeQuery(getAllAdmins);
+		String getAllAdminsQuery = "SELECT * FROM administrators;";
+		ResultSet getAllAdminsResult = stmt.executeQuery(getAllAdminsQuery);
 		
 		while (getAllAdminsResult.next()){
 			String adminEmail = getAllAdminsResult.getString("email");
@@ -35,8 +35,8 @@
 				
 			}else{
 				
-				String getAllMembers = "SELECT * FROM members";
-				ResultSet getAllMembersResult = stmt.executeQuery(getAllMembers);
+				String getAllMembersQuery = "SELECT * FROM members";
+				ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
 				
 				while(getAllMembersResult.next()){
 					String memberEmail = getAllMembersResult.getString("email");
