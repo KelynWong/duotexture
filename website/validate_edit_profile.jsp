@@ -19,8 +19,8 @@
 		
 		if(session.getAttribute("accountType").equals("member")){
 			
-			String sqlStr = "UPDATE duotexture.members SET email=?, username=?, password=?, first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE memberId=?"; 
-			PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+			String updateMembersQuery = "UPDATE duotexture.members SET email=?, username=?, password=?, first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE memberId=?"; 
+			PreparedStatement pstmt = conn.prepareStatement(updateMembersQuery);
 			String inputFirstName = request.getParameter("inputFirstName");
 			String inputLastName = request.getParameter("inputLastName");
 			String inputAddress = request.getParameter("inputAddress");
@@ -45,8 +45,8 @@
 			
 		}else{
 			
-			String sqlStr = "UPDATE administrators SET email=?, username=?, password=? WHERE administratorId=?"; 
-			PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+			String updateAdminsQuery = "UPDATE administrators SET email=?, username=?, password=? WHERE administratorId=?"; 
+			PreparedStatement pstmt = conn.prepareStatement(updateAdminsQuery);
 			pstmt.setString(1, inputEmail);
 		    pstmt.setString(2, inputUsername);
 		    pstmt.setString(3, inputPassword);
