@@ -76,7 +76,7 @@
 
     <section class="col-12 p-5 row">
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_sign_out.jsp" method="post">
-        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - S i g n U p F o r m</p>
+        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - S i g n - U p - F o r m</p>
 
         <div class="form-row">
           <div class="form-group col-md-12">
