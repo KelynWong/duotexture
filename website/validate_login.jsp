@@ -17,6 +17,7 @@
 		Connection conn = DriverManager.getConnection(connURL);
 		Statement stmt = conn.createStatement();
 		
+		// Loop through administrators table
 		String getAllAdminsQuery = "SELECT * FROM administrators;";
 		ResultSet getAllAdminsResult = stmt.executeQuery(getAllAdminsQuery);
 		
@@ -32,31 +33,36 @@
         		session.setAttribute("adminUsername", adminUsername);
         		session.setAttribute("accountType", "admin");
 				response.sendRedirect("index.jsp");
-				
-			}else{
-				
-				String getAllMembersQuery = "SELECT * FROM members";
-				ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
-				
-				while(getAllMembersResult.next()){
-					String memberEmail = getAllMembersResult.getString("email");
-					String memberPassword = getAllMembersResult.getString("password");
-					
-					if(memberEmail.equals(emailInput) && memberPassword.equals(passwordInput)){
-						int memberId = getAllMembersResult.getInt("memberId");
-						String memberUsername = getAllMembersResult.getString("username");
-						
-						session.setAttribute("memberId", memberId);
-						session.setAttribute("memberUsername", memberUsername);
-						session.setAttribute("accountType", "member");
-						response.sendRedirect("index.jsp");
-					}else{
-						// session.setAttribute("accountType", "none");
-						response.sendRedirect("login.jsp?accountType=none");
-					}
-				}
 			}
 		}
+		
+		Boolean isAdmin = false;
+				
+		// Loop through members table	
+		String getAllMembersQuery = "SELECT * FROM members";
+		ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
+		
+		while(getAllMembersResult.next()){
+			String memberEmail = getAllMembersResult.getString("email");
+			String memberPassword = getAllMembersResult.getString("password");
+			
+			if(memberEmail.equals(emailInput) && memberPassword.equals(passwordInput)){
+				int memberId = getAllMembersResult.getInt("memberId");
+				String memberUsername = getAllMembersResult.getString("username");
+				
+				session.setAttribute("memberId", memberId);
+				session.setAttribute("memberUsername", memberUsername);
+				session.setAttribute("accountType", "member");
+				response.sendRedirect("index.jsp");
+			}
+		}
+		
+		Boolean isMember = false;
+		
+		if(isAdmin == false && isMember == false){
+			response.sendRedirect("login.jsp?accountType=none");
+		}
+
 		
 		conn.close();
 	}catch(Exception e){
