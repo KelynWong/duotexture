@@ -76,7 +76,7 @@
 
     <section class="col-12 p-5 row">
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
-        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d L i s t i n g</p>
+        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d - L i s t i n g</p>
         <hr>
 
         <div class="form-row">

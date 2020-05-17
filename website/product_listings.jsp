@@ -103,7 +103,7 @@
             try{
             	if(session.getAttribute("accountType").equals("admin")){
                    	%>
-                   	<a href="add_product.html" class="btn btn-success" style="margin-left: 10px">Add</a>
+                   	<a href="add_product.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
                    	<%
                 }
             }catch(Exception e){
