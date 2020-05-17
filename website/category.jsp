@@ -75,32 +75,38 @@
     </nav>
 
     <section class="col-12 p-5 row justify-content-center">
-      <div class="card col-3 mx-5" style="width: 18rem;">
-          <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-          <div class="card-body">
-              <h5 class="card-title">Men</h5>
-              <p class="card-text fs-13">IN STYLE - The Casual Classics.<br>Vintage styles with a modern twist to match everything you have.</p>
-              <a href="product_listings.jsp" class="btn btn-primary">Explore More</a>
-          </div>
-      </div>
-
-      <div class="card col-3 mx-5 d-flex flex-column" style="width: 18rem;">
-          <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-          <div class="card-body">
-              <h5 class="card-title">Women</h5>
-              <p class="card-text fs-13">MOTHERS' DAY SPECIAL<br>Extra 30% off! Use code `30MOM` to get your mother a gift! Promotion ends on 30 May 2020.</p>
-              <a href="product_listings.jsp" class="btn btn-danger mt-auto">Explore More</a>
-          </div>
-      </div>
-
-      <div class="card col-3 mx-5" style="width: 18rem;">
-          <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-          <div class="card-body">
-              <h5 class="card-title">Kids</h5>
-              <p class="card-text fs-13">Kids sportswear up to 40% off.<br>Cruise through the week with our fashionable picks at discounted price.</p>
-              <a href="product_listings.jsp" class="btn btn-secondary">Explore More</a>
-          </div>
-      </div>
+    	<%
+		try {                     
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL); 
+			Statement stmt = conn.createStatement(); 
+			
+			String getAllCategoriesQuery = "SELECT * FROM categories";    
+			ResultSet getAllCategoriesResult = stmt.executeQuery(getAllCategoriesQuery); 
+		
+			while(getAllCategoriesResult.next())   { 
+				int categoryId = getAllCategoriesResult.getInt("categoryId");   
+				String categoryName = getAllCategoriesResult.getString("name");               
+				String categoryDescription = getAllCategoriesResult.getString("description");
+				String categoryImage = getAllCategoriesResult.getString("image"); 
+				%>
+				<div class="card col-3 mx-5" style="width: 18rem;">
+		          <img src="<%= categoryImage %>" class="card-img-top mt-3" alt="...">
+		          <div class="card-body">
+		              <h5 class="card-title"><%= categoryName %></h5>
+		              <p class="card-text fs-13"><%= categoryDescription %></p>
+		              <a href="product_listings.jsp?categoryId=<%= categoryId %>" class="btn btn-primary">Explore More</a>
+		          </div>
+		      	</div>
+			<% 
+			} 
+			
+		conn.close();      
+		} catch (Exception e) {         
+			out.println("Error :" + e);      
+		} 
+		%>
     </section>
     <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
