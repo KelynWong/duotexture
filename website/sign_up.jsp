@@ -89,7 +89,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword">Password</label>
-            <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" required>
+            <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" minlength="8" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputFirstName">First Name</label>

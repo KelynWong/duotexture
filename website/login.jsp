@@ -80,13 +80,13 @@
         
         <div class="form-group">
           <label for="emailInput">Email address</label>
-          <input type="email" name="emailInput" class="form-control my-input" id="emailInput" placeholder="Email" aria-describedby="emailHelp">
+          <input type="email" name="emailInput" class="form-control my-input" id="emailInput" placeholder="Email" aria-describedby="emailHelp" minlength="8" required>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
           <label for="passwordInput">Password</label>
-          <input type="password" name="passwordInput" class="form-control" id="passwordInput" placeholder="Password">
+          <input type="password" name="passwordInput" class="form-control" id="passwordInput" placeholder="Password" minlength="8" required>
         </div>
         
         <%
