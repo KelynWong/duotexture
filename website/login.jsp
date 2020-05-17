@@ -77,7 +77,6 @@
         
         <%
         	try{
-        		
         		String errorMessage = "";
             	String account = request.getParameter("accountType");
             	
@@ -90,7 +89,6 @@
         
         <%
 	        }catch(Exception e){
-	        	out.println("Error: " + e);	
 	        }
         %>
 
