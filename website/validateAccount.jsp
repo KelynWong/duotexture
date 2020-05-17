@@ -30,8 +30,9 @@
 				
 				session.setAttribute("adminId", adminId);
         		session.setAttribute("adminUsername", adminUsername);
-        		
-				response.sendRedirect("index.jsp?account=admin");
+        		session.setAttribute("accountType", "admin");
+				response.sendRedirect("index.jsp");
+				
 			}else{
 				
 				String getAllMembers = "SELECT * FROM members";
@@ -47,10 +48,11 @@
 						
 						session.setAttribute("memberId", memberId);
 						session.setAttribute("memberUsername", memberUsername);
-						
-						response.sendRedirect("index.jsp?account:member");
+						session.setAttribute("accountType", "member");
+						response.sendRedirect("index.jsp");
 					}else{
-						response.sendRedirect("login.jsp?account:none");
+						// session.setAttribute("accountType", "none");
+						response.sendRedirect("login.jsp?accountType=none");
 					}
 				}
 			}

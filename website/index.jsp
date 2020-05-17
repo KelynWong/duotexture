@@ -10,10 +10,10 @@
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
-
+	
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand custom-font-playfair fs-15" href="index.html">D u o - T e x t u r e</a>
+      <a class="navbar-brand custom-font-playfair fs-15" href="index.jsp">D u o - T e x t u r e</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,24 +21,43 @@
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Men</a>
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Men</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Women</a>
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Women</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Kids</a>
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Kids</a>
           </li>
 
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.html">Login</a>
-          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.html">Sign Up</a>
         </ul>
         
+        <ul class="navbar-nav ml-auto">
+		<%
+		try{
+			if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("adminUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+			<%
+			}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("memberUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+			<%
+			}else{ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+			<%
+			}
+			
+		}catch(Exception e){ %>
+	          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+	          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+		<%
+		}
+		%>
+		</ul>
       </section>
     </nav>
 
@@ -72,7 +91,7 @@
         <section class="m-5 col-5">
             <p class="text-white custom-font-playfair fs-50">In<br>Duo<br>Texture,</p>
             <p class="text-white custom-font-mont">you'll get no better but the best and that's on us.</p>
-            <button onclick="window.location.href='category.html'" class="btn btn-danger">Shop Now</button>
+            <button onclick="window.location.href='category.jsp'" class="btn btn-danger">Shop Now</button>
         </section>
       </section>
     <!--===============================================================================================-->

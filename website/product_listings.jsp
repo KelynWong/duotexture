@@ -14,40 +14,59 @@
 
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand custom-font-playfair fs-15" href="index.html">D u o - T e x t u r e</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <section class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-  
-            <li class="nav-item">
-              <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Men</a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Women</a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Kids</a>
-            </li>
-  
-          </ul>
-  
-          <ul class="navbar-nav ml-auto">
-            <a class="nav-link custom-font-mont fs-15 text-primary" href="login.html">Login</a>
-            <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.html">Sign Up</a>
-          </ul>
-          
-        </section>
+      <a class="navbar-brand custom-font-playfair fs-15" href="index.jsp">D u o - T e x t u r e</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <section class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Men</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Women</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Kids</a>
+          </li>
+
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+		<%
+		try{
+			if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("adminUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+			<%
+			}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("memberUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+			<%
+			}else{ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+			<%
+			}
+			
+		}catch(Exception e){ %>
+	          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+	          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+		<%
+		}
+		%>
+		</ul>
+      </section>
     </nav>
 
     <section class="col-12 p-5 row justify-content-center">
         <form class="form-inline col-11 justify-content-center">
             <input class="form-control col-10" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
-            <a href="add_product.html" class="btn btn-success" style="margin-left: 10px">Add</a>
+            <a href="add_product.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
         </form>
 
         <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
@@ -56,9 +75,9 @@
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
                 <div class="mx-2 pl-1">
-                    <a href="product_details.html" class="btn btn-primary px-4 my-2">View Details</a>
+                    <a href="product_details.jsp" class="btn btn-primary px-4 my-2">View Details</a>
                     <div class="">
-                        <a href="edit_product.html" class="btn btn-warning mr-1">Edit</a>
+                        <a href="edit_product.jsp" class="btn btn-warning mr-1">Edit</a>
                         <a href="#" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
@@ -70,7 +89,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -79,7 +98,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -88,7 +107,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -97,7 +116,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -106,7 +125,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -115,7 +134,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -124,7 +143,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -133,7 +152,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 
@@ -142,7 +161,7 @@
             <div class="card-body">
                 <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
                 <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.html" class="btn btn-primary mx-4">View Details</a>
+                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
             </div>
         </div>
 

@@ -10,9 +10,10 @@
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
+    
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand custom-font-playfair fs-15" href="index.html">D u o - T e x t u r e</a>
+      <a class="navbar-brand custom-font-playfair fs-15" href="index.jsp">D u o - T e x t u r e</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,24 +21,43 @@
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Men</a>
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Men</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Women</a>
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Women</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.html" role="button">Kids</a>
+            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Kids</a>
           </li>
 
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.html">Login</a>
-          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.html">Sign Up</a>
         </ul>
         
+        <ul class="navbar-nav ml-auto">
+		<%
+		try{
+			if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("adminUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+			<%
+			}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="editProfile.jsp"><%=session.getAttribute("memberUsername")%></a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+			<%
+			}else{ %>
+		          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+		          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+			<%
+			}
+			
+		}catch(Exception e){ %>
+	          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+	          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+		<%
+		}
+		%>
+		</ul>
       </section>
     </nav>
 
@@ -47,7 +67,7 @@
           <div class="card-body">
               <h5 class="card-title">Men</h5>
               <p class="card-text fs-13">IN STYLE - The Casual Classics.<br>Vintage styles with a modern twist to match everything you have.</p>
-              <a href="product_listings.html" class="btn btn-primary">Explore More</a>
+              <a href="product_listings.jsp" class="btn btn-primary">Explore More</a>
           </div>
       </div>
 
@@ -56,7 +76,7 @@
           <div class="card-body">
               <h5 class="card-title">Women</h5>
               <p class="card-text fs-13">MOTHERS' DAY SPECIAL<br>Extra 30% off! Use code `30MOM` to get your mother a gift! Promotion ends on 30 May 2020.</p>
-              <a href="product_listings.html" class="btn btn-danger mt-auto">Explore More</a>
+              <a href="product_listings.jsp" class="btn btn-danger mt-auto">Explore More</a>
           </div>
       </div>
 
@@ -65,7 +85,7 @@
           <div class="card-body">
               <h5 class="card-title">Kids</h5>
               <p class="card-text fs-13">Kids sportswear up to 40% off.<br>Cruise through the week with our fashionable picks at discounted price.</p>
-              <a href="product_listings.html" class="btn btn-secondary">Explore More</a>
+              <a href="product_listings.jsp" class="btn btn-secondary">Explore More</a>
           </div>
       </div>
     </section>
