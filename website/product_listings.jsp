@@ -10,6 +10,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/styles.css"/>
     <link rel="stylesheet" href="assets/css/util.css" />
+    <%
+    try{
+    	String productDeletion = request.getParameter("productDeletion");
+	   	if(productDeletion.equals("success")){
+	   		%>
+	   		  <script type="text/javascript">
+	   			alert("Product has successfully been deleted.");
+	   		  </script>
+	   		<%
+   		}else{
+   			%>
+	   		  <script type="text/javascript">
+	   			alert("Failure to delete product.");
+	   		  </script>
+	   		<%
+   		}
+    } catch (Exception e){
+    	// out.println("Error: " + e);
+    }
+    %>
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
@@ -125,7 +145,7 @@
 				                   	%>
 				                   	<div>
 				                        <a href="edit_product.jsp?productId=<%= id %>" class="btn btn-warning mr-1">Edit</a>
-				                        <a href="#" class="btn btn-danger">Delete</a>
+				                        <a href="delete_product.jsp?productId=<%= id %>&categoryId=<%= getCategoryId %>" class="btn btn-danger">Delete</a>
 				                    </div>
 				                   	<%
 				                }
