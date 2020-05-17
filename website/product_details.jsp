@@ -75,21 +75,53 @@
     </nav>
 
       <section class="col-12 p-5 row mx-auto my-5 justify-content-center">
-        <section class="slide col-4">
-          <img src="./assets/images/image2.jpg" class="d-block w-100" alt="sunglasses">
-        </section>
-
-        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
-            <p class="text-white custom-font-playfair fs-50 text-center mb-5">Men Shoes</p>
-            <section class="text-white custom-font-mont">
-              <p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere architecto blanditiis incidunt ducimus reiciendis illum, 
-                pariatur modi amet dicta dolore corporis doloribus ipsa provident officia nam eaque animi deleniti quaerat. Ullam quae ab natus ipsum sunt nulla accusamus 
-                commodi dicta ipsam aut quod, consectetur neque provident quas obcaecati. Inventore, dolore.</p>
-              <p class="">Price: <span class="mx-2" style="text-decoration: line-through;"> $24.99 </span><span> $19.99</span></p>
-              <p class="">Quantity: 3</p>
-              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
-            </section>
-        </section>
+	<%
+		try {           
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);   
+			Statement stmt = conn.createStatement(); 
+			
+			String getProductsByIdQuery = "SELECT * FROM products WHERE productId=?";   
+			PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
+			
+			int getProductId = Integer.parseInt(request.getParameter("productId"));
+		    pstmt.setInt(1, getProductId);
+		    
+			ResultSet getProductsByIdResult = pstmt.executeQuery(); 
+		
+			
+			// Step 6: Process Result     %>      
+			<% while(getProductsByIdResult.next())   { 
+				int productId = getProductsByIdResult.getInt("categoryId");   
+				String productName = getProductsByIdResult.getString("name");               
+				String productDescription = getProductsByIdResult.getString("description");
+				String productPrice = getProductsByIdResult.getString("retail_price");
+				String productQuantity = getProductsByIdResult.getString("quantity");
+				String productImage = getProductsByIdResult.getString("image"); 
+				%>
+				
+				<section class="slide col-4">
+		          <img src="<%= productImage %>" class="d-block w-100">
+		        </section>
+		
+		        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
+		            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
+		            <section class="text-white custom-font-mont">
+		              <p class=""><%= productDescription %></p>
+		              <p class="">Price: <span><%= productPrice %></span></p>
+		              <p class="">Quantity: <%= productQuantity %></p>
+		              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
+		            </section>
+		        </section>
+			<% 
+			} 
+		           
+		conn.close();      
+		} catch (Exception e) {         
+			out.println("Error :" + e);      
+		} 
+		%>  
       </section>
     <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
