@@ -5,6 +5,21 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Validate Edits</title>
+<%
+   try{
+   	
+   	if(!session.getAttribute("accountType").equals("admin")){
+   		%>
+   		  <script type="text/javascript">
+   		  	window.location.href='index.jsp';
+   			alert("You do not have access rights.");
+   		  </script>
+   		<%
+  		}
+   } catch (Exception e){
+   	// out.println("Error: " + e);
+   }
+%>
 </head>
 <body>
 	<%
