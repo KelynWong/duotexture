@@ -62,7 +62,7 @@
     </nav>
 
     <section class="col-12 p-5 row">
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validateSignUp.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - S i g n U p F o r m</p>
 
         <div class="form-row">
@@ -105,11 +105,28 @@
         </div>
         <div class="form-group">
           <div class="form-check">
-            <label class="form-check-label" for="gridCheck">
+          	<input type="checkbox" class="form-check-input" id="inputAgreement" required>
+            <label class="form-check-label" for="inputAgreement">
               Agree with Duo-Texture Terms & Conditions
             </label>
           </div>
         </div>
+        
+        <%
+        	try{
+        		String errorMessage = "";
+            	String registration = request.getParameter("registration");
+            	
+            	if(registration.equals("fail")){
+            		errorMessage = "Registration failed. Please try again.";
+		        %>
+		        <small class="text-danger"><%= errorMessage %><br><br></small>
+		        <%
+            	}
+	        }catch(Exception e){
+	        }
+        %>
+        
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>
     </section>
