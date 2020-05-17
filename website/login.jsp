@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import="java.sql.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +21,30 @@
       </button>
       <section class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-
-          <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Men</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Women</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Kids</a>
-          </li>
-
+		<%
+		try {           
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);   
+			Statement stmt = conn.createStatement(); 
+			String sqlStr = "SELECT * FROM categories";    
+			ResultSet rs = stmt.executeQuery(sqlStr); 
+			
+			while(rs.next())   { 
+				int categoryId = rs.getInt("categoryId"); 
+				String categoryName = rs.getString("name");  
+			%>
+				<li class="nav-item">
+            		<a class="nav-link custom-font-mont fs-15" href="product_listings.jsp?categoryId=<%= categoryId %>" role="button"><%= categoryName %></a>
+          		</li>
+			<% 
+			} 
+		      
+			conn.close();      
+		} catch (Exception e) {         
+			out.println("Error :" + e);      
+		} 
+		%>
         </ul>
         
         <ul class="navbar-nav ml-auto">
@@ -60,6 +73,7 @@
 		</ul>
       </section>
     </nav>
+    
     <section class="col-12 p-5 row">
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validateAccount.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e</p>

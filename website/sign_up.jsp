@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import="java.sql.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +21,30 @@
       </button>
       <section class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-
-          <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Men</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Women</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp" role="button">Kids</a>
-          </li>
-
+		<%
+		try {           
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);   
+			Statement stmt = conn.createStatement(); 
+			String sqlStr = "SELECT * FROM categories";    
+			ResultSet rs = stmt.executeQuery(sqlStr); 
+			
+			while(rs.next())   { 
+				int categoryId = rs.getInt("categoryId"); 
+				String categoryName = rs.getString("name");  
+			%>
+				<li class="nav-item">
+            		<a class="nav-link custom-font-mont fs-15" href="product_listings.jsp?categoryId=<%= categoryId %>" role="button"><%= categoryName %></a>
+          		</li>
+			<% 
+			} 
+		      
+			conn.close();      
+		} catch (Exception e) {         
+			out.println("Error :" + e);      
+		} 
+		%>
         </ul>
         
         <ul class="navbar-nav ml-auto">
@@ -68,44 +81,44 @@
         <div class="form-row">
           <div class="form-group col-md-12">
             <label for="inputUsername">Username</label>
-            <input type="text" class="form-control" id="inputUsername" placeholder="Username" required>
+            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputEmail">Email</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword">Password</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+            <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputFirstName">First Name</label>
-            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+            <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputLastName">Last Name</label>
-            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
+            <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name" required>
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputAddress">Address</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+          <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St" required>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-10">
             <label for="inputCountry">Country</label>
-            <input type="text" class="form-control" id="inputCountry" required>
+            <input type="text" class="form-control" id="inputCountry" name="inputCountry" required>
           </div>
           <div class="form-group col-md-2">
             <label for="inputPostalCode">Postal Code</label>
-            <input type="text" class="form-control" id="inputPostalCode" required>
+            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" required>
           </div>
         </div>
         <div class="form-group">
           <div class="form-check">
-          	<input type="checkbox" class="form-check-input" id="inputAgreement" required>
+          	<input type="checkbox" class="form-check-input" id="inputAgreement" name="inputAgreement" required>
             <label class="form-check-label" for="inputAgreement">
               Agree with Duo-Texture Terms & Conditions
             </label>

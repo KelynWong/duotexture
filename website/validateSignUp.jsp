@@ -8,6 +8,7 @@
 </head>
 <body>
 <%
+try{
 	String email = request.getParameter("inputEmail");
 	String username = request.getParameter("inputUsername");
 	String password = request.getParameter("inputPassword");
@@ -17,41 +18,8 @@
 	String country = request.getParameter("inputCountry");
 	String postalCode = request.getParameter("inputPostalCode");
 	
-	try {                     
-		Class.forName("com.mysql.jdbc.Driver");  
-		String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-		Connection conn = DriverManager.getConnection(connURL);   
-		Statement stmt = conn.createStatement();  
-		
-		String insertMemberQuery = "INSERT INTO members('email', 'username', 'password', 'first_name', 'last_name', 'country', 'address', 'postal_code') VALUES(?, ?, ?, ?, ?, ?, ?, ?)";    
-		PreparedStatement pstmt = conn.prepareStatement(insertMemberQuery);
-	    pstmt.setString(1, email);
-	    pstmt.setString(2, username);
-	    pstmt.setString(3, password);
-	    pstmt.setString(4, firstName);
-	    pstmt.setString(5, lastName);
-	    pstmt.setString(6, country);
-	    pstmt.setString(7, address);
-	    pstmt.setString(8, postalCode);
-		int count = pstmt.executeUpdate(); 
-		           
-		if (count > 0){
-			String getAllMembersQuery = "SELECT * FROM members";
-			ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
-			
-			if(getAllMembersResult.last()){
-				int memberId = getAllMembersResult.getInt("memberId");
-				String memberUsername = getAllMembersResult.getString("username");
-				session.setAttribute("memberId", memberId);
-				session.setAttribute("memberUsername", memberUsername);
-				session.setAttribute("accountType", "member");
-				response.sendRedirect("index.jsp");
-			}	
-		}else{
-			response.sendRedirect("sign_up.jsp?registration=fail"); 
-		}                   
-	           
-	conn.close();      
+	out.println(email + username + password + firstName + lastName + address + country + postalCode);
+	    
 	} catch (Exception e) {         
 		out.println("Error :" + e);      
 	} 
