@@ -93,10 +93,10 @@
 				%>
 				<div class="card col-3 mx-5" style="width: 18rem;">
 		          <img src="<%= categoryImage %>" class="card-img-top mt-3" alt="...">
-		          <div class="card-body">
+		          <div class="card-body d-flex flex-column">
 		              <h5 class="card-title"><%= categoryName %></h5>
 		              <p class="card-text fs-13"><%= categoryDescription %></p>
-		              <a href="product_listings.jsp?categoryId=<%= categoryId %>" class="btn btn-primary">Explore More</a>
+		              <a class="mt-auto" href="product_listings.jsp?categoryId=<%= categoryId %>" class="btn btn-primary">Explore More</a>
 		          </div>
 		      	</div>
 			<% 

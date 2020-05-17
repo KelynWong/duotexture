@@ -79,105 +79,71 @@
         <form class="form-inline col-11 justify-content-center">
             <input class="form-control col-10" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
-            <a href="add_product.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
+            <%
+            try{
+            	if(session.getAttribute("accountType").equals("admin")){
+                   	%>
+                   	<a href="add_product.html" class="btn btn-success" style="margin-left: 10px">Add</a>
+                   	<%
+                }
+            }catch(Exception e){
+            	// out.println("Error: " + e);
+            }
+            %>
         </form>
 
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <div class="mx-2 pl-1">
-                    <a href="product_details.jsp" class="btn btn-primary px-4 my-2">View Details</a>
-                    <div class="">
-                        <a href="edit_product.jsp" class="btn btn-warning mr-1">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
-        <div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-            <img src="./assets//images/image1.jpg" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-                <p class="card-title fs-14" style="font-weight: bold">Duo-Breathable Shirt</p>
-                <p class="card-text fs-13">Vintage styles with a modern twist to match everything you have.</p>
-                <a href="product_details.jsp" class="btn btn-primary mx-4">View Details</a>
-            </div>
-        </div>
-
+		<%
+		try {           
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);   
+			Statement stmt = conn.createStatement(); 
+			
+			String getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE categoryId=?";    
+			int getCategoryId = Integer.parseInt(request.getParameter("categoryId"));
+			PreparedStatement pstmt = conn.prepareStatement(getAllProductsByCategoryIdQuery);
+		    pstmt.setInt(1, getCategoryId);
+			ResultSet getAllProductsByCategoryIdResult = pstmt.executeQuery(); 
+		
+			while(getAllProductsByCategoryIdResult.next())   { 
+				int id = getAllProductsByCategoryIdResult.getInt("productId");   
+				String name = getAllProductsByCategoryIdResult.getString("name");               
+				String description = getAllProductsByCategoryIdResult.getString("description");
+				String image = getAllProductsByCategoryIdResult.getString("image"); 
+				
+				%>
+				<div class="card col-2 mx-2 mt-3" style="width: 18rem;">
+		            <img src="<%= image %>" class="card-img-top mt-3" alt="...">
+		            <div class="card-body d-flex flex-column">
+		                <p class="card-title fs-14" style="font-weight: bold"><%= name %></p>
+		                <p class="card-text fs-13"><%= description %></p>
+		                <div class="mx-2 pl-1 mt-auto">
+		                    <a href="product_details.jsp?productId=<%= id %>" class="btn btn-primary px-4 my-2">View Details</a>
+				         	<%
+				            try{
+				            	if(session.getAttribute("accountType").equals("admin")){
+				                   	%>
+				                   	<div>
+				                        <a href="edit_product.jsp?productId=<%= id %>" class="btn btn-warning mr-1">Edit</a>
+				                        <a href="#" class="btn btn-danger">Delete</a>
+				                    </div>
+				                   	<%
+				                }
+				            }catch(Exception e){
+				            	// out.println("Error: " + e);
+				            }
+				            %>
+		                </div>
+		            </div>
+		        </div>
+				<% 
+				} 
+		           
+		conn.close();      
+		} catch (Exception e) {         
+			out.println("Error :" + e);      
+		} 
+		%>
     </section>
     <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
