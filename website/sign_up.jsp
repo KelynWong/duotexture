@@ -9,6 +9,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css"/>
     <link rel="stylesheet" href="assets/css/util.css" />
+    <%
+    try{
+    	
+	   	if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
+	   		%>
+	   		  <script type="text/javascript">
+	   		  	window.location.href='index.jsp';
+	   			alert("You have already logged-in. Please log out first.");
+	   		  </script>
+	   		<%
+   		}
+    } catch (Exception e){
+    	// out.println("Error: " + e);
+    }
+    %>
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
