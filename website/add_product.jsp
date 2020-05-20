@@ -9,6 +9,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css"/>
     <link rel="stylesheet" href="assets/css/util.css" />
+	<%
+	   try{
+	   	if(!session.getAttribute("accountType").equals("admin")){
+	   		%>
+	   		  <script type="text/javascript">
+	   		  	window.location.href='index.jsp';
+	   			alert("You do not have access rights.");
+	   		  </script>
+	   		<%
+	  		}
+	   } catch (Exception e){
+	   	// out.println("Error: " + e);
+	   }
+	%>
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
@@ -75,7 +89,7 @@
     </nav>
 
     <section class="col-12 p-5 row">
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_add_product.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d - L i s t i n g</p>
         <hr>
 
@@ -86,26 +100,54 @@
           </div>
           <div class="form-group col-md-12">
             <label for="inputProductDescription">Description</label>
-            <textarea class="form-control" id="inputProductDescription" placeholder="Product description" required></textarea>
+            <input type="text" class="form-control" id="inputProductDescription" placeholder="Product description" required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="inputCostPrice">Cost Price</label>
             <input type="text" class="form-control" id="inputCostPrice" placeholder="Cost of item" required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="inputRetailPrice">Retail Price</label>
             <input type="text" class="form-control" id="inputRetailPrice" placeholder="Retail Price" required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="inputQuantity">Quantity</label>
             <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity" required>
           </div>
+          <div class="form-group col-md-3">
+            <label for="inputCategoryId">Quantity</label>
+            <input type="text" class="form-control" id="inputCategoryId" placeholder="Category Id" required>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label for="inputImageUrl">Image Url</label>
-          <input type="text" class="form-control" id="inputImageUrl" placeholder="" required>
-        </div>
+        
+        <div class="form-row">
+	        <div class="form-group col-md-12">
+	          <label for="inputImageUrl">Image Url</label>
+	          <input type="text" class="form-control" id="inputImageUrl" placeholder="./assets/images/image1.jpg" required>
+	        </div>
+	    </div>
+        
+        <%
+        	try{
+        		String errorMessage = "";
+            	String productAddition = request.getParameter("productAddition");
+            	
+            	if(productAddition.equals("fail")){
+            		errorMessage = "Attempt to add failed. Please try again.";
+            		%>
+			        <small class="text-danger"><%= errorMessage %><br><br></small>
+			        <%
+            	}else if(productAddition.equals("success")){
+            		errorMessage = "Successfully Edited.";
+            		%>
+			        <small class="text-success"><%= errorMessage %><br><br></small>
+			        <%
+            	}else{	
+            	}
+	        }catch(Exception e){
+	        	// out.println("Error: " + e);
+	        }
+        %>
 
         <button type="submit" class="btn btn-success">Add</button>
       </form>
