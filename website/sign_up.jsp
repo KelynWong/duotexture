@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/util.css" />
     <%
     try{
-    	
+    	// validate if user has already logged in
 	   	if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
 	   		%>
 	   		  <script type="text/javascript">
@@ -21,16 +21,18 @@
 	   		<%
    		}
     } catch (Exception e){
-    	// out.println("Error: " + e);
+    	System.out.println("Error: " + e + "\n");
     }
     %>
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
-
+	
+	<!-- import navigation bar -->
     <%@ include file = "navigation.jsp" %>
 
     <section class="col-12 p-5 row">
+      <!-- sign up form -->
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_sign_up.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - S i g n - U p - F o r m</p>
 
@@ -82,18 +84,20 @@
         </div>
         
         <%
-        	try{
-        		String errorMessage = "";
-            	String registration = request.getParameter("registration");
-            	
-            	if(registration.equals("fail")){
-            		errorMessage = "Registration failed. Please try again.";
-		        %>
-		        <small class="text-danger"><%= errorMessage %><br><br></small>
-		        <%
-            	}
-	        }catch(Exception e){
-	        }
+       	try{
+       		// display different error message dependant on request success and failure
+       		String errorMessage = "";
+           	String registration = request.getParameter("registration");
+           	
+           	if(registration.equals("fail")){
+           		errorMessage = "Registration failed. Please try again.";
+	        	%>
+	        	<small class="text-danger"><%= errorMessage %><br><br></small>
+	        	<%
+           	}
+        } catch(Exception e){
+        	System.out.println("Error: " + e + "\n");
+        }
         %>
         
         <button type="submit" class="btn btn-primary">Sign Up</button>

@@ -13,9 +13,11 @@
 
 <body class="d-block w-100 vh-100 bg-img">
 	
+	<!-- import navigation bar -->
     <%@ include file = "navigation.jsp" %>
 
       <section class="col-12 p-5 row">
+      	<!-- slide show -->
         <section id="carousellIndicators" class="carousel slide col-5" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carousellIndicators" data-slide-to="0" class="active"></li>
@@ -42,6 +44,8 @@
                 <span class="sr-only">Next</span>
             </a>
         </section>
+        
+        <!-- description -->
         <section class="m-5 col-5">
             <p class="text-white custom-font-playfair fs-50">In<br>Duo<br>Texture,</p>
             <p class="text-white custom-font-mont">you'll get no better but the best and that's on us.</p>

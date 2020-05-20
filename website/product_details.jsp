@@ -12,58 +12,57 @@
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
-
+	
+	<!-- import navigation bar -->
     <%@ include file = "navigation.jsp" %>
 
-      <section class="col-12 p-5 row mx-auto my-5 justify-content-center">
+    <section class="col-12 p-5 row mx-auto my-5 justify-content-center">
 	<%
-		try {           
-			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(connURL);   
-			Statement stmt = conn.createStatement(); 
-			
-			String getProductsByIdQuery = "SELECT * FROM products WHERE productId=?";   
-			PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
-			
-			int getProductId = Integer.parseInt(request.getParameter("productId"));
-		    pstmt.setInt(1, getProductId);
-		    
-			ResultSet getProductsByIdResult = pstmt.executeQuery(); 
+	try {
+		int getProductId = Integer.parseInt(request.getParameter("productId"));
 		
-			
-			// Step 6: Process Result     %>      
-			<% while(getProductsByIdResult.next())   { 
-				int productId = getProductsByIdResult.getInt("categoryId");   
-				String productName = getProductsByIdResult.getString("name");               
-				String productDescription = getProductsByIdResult.getString("description");
-				String productRetailPrice = getProductsByIdResult.getString("retail_price");
-				String productQuantity = getProductsByIdResult.getString("quantity");
-				String productImage = getProductsByIdResult.getString("image"); 
-				%>
-				
-				<section class="slide col-4">
-		          <img src="<%= productImage %>" class="d-block w-100">
-		        </section>
+		// connect to mysql database
+		Class.forName("com.mysql.jdbc.Driver"); 
+		String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+		Connection conn = DriverManager.getConnection(connURL);   
 		
-		        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
-		            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
-		            <section class="text-white custom-font-mont">
-		              <p class=""><%= productDescription %></p>
-		              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
-		              <p class="">Quantity: <%= productQuantity %></p>
-		              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
-		            </section>
-		        </section>
-			<% 
-			} 
+		// get and display all products by product id
+		String getProductsByIdQuery = "SELECT * FROM products WHERE productId=?";   
+		PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
+	    pstmt.setInt(1, getProductId);
+		ResultSet getProductsByIdResult = pstmt.executeQuery(); 
+	
+		while(getProductsByIdResult.next())   { 
+			int productId = getProductsByIdResult.getInt("categoryId");   
+			String productName = getProductsByIdResult.getString("name");               
+			String productDescription = getProductsByIdResult.getString("description");
+			String productRetailPrice = getProductsByIdResult.getString("retail_price");
+			String productQuantity = getProductsByIdResult.getString("quantity");
+			String productImage = getProductsByIdResult.getString("image"); 
+			%>
+			
+			<section class="slide col-4">
+	          <img src="<%= productImage %>" class="d-block w-100">
+	        </section>
+	
+	        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
+	            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
+	            <section class="text-white custom-font-mont">
+	              <p class=""><%= productDescription %></p>
+	              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
+	              <p class="">Quantity: <%= productQuantity %></p>
+	              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
+	            </section>
+	        </section>
+	<% 
+	} 
 		           
-		conn.close();      
-		} catch (Exception e) {         
-			out.println("Error :" + e);      
-		} 
-		%>  
-      </section>
+	conn.close();      
+	} catch (Exception e) {         
+		System.out.println("Error :" + e + "\n");      
+	} 
+	%>  
+    </section>
     <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

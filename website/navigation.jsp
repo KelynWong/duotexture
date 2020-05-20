@@ -16,27 +16,30 @@
       <section class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
 		<%
-		try {           
+		try {
+			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);   
 			Statement stmt = conn.createStatement(); 
+			
+			// get all categories
 			String sqlStr = "SELECT * FROM categories";    
 			ResultSet rs = stmt.executeQuery(sqlStr); 
 			
 			while(rs.next())   { 
 				int categoryId = rs.getInt("categoryId"); 
 				String categoryName = rs.getString("name");  
-			%>
+				%>
 				<li class="nav-item">
             		<a class="nav-link custom-font-mont fs-15" href="product_listings.jsp?categoryId=<%= categoryId %>" role="button"><%= categoryName %></a>
           		</li>
-			<% 
+				<% 
 			} 
 		      
 			conn.close();      
 		} catch (Exception e) {         
-			out.println("Error :" + e);      
+			System.out.println("Error :" + e + "\n");      
 		} 
 		%>
         </ul>
@@ -44,6 +47,7 @@
         <ul class="navbar-nav ml-auto">
 		<%
 		try{
+			// check if user's account and retrieve their username
 			if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
 		          <a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("adminUsername")%></a>
 		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
@@ -52,16 +56,13 @@
 		          <a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("memberUsername")%></a>
 		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
 			<%
-			}else{ %>
-		          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
-		          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
-			<%
 			}
 			
-		}catch(Exception e){ %>
-	          <a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
-	          <a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
-		<%
+		} catch(Exception e){ 
+			%>
+        	<a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+        	<a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+			<%
 		}
 		%>
 		</ul>

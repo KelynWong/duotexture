@@ -13,16 +13,19 @@
 
 <body class="d-block w-100 vh-100 bg-img">
     
+    <!-- import navigation bar -->
     <%@ include file = "navigation.jsp" %>
 
     <section class="col-12 p-5 row justify-content-center">
     	<%
-		try {                     
+		try {
+			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL); 
 			Statement stmt = conn.createStatement(); 
 			
+			// get and display all categories
 			String getAllCategoriesQuery = "SELECT * FROM categories";    
 			ResultSet getAllCategoriesResult = stmt.executeQuery(getAllCategoriesQuery); 
 		
@@ -45,7 +48,7 @@
 			
 		conn.close();      
 		} catch (Exception e) {         
-			out.println("Error :" + e);      
+			System.out.println("Error :" + e + "\n");
 		} 
 		%>
     </section>

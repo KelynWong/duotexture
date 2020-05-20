@@ -13,20 +13,25 @@
 
 <body class="d-block w-100 vh-100 bg-img">
 
+	<!-- import navigation bar -->
     <%@ include file = "navigation.jsp" %>
 
     <section class="col-12 p-5 row">
+    	
+      <!-- edit product form -->
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_edit_product.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t L i s t i n g</p>
         <hr>
 
 		<%
-		try {                      
+		try {
+			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);   
 			Statement stmt = conn.createStatement(); 
 			
+			// get and display product details by given id
 			String getProductsByIdQuery = "SELECT * FROM products WHERE productId=? LIMIT 1";    
 			PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
 			
@@ -81,33 +86,32 @@
 	        </div>
 	        
 	        <%
-	        	try{
-	        		String errorMessage = "";
-	            	String productEdit = request.getParameter("productEdit");
-	            	
-	            	if(productEdit.equals("fail")){
-	            		errorMessage = "Attempt to edit failed. Please try again.";
-	            		%>
-				        <small class="text-danger"><%= errorMessage %><br><br></small>
-				        <%
-	            	}else if(productEdit.equals("success")){
-	            		errorMessage = "Successfully Edited.";
-	            		%>
-				        <small class="text-success"><%= errorMessage %><br><br></small>
-				        <%
-	            	}else{	
-	            	}
-		        }catch(Exception e){
-		        	// out.println("Error: " + e);
-		        }
+        	try{
+        		// display different error message dependant on request success and failure
+        		String errorMessage = "";
+            	String productEdit = request.getParameter("productEdit");
+            	
+            	if(productEdit.equals("fail")){
+            		errorMessage = "Attempt to edit failed. Please try again.";
+            		%>
+			        <small class="text-danger"><%= errorMessage %><br><br></small>
+			        <%
+            	}else if(productEdit.equals("success")){
+            		errorMessage = "Successfully Edited.";
+            		%>
+			        <small class="text-success"><%= errorMessage %><br><br></small>
+			        <%
+            	}
+	        } catch(Exception e){
+	        	System.out.println("Error: " + e + "\n");
+	        }
 	        %>
 	        
 	        <button type="submit" class="btn btn-success">Edit</button>
 		<%
-		
 		conn.close();      
 		} catch (Exception e) {         
-			out.println("Error :" + e);      
+			System.out.println("Error :" + e + "\n");      
 		} 
 		%>
       </form>

@@ -11,19 +11,23 @@
     <link rel="stylesheet" href="assets/css/util.css" />
 </head>
 <body class="d-block w-100 vh-100 bg-img">
-
+	
+	<!-- import navigation bar -->
     <%@ include file = "navigation.jsp" %>
 
     <section class="col-12 p-5 row">
+       
+      <!-- edit profile form -->
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_edit_profile.jsp" method="post">
       
 		<%
 		try{
-			
+			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver");         
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
 			Connection conn = DriverManager.getConnection(connURL);
 			
+			// if user is a member
 			if(session.getAttribute("accountType").equals("member")) {  
 				
 				String getAllMembersQuery = "SELECT * FROM members WHERE memberId = ? LIMIT 1;";
@@ -97,6 +101,8 @@
 		        
 		        <button type="submit" class="btn btn-primary">Edit</button>
 	      <%
+	      
+	      // if user is an admin
 	      } else if(session.getAttribute("accountType").equals("admin")){ 
 	    		
 	    	  String getAllAdminsQuery = "SELECT * FROM administrators WHERE administratorId = ? LIMIT 1;";
@@ -124,29 +130,31 @@
 			       </div>
 	       	</div>
 			       	
-			       	<%
-			        	try{
-			        		String errorMessage = "";
-			            	String profileEdit = request.getParameter("profileEdit");
-			            	
-			            	if(profileEdit.equals("fail")){
-			            		errorMessage = "Attempt to edit failed. Please try again.";
-			            		%>
-						        <small class="text-danger"><%= errorMessage %><br><br></small>
-						        <%
-			            	}else if(profileEdit.equals("success")){
-			            		errorMessage = "Successfully Edited.";
-			            		%>
-						        <small class="text-success"><%= errorMessage %><br><br></small>
-						        <%
-			            	}else{	
-			            	}
-				        }catch(Exception e){
-				        	// out.println("Error: " + e);
-				        }
-			        %>
+	       	<%
+        	try{
+        		// display different error message dependant on request success and failure
+        		String errorMessage = "";
+            	String profileEdit = request.getParameter("profileEdit");
+            	
+            	if(profileEdit.equals("fail")){
+            		errorMessage = "Attempt to edit failed. Please try again.";
+            		%>
+			        <small class="text-danger"><%= errorMessage %><br><br></small>
+			        <%
+            	}else if(profileEdit.equals("success")){
+            		errorMessage = "Successfully Edited.";
+            		%>
+			        <small class="text-success"><%= errorMessage %><br><br></small>
+			        <%
+            	}
+        	} catch(java.lang.NullPointerException e){
+        		System.out.println("Error: " + e + "\nThere isn't any productEdit in parameter yet.\n");
+	        } catch(Exception e){
+	        	System.out.println("Error: " + e + "\n");
+	        }
+	        %>
 			        
-				 <button type="submit" class="btn btn-primary">Edit</button>
+			<button type="submit" class="btn btn-primary">Edit</button>
 	      <%
 	      }
 		}catch(Exception e){
