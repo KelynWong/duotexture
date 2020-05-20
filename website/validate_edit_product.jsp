@@ -26,9 +26,9 @@
 		int inputProductId = Integer.parseInt(request.getParameter("inputProductId"));
 		String inputProductName = request.getParameter("inputProductName");
 		String inputProductDescription = request.getParameter("inputProductDescription");
-		String inputCostPrice = request.getParameter("inputCostPrice");
-		String inputRetailPrice = request.getParameter("inputRetailPrice");
-		String inputQuantity = request.getParameter("inputQuantity");
+		Double inputCostPrice = Double.parseDouble(request.getParameter("inputCostPrice"));
+		Double inputRetailPrice = Double.parseDouble(request.getParameter("inputRetailPrice"));
+		int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
 		int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
 		String inputImageUrl = request.getParameter("inputImageUrl");
 		
@@ -41,9 +41,9 @@
 			PreparedStatement pstmt = conn.prepareStatement(updateProductQuery);
 		    pstmt.setString(1, inputProductName);
 		    pstmt.setString(2, inputProductDescription);
-		    pstmt.setString(3, inputCostPrice);
-		    pstmt.setString(4, inputRetailPrice);
-		    pstmt.setString(5, inputQuantity);
+		    pstmt.setDouble(3, inputCostPrice);
+		    pstmt.setDouble(4, inputRetailPrice);
+		    pstmt.setInt(5, inputQuantity);
 		    pstmt.setInt(6, inputCategoryId);
 		    pstmt.setString(7, inputImageUrl);
 		    pstmt.setInt(8, inputProductId);
