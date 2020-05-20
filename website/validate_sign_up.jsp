@@ -35,14 +35,14 @@
 		int count = pstmt.executeUpdate(); 
 		
 		if (count > 0){
-			String getAllMembersQuery = "SELECT * FROM members ORDER BY memberId DESC LIMIT 1;";
+			String getLastMembersQuery = "SELECT * FROM members ORDER BY memberId DESC LIMIT 1;";
 			Statement stmt = conn.createStatement(); 
-			ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
+			ResultSet getLastMembersResult = stmt.executeQuery(getLastMembersQuery);
 			
-			if(getAllMembersResult.next()){
+			if(getLastMembersResult.next()){
 				out.println(count);
-				int memberId = getAllMembersResult.getInt("memberId");
-				String memberUsername = getAllMembersResult.getString("username");
+				int memberId = getLastMembersResult.getInt("memberId");
+				String memberUsername = getLastMembersResult.getString("username");
 				session.setAttribute("memberId", memberId);
 				session.setAttribute("memberUsername", memberUsername);
 				session.setAttribute("accountType", "member");
