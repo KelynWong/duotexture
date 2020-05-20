@@ -38,16 +38,14 @@
 			String getLastMembersQuery = "SELECT * FROM members ORDER BY memberId DESC LIMIT 1;";
 			Statement stmt = conn.createStatement(); 
 			ResultSet getLastMembersResult = stmt.executeQuery(getLastMembersQuery);
+			int memberId = getLastMembersResult.getInt("memberId");
+			String memberUsername = getLastMembersResult.getString("username");
 			
-			if(getLastMembersResult.next()){
-				out.println(count);
-				int memberId = getLastMembersResult.getInt("memberId");
-				String memberUsername = getLastMembersResult.getString("username");
-				session.setAttribute("memberId", memberId);
-				session.setAttribute("memberUsername", memberUsername);
-				session.setAttribute("accountType", "member");
-				response.sendRedirect("index.jsp");
-			}	
+			session.setAttribute("memberId", memberId);
+			session.setAttribute("memberUsername", memberUsername);
+			session.setAttribute("accountType", "member");
+			
+			response.sendRedirect("index.jsp");
 		}else{
 			response.sendRedirect("sign_up.jsp?registration=fail"); 
 		}                  
