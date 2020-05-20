@@ -65,7 +65,7 @@ INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_pri
 INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Rider Leather Jacket', 'Duo-Texture produced.', '31', '56.00', '820', '1', './assets/images/image7.jpg');
 INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Bledy Paisley Shirt', 'Duo-Texture produced.', '9.90', '23.90', '160', '1', './assets/images/image8.jpg');
 INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Denim Pants', 'Duo-Texture produced.', '7.20', '22.80', '290', '1', './assets/images/image9.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Circle Slick necklace', 'Duo-Texture produced.', '3.40', '11.49', '840', '1', './assets/images/image10.jpg');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Circle Slick Necklace', 'Duo-Texture produced.', '3.40', '11.49', '840', '1', './assets/images/image10.jpg');
 INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Denim Jacket', 'Duo-Texture produced.', '37', '63.95', '470', '1', './assets/images/image11.jpg');
 
 
