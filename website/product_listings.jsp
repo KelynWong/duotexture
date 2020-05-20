@@ -38,7 +38,7 @@
 
     <section class="col-12 p-5 row justify-content-center">
     	<% int getCategoryId = Integer.parseInt(request.getParameter("categoryId")); %>
-        <form class="form-inline col-11 justify-content-center" action="search.jsp?categoryId=<%= getCategoryId %>" method="post">
+        <form class="form-inline col-11 justify-content-center" action="product_listings.jsp?categoryId=<%= getCategoryId %>" method="post">
             <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
             <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
             <%
@@ -60,10 +60,18 @@
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);   
 			Statement stmt = conn.createStatement(); 
+			String keywordInput = request.getParameter("keywordInput");
+			String getAllProductsByCategoryIdQuery;
 			
-			String getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE categoryId=?";    
+			if(keywordInput!=null){
+				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE products.categoryId = ? AND products.name LIKE '%shirt%';";
+			}else{
+				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE categoryId=?;";
+			}
+			
 			PreparedStatement pstmt = conn.prepareStatement(getAllProductsByCategoryIdQuery);
 		    pstmt.setInt(1, getCategoryId);
+		    // if(keywordInput!=null){pstmt.setString(2, keywordInput);}
 			ResultSet getAllProductsByCategoryIdResult = pstmt.executeQuery(); 
 		
 			while(getAllProductsByCategoryIdResult.next())   { 
