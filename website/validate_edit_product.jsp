@@ -22,17 +22,17 @@
 %>
 </head>
 <body>
-	<%
-		int inputProductId = Integer.parseInt(request.getParameter("inputProductId"));
-		String inputProductName = request.getParameter("inputProductName");
-		String inputProductDescription = request.getParameter("inputProductDescription");
-		Double inputCostPrice = Double.parseDouble(request.getParameter("inputCostPrice"));
-		Double inputRetailPrice = Double.parseDouble(request.getParameter("inputRetailPrice"));
-		int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
-		int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
-		String inputImageUrl = request.getParameter("inputImageUrl");
-		
+	<%		
 		try {           
+			int inputProductId = Integer.parseInt(request.getParameter("inputProductId"));
+			String inputProductName = request.getParameter("inputProductName");
+			String inputProductDescription = request.getParameter("inputProductDescription");
+			Double inputCostPrice = Double.parseDouble(request.getParameter("inputCostPrice"));
+			Double inputRetailPrice = Double.parseDouble(request.getParameter("inputRetailPrice"));
+			int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
+			int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
+			String inputImageUrl = request.getParameter("inputImageUrl");
+			
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);
