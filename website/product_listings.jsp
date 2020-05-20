@@ -64,14 +64,13 @@
 			String getAllProductsByCategoryIdQuery;
 			
 			if(keywordInput!=null){
-				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE products.categoryId = ? AND products.name LIKE '%shirt%';";
+				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE products.categoryId = ? AND products.name LIKE '%" + keywordInput + "';";
 			}else{
 				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE categoryId=?;";
 			}
 			
 			PreparedStatement pstmt = conn.prepareStatement(getAllProductsByCategoryIdQuery);
 		    pstmt.setInt(1, getCategoryId);
-		    // if(keywordInput!=null){pstmt.setString(2, keywordInput);}
 			ResultSet getAllProductsByCategoryIdResult = pstmt.executeQuery(); 
 		
 			while(getAllProductsByCategoryIdResult.next())   { 
