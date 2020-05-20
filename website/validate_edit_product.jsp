@@ -59,7 +59,8 @@
 	          
 	conn.close();      
 	} catch (Exception e) {         
-		System.out.println("Error :" + e + "\n");      
+		System.out.println("Error :" + e + "\n");    
+		// response.sendRedirect("edit_product.jsp?productId=" + inputProductId + "&productEdit=fail"); *****************
 	} 
 	%>
 </body>

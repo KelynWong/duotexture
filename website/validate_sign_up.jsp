@@ -58,6 +58,7 @@
 	conn.close();  
 	} catch(Exception e){
 		System.out.println("Error: " + e + "\n");
+		response.sendRedirect("sign_up.jsp?registration=fail"); 
 	}
 	%>
 </body>

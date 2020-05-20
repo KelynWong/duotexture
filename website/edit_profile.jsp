@@ -147,9 +147,7 @@
 			        <small class="text-success"><%= errorMessage %><br><br></small>
 			        <%
             	}
-        	} catch(java.lang.NullPointerException e){
-        		System.out.println("Error: " + e + "\nThere isn't any productEdit in parameter yet.\n");
-	        } catch(Exception e){
+        	} catch(Exception e){
 	        	System.out.println("Error: " + e + "\n");
 	        }
 	        %>

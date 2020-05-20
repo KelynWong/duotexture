@@ -66,7 +66,9 @@
 		
 	conn.close();      
 	} catch (Exception e) {         
-		System.out.println("Error :" + e + "\n");      
+		System.out.println("Error :" + e + "\n");
+		response.sendRedirect("edit_profile.jsp?profileEdit=fail");
+		
 	} 
 	%>
 </body>

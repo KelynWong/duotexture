@@ -47,6 +47,7 @@
 	conn.close();      
 	} catch (Exception e) {         
 		System.out.println("Error :" + e + "\n");
+		// response.sendRedirect("product_listings.jsp?categoryId=" + categoryId + "&productDeletion=fail"); ***************
 	} 
 	%>
 </body>
