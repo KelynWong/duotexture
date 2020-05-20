@@ -37,34 +37,34 @@
         <div class="form-row">
           <div class="form-group col-md-12">
             <label for="inputProductName">Name</label>
-            <input type="text" class="form-control" id="inputProductName" placeholder="Name of product" required>
+            <input type="text" class="form-control" id="inputProductName" name="inputProductName" placeholder="Name of product" required>
           </div>
           <div class="form-group col-md-12">
             <label for="inputProductDescription">Description</label>
-            <input type="text" class="form-control" id="inputProductDescription" placeholder="Product description" required>
+            <input type="text" class="form-control" id="inputProductDescription" name="inputProductDescription" placeholder="Product description" required>
           </div>
           <div class="form-group col-md-3">
             <label for="inputCostPrice">Cost Price</label>
-            <input type="text" class="form-control" id="inputCostPrice" placeholder="Cost of item" required>
+            <input type="text" class="form-control" id="inputCostPrice" name="inputCostPrice" placeholder="Cost of item" required>
           </div>
           <div class="form-group col-md-3">
             <label for="inputRetailPrice">Retail Price</label>
-            <input type="text" class="form-control" id="inputRetailPrice" placeholder="Retail Price" required>
+            <input type="text" class="form-control" id="inputRetailPrice" name="inputRetailPrice" placeholder="Retail Price" required>
           </div>
           <div class="form-group col-md-3">
             <label for="inputQuantity">Quantity</label>
-            <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity" required>
+            <input type="text" class="form-control" id="inputQuantity" name="inputQuantity" placeholder="Quantity" required>
           </div>
           <div class="form-group col-md-3">
-            <label for="inputCategoryId">Quantity</label>
-            <input type="text" class="form-control" id="inputCategoryId" placeholder="Category Id" required>
+            <label for="inputCategoryId">Category Id</label>
+            <input type="text" class="form-control" id="inputCategoryId" name="inputCategoryId" placeholder="Category Id" required>
           </div>
         </div>
         
         <div class="form-row">
 	        <div class="form-group col-md-12">
 	          <label for="inputImageUrl">Image Url</label>
-	          <input type="text" class="form-control" id="inputImageUrl" placeholder="./assets/images/image1.jpg" required>
+	          <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" placeholder="./assets/images/image1.jpg" required>
 	        </div>
 	    </div>
         
