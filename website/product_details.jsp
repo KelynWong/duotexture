@@ -96,7 +96,7 @@
 				int productId = getProductsByIdResult.getInt("categoryId");   
 				String productName = getProductsByIdResult.getString("name");               
 				String productDescription = getProductsByIdResult.getString("description");
-				String productPrice = getProductsByIdResult.getString("retail_price");
+				String productRetailPrice = getProductsByIdResult.getString("retail_price");
 				String productQuantity = getProductsByIdResult.getString("quantity");
 				String productImage = getProductsByIdResult.getString("image"); 
 				%>
@@ -109,7 +109,7 @@
 		            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
 		            <section class="text-white custom-font-mont">
 		              <p class=""><%= productDescription %></p>
-		              <p class="">Price: <span><%= productPrice %></span></p>
+		              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
 		              <p class="">Quantity: <%= productQuantity %></p>
 		              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
 		            </section>
