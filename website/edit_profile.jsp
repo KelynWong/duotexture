@@ -168,12 +168,12 @@
 	      <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - A d m i n - P r o f i l e</p>
 			<div class="form-row">
 				 <div class="form-group col-md-12">
-			       <label for="inputUsername">Email</label>
+			       <label for="inputUsername">Username</label>
 			         <input type="text" class="form-control" name="inputUsername" placeholder="Username" value="<%=getAllAdminsResult.getString("username")%>" required>
 			       </div>
 			      
 			       <div class="form-group col-md-6">
-			         <label for="inputEmail">Username</label>
+			         <label for="inputEmail">Email</label>
 			         <input type="email" class="form-control" name="inputEmail" placeholder="Email" value="<%=getAllAdminsResult.getString("email")%>" required>
 			       </div>
 			       
