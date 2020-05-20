@@ -38,6 +38,8 @@
 			String getLastMembersQuery = "SELECT * FROM members ORDER BY memberId DESC LIMIT 1;";
 			Statement stmt = conn.createStatement(); 
 			ResultSet getLastMembersResult = stmt.executeQuery(getLastMembersQuery);
+			
+			getLastMembersResult.next();
 			int memberId = getLastMembersResult.getInt("memberId");
 			String memberUsername = getLastMembersResult.getString("username");
 			
@@ -50,10 +52,15 @@
 			response.sendRedirect("sign_up.jsp?registration=fail"); 
 		}                  
 	           
-	conn.close();      
-	} catch (Exception e) {       
-		out.println("Error: " + e);
-		// response.sendRedirect("sign_up.jsp?registration=fail");  
+	conn.close();  
+	} catch (java.sql.SQLIntegrityConstraintViolationException e){
+		String errorMessage = "Error: Duplicate Entry";
+		%>
+		<script>
+		alert("Error:<%= errorMessage%>");
+		window.location.href='sign_up.jsp?registration=fail';
+		</script>
+		<%
 	} 
 %>
 </body>
