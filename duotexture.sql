@@ -44,8 +44,8 @@ CREATE TABLE `duotexture`.`categories` (
   PRIMARY KEY (`categoryId`));
   
 INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Men', 'IN STYLE - The Casual Classics.<br>Vintage styles with a modern twist to match everything you have.', './assets/images/image1.jpg');
-INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Women', "MOTHERS' DAY SPECIAL<br>Extra 30% off! Use code `30MOM` to get your mother a gift! Promotion ends on 30 May 2020.", './assets/images/image1.jpg');
-INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Kids', 'Kids sportswear up to 40% off.<br>Cruise through the week with our fashionable picks at discounted price.', './assets/images/image1.jpg');
+INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Women', "MOTHERS' DAY SPECIAL<br>Extra 30% off! Use code `30MOM` to get your mother a gift! Promotion ends on 30 May 2020.", './assets/images/image2.jpg');
+INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Kids', 'Kids sportswear up to 40% off.<br>Cruise through the week with our fashionable picks at discounted price.', './assets/images/image3.jpg');
 
 CREATE TABLE `duotexture`.`products` (
   `productId` INT NOT NULL AUTO_INCREMENT,
