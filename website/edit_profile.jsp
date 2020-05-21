@@ -81,7 +81,7 @@
 		        	<%
 		        	try{
 		        		// display different error message dependant on request success and failure
-		        		if(request.getParameter("productAddition")!=null){
+		        		if(request.getParameter("profileEdit")!=null){
 			        		String errorMessage = "";
 			            	String profileEdit = request.getParameter("profileEdit");
 			            	
