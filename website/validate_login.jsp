@@ -9,67 +9,72 @@
 <body>
 	<%
 	try{
-		String emailInput = request.getParameter("emailInput");
-		String passwordInput = request.getParameter("passwordInput");
-		
-		// connect to mysql database
-		Class.forName("com.mysql.jdbc.Driver");
-		String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-		Connection conn = DriverManager.getConnection(connURL);
-		Statement stmt = conn.createStatement();
-		
-		// get all administrators
-		String getAllAdminsQuery = "SELECT * FROM administrators;";
-		ResultSet getAllAdminsResult = stmt.executeQuery(getAllAdminsQuery);
-		
-		while (getAllAdminsResult.next()){
-			String adminEmail = getAllAdminsResult.getString("email");
-			String adminPassword = getAllAdminsResult.getString("password");
+		if(request.getParameter("emailInput")!=null){
+			String emailInput = request.getParameter("emailInput");
+			String passwordInput = request.getParameter("passwordInput");
 			
-			// checks if inputs equals administrators database
-			if(adminEmail.equals(emailInput) && adminPassword.equals(passwordInput)){
-				int adminId = getAllAdminsResult.getInt("administratorId");
-				String adminUsername = getAllAdminsResult.getString("username");
-				
-				session.setAttribute("adminId", adminId);
-        		session.setAttribute("adminUsername", adminUsername);
-        		session.setAttribute("accountType", "admin");
-				response.sendRedirect("index.jsp");
-			}
-		}
-		
-		Boolean isAdmin = false;
-				
-		// get all members
-		String getAllMembersQuery = "SELECT * FROM members";
-		ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
-		
-		while(getAllMembersResult.next()){
-			String memberEmail = getAllMembersResult.getString("email");
-			String memberPassword = getAllMembersResult.getString("password");
+			// connect to mysql database
+			Class.forName("com.mysql.jdbc.Driver");
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);
+			Statement stmt = conn.createStatement();
 			
-			// checks if inputs equals members database
-			if(memberEmail.equals(emailInput) && memberPassword.equals(passwordInput)){
-				int memberId = getAllMembersResult.getInt("memberId");
-				String memberUsername = getAllMembersResult.getString("username");
+			// get all administrators
+			String getAllAdminsQuery = "SELECT * FROM administrators;";
+			ResultSet getAllAdminsResult = stmt.executeQuery(getAllAdminsQuery);
+			
+			while (getAllAdminsResult.next()){
+				String adminEmail = getAllAdminsResult.getString("email");
+				String adminPassword = getAllAdminsResult.getString("password");
 				
-				session.setAttribute("memberId", memberId);
-				session.setAttribute("memberUsername", memberUsername);
-				session.setAttribute("accountType", "member");
-				response.sendRedirect("index.jsp");
+				// checks if inputs equals administrators database
+				if(adminEmail.equals(emailInput) && adminPassword.equals(passwordInput)){
+					int adminId = getAllAdminsResult.getInt("administratorId");
+					String adminUsername = getAllAdminsResult.getString("username");
+					
+					session.setAttribute("adminId", adminId);
+	        		session.setAttribute("adminUsername", adminUsername);
+	        		session.setAttribute("accountType", "admin");
+					response.sendRedirect("index.jsp");
+				}
 			}
-		}
-		
-		Boolean isMember = false;
-		
-		// if account is neither in members or administrators database
-		if(isAdmin == false && isMember == false){
-			response.sendRedirect("login.jsp?accountType=none");
-		}
+			
+			Boolean isAdmin = false;
+					
+			// get all members
+			String getAllMembersQuery = "SELECT * FROM members";
+			ResultSet getAllMembersResult = stmt.executeQuery(getAllMembersQuery);
+			
+			while(getAllMembersResult.next()){
+				String memberEmail = getAllMembersResult.getString("email");
+				String memberPassword = getAllMembersResult.getString("password");
+				
+				// checks if inputs equals members database
+				if(memberEmail.equals(emailInput) && memberPassword.equals(passwordInput)){
+					int memberId = getAllMembersResult.getInt("memberId");
+					String memberUsername = getAllMembersResult.getString("username");
+					
+					session.setAttribute("memberId", memberId);
+					session.setAttribute("memberUsername", memberUsername);
+					session.setAttribute("accountType", "member");
+					response.sendRedirect("index.jsp");
+				}
+			}
+			
+			Boolean isMember = false;
+			
+			// if account is neither in members or administrators database
+			if(isAdmin == false && isMember == false){
+				response.sendRedirect("login.jsp?accountType=none");
+			}
 
-		conn.close();
+			conn.close();
+		}else{
+			response.sendRedirect("login.jsp");
+			System.out.println("(validate_login.jsp) Error: Wrong Flow\n");
+		}
 	}catch(Exception e){
-		System.out.println("Error: " + e + "\n");
+		System.out.println("(validate_login.jsp) Error: " + e + "\n");
 	}
 	%>
 </body>

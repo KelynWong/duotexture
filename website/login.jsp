@@ -12,16 +12,18 @@
     <%
     try{
     	// validate if user has already logged in
-	   	if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
-	   		%>
-	   		  <script type="text/javascript">
-	   		  	window.location.href='index.jsp';
-	   			alert("You have already logged-in. Please log out first.");
-	   		  </script>
-	   		<%
-   		}
+    	if(session.getAttribute("accountType")!=null){
+    		if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
+    	   		%>
+    	   		  <script type="text/javascript">
+    	   		  	window.location.href='index.jsp';
+    	   			alert("You have already logged-in. Please log out first.");
+    	   		  </script>
+    	   		<%
+       		}	
+    	}
     } catch (Exception e){
-    	System.out.println("Error: " + e + "\n");
+    	System.out.println("(login.jsp) Login Validation Error: " + e + "\n");
     }
     %>
 </head>
@@ -50,17 +52,19 @@
         <%
        	try{
        		// display different error message dependant on request success and failure
-       		String errorMessage = "";
-           	String account = request.getParameter("accountType");
-           	
-           	if(account.equals("none")){
-           		errorMessage = "Account does not exists. Please try again.";
-		        %>
-		        <small class="text-danger"><%= errorMessage %><br><br></small>
-		        <%
-	        }
+       		if(request.getParameter("accountType")!=null){
+       			String errorMessage = "";
+               	String account = request.getParameter("accountType");
+               	
+               	if(account.equals("none")){
+               		errorMessage = "Account does not exists. Please try again.";
+    		        %>
+    		        <small class="text-danger"><%= errorMessage %><br><br></small>
+    		        <%
+    	        }
+       		}
         } catch(Exception e){
-        	System.out.println("Error: " + e + "\n");
+        	System.out.println("(login.jsp) Error: " + e + "\n");
         }
         %>
 

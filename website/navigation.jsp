@@ -48,21 +48,25 @@
 		<%
 		try{
 			// check if user's account and retrieve their username
-			if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
-		          <a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("adminUsername")%></a>
-		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
-			<%
-			}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
-		          <a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("memberUsername")%></a>
-		          <a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
-			<%
+			if(session.getAttribute("accountType")!=null){
+				if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
+					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("adminUsername")%></a>
+					<a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+					<%
+				}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
+					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("memberUsername")%></a>
+					<a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+					<%
+				}
+			}else{
+				%>
+	        	<a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
+	        	<a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+				<%
 			}
 			
 		} catch(Exception e){ 
-			%>
-        	<a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
-        	<a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
-			<%
+			System.out.println("(navigation.jsp) Error: " + e + "\n");
 		}
 		%>
 		</ul>

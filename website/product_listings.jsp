@@ -10,28 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/styles.css"/>
     <link rel="stylesheet" href="assets/css/util.css" />
-    <%
-    try{
-    	// validate delete dependent on request success and failure
-    	String productDeletion = request.getParameter("productDeletion");
-    	
-	   	if(productDeletion.equals("success")){
-	   		%>
-  		    <script type="text/javascript">
-  				alert("Product has successfully been deleted.");
-  		    </script>
-	   		<%
-   		}else{
-  			%>
-	   		<script type="text/javascript">
-	   			alert("Failure to delete product.");
-	   		</script>
-   			<%
-   		}
-    } catch (Exception e){
-    	System.out.println("Error: " + e + "\n");
-    }
-    %>
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
@@ -40,26 +18,36 @@
     <%@ include file = "navigation.jsp" %>
 
     <section class="col-12 p-5 row justify-content-center">
-    	<% int getCategoryId = Integer.parseInt(request.getParameter("categoryId")); %>
-    	
-    	<!-- search function -->
-        <form class="form-inline col-11 justify-content-center" action="product_listings.jsp?categoryId=<%= getCategoryId %>" method="post">
-            <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
-            <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
-            <%
-            try{
-            	// if account is admin, allow access to add function
-            	if(session.getAttribute("accountType").equals("admin")){
-                   	%>
-                   	<a href="add_product.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
-                   	<%
-                }
-            } catch(Exception e){
-            	System.out.println("Error: " + e + "\n");
-            }
-            %>
-        </form>
-
+    	<% 
+    	if(request.getParameter("categoryId")!=null){
+    		// store categoryId
+        	int getCategoryId = Integer.parseInt(request.getParameter("categoryId")); 
+        	session.setAttribute("categoryId", getCategoryId);
+	    	%>
+	    	<!-- search and add function -->
+	        <form class="form-inline col-11 justify-content-center" action="product_listings.jsp?categoryId=<%= getCategoryId %>" method="post">
+	            <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
+	            <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
+	            <%
+	            try{
+	            	if(session.getAttribute("accountType")!=null){
+	            		// if account is admin, allow access to add function
+		            	if(session.getAttribute("accountType").equals("admin")){
+		                   	%>
+		                   	<a href="add_product.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
+		                   	<%
+		                }
+	            	}
+	            } catch(Exception e){
+	            	System.out.println("(product_listings.jsp) Admin Add Access Error: " + e + "\n");
+	            }
+    	}else{
+    		%>
+			<p>There isn't any category selected.</p>
+			<%
+    	}
+		%>
+		</form>
 		<%
 		try {
 			String keywordInput = request.getParameter("keywordInput");
@@ -79,7 +67,7 @@
 			
 			// get and display all products by category id
 			PreparedStatement pstmt = conn.prepareStatement(getAllProductsByCategoryIdQuery);
-		    pstmt.setInt(1, getCategoryId);
+		    pstmt.setObject(1, request.getParameter("categoryId"));
 			ResultSet getAllProductsByCategoryIdResult = pstmt.executeQuery(); 
 		
 			while(getAllProductsByCategoryIdResult.next())   { 
@@ -98,28 +86,29 @@
 		                    <a href="product_details.jsp?productId=<%= id %>" class="btn btn-primary px-4 my-2">View Details</a>
 				         	<%
 				            try{
-				            	// if account is admin, allow access to edit and delete function
-				            	if(session.getAttribute("accountType").equals("admin")){
-				                   	%>
-				                   	<div>
-				                        <a href="edit_product.jsp?productId=<%= id %>" class="btn btn-warning mr-1">Edit</a>
-				                        <a href="delete_product.jsp?productId=<%= id %>&categoryId=<%= getCategoryId %>" class="btn btn-danger">Delete</a>
-				                    </div>
-				                   	<%
-				                }
+				            	if(session.getAttribute("accountType")!=null){
+				            		// if account is admin, allow access to edit and delete function
+				            		if(session.getAttribute("accountType").equals("admin")){
+					                   	%>
+					                   	<div>
+					                        <a href="edit_product.jsp?productId=<%= id %>" class="btn btn-warning mr-1">Edit</a>
+					                        <a href="delete_product.jsp?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId") %>" class="btn btn-danger">Delete</a>
+					                    </div>
+					                   	<%
+					                }
+				            	}
 				            } catch(Exception e){
-				            	System.out.println("Error: " + e + "\n");
+				            	System.out.println("(product_listings.jsp) Admin Edit and Delete Access Error: " + e + "\n");
 				            }
 				            %>
 		                </div>
 		            </div>
 		        </div>
 				<% 
-				} 
-		           
-		conn.close();      
+				}      
+		conn.close();     
 		} catch (Exception e) {         
-			System.out.println("Error :" + e + "\n");      
+			System.out.println("(product_listings.jsp) Error: " + e + "\n");     
 		} 
 		%>
     </section>

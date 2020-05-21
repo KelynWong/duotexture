@@ -12,16 +12,18 @@
     <%
     try{
     	// validate if user has already logged in
-	   	if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
-	   		%>
-	   		  <script type="text/javascript">
-	   		  	window.location.href='index.jsp';
-	   			alert("You have already logged-in. Please log out first.");
-	   		  </script>
-	   		<%
-   		}
+    	if(session.getAttribute("accountType")!=null){
+    		if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
+    	   		%>
+    	   		  <script type="text/javascript">
+    	   		  	window.location.href='index.jsp';
+    	   			alert("You have already logged-in. Please log out first.");
+    	   		  </script>
+    	   		<%
+       		}	
+    	}
     } catch (Exception e){
-    	System.out.println("Error: " + e + "\n");
+    	System.out.println("(sign_up.jsp) Login Validation Error: " + e + "\n");
     }
     %>
 </head>
@@ -86,20 +88,22 @@
         <%
        	try{
        		// display different error message dependant on request success and failure
-       		String errorMessage = "";
-           	String registration = request.getParameter("registration");
-           	
-           	if(registration.equals("fail")){
-           		errorMessage = "Registration failed. Please try again.";
-	        	%>
-	        	<small class="text-danger"><%= errorMessage %><br><br></small>
-	        	<%
-           	}
+       		if(request.getParameter("registration")!=null){
+       			String errorMessage = "";
+               	String registration = request.getParameter("registration");
+               	
+               	if(registration.equals("fail")){
+               		errorMessage = "Registration failed. Please try again.";
+    	        	%>
+    	        	<small class="text-danger"><%= errorMessage %><br><br></small>
+    	        	<%
+               	}
+       		}
         } catch(Exception e){
-        	System.out.println("Error: " + e + "\n");
+        	System.out.println("(sign_up.jsp) Message Error: " + e + "\n");
         }
         %>
-        
+
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>
     </section>

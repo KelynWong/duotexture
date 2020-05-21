@@ -45,10 +45,9 @@
 		      	</div>
 			<% 
 			} 
-			
 		conn.close();      
 		} catch (Exception e) {         
-			System.out.println("Error :" + e + "\n");
+			System.out.println("(categories.jsp) Error :" + e + "\n");
 		} 
 		%>
     </section>

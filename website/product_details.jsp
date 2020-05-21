@@ -19,47 +19,53 @@
     <section class="col-12 p-5 row mx-auto my-5 justify-content-center">
 	<%
 	try {
-		int getProductId = Integer.parseInt(request.getParameter("productId"));
-		
-		// connect to mysql database
-		Class.forName("com.mysql.jdbc.Driver"); 
-		String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-		Connection conn = DriverManager.getConnection(connURL);   
-		
-		// get and display all products by product id
-		String getProductsByIdQuery = "SELECT * FROM products WHERE productId=?";   
-		PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
-	    pstmt.setInt(1, getProductId);
-		ResultSet getProductsByIdResult = pstmt.executeQuery(); 
-	
-		while(getProductsByIdResult.next())   { 
-			int productId = getProductsByIdResult.getInt("categoryId");   
-			String productName = getProductsByIdResult.getString("name");               
-			String productDescription = getProductsByIdResult.getString("description");
-			String productRetailPrice = getProductsByIdResult.getString("retail_price");
-			String productQuantity = getProductsByIdResult.getString("quantity");
-			String productImage = getProductsByIdResult.getString("image"); 
-			%>
+		if(request.getParameter("productId")!=null){
+			int getProductId = Integer.parseInt(request.getParameter("productId"));
 			
-			<section class="slide col-4">
-	          <img src="<%= productImage %>" class="d-block w-100">
-	        </section>
-	
-	        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
-	            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
-	            <section class="text-white custom-font-mont">
-	              <p class=""><%= productDescription %></p>
-	              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
-	              <p class="">Quantity: <%= productQuantity %></p>
-	              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
-	            </section>
-	        </section>
-	<% 
-	} 
-		           
-	conn.close();      
+			// connect to mysql database
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);   
+			
+			// get and display all products by product id
+			String getProductsByIdQuery = "SELECT * FROM products WHERE productId=?";   
+			PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
+		    pstmt.setInt(1, getProductId);
+			ResultSet getProductsByIdResult = pstmt.executeQuery(); 
+		
+			while(getProductsByIdResult.next())   { 
+				int productId = getProductsByIdResult.getInt("categoryId");   
+				String productName = getProductsByIdResult.getString("name");               
+				String productDescription = getProductsByIdResult.getString("description");
+				String productRetailPrice = getProductsByIdResult.getString("retail_price");
+				String productQuantity = getProductsByIdResult.getString("quantity");
+				String productImage = getProductsByIdResult.getString("image"); 
+				%>
+				
+				<section class="slide col-4">
+		          <img src="<%= productImage %>" class="d-block w-100">
+		        </section>
+		
+		        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
+		            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
+		            <section class="text-white custom-font-mont">
+		              <p class=""><%= productDescription %></p>
+		              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
+		              <p class="">Quantity: <%= productQuantity %></p>
+		              <button onclick="window.location.href='category.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
+		            </section>
+		        </section>
+			<% 
+			} 
+				           
+			conn.close(); 
+		}else{
+			%>
+			<p>There isn't any product selected.</p>
+			<%
+		}
 	} catch (Exception e) {         
-		System.out.println("Error :" + e + "\n");      
+		System.out.println("(product_details.jsp) Error :" + e + "\n");      
 	} 
 	%>  
     </section>

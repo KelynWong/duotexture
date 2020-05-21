@@ -9,6 +9,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css"/>
     <link rel="stylesheet" href="assets/css/util.css" />
+    <%
+	try{ 
+		// validate if user executing request is admin
+		if(session.getAttribute("accountType")!=null){
+			if(!session.getAttribute("accountType").equals("admin")){
+				%>
+				<script type="text/javascript">
+				window.location.href='index.jsp';
+				alert("You do not have access rights.");
+				</script>
+				<%
+			}
+		}else{
+			%>
+			<script type="text/javascript">
+			window.location.href='index.jsp';
+			alert("You do not have access rights.");
+			</script>
+			<%
+		}
+	} catch (Exception e){
+		System.out.println("(edit_product.jsp) Admin Validation Error: " + e + "\n");
+	}
+	%>
 </head>
 
 <body class="d-block w-100 vh-100 bg-img">
@@ -20,98 +44,105 @@
     	
       <!-- edit product form -->
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_edit_product.jsp" method="post">
-        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t L i s t i n g</p>
+        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - L i s t i n g</p>
         <hr>
-
 		<%
-		try {
-			// connect to mysql database
-			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(connURL);   
-			Statement stmt = conn.createStatement(); 
+		try {			
+			if(request.getParameter("productId")!=null){
+				int getProductId = Integer.parseInt(request.getParameter("productId"));
+				
+				// connect to mysql database
+				Class.forName("com.mysql.jdbc.Driver"); 
+				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+				Connection conn = DriverManager.getConnection(connURL);   
+				Statement stmt = conn.createStatement(); 
+				
+				// get and display product details by given id
+				String getProductsByIdQuery = "SELECT * FROM products WHERE productId=? LIMIT 1";    
+				PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
+				
+			    pstmt.setInt(1, getProductId);
+				ResultSet getProductsByIdResult = pstmt.executeQuery(); 
 			
-			// get and display product details by given id
-			String getProductsByIdQuery = "SELECT * FROM products WHERE productId=? LIMIT 1";    
-			PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
-			
-			int getProductId = Integer.parseInt(request.getParameter("productId"));
-		    pstmt.setInt(1, getProductId);
-			ResultSet getProductsByIdResult = pstmt.executeQuery(); 
-		
-			getProductsByIdResult.next();
-			String productName = getProductsByIdResult.getString("name");               
-			String productDescription = getProductsByIdResult.getString("description");
-			String productCost = getProductsByIdResult.getString("cost_price");
-			String productPrice = getProductsByIdResult.getString("retail_price");
-			String productQuantity = getProductsByIdResult.getString("quantity");
-			String productCategoryId = getProductsByIdResult.getString("categoryId");
-			String productImage = getProductsByIdResult.getString("image"); 
-			%>
+				getProductsByIdResult.next();
+				String productName = getProductsByIdResult.getString("name");               
+				String productDescription = getProductsByIdResult.getString("description");
+				String productCost = getProductsByIdResult.getString("cost_price");
+				String productPrice = getProductsByIdResult.getString("retail_price");
+				String productQuantity = getProductsByIdResult.getString("quantity");
+				String productCategoryId = getProductsByIdResult.getString("categoryId");
+				String productImage = getProductsByIdResult.getString("image"); 
+				%>
 
-			<div class="form-row">
-	          <div class="form-group row col-md-12">
-	            <label class="my-1 col-2" for="inputProductId">Product Id</label>
-	            <input type="text" class="form-control col-10" name="inputProductId" placeholder="Product Id" value="<%= getProductId %>" readonly required>
-	          </div>
-	          <div class="form-group col-md-12">
-	            <label for="inputProductName">Name</label>
-	            <input type="text" class="form-control" name="inputProductName" value="<%= productName %>" required>
-	          </div>
-	          <div class="form-group col-md-12">
-	            <label for="inputProductDescription">Description</label>
-	            <input type="text" class="form-control" name="inputProductDescription" value="<%= productDescription %>" required></input>
-	          </div>
-	          <div class="form-group col-md-3">
-	            <label for="inputCostPrice">Cost Price</label>
-	            <input type="text" class="form-control" name="inputCostPrice" value="<%= productCost %>" required>
-	          </div>
-	          <div class="form-group col-md-3">
-	            <label for="inputRetailPrice">Retail Price</label>
-	            <input type="text" class="form-control" name="inputRetailPrice" value="<%= productPrice %>" required>
-	          </div>
-	          <div class="form-group col-md-3">
-	            <label for="inputQuantity">Quantity</label>
-	            <input type="text" class="form-control" name="inputQuantity" value="<%= productQuantity %>" required>
-	          </div>
-	          <div class="form-group col-md-3">
-	            <label for="inputQuantity">Category Id</label>
-	            <input type="text" class="form-control" name="inputCategoryId" value="<%= productCategoryId %>" required>
-	          </div>
-	        </div>
+				<div class="form-row">
+		          <div class="form-group row col-md-12">
+		            <label class="my-1 col-2" for="inputProductId">Product Id</label>
+		            <input type="text" class="form-control col-10" name="inputProductId" placeholder="Product Id" value="<%= getProductId %>" readonly required>
+		          </div>
+		          <div class="form-group col-md-12">
+		            <label for="inputProductName">Name</label>
+		            <input type="text" class="form-control" name="inputProductName" value="<%= productName %>" required>
+		          </div>
+		          <div class="form-group col-md-12">
+		            <label for="inputProductDescription">Description</label>
+		            <input type="text" class="form-control" name="inputProductDescription" value="<%= productDescription %>" required></input>
+		          </div>
+		          <div class="form-group col-md-3">
+		            <label for="inputCostPrice">Cost Price</label>
+		            <input type="text" class="form-control" name="inputCostPrice" value="<%= productCost %>" required>
+		          </div>
+		          <div class="form-group col-md-3">
+		            <label for="inputRetailPrice">Retail Price</label>
+		            <input type="text" class="form-control" name="inputRetailPrice" value="<%= productPrice %>" required>
+		          </div>
+		          <div class="form-group col-md-3">
+		            <label for="inputQuantity">Quantity</label>
+		            <input type="text" class="form-control" name="inputQuantity" value="<%= productQuantity %>" required>
+		          </div>
+		          <div class="form-group col-md-3">
+		            <label for="inputQuantity">Category Id</label>
+		            <input type="text" class="form-control" name="inputCategoryId" value="<%= productCategoryId %>" required>
+		          </div>
+		        </div>
 
-	        <div class="form-group">
-	          <label for="inputImageUrl">Image Url</label>
-	          <input type="text" class="form-control" name="inputImageUrl" value="<%= productImage %>" required>
-	        </div>
-	        
-	        <%
-        	try{
-        		// display different error message dependant on request success and failure
-        		String errorMessage = "";
-            	String productEdit = request.getParameter("productEdit");
-            	
-            	if(productEdit.equals("fail")){
-            		errorMessage = "Attempt to edit failed. Please try again.";
-            		%>
-			        <small class="text-danger"><%= errorMessage %><br><br></small>
-			        <%
-            	}else if(productEdit.equals("success")){
-            		errorMessage = "Successfully Edited.";
-            		%>
-			        <small class="text-success"><%= errorMessage %><br><br></small>
-			        <%
-            	}
-	        } catch(Exception e){
-	        	System.out.println("Error: " + e + "\n");
-	        }
-	        %>
-	        
-	        <button type="submit" class="btn btn-success">Edit</button>
-		<%
-		conn.close();      
+		        <div class="form-group">
+		          <label for="inputImageUrl">Image Url</label>
+		          <input type="text" class="form-control" name="inputImageUrl" value="<%= productImage %>" required>
+		        </div>
+		        
+		        <%
+	        	try{
+	        		// display different error message dependant on request success and failure
+	        		if(request.getParameter("productEdit")!=null){
+		        		String errorMessage = "";
+		            	String productEdit = request.getParameter("productEdit");
+		            	
+		            	if(productEdit.equals("fail")){
+		            		errorMessage = "Attempt to edit failed. Please try again.";
+		            		%>
+					        <small class="text-danger"><%= errorMessage %><br><br></small>
+					        <%
+		            	}else if(productEdit.equals("success")){
+		            		errorMessage = "Successfully Edited.";
+		            		%>
+					        <small class="text-success"><%= errorMessage %><br><br></small>
+					        <%
+		            	}
+	        		}
+	        	} catch(Exception e){
+		        	System.out.println("(edit_product.jsp) Message Error: " + e + "\n");
+		        }
+		        %>
+		        <button type="submit" class="btn btn-success">Edit</button>
+			<%
+			conn.close();      
+			}else{
+				%>
+				<p>Product Id is not declared.</p>
+				<%
+			}
 		} catch (Exception e) {         
-			System.out.println("Error :" + e + "\n");      
+			System.out.println("(edit_product.jsp) Error: " + e + "\n");      
 		} 
 		%>
       </form>

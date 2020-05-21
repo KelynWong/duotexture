@@ -11,17 +11,26 @@
     <link rel="stylesheet" href="assets/css/util.css" />
 	<%
 	try{ 
-		// validate if user executing request is admin // ***********************************************
-		if(!session.getAttribute("accountType").equals("admin")){
-			%>
-			  <script type="text/javascript">
-			  	window.location.href='index.jsp';
+		// validate if user executing request is admin
+		if(session.getAttribute("accountType")!=null){
+			if(!session.getAttribute("accountType").equals("admin")){
+				%>
+				<script type="text/javascript">
+				window.location.href='index.jsp';
 				alert("You do not have access rights.");
-			  </script>
+				</script>
+				<%
+			}
+		}else{
+			%>
+			<script type="text/javascript">
+			window.location.href='index.jsp';
+			alert("You do not have access rights.");
+			</script>
 			<%
 		}
 	} catch (Exception e){
-		System.out.println("Error: " + e + "\n");
+		System.out.println("(add_product.jsp) Admin Validation Error: " + e + "\n");
 	}
 	%>
 </head>
@@ -75,23 +84,24 @@
         <%
        	try{
        		// display different error message dependant on request success and failure
-       		String errorMessage = "";
-           	String productAddition = request.getParameter("productAddition");
-           	
-           	if(productAddition.equals("fail")){
-           		errorMessage = "Attempt to add failed. Please try again.";
-           		%>
-		        <small class="text-danger"><%= errorMessage %><br><br></small>
-		        <%
-           	}else if(productAddition.equals("success")){
-           		errorMessage = "Successfully Added.";
-           		%>
-		        <small class="text-success"><%= errorMessage %><br><br></small>
-		        <%
-           	}
-           	
+       		if(request.getParameter("productAddition")!=null){
+       			String errorMessage = "";
+       			String productAddition = request.getParameter("productAddition");
+               	
+               	if(productAddition.equals("fail")){
+               		errorMessage = "Attempt to add failed. Please try again.";
+               		%>
+    		        <small class="text-danger"><%= errorMessage %><br><br></small>
+    		        <%
+               	}else if(productAddition.equals("success")){
+               		errorMessage = "Successfully Added.";
+               		%>
+    		        <small class="text-success"><%= errorMessage %><br><br></small>
+    		        <%
+               	}	
+       		}
        	} catch(Exception e){
-        	System.out.println("Error: " + e + "\n");
+        	System.out.println("(add_product.jsp) Message Error: " + e + "\n");
         }
         %>
 
