@@ -52,14 +52,14 @@
 				if(count > 0){
 					%>
 		  		    <script type="text/javascript">
-		  		  		window.location.href='product_listings.jsp?categoryId="<%=categoryId%>';
+		  		  		window.location.href='product_listings.jsp?categoryId=<%=categoryId%>';
 		  				alert("Product has successfully been deleted.");
 		  		    </script>
 			   		<%
 				}else{
 					%>
 		  		    <script type="text/javascript">
-		  		  		window.location.href='product_listings.jsp?categoryId="<%=categoryId%>';
+		  		  		window.location.href='product_listings.jsp?categoryId=<%=categoryId%>';
 		  				alert("Failed to delete product.");
 		  		    </script>
 			   		<%
