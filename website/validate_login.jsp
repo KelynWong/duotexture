@@ -13,6 +13,9 @@
 			String emailInput = request.getParameter("emailInput");
 			String passwordInput = request.getParameter("passwordInput");
 			
+			Boolean isAdmin = false;
+			Boolean isMember = false;
+			
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
@@ -31,6 +34,7 @@
 				if(adminEmail.equals(emailInput) && adminPassword.equals(passwordInput)){
 					int adminId = getAllAdminsResult.getInt("administratorId");
 					String adminUsername = getAllAdminsResult.getString("username");
+					isAdmin = true;
 					
 					session.setAttribute("adminId", adminId);
 	        		session.setAttribute("adminUsername", adminUsername);
@@ -39,7 +43,6 @@
 				}
 			}
 			
-			Boolean isAdmin = false;
 					
 			// get all members
 			String getAllMembersQuery = "SELECT * FROM members";
@@ -53,6 +56,7 @@
 				if(memberEmail.equals(emailInput) && memberPassword.equals(passwordInput)){
 					int memberId = getAllMembersResult.getInt("memberId");
 					String memberUsername = getAllMembersResult.getString("username");
+					isMember = true;
 					
 					session.setAttribute("memberId", memberId);
 					session.setAttribute("memberUsername", memberUsername);
@@ -61,7 +65,7 @@
 				}
 			}
 			
-			Boolean isMember = false;
+			
 			
 			// if account is neither in members or administrators database
 			if(isAdmin == false && isMember == false){
