@@ -19,7 +19,7 @@
 		try {
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);   
 			Statement stmt = conn.createStatement(); 
 			
@@ -34,9 +34,22 @@
 				<li class="nav-item">
             		<a class="nav-link custom-font-mont fs-15" href="product_listings.jsp?categoryId=<%= categoryId %>" role="button"><%= categoryName %></a>
           		</li>
-				<% 
+          		<% 
 			} 
-		      
+			
+			try{
+            	if(session.getAttribute("accountType")!=null){
+            		// if account is admin, allow access to add function
+	            	if(session.getAttribute("accountType").equals("admin")){
+	                   	%>
+	                   	<a href="add_category.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
+	                   	<%
+	                }
+            	}
+            } catch(Exception e){
+            	System.out.println("(product_listings.jsp) Admin Add Access Error: " + e + "\n");
+            } 
+		            
 			conn.close();      
 		} catch (Exception e) {         
 			System.out.println("Error :" + e + "\n");      
@@ -48,16 +61,10 @@
 		<%
 		try{
 			// check if user's account and retrieve their username
-			if(session.getAttribute("accountType")!=null){
-				if(session.getAttribute("accountType").equals("admin") && session.getAttribute("adminUsername") != null){ %>
-					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("adminUsername")%></a>
+			if(session.getAttribute("accountType")!=null){ %>
+					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("username")%></a>
 					<a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
 					<%
-				}else if(session.getAttribute("accountType").equals("member") && session.getAttribute("memberUsername") != null){ %>
-					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("memberUsername")%></a>
-					<a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
-					<%
-				}
 			}else{
 				%>
 	        	<a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
