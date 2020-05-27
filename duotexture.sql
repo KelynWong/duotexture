@@ -1,40 +1,34 @@
 DROP SCHEMA IF EXISTS `duotexture`;
 CREATE SCHEMA `duotexture` ;
 
-CREATE TABLE `duotexture`.`administrators` (
-	`administratorId` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE `duotexture`.`users` (
+	`userId` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(255) UNIQUE NOT NULL,
     `username` VARCHAR(45) UNIQUE NOT NULL,
     `password` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`administratorId`)
+    `userRole` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`userId`)
 );
 
-INSERT INTO duotexture.administrators(`email`, `username`, `password`) VALUES('renfred.19@ichat.sp.edu.sg', 'renfreddd', 'password');
-INSERT INTO duotexture.administrators(`email`, `username`, `password`) VALUES('kelyn.19@ichat.sp.edu.sg', 'kelynwong', 'password');
-INSERT INTO duotexture.administrators(`email`, `username`, `password`) VALUES('teacher@ichat.sp.edu.sg', 'teacher', 'password');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('renfred.19@ichat.sp.edu.sg', 'renfreddd', 'password', 'Admin');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('kelyn.19@ichat.sp.edu.sg', 'kelynwong', 'password', 'Admin');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('teacher@ichat.sp.edu.sg', 'teacher', 'password', 'Admin');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer1@ichat.sp.edu.sg', 'customer1', 'password', 'Member');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer2@ichat.sp.edu.sg', 'customer2', 'password', 'Member');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer3@ichat.sp.edu.sg', 'customer3', 'password', 'Member');
 
 CREATE TABLE `duotexture`.`members` (
-  `memberId` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(255) UNIQUE NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `country` VARCHAR(45) NOT NULL,
   `address` VARCHAR(255) NOT NULL,
   `postal_code` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`memberId`));
+  `userId` INT NOT NULL,
+  FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE);
   
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer1@ichat.sp.edu.sg', 'customer1', 'password', 'customer', '1', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer2@ichat.sp.edu.sg', 'customer2', 'password', 'customer', '2', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer3@ichat.sp.edu.sg', 'customer3', 'password', 'customer', '3', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer4@ichat.sp.edu.sg', 'customer4', 'password', 'customer', '4', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer5@ichat.sp.edu.sg', 'customer5', 'password', 'customer', '5', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer6@ichat.sp.edu.sg', 'customer6', 'password', 'customer', '6', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer7@ichat.sp.edu.sg', 'customer7', 'password', 'customer', '7', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer8@ichat.sp.edu.sg', 'customer8', 'password', 'customer', '8', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer9@ichat.sp.edu.sg', 'customer9', 'password', 'customer', '9', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
-INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES('customer10@ichat.sp.edu.sg', 'customer10', 'password', 'customer', '10', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345');
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '1', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345', 4);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '2', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345', 5);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '3', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345', 6);
 
 CREATE TABLE `duotexture`.`categories` (
   `categoryId` INT NOT NULL AUTO_INCREMENT,
