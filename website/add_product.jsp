@@ -54,7 +54,7 @@
           </div>
           <div class="form-group col-md-12">
             <label for="inputProductDescription">Description</label>
-            <input type="text" class="form-control" id="inputProductDescription" name="inputProductDescription" placeholder="Product description" required>
+            <textarea type="text" class="form-control" id="inputProductDescription" name="inputProductDescription" placeholder="Product description" required></textarea>
           </div>
           <div class="form-group col-md-3">
             <label for="inputCostPrice">Cost Price</label>

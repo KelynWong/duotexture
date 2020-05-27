@@ -23,62 +23,82 @@
 		try{
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver");         
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";      
 			Connection conn = DriverManager.getConnection(connURL);
 			
 			if(session.getAttribute("accountType") !=null){
-				// if user is a member
-				if(session.getAttribute("accountType").equals("member")) {  
+					String getAllUsersQuery = "SELECT * FROM users WHERE userId = ? LIMIT 1;";
+					PreparedStatement pstmt = conn.prepareStatement(getAllUsersQuery);
+					pstmt.setObject(1, session.getAttribute("userId"));
+					ResultSet getAllUsersResult = pstmt.executeQuery();
+					getAllUsersResult.next();
+					String userRole = getAllUsersResult.getString("userRole");
 					
-					String getAllMembersQuery = "SELECT * FROM members WHERE memberId = ? LIMIT 1;";
-					PreparedStatement pstmt = conn.prepareStatement(getAllMembersQuery);
-					pstmt.setObject(1, session.getAttribute("memberId"));
-					ResultSet getAllMembersResult = pstmt.executeQuery();
-					getAllMembersResult.next();
-					
-					%>
+					if(getAllUsersResult.getString("userRole").equals("Member")){ %>
 					<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
      				<hr>
-			        <div class="form-row">
-			          <div class="form-group col-md-12">
-			            <label for="inputUsername">Username</label>
-			            <input type="text" class="form-control" name="inputUsername" placeholder="Username" value="<%=getAllMembersResult.getString("username")%>" required>
-			          </div>
-			          <div class="form-group col-md-6">
-			            <label for="inputEmail">Email</label>
-			            <input type="email" class="form-control" name="inputEmail" placeholder="Email" value="<%=getAllMembersResult.getString("email")%>" required>
-			          </div>
-			          <div class="form-group col-md-6">
-			            <label for="inputPassword">Password</label>
-			            <input type="text" class="form-control" name="inputPassword" placeholder="Password" value="<%=getAllMembersResult.getString("password")%>" required>
-			          </div>
-			          <div class="form-group col-md-6">
-			            <label for="inputFirstName">First Name</label>
-			            <input type="text" class="form-control" name="inputFirstName" placeholder="First Name" value="<%=getAllMembersResult.getString("first_name")%>" required>
-			          </div>
-			          <div class="form-group col-md-6">
-			            <label for="inputLastName">Last Name</label>
-			            <input type="text" class="form-control" name="inputLastName" placeholder="Last Name" value="<%=getAllMembersResult.getString("last_name")%>" required>
-			          </div>
-			        </div>
-			
-			        <div class="form-group">
-			          <label for="inputAddress">Address</label>
-			          <input type="text" class="form-control" name="inputAddress" placeholder="1234 Main St" value="<%=getAllMembersResult.getString("address")%>" required>
-			        </div>
-			
-			        <div class="form-row">
-			          <div class="form-group col-md-10">
-			            <label for="inputCountry">Country</label>
-			            <input type="text" class="form-control" name="inputCountry" value="<%=getAllMembersResult.getString("country")%>" required>
-			          </div>
-			          <div class="form-group col-md-2">
-			            <label for="inputPostalCode">Postal Code</label>
-			            <input type="text" class="form-control" name="inputPostalCode" value="<%=getAllMembersResult.getString("postal_code")%>" required>
-			          </div>
-			        </div>
-				        
-		        	<%
+				        <div class="form-row">
+				          <div class="form-group col-md-12">
+				            <label for="inputUsername">Username</label>
+				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getAllUsersResult.getString("username")%>" required>
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label for="inputEmail">Email</label>
+				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getAllUsersResult.getString("email")%>" required>
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label for="inputPassword">Password</label>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getAllUsersResult.getString("password")%>" required>
+				          </div>
+				          <% 
+					        String getAllMembersDetailsQuery = "SELECT * FROM members WHERE userId = ? LIMIT 1;";
+							PreparedStatement pstmt2 = conn.prepareStatement(getAllMembersDetailsQuery);
+							pstmt2.setObject(1, session.getAttribute("userId"));
+							ResultSet getAllMembersDetailsResult = pstmt2.executeQuery();  
+							getAllMembersDetailsResult.next(); %>
+				          <div class="form-group col-md-6">
+				            <label for="inputFirstName">First Name</label>
+				            <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name" value="<%=getAllMembersDetailsResult.getString("first_name")%>" required>
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label for="inputLastName">Last Name</label>
+				            <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name" value="<%=getAllMembersDetailsResult.getString("last_name")%>" required>
+				          </div>
+				        </div>
+				
+				        <div class="form-group">
+				          <label for="inputAddress">Address</label>
+				          <textarea type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St" required><%=getAllMembersDetailsResult.getString("address")%></textarea>
+				        </div>
+				
+				        <div class="form-row">
+				          <div class="form-group col-md-10">
+				            <label for="inputCountry">Country</label>
+				            <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<%=getAllMembersDetailsResult.getString("country")%>" required>
+				          </div>
+				          <div class="form-group col-md-2">
+				            <label for="inputPostalCode">Postal Code</label>
+				            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<%=getAllMembersDetailsResult.getString("postal_code")%>" required>
+				          </div>
+				        </div>   
+			        <% }else if(userRole.equals("Admin")){ %>
+			        	<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
+	     				<hr>
+				        <div class="form-row">
+				          <div class="form-group col-md-12">
+				            <label for="inputUsername">Username</label>
+				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getAllUsersResult.getString("username")%>" required>
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label for="inputEmail">Email</label>
+				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getAllUsersResult.getString("email")%>" required>
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label for="inputPassword">Password</label>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getAllUsersResult.getString("password")%>" required>
+				          </div>
+				        </div>
+			        <% }
 		        	try{
 		        		// display different error message dependant on request success and failure
 		        		if(request.getParameter("profileEdit")!=null){
@@ -104,69 +124,6 @@
 			        
 			        <button type="submit" class="btn btn-primary">Edit</button>
 		      		<%
-		      
-			      // if user is an admin
-			      } else if(session.getAttribute("accountType").equals("admin")){ 
-			    		
-			    	  String getAllAdminsQuery = "SELECT * FROM administrators WHERE administratorId = ? LIMIT 1;";
-						PreparedStatement pstmt = conn.prepareStatement(getAllAdminsQuery);
-						pstmt.setObject(1, session.getAttribute("adminId"));
-						ResultSet getAllAdminsResult = pstmt.executeQuery();
-						getAllAdminsResult.next();
-			      
-				      %>
-				      <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - A d m i n - P r o f i l e</p>
-				      <hr>
-					<div class="form-row">
-						 <div class="form-group col-md-12">
-					       <label for="inputUsername">Username</label>
-					         <input type="text" class="form-control" name="inputUsername" placeholder="Username" value="<%=getAllAdminsResult.getString("username")%>" required>
-					       </div>
-					      
-					       <div class="form-group col-md-6">
-					         <label for="inputEmail">Email</label>
-					         <input type="email" class="form-control" name="inputEmail" placeholder="Email" value="<%=getAllAdminsResult.getString("email")%>" required>
-					       </div>
-					       
-					       <div class="form-group col-md-6">
-					         <label for="inputPassword">Password</label>
-					         <input type="text" class="form-control" name="inputPassword" placeholder="Password" value="<%=getAllAdminsResult.getString("password")%>" required>
-					       </div>
-			       	</div>
-					       	
-			       	<%
-		        	try{
-		        		// display different error message dependant on request success and failure
-		        		if(request.getParameter("profileEdit")!=null){
-			        		String errorMessage = "";
-			            	String profileEdit = request.getParameter("profileEdit");
-			            	
-			            	if(profileEdit.equals("fail")){
-			            		errorMessage = "Attempt to edit failed. Please try again.";
-			            		%>
-						        <small class="text-danger"><%= errorMessage %><br><br></small>
-						        <%
-			            	}else if(profileEdit.equals("success")){
-			            		errorMessage = "Successfully Edited.";
-			            		%>
-						        <small class="text-success"><%= errorMessage %><br><br></small>
-						        <%
-			            	}
-		        		}
-		        	} catch(Exception e){
-			        	System.out.println("(edit_profile.jsp) Admin Message Error: " + e + "\n");
-			        }
-			        %>
-					        
-					<button type="submit" class="btn btn-primary">Edit</button>
-			      	<%
-			    }
-			}else{
-				%>
-				<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - P r o f i l e</p>
-     			<hr>
-				<p>You are unable to view this page as you have yet to login.</p>
-				<%
 			}
 		} catch(Exception e){
 			System.out.println("(edit_profile.jsp) Error: " + e + "\n");

@@ -77,37 +77,53 @@
 				<div class="form-row">
 		          <div class="form-group row col-md-12">
 		            <label class="my-1 col-2" for="inputProductId">Product Id</label>
-		            <input type="text" class="form-control col-10" name="inputProductId" placeholder="Product Id" value="<%= getProductId %>" readonly required>
+		            <input type="text" class="form-control col-10" id="inputProductId" name="inputProductId" placeholder="Product Id" value="<%= getProductId %>" readonly required>
 		          </div>
 		          <div class="form-group col-md-12">
 		            <label for="inputProductName">Name</label>
-		            <input type="text" class="form-control" name="inputProductName" value="<%= productName %>" required>
+		            <input type="text" class="form-control" id="inputProductName" name="inputProductName" value="<%= productName %>" required>
 		          </div>
 		          <div class="form-group col-md-12">
 		            <label for="inputProductDescription">Description</label>
-		            <input type="text" class="form-control" name="inputProductDescription" value="<%= productDescription %>" required></input>
+		            <textarea type="text" class="form-control" id="inputProductDescription" name="inputProductDescription" required><%= productDescription %></textarea>
 		          </div>
 		          <div class="form-group col-md-3">
 		            <label for="inputCostPrice">Cost Price</label>
-		            <input type="text" class="form-control" name="inputCostPrice" value="<%= productCost %>" required>
+		            <input type="text" class="form-control" id="inputCostPrice" name="inputCostPrice" value="<%= productCost %>" required>
 		          </div>
 		          <div class="form-group col-md-3">
 		            <label for="inputRetailPrice">Retail Price</label>
-		            <input type="text" class="form-control" name="inputRetailPrice" value="<%= productPrice %>" required>
+		            <input type="text" class="form-control" id="inputRetailPrice" name="inputRetailPrice" value="<%= productPrice %>" required>
 		          </div>
 		          <div class="form-group col-md-3">
 		            <label for="inputQuantity">Quantity</label>
-		            <input type="text" class="form-control" name="inputQuantity" value="<%= productQuantity %>" required>
+		            <input type="text" class="form-control" id="inputQuantity" name="inputQuantity" value="<%= productQuantity %>" required>
 		          </div>
 		          <div class="form-group col-md-3">
-		            <label for="inputQuantity">Category Id</label>
-		            <input type="text" class="form-control" name="inputCategoryId" value="<%= productCategoryId %>" required>
-		          </div>
+				    <label for="inputCategoryId">Category Id</label>
+				    <select class="form-control" id="inputCategoryId" name="inputCategoryId">
+					    <%
+					    try{
+							// get all categories
+							String getCategoriesQuery = "SELECT * FROM categories";    
+							ResultSet getCategoriesResults = stmt.executeQuery(getCategoriesQuery);
+							
+							while(getCategoriesResults.next())   { 
+								int categoryId = getCategoriesResults.getInt("categoryId");  
+								out.println("<option>"+categoryId+"</option>");
+							} 
+								
+					      } catch(Exception e){
+					    	  System.out.println("(edit_product.jsp) Category Error: " + e + "\n");
+					      }
+					      %>
+				    </select>
+				  </div>
 		        </div>
 
 		        <div class="form-group">
 		          <label for="inputImageUrl">Image Url</label>
-		          <input type="text" class="form-control" name="inputImageUrl" value="<%= productImage %>" required>
+		          <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" value="<%= productImage %>" required>
 		        </div>
 		        
 		        <%

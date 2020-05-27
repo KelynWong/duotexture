@@ -63,7 +63,7 @@
 
         <div class="form-group">
           <label for="inputAddress">Address</label>
-          <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St" required>
+          <textarea type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St" required></textarea>
         </div>
 
         <div class="form-row">
