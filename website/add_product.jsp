@@ -69,9 +69,32 @@
             <input type="text" class="form-control" id="inputQuantity" name="inputQuantity" placeholder="Quantity" required>
           </div>
           <div class="form-group col-md-3">
-            <label for="inputCategoryId">Category Id</label>
-            <input type="text" class="form-control" id="inputCategoryId" name="inputCategoryId" placeholder="Category Id" required>
-          </div>
+		    <label for="inputCategoryId">Category Id</label>
+		    <select class="form-control" id="inputCategoryId" name="inputCategoryId">\
+		    	<option disabled selected>-- select an option --</option>
+			    <%
+			    try{
+			    	// connect to mysql database
+					Class.forName("com.mysql.jdbc.Driver"); 
+					String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+					Connection conn = DriverManager.getConnection(connURL);   
+					Statement stmt = conn.createStatement(); 
+					
+					// get all categories
+					String getCategoriesQuery = "SELECT * FROM categories";    
+					ResultSet getCategoriesResults = stmt.executeQuery(getCategoriesQuery);
+					
+					while(getCategoriesResults.next())   { 
+						int categoryId = getCategoriesResults.getInt("categoryId");  
+						out.println("<option>"+categoryId+"</option>");
+					} 
+						
+			      } catch(Exception e){
+			    	  System.out.println("(edit_product.jsp) Category Error: " + e + "\n");
+			      }
+			      %>
+		    </select>
+		  </div>
         </div>
         
         <div class="form-row">
