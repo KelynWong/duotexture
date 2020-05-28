@@ -77,7 +77,7 @@
 		System.out.println(" (validate_add_product.jsp) Error: Invalid Inputs\n"); 
 		response.sendRedirect("add_product.jsp?productAddition=fail");
 	} catch (Exception e) {         
-		System.out.println(" (validate_add_product.jsp) Error: " + e + "\n"); 
+		System.out.println("(validate_add_product.jsp) Error: " + e + "\n"); 
 		response.sendRedirect("add_product.jsp?productAddition=fail");
 	} 
 	%>
