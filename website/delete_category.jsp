@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Delete Product</title>
+	<title>Delete Category</title>
 	<%
 	try{ 
 		// validate if user executing request is admin
@@ -41,7 +41,7 @@
 				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
 				Connection conn = DriverManager.getConnection(connURL);   
 				
-				// delete product by given id
+				// delete category by given id
 				String deleteCategoryById = "DELETE FROM categories WHERE categoryId=?"; 
 				PreparedStatement pstmt = conn.prepareStatement(deleteCategoryById);
 			    pstmt.setInt(1, categoryId);
@@ -51,14 +51,14 @@
 					%>
 		  		    <script type="text/javascript">
 		  		  		window.location.href='categories.jsp';
-		  				alert("Product has successfully been deleted.");
+		  				alert("Category has successfully been deleted.");
 		  		    </script>
 			   		<%
 				}else{
 					%>
 		  		    <script type="text/javascript">
 		  		  		window.location.href='categories.jsp';
-		  				alert("Failed to delete product.");
+		  				alert("Failed to delete category.");
 		  		    </script>
 			   		<%
 				}
@@ -68,7 +68,7 @@
 				%>
 	  		    <script type="text/javascript">
 	  		  		window.location.href='categories.jsp';
-	  				alert("Failed to delete product.");
+	  				alert("Failed to delete category.");
 	  		    </script>
 		   		<%
 			}
