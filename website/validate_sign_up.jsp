@@ -26,13 +26,13 @@
 			Statement stmt = conn.createStatement(); 
 			
 			// checks if email is equal to user's email
-			String getAllUserQuery = "SELECT email FROM duotexture.users;";
-			ResultSet getAllUserResults = stmt.executeQuery(getAllUserQuery); 
+			String getAllUsersEmailQuery = "SELECT email FROM duotexture.users;";
+			ResultSet getAllUsersEmailResult = stmt.executeQuery(getAllUsersEmailQuery); 
 			
-			while(getAllUserResults.next()){
-				String userEmail = getAllUserResults.getString("email");
+			while(getAllUsersEmailResult.next()){
+				String userEmail = getAllUsersEmailResult.getString("email");
 				if(userEmail.equals(inputEmail)){
-					throw new java.sql.SQLIntegrityConstraintViolationException("Duplicate Entry against User's Email");
+					throw new java.sql.SQLIntegrityConstraintViolationException("Duplicate Entry");
 				};
 			}		
 			
@@ -47,12 +47,12 @@
 			
 			if (count > 0){
 				// get last row of users
-				String getLastMembersQuery = "SELECT * FROM users ORDER BY userId DESC LIMIT 1;";
-				ResultSet getLastMembersResult = stmt.executeQuery(getLastMembersQuery);
+				String getLastMemberQuery = "SELECT * FROM users ORDER BY userId DESC LIMIT 1;";
+				ResultSet getLastMemberResult = stmt.executeQuery(getLastMemberQuery);
 				
-				getLastMembersResult.next();
-				int userId = getLastMembersResult.getInt("userId");
-				String memberUsername = getLastMembersResult.getString("username");
+				getLastMemberResult.next();
+				int userId = getLastMemberResult.getInt("userId");
+				String memberUsername = getLastMemberResult.getString("username");
 				
 				session.setAttribute("userId", userId);
 				session.setAttribute("username", memberUsername);

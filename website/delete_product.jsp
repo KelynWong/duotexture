@@ -64,6 +64,7 @@
 		  		    </script>
 			   		<%
 				}
+				
 				conn.close();     
 			}else{
 				System.out.println("(delete_product.jsp) Error: ProductId is null.\n");

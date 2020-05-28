@@ -28,6 +28,7 @@
 		    pstmt.setObject(4, session.getAttribute("userId"));
 			int count = pstmt.executeUpdate(); 
 			
+			// if user is admin
 			if(session.getAttribute("accountType").equals("admin")){
 				if(count > 0){
 					session.setAttribute("username", inputUsername);
@@ -36,7 +37,8 @@
 					response.sendRedirect("edit_profile.jsp?profileEdit=fail");
 				}
 			}
-			// check if user is an member
+			
+			// if user is an member
 			else if(session.getAttribute("accountType").equals("member")){
 				String inputFirstName = request.getParameter("inputFirstName");
 				String inputLastName = request.getParameter("inputLastName");

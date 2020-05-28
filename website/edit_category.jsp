@@ -95,14 +95,14 @@
 	        		// display different error message dependant on request success and failure
 	        		if(request.getParameter("categoryEdit")!=null){
 		        		String errorMessage = "";
-		            	String productEdit = request.getParameter("categoryEdit");
+		            	String categoryEdit = request.getParameter("categoryEdit");
 		            	
-		            	if(productEdit.equals("fail")){
+		            	if(categoryEdit.equals("fail")){
 		            		errorMessage = "Attempt to edit failed. Please try again.";
 		            		%>
 					        <small class="text-danger"><%= errorMessage %><br><br></small>
 					        <%
-		            	}else if(productEdit.equals("success")){
+		            	}else if(categoryEdit.equals("success")){
 		            		errorMessage = "Successfully Edited.";
 		            		%>
 					        <small class="text-success"><%= errorMessage %><br><br></small>

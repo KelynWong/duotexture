@@ -27,29 +27,30 @@
 			Connection conn = DriverManager.getConnection(connURL);
 			
 			if(session.getAttribute("accountType") !=null){
-					String getAllUsersQuery = "SELECT * FROM users WHERE userId = ? LIMIT 1;";
-					PreparedStatement pstmt = conn.prepareStatement(getAllUsersQuery);
+					String getUserByIdQuery = "SELECT * FROM users WHERE userId = ? LIMIT 1;";
+					PreparedStatement pstmt = conn.prepareStatement(getUserByIdQuery);
 					pstmt.setObject(1, session.getAttribute("userId"));
-					ResultSet getAllUsersResult = pstmt.executeQuery();
-					getAllUsersResult.next();
-					String userRole = getAllUsersResult.getString("userRole");
+					
+					ResultSet getUserByIdResult = pstmt.executeQuery();
+					getUserByIdResult.next();
+					String userRole = getUserByIdResult.getString("userRole");
 					
 					// check if user is a member
-					if(getAllUsersResult.getString("userRole").equals("Member")){ %>
+					if(getUserByIdResult.getString("userRole").equals("Member")){ %>
 					<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
      				<hr>
 				        <div class="form-row">
 				          <div class="form-group col-md-12">
 				            <label for="inputUsername">Username</label>
-				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getAllUsersResult.getString("username")%>" required>
+				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getUserByIdResult.getString("username")%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputEmail">Email</label>
-				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getAllUsersResult.getString("email")%>" required>
+				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getUserByIdResult.getString("email")%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputPassword">Password</label>
-				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getAllUsersResult.getString("password")%>" required>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" required>
 				          </div>
 				          <% 
 					        String getAllMembersDetailsQuery = "SELECT * FROM members WHERE userId = ? LIMIT 1;";
@@ -90,15 +91,15 @@
 				        <div class="form-row">
 				          <div class="form-group col-md-12">
 				            <label for="inputUsername">Username</label>
-				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getAllUsersResult.getString("username")%>" required>
+				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getUserByIdResult.getString("username")%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputEmail">Email</label>
-				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getAllUsersResult.getString("email")%>" required>
+				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getUserByIdResult.getString("email")%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputPassword">Password</label>
-				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getAllUsersResult.getString("password")%>" required>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" required>
 				          </div>
 				        </div>
 			        <% }
