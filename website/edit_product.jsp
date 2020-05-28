@@ -70,7 +70,7 @@
 				String productCost = getProductsByIdResult.getString("cost_price");
 				String productPrice = getProductsByIdResult.getString("retail_price");
 				String productQuantity = getProductsByIdResult.getString("quantity");
-				String productCategoryId = getProductsByIdResult.getString("categoryId");
+				int productCategoryId = getProductsByIdResult.getInt("categoryId");
 				String productImage = getProductsByIdResult.getString("image"); 
 				%>
 
@@ -110,7 +110,11 @@
 							
 							while(getCategoriesResults.next())   { 
 								int categoryId = getCategoriesResults.getInt("categoryId");  
-								out.println("<option>"+categoryId+"</option>");
+								if(productCategoryId==categoryId){
+									out.println("<option selected>"+categoryId+"</option>");
+								}else{
+									out.println("<option>"+categoryId+"</option>");
+								}
 							} 
 								
 					      } catch(Exception e){
