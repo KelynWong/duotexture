@@ -21,7 +21,7 @@
 		try {
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL); 
 			Statement stmt = conn.createStatement(); 
 			
@@ -35,12 +35,29 @@
 				String categoryDescription = getAllCategoriesResult.getString("description");
 				String categoryImage = getAllCategoriesResult.getString("image"); 
 				%>
-				<div class="card col-3 mx-5" style="width: 18rem;">
+				<div class="card col-3 mx-5 mb-5" style="width: 18rem;">
 		          <img src="<%= categoryImage %>" class="card-img-top mt-3" alt="...">
 		          <div class="card-body d-flex flex-column">
 		              <h5 class="card-title"><%= categoryName %></h5>
 		              <p class="card-text fs-13"><%= categoryDescription %></p>
 		              <a class="mt-auto" href="product_listings.jsp?categoryId=<%= categoryId %>" class="btn btn-primary">Explore More</a>
+		              <%
+				            try{
+				            	if(session.getAttribute("accountType")!=null){
+				            		// if account is admin, allow access to edit and delete function
+				            		if(session.getAttribute("accountType").equals("admin")){
+					                   	%>
+					                   	<div>
+					                        <a href="edit_category.jsp?categoryId=<%= categoryId %>" class="btn btn-warning mr-1">Edit</a>
+					                        <a onclick="return confirm('Are you sure you want to delete?')" href="delete_category.jsp?categoryId=<%= categoryId %>" class="btn btn-danger">Delete</a>
+					                    </div>
+					                   	<%
+					                }
+				            	}
+				            } catch(Exception e){
+				            	System.out.println("(categories.jsp) Admin Edit and Delete Access Error: " + e + "\n");
+				            }
+				      %>
 		          </div>
 		      	</div>
 			<% 

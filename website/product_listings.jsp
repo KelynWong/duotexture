@@ -55,7 +55,7 @@
 			
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);   
 			
 			// check if search bar is empty
@@ -92,7 +92,7 @@
 					                   	%>
 					                   	<div>
 					                        <a href="edit_product.jsp?productId=<%= id %>" class="btn btn-warning mr-1">Edit</a>
-					                        <a href="delete_product.jsp?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId") %>" class="btn btn-danger">Delete</a>
+					                        <a onclick="return confirm('Are you sure you want to delete?')" href="delete_product.jsp?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId")%>" class="btn btn-danger">Delete</a>
 					                    </div>
 					                   	<%
 					                }

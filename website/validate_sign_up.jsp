@@ -21,48 +21,59 @@
 
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver");  
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);    
 			Statement stmt = conn.createStatement(); 
 			
-			// checks if email is equal to admin's email
-			String getAllAdministratorsQuery = "SELECT email FROM duotexture.administrators;";
-			ResultSet getAllAdministratorsResults = stmt.executeQuery(getAllAdministratorsQuery); 
+			// checks if email is equal to user's email
+			String getAllUserQuery = "SELECT email FROM duotexture.users;";
+			ResultSet getAllUserResults = stmt.executeQuery(getAllUserQuery); 
 			
-			while(getAllAdministratorsResults.next()){
-				String administratorsEmail = getAllAdministratorsResults.getString("email");
-				if(administratorsEmail.equals(inputEmail)){
-					throw new java.sql.SQLIntegrityConstraintViolationException("Duplicate Entry against Administrators' Email");
+			while(getAllUserResults.next()){
+				String userEmail = getAllUserResults.getString("email");
+				if(userEmail.equals(inputEmail)){
+					throw new java.sql.SQLIntegrityConstraintViolationException("Duplicate Entry against User's Email");
 				};
 			}		
 			
-			// insert inputs into members
-			String insertMemberQuery = "INSERT INTO duotexture.members(`email`, `username`, `password`, `first_name`, `last_name`, `country`, `address`, `postal_code`) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
-			PreparedStatement pstmt = conn.prepareStatement(insertMemberQuery);
+			// insert inputs into users table
+			String insertUserQuery = "INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES(?, ?, ?, ?);";
+			PreparedStatement pstmt = conn.prepareStatement(insertUserQuery);
 		    pstmt.setString(1, inputEmail);
 		    pstmt.setString(2, inputUsername);
 		    pstmt.setString(3, inputPassword);
-		    pstmt.setString(4, inputFirstName);
-		    pstmt.setString(5, inputLastName);
-		    pstmt.setString(6, inputCountry);
-		    pstmt.setString(7, inputAddress);
-		    pstmt.setString(8, inputPostalCode);
+		    pstmt.setString(4, "Member");
 			int count = pstmt.executeUpdate(); 
 			
 			if (count > 0){
-				// get last row of members
-				String getLastMembersQuery = "SELECT * FROM members ORDER BY memberId DESC LIMIT 1;";
+				// get last row of users
+				String getLastMembersQuery = "SELECT * FROM users ORDER BY userId DESC LIMIT 1;";
 				ResultSet getLastMembersResult = stmt.executeQuery(getLastMembersQuery);
 				
 				getLastMembersResult.next();
-				int memberId = getLastMembersResult.getInt("memberId");
+				int userId = getLastMembersResult.getInt("userId");
 				String memberUsername = getLastMembersResult.getString("username");
 				
-				session.setAttribute("memberId", memberId);
-				session.setAttribute("memberUsername", memberUsername);
+				session.setAttribute("userId", userId);
+				session.setAttribute("username", memberUsername);
 				session.setAttribute("accountType", "member");
 				
-				response.sendRedirect("index.jsp");
+				// insert inputs into members table
+				String insertMemberQuery = "INSERT INTO members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES(?, ?, ?, ?, ?, ?);";
+				PreparedStatement pstmt2 = conn.prepareStatement(insertMemberQuery);
+			    pstmt2.setString(1, inputFirstName);
+			    pstmt2.setString(2, inputLastName);
+			    pstmt2.setString(3, inputCountry);
+			    pstmt2.setString(4, inputAddress);
+			    pstmt2.setString(5, inputPostalCode);
+			    pstmt2.setObject(6, userId);
+				int count2 = pstmt2.executeUpdate(); 
+				
+				if(count2 > 0){
+					response.sendRedirect("index.jsp");
+				}else{
+					response.sendRedirect("sign_up.jsp?registration=fail"); 
+				}
 			}else{
 				response.sendRedirect("sign_up.jsp?registration=fail"); 
 			}                  
@@ -73,10 +84,10 @@
 			System.out.println("(validate_sign_up.jsp) Error: Wrong Flow\n");
 		}
 	} catch(java.sql.SQLIntegrityConstraintViolationException e){
-		System.out.println("Error: Duplicate Entry\n");
+		System.out.println("(validate_sign_up.jsp) Error: Duplicate Entry\n");
 		response.sendRedirect("sign_up.jsp?registration=fail"); 
 	} catch(Exception e){
-		System.out.println("Error: " + e + "\n");
+		System.out.println("(validate_sign_up.jsp) Error: " + e + "\n");
 		response.sendRedirect("sign_up.jsp?registration=fail"); 
 	}
 	%>

@@ -43,7 +43,7 @@
 			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);
 			
-			// insert inputs into products
+			// insert inputs into categories
 			String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
 			PreparedStatement pstmt = conn.prepareStatement(addCategoryQuery);
 		    pstmt.setString(1, inputCategoryName);

@@ -47,12 +47,12 @@
 	                }
             	}
             } catch(Exception e){
-            	System.out.println("(product_listings.jsp) Admin Add Access Error: " + e + "\n");
+            	System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
             } 
 		            
 			conn.close();      
 		} catch (Exception e) {         
-			System.out.println("Error :" + e + "\n");      
+			System.out.println("(navigation.jsp) Error :" + e + "\n");      
 		} 
 		%>
         </ul>

@@ -34,6 +34,7 @@
 					getAllUsersResult.next();
 					String userRole = getAllUsersResult.getString("userRole");
 					
+					// check if user is a member
 					if(getAllUsersResult.getString("userRole").equals("Member")){ %>
 					<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
      				<hr>
@@ -81,7 +82,9 @@
 				            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<%=getAllMembersDetailsResult.getString("postal_code")%>" required>
 				          </div>
 				        </div>   
-			        <% }else if(userRole.equals("Admin")){ %>
+			        <% 
+			        // check if user is admin
+					}else if(userRole.equals("Admin")){ %>
 			        	<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
 	     				<hr>
 				        <div class="form-row">

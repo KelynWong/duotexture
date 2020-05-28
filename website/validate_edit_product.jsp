@@ -45,10 +45,10 @@
 			
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(connURL);
 			
-			// edit and update products with inputs by product id
+			// edit and update categories with inputs by category id
 			String updateProductQuery = "UPDATE products SET name=?, description=?, cost_price=?, retail_price=?, quantity=?, categoryId=?, image=? WHERE productId=?;"; 
 			PreparedStatement pstmt = conn.prepareStatement(updateProductQuery);
 		    pstmt.setString(1, inputProductName);

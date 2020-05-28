@@ -1,0 +1,79 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import="java.sql.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Validate Edits</title>
+	<%
+	try{ 
+		// validate if user executing request is admin
+		if(session.getAttribute("accountType")!=null){
+			if(!session.getAttribute("accountType").equals("admin")){
+				%>
+				<script type="text/javascript">
+				window.location.href='index.jsp';
+				alert("You do not have access rights.");
+				</script>
+				<%
+			}
+		}else{
+			%>
+			<script type="text/javascript">
+			window.location.href='index.jsp';
+			alert("You do not have access rights.");
+			</script>
+			<%
+		}
+	} catch (Exception e){
+		System.out.println("(validate_edit_category.jsp) Admin Validation Error: " + e + "\n");
+	}
+	%>
+</head>
+<body>
+	<%		
+	try {       
+		if(request.getParameter("inputCategoryId")!=null){
+			int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
+			String inputCategoryName = request.getParameter("inputCategoryName");
+			String inputCategoryDescription = request.getParameter("inputCategoryDescription");
+			String inputCategoryImage = request.getParameter("inputCategoryImage");
+			
+			// connect to mysql database
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connURL);
+			
+			// edit and update products with inputs by product id
+			String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
+			PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
+		    pstmt.setString(1, inputCategoryName);
+		    pstmt.setString(2, inputCategoryDescription);
+		    pstmt.setString(3, inputCategoryImage);
+		    pstmt.setInt(4, inputCategoryId);
+			int count = pstmt.executeUpdate(); 
+		
+			if(count > 0){
+				response.sendRedirect("edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=success"); 
+			}else{
+				response.sendRedirect("edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=fail");
+			}
+			
+			conn.close();   
+		}else{
+			System.out.println("(validate_edit_category.jsp) Error: Wrong Flow\n");
+			response.sendRedirect("edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
+		}
+	} catch(java.sql.SQLIntegrityConstraintViolationException e){
+		System.out.println("(validate_edit_category.jsp) Error: Duplicate Entry\n");
+		response.sendRedirect("edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+	} catch (java.lang.NumberFormatException e) {         
+		System.out.println("(validate_edit_category.jsp) Error: Invalid Inputs\n"); 
+		response.sendRedirect("edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+	} catch (Exception e) {         
+		System.out.println("(validate_edit_category.jsp) Error :" + e + "\n");    
+		response.sendRedirect("edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+	} 
+	%>
+</body>
+</html>
