@@ -70,14 +70,14 @@
        		// display different error message dependant on request success and failure
        		if(request.getParameter("categoryAddition")!=null){
        			String errorMessage = "";
-       			String productAddition = request.getParameter("categoryAddition");
+       			String categoryAddition = request.getParameter("categoryAddition");
                	
-               	if(productAddition.equals("fail")){
+               	if(categoryAddition.equals("fail")){
                		errorMessage = "Attempt to add failed. Please try again.";
                		%>
     		        <small class="text-danger"><%= errorMessage %><br><br></small>
     		        <%
-               	}else if(productAddition.equals("success")){
+               	}else if(categoryAddition.equals("success")){
                		errorMessage = "Successfully Added.";
                		%>
     		        <small class="text-success"><%= errorMessage %><br><br></small>
