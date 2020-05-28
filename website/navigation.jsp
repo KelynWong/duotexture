@@ -15,6 +15,9 @@
       </button>
       <section class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
+        <li class="nav-item">
+			<a class="nav-link custom-font-mont fs-15" href="categories.jsp" role="button">All Categories</a>
+		</li>
 		<%
 		try {
 			// connect to mysql database
@@ -42,7 +45,7 @@
             		// if account is admin, allow access to add function
 	            	if(session.getAttribute("accountType").equals("admin")){
 	                   	%>
-	                   	<a href="add_category.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
+	                   	<a class="nav-link custom-font-mont fs-15 text-success" href="add_category.jsp" style="margin-left: 10px">Add</a>
 	                   	<%
 	                }
             	}
