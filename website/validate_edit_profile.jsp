@@ -16,7 +16,7 @@
 			
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver");         
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=potato&serverTimezone=UTC";      
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
 			Connection conn = DriverManager.getConnection(connURL);   
 			
 			// edit and update user with inputs by user id
