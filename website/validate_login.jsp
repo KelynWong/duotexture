@@ -41,13 +41,16 @@
 					}else if(userRole.equals("Member")){
 						isMember = true;
 						session.setAttribute("accountType", "member");
-					}else if(isAdmin == false && isMember == false){
-						response.sendRedirect("login.jsp?accountType=none");
 					}
+					
 					session.setAttribute("userId", userId);
 	        		session.setAttribute("username", username);
 					response.sendRedirect("index.jsp");
 				}
+			}
+			
+			if(isAdmin == false && isMember == false){
+				response.sendRedirect("login.jsp?accountType=none");
 			}
 			conn.close();
 		}else{
