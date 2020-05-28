@@ -2,6 +2,16 @@
     pageEncoding="ISO-8859-1" import="java.sql.*"%>
 <!DOCTYPE html>
 <html lang="en">
+<!-- 
+	Class: DIT/FT/2B/21
+	Group: 1
+	
+	Name: LEE ZONG XUN RENFRED
+	Admin Number: P1935392 
+	
+	Name: WONG EN TING KELYN
+	Admin Number: P1935800
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
