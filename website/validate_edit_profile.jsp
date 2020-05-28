@@ -43,16 +43,17 @@
 				String inputAddress = request.getParameter("inputAddress");
 				String inputCountry = request.getParameter("inputCountry");
 				String inputPostalCode = request.getParameter("inputPostalCode");
-				// edit and update members with iputs by user id
-				String updateMembersQuery = "UPDATE members SET first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE userId=?"; 
+				
+				// edit and update members with inputs by user id
+				String updateMembersQuery = "UPDATE members SET first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE userId=?;"; 
 				PreparedStatement pstmt2 = conn.prepareStatement(updateMembersQuery);
-				pstmt.setString(1, inputFirstName);
-			    pstmt.setString(2, inputLastName);
-			    pstmt.setString(3, inputCountry);
-			    pstmt.setString(4, inputAddress);
-			    pstmt.setString(5, inputPostalCode);
-			    pstmt.setObject(6, session.getAttribute("userId"));
-			    int count2 = pstmt2.executeUpdate(); 
+				pstmt2.setString(1, inputFirstName);
+			    pstmt2.setString(2, inputLastName);
+			    pstmt2.setString(3, inputCountry);
+			    pstmt2.setString(4, inputAddress);
+			    pstmt2.setString(5, inputPostalCode);
+			    pstmt2.setObject(6, session.getAttribute("userId"));
+			    int count2 = pstmt2.executeUpdate();
 			    
 			    if(count2 > 0){
 			    	session.setAttribute("username", inputUsername);
