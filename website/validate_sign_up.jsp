@@ -57,12 +57,12 @@
 			
 			if (count > 0){
 				// get last row of users
-				String getLastMemberQuery = "SELECT * FROM users ORDER BY userId DESC LIMIT 1;";
-				ResultSet getLastMemberResult = stmt.executeQuery(getLastMemberQuery);
+				String getLastUserQuery = "SELECT * FROM users ORDER BY userId DESC LIMIT 1;";
+				ResultSet getLastUserResult = stmt.executeQuery(getLastUserQuery);
 				
-				getLastMemberResult.next();
-				int userId = getLastMemberResult.getInt("userId");
-				String memberUsername = getLastMemberResult.getString("username");
+				getLastUserResult.next();
+				int userId = getLastUserResult.getInt("userId");
+				String memberUsername = getLastUserResult.getString("username");
 				
 				session.setAttribute("userId", userId);
 				session.setAttribute("username", memberUsername);

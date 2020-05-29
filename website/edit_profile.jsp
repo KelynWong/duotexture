@@ -60,7 +60,7 @@
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputPassword">Password</label>
-				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" required>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" minlength="8" required>
 				          </div>
 				          <% 
 					        String getAllMembersDetailsQuery = "SELECT * FROM members WHERE userId = ? LIMIT 1;";
@@ -96,7 +96,7 @@
 			        <% 
 			        // check if user is admin
 					}else if(userRole.equals("Admin")){ %>
-			        	<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
+			        	<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - A d m i n - P r o f i l e</p>
 	     				<hr>
 				        <div class="form-row">
 				          <div class="form-group col-md-12">
@@ -109,7 +109,7 @@
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputPassword">Password</label>
-				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" required>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" minlength="8" required>
 				          </div>
 				        </div>
 			        <% }

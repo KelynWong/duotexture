@@ -14,7 +14,7 @@
 -->
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Validate Edits</title>
+	<title>Validate Edit Category</title>
 	<%
 	try{ 
 		// validate if user executing request is admin
@@ -47,7 +47,7 @@
 			int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
 			String inputCategoryName = request.getParameter("inputCategoryName");
 			String inputCategoryDescription = request.getParameter("inputCategoryDescription");
-			String inputCategoryImage = request.getParameter("inputCategoryImage");
+			String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 			
 			// connect to mysql database
 			Class.forName("com.mysql.jdbc.Driver"); 
@@ -59,7 +59,7 @@
 			PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
 		    pstmt.setString(1, inputCategoryName);
 		    pstmt.setString(2, inputCategoryDescription);
-		    pstmt.setString(3, inputCategoryImage);
+		    pstmt.setString(3, inputCategoryImageUrl);
 		    pstmt.setInt(4, inputCategoryId);
 			int count = pstmt.executeUpdate(); 
 		

@@ -14,7 +14,7 @@
 -->
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Validate Edits</title>
+	<title>Validate Edit Product</title>
 	<%
 	try{ 
 		// validate if user executing request is admin

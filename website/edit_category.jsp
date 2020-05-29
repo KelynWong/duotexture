@@ -52,7 +52,7 @@
 
     <section class="col-12 p-5 row">
     	
-      <!-- edit product form -->
+      <!-- edit category form -->
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_edit_category.jsp" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - C a t e g o r y</p>
         <hr>
@@ -83,20 +83,20 @@
 
 				<div class="form-row">
 		          <div class="form-group row col-md-12">
-		            <label class="my-1 col-2" for="inputProductId">Category Id</label>
+		            <label class="my-1 col-2" for="inputCategoryId">Category Id</label>
 		            <input type="text" class="form-control col-10" id="inputCategoryId" name="inputCategoryId" placeholder="Category Id" value="<%= getCategoryId %>" readonly required>
 		          </div>
 		          <div class="form-group col-md-12">
-		            <label for="inputProductName">Name</label>
+		            <label for="inputCategoryName">Name</label>
 		            <input type="text" class="form-control" id="inputCategoryName" name="inputCategoryName" value="<%= categoryName %>" required>
 		          </div>
 		          <div class="form-group col-md-12">
-		            <label for="inputProductDescription">Description</label>
+		            <label for="inputCategoryDescription">Description</label>
 		            <textarea type="text" class="form-control" id="inputCategoryDescription" name="inputCategoryDescription" required><%= categoryDescription %></textarea>
 		          </div>
 		          <div class="form-group col-md-12">
-		            <label for="inputCostPrice">Image url</label>
-		            <input type="text" class="form-control" id="inputCategoryImage" name="inputCategoryImage" value="<%= categoryImage %>" required>
+		            <label for="inputCategoryImageUrl">Image url</label>
+		            <input type="text" class="form-control" id="inputCategoryImageUrl" name="inputCategoryImageUrl" value="<%= categoryImage %>" required>
 		          </div>
 		        </div>
 		        

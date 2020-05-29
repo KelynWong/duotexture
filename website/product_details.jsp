@@ -38,18 +38,18 @@
 			Connection conn = DriverManager.getConnection(connURL);   
 			
 			// get and display all products by product id
-			String getProductsByIdQuery = "SELECT * FROM products WHERE productId=?";   
-			PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
+			String getProductByIdQuery = "SELECT * FROM products WHERE productId=?";   
+			PreparedStatement pstmt = conn.prepareStatement(getProductByIdQuery);
 		    pstmt.setInt(1, getProductId);
-			ResultSet getProductsByIdResult = pstmt.executeQuery(); 
+			ResultSet getProductByIdResult = pstmt.executeQuery(); 
 		
-			while(getProductsByIdResult.next())   { 
-				int productId = getProductsByIdResult.getInt("categoryId");   
-				String productName = getProductsByIdResult.getString("name");               
-				String productDescription = getProductsByIdResult.getString("description");
-				String productRetailPrice = getProductsByIdResult.getString("retail_price");
-				String productQuantity = getProductsByIdResult.getString("quantity");
-				String productImage = getProductsByIdResult.getString("image"); 
+			while(getProductByIdResult.next())   { 
+				int productId = getProductByIdResult.getInt("categoryId");   
+				String productName = getProductByIdResult.getString("name");               
+				String productDescription = getProductByIdResult.getString("description");
+				String productRetailPrice = getProductByIdResult.getString("retail_price");
+				String productQuantity = getProductByIdResult.getString("quantity");
+				String productImage = getProductByIdResult.getString("image"); 
 				%>
 				
 				<section class="slide col-4">

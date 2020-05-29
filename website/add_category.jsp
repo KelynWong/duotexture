@@ -59,19 +59,19 @@
 
         <div class="form-row">
           <div class="form-group col-md-12">
-            <label for="inputProductName">Name</label>
+            <label for="inputCategoryName">Name</label>
             <input type="text" class="form-control" id="inputCategoryName" name="inputCategoryName" placeholder="Name of category" required>
           </div>
           <div class="form-group col-md-12">
-            <label for="inputProductDescription">Description</label>
+            <label for="inputCategoryDescription">Description</label>
             <input type="text" class="form-control" id="inputCategoryDescription" name="inputCategoryDescription" placeholder="Category description" required>
           </div>
         </div>
         
         <div class="form-row">
 	        <div class="form-group col-md-12">
-	          <label for="inputImageUrl">Image Url</label>
-	          <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" placeholder="./assets/images/image1.jpg" required>
+	          <label for="inputCategoryImageUrl">Image Url</label>
+	          <input type="text" class="form-control" id="inputCategoryImageUrl" name="inputCategoryImageUrl" placeholder="./assets/images/image1.jpg" required>
 	        </div>
 	    </div>
         

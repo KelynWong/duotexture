@@ -90,12 +90,12 @@
 					Connection conn = DriverManager.getConnection(connURL);   
 					Statement stmt = conn.createStatement(); 
 					
-					// get all categories
-					String getCategoriesQuery = "SELECT * FROM categories";    
-					ResultSet getCategoriesResults = stmt.executeQuery(getCategoriesQuery);
+					// get and display all categories
+					String getAllCategoriesQuery = "SELECT * FROM categories";    
+					ResultSet getAllCategoriesResults = stmt.executeQuery(getAllCategoriesQuery);
 					
-					while(getCategoriesResults.next())   { 
-						int categoryId = getCategoriesResults.getInt("categoryId");  
+					while(getAllCategoriesResults.next())   { 
+						int categoryId = getAllCategoriesResults.getInt("categoryId");  
 						out.println("<option>"+categoryId+"</option>");
 					} 
 						
