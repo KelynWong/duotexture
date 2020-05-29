@@ -100,7 +100,7 @@
 					} 
 						
 			      } catch(Exception e){
-			    	  System.out.println("(edit_product.jsp) Category Error: " + e + "\n");
+			    	  System.out.println("(add_product.jsp) Category Error: " + e + "\n");
 			      }
 			      %>
 		    </select>
