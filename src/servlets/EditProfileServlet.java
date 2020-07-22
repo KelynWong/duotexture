@@ -113,14 +113,14 @@ public class EditProfileServlet extends HttpServlet {
 				
 				conn.close(); 			
 			}else{
-				System.out.println("(validate_edit_profile.jsp) Error: Wrong Flow\n");
+				System.out.println("(SignUpServlet) Error: Wrong Flow\n");
 				response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
 			}
 		} catch(java.sql.SQLIntegrityConstraintViolationException e){
-			System.out.println("(validate_edit_profile.jsp) Error: Duplicate Entry\n");
+			System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
 			response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
 		} catch (Exception e) {         
-			System.out.println("(validate_edit_profile.jsp) Error: " + e + "\n");
+			System.out.println("(SignUpServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
 		}
 	}
