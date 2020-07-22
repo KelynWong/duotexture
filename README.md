@@ -11,4 +11,8 @@ Admin Number: P1935800
 
 INSTRUCTION BRIEF
 
+1. Extract the file
+2. Create a new project in Eclipse
+3. Replace file content with extracted content
+
 -- To be written --
