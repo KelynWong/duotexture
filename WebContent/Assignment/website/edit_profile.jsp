@@ -28,7 +28,7 @@
     <section class="col-12 p-5 row">
        
       <!-- edit profile form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="validate_edit_profile.jsp" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="../../EditProfileServlet" method="post">
 		<%
 		try{
 			// connect to mysql database
