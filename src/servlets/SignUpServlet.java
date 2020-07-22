@@ -128,13 +128,13 @@ public class SignUpServlet extends HttpServlet {
 				conn.close();
 			}else{
 				response.sendRedirect("Assignment/website/sign_up.jsp");
-				System.out.println("(validate_sign_up.jsp) Error: Wrong Flow\n");
+				System.out.println("(SignUpServlet) Error: Wrong Flow\n");
 			}
 		} catch(java.sql.SQLIntegrityConstraintViolationException e){
-			System.out.println("(validate_sign_up.jsp) Error: Duplicate Entry\n");
+			System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
 			response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
 		} catch(Exception e){
-			System.out.println("(validate_sign_up.jsp) Error: " + e + "\n");
+			System.out.println("(SignUpServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
 		}
 	}
