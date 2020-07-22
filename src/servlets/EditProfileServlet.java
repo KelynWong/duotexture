@@ -78,9 +78,9 @@ public class EditProfileServlet extends HttpServlet {
 				if(session.getAttribute("accountType").equals("admin")){
 					if(count > 0){
 						session.setAttribute("username", inputUsername);
-						response.sendRedirect("edit_profile.jsp?profileEdit=success"); 
+						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=success"); 
 					}else{
-						response.sendRedirect("edit_profile.jsp?profileEdit=fail");
+						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
 					}
 				}
 				
@@ -105,23 +105,23 @@ public class EditProfileServlet extends HttpServlet {
 				    
 				    if(count2 > 0){
 				    	session.setAttribute("username", inputUsername);
-						response.sendRedirect("edit_profile.jsp?profileEdit=success"); 
+						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=success"); 
 					}else{
-						response.sendRedirect("edit_profile.jsp?profileEdit=fail");
+						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
 					}
 				}        	
 				
 				conn.close(); 			
 			}else{
 				System.out.println("(validate_edit_profile.jsp) Error: Wrong Flow\n");
-				response.sendRedirect("edit_profile.jsp?profileEdit=fail");
+				response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
 			}
 		} catch(java.sql.SQLIntegrityConstraintViolationException e){
 			System.out.println("(validate_edit_profile.jsp) Error: Duplicate Entry\n");
-			response.sendRedirect("edit_profile.jsp?profileEdit=fail");	
+			response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
 		} catch (Exception e) {         
 			System.out.println("(validate_edit_profile.jsp) Error: " + e + "\n");
-			response.sendRedirect("edit_profile.jsp?profileEdit=fail");	
+			response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
 		}
 	}
 
