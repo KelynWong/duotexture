@@ -55,7 +55,6 @@ public class EditProductServlet extends HttpServlet {
 		// get current session
 		HttpSession session=request.getSession();
 
-		
 //		try{ 
 //			// validate if user executing request is admin
 //			if(session.getAttribute("accountType")!=null){
@@ -119,13 +118,13 @@ public class EditProductServlet extends HttpServlet {
 				response.sendRedirect("Assignment/website/edit_product.jsp?productEdit=fail");
 			}
 		} catch(java.sql.SQLIntegrityConstraintViolationException e){
-			System.out.println("Edit Product Error: Duplicate Entry\n");
+			System.out.println("(EditProductServlet) Error: Duplicate Entry\n");
 			response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 		} catch (java.lang.NumberFormatException e) {         
-			System.out.println("Edit Product Error: Invalid Inputs\n"); 
+			System.out.println("(EditProductServlet) Error: Invalid Inputs\n"); 
 			response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 		} catch (Exception e) {         
-			System.out.println("Edit Product Error :" + e + "\n");    
+			System.out.println("(EditProductServlet) Error :" + e + "\n");    
 			response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 		} 
 	}
