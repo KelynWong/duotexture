@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.*;
 
 /**
- * Title: Servlet implementation class LoginServlet
+ * Servlet implementation class LoginServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
