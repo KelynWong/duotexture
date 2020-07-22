@@ -45,7 +45,7 @@
     
     <section class="col-12 p-5 row">
       <!-- login form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="../LoginServlet" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="../../LoginServlet" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - L o g I n</p>
         
         <div class="form-group">
