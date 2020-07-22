@@ -101,10 +101,10 @@ public class LoginServlet extends HttpServlet {
 				conn.close();
 			}else{
 				response.sendRedirect("login.jsp");
-				System.out.println("(validate_login.jsp) Error: Wrong Flow\n");
+				System.out.println("(LoginServlet) Error: Wrong Flow\n");
 			}
 		}catch(Exception e){
-			System.out.println("(validate_login.jsp) Error: " + e + "\n");
+			System.out.println("(LoginServlet) Error: " + e + "\n");
 		}
 	}
 
