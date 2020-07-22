@@ -91,12 +91,12 @@ public class LoginServlet extends HttpServlet {
 						
 						session.setAttribute("userId", userId);
 		        		session.setAttribute("username", username);
-						response.sendRedirect("index.jsp");
+						response.sendRedirect("Assignment/website/index.jsp");
 					}
 				}
 				
 				if(isAdmin == false && isMember == false){
-					response.sendRedirect("login.jsp?accountType=none");
+					response.sendRedirect("Assignment/website/login.jsp?accountType=none");
 				}
 				conn.close();
 			}else{
