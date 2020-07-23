@@ -1,13 +1,22 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import java.sql.*;
 
@@ -56,6 +65,29 @@ public class AddProductServlet extends HttpServlet {
 		// get current session
 		HttpSession session=request.getSession();
 
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String fah = request.getParameter("fah");
+		
+		Client client = ClientBuilder.newClient();
+		
+		WebTarget target = client.target("http://localhost:8080/RestWSClient/rest/")
+				.path("FtoCService").queryParam("fah", fah);
+		Invocation.Builder invoBuilder = target.request(MediaType.APPLICATION_JSON);
+		Response resp = invoBuilder.get();
+		System.out.println("Status: " + resp.getStatus());
+		
+		if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+			System.out.println("Success");
+			String result = resp.readEntity(new GenericType<String>() {});
+			
+			System.out.println("result: " + result);
+			
+			request.setAttribute("result", result);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/FtoCdisplay.jsp");
+			rd.forward(request, response);
+		}
 //		try{ 
 //			// validate if user executing request is admin
 //			if(session.getAttribute("accountType")!=null){
@@ -128,4 +160,20 @@ public class AddProductServlet extends HttpServlet {
 		}
 	}
 
+//	public void ServletRedirect() {
+//		System.out.println("hihi");
+//		HttpServletResponse response = null;
+//		try {
+//			response.sendRedirect("Assignment/website/add_product.jsp?");
+//			PrintWriter out = response.getWriter();  
+//			out.println("<script type='text/javascript'>");
+//			out.println("window.location.href='index.jsp';");
+//			out.println("alert('You do not have access rights.');");
+//			out.println("</script>");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        // TODO Auto-generated constructor stub
+//    }
 }
