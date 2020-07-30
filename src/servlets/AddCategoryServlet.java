@@ -99,6 +99,7 @@ public class AddCategoryServlet extends HttpServlet {
 							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
 							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 							
+							// add category
 							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
 						
 							if(count > 0){
