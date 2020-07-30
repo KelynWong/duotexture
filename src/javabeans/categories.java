@@ -1,4 +1,4 @@
-package dbaccess;
+package javabeans;
 
 public class categories {
 	private int categoryId;

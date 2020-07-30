@@ -1,4 +1,4 @@
-package dbaccess;
+package javabeans;
 
 public class products {
 	private int productId;

@@ -1,4 +1,4 @@
-package dbaccess;
+package javabeans;
 
 public class members {
 	private String first_name;
