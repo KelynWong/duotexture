@@ -52,7 +52,7 @@ public class EditProfileServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
-				System.out.println("(EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile."); 
+				System.out.println("(EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile.\n"); 
 				response.sendRedirect("Assignment/website/edit_profile.jsp");
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -61,7 +61,7 @@ public class EditProfileServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditProfileServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(EditProfileServlet) Validation Error: " + e + "\n");
 		}
 	}
 

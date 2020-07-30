@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("(LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp."); 
+		System.out.println("(LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
 		response.sendRedirect("Assignment/website/index.jsp");
 	}
 
@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(LoginServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(LoginServlet) Validation Error: " + e + "\n");
 		}
 	}
 }

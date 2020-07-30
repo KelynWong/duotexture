@@ -58,7 +58,7 @@ public class EditProductServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(EditProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit."); 
+					System.out.println("(EditProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit.\n"); 
 					response.sendRedirect("Assignment/website/categories.jsp");
 				}
 			} else{

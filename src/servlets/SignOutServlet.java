@@ -82,7 +82,7 @@ public class SignOutServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(SignOutServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(SignOutServlet) Validation Error: " + e + "\n");
 		}
 	}
 
