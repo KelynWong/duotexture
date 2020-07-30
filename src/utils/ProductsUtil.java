@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import javabeans.Products;
 
-public class productsDB {
+public class ProductsUtil {
 	public Products getProducts (int categoryId) {
 		Products uBean = null;
 		Connection conn = null;
