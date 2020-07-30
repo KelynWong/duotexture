@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javabeans.Members;
+import javabeans.MemberBean;
 
 public class MembersUtil {
-	public Members getMembers (int userId) {
-		Members uBean = null;
+	public MemberBean getMembers (int userId) {
+		MemberBean uBean = null;
 		Connection conn = null;
 		
 		try {
@@ -20,7 +20,7 @@ public class MembersUtil {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM duotexture.members WHERE userId =" + userId);
 			
 			if(rs.next()) {
-				uBean = new Members();
+				uBean = new MemberBean();
 				uBean.setFirstName(rs.getString("first_name"));
 				uBean.setLastName(rs.getString("last_name"));
 				uBean.setCountry(rs.getString("country"));
