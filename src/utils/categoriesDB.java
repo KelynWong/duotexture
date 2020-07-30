@@ -13,7 +13,7 @@ import javabeans.categories;
 public class categoriesDB {
 	
 	// get all categories
-	public ArrayList getCategories () {
+	public ArrayList<categories> getCategories () {
 		// pre-define variables
 		categories categoryBean = null;
 		ArrayList<categories> categoriesArrayList = null;
