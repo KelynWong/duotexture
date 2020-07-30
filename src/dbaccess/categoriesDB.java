@@ -4,43 +4,62 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+
 
 public class categoriesDB {
-	public categories getCategories (int categoryId) {
-		categories uBean = null;
+	
+	// get category by id
+	public categories getCategoryById (int categoryId) {
+		// pre-define variables
+		categories categoryBean = null;
 		Connection conn = null;
 		
 		try {
+			// connect to database
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC");
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM duotexture.categories WHERE categoryId =" + categoryId);
+			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
+			conn = DriverManager.getConnection(connURL);
 			
-			if(rs.next()) {
-				uBean = new categories();
-				uBean.setCategoryId(rs.getInt("categoryId"));
-				uBean.setName(rs.getString("name"));
-				uBean.setDescription(rs.getString("description"));
-				uBean.setImage(rs.getString("image"));
+			// prepared statement and query string
+			String getCategoryByIdQuery = "SELECT * FROM duotexture.categories WHERE categoryId=?;";
+			PreparedStatement pstmt = conn.prepareStatement(getCategoryByIdQuery);
+			pstmt.setInt(1,  categoryId);
+			ResultSet getCategoryByIdResult = pstmt.executeQuery();
+			
+			// create an instance of categories
+			categoryBean = new categories();
+			
+			// if there is a new row
+			if(getCategoryByIdResult.next()) {
+				categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
+				categoryBean.setName(getCategoryByIdResult.getString("name"));
+				categoryBean.setDescription(getCategoryByIdResult.getString("description"));
+				categoryBean.setImage(getCategoryByIdResult.getString("image"));
 			}
+			
 		}catch(Exception e) {
+			System.out.println("(categoriesDB.java) Error: " + e + "\n");
 		}finally {
 			try {
 				conn.close();
-			}catch(Exception e) {}
+			}catch(Exception e) {
+				System.out.println("(categoriesDB.java) Error: " + e + "\n");
+			}
 		}
-		return uBean;
+		
+		return categoryBean;
 	}
 	
-	public int insertCategories (String name, String description, String image) {
+	public int insertCategory (String name, String description, String image) {
+		// pre-define variables
 		Connection conn = null;
 		int count = 0;
 		
 		try {
-			// connect to mysql database
+			// connect to database
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC");
+			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
+			conn = DriverManager.getConnection(connURL);
 
 			// insert inputs into categories
 			String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
@@ -51,22 +70,27 @@ public class categoriesDB {
 			count = pstmt.executeUpdate(); 
 			
 		}catch(Exception e) {
+			System.out.println("(categoriesDB.java) Error: " + e + "\n");
 		}finally {
 			try {
 				conn.close();
-			}catch(Exception e) {}
+			}catch(Exception e) {
+				System.out.println("(categoriesDB.java) Error: " + e + "\n");
+			}
 		}
 		return count;
 	}
 	
-	public int editCategories (String name, String description, String image, int categoryId) {
+	public int editCategory (String name, String description, String image, int categoryId) {
+		// pre-define variables
 		Connection conn = null;
 		int count = 0;
 		
 		try {
-			// connect to mysql database
+			// connect to database
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC");
+			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
+			conn = DriverManager.getConnection(connURL);
 
 			// edit and update category with inputs by category id
 			String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
@@ -78,11 +102,38 @@ public class categoriesDB {
 			count = pstmt.executeUpdate(); 
 			
 		}catch(Exception e) {
+			System.out.println("(categoriesDB.java) Error: " + e + "\n");
 		}finally {
 			try {
 				conn.close();
-			}catch(Exception e) {}
+			}catch(Exception e) {
+				System.out.println("(categoriesDB.java) Error: " + e + "\n");
+			}
 		}
+		return count;
+	}
+	
+	public int deleteCategory (int categoryId) {
+		// pre-define variables
+		Connection conn = null;
+		int count = 0;
+		
+		try {
+			// connect to database
+			Class.forName("com.mysql.jdbc.Driver");         
+			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
+			conn = DriverManager.getConnection(connURL);   
+			
+			// delete category by given id
+			String deleteCategory = "DELETE FROM categories WHERE categoryId=?"; 
+			PreparedStatement pstmt = conn.prepareStatement(deleteCategory);
+		    pstmt.setInt(1, categoryId);
+			count = pstmt.executeUpdate(); 
+
+		} catch (Exception e) {
+			System.out.println("(categoriesDB.java) Error: " + e + "\n");
+		}
+		
 		return count;
 	}
 }
