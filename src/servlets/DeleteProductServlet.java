@@ -96,29 +96,29 @@ public class DeleteProductServlet extends HttpServlet {
 					
 					if(count > 0){
 						out.println("<script type='text/javascript'>");
-						out.println("window.location.href='product_listings.jsp?categoryId=" + categoryId + "';");
+						out.println("window.location.href='Assignment/website/product_listings.jsp?categoryId=" + categoryId + "';");
 						out.println("alert('Product has successfully been deleted.');");
 						out.println("</script>");
 					}else{
 						out.println("<script type='text/javascript'>");
-						out.println("window.location.href='product_listings.jsp?categoryId=" + categoryId + "';");
+						out.println("window.location.href='Assignment/website/product_listings.jsp?categoryId=" + categoryId + "';");
 						out.println("alert('Failed to delete product.');");
 						out.println("</script>");						
 					}   
 				}else{
 					System.out.println("(DeleteProductServlet) Error: ProductId is null.\n");
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='product_listings.jsp?categoryId=" + categoryId + "';");
+					out.println("window.location.href='Assignment/website/product_listings.jsp?categoryId=" + categoryId + "';");
 					out.println("alert('Failed to delete product.');");
 					out.println("</script>");		
 				}
 			}else{
 				System.out.println("(DeleteProductServlet) Error: CategoryId is null.\n");
-				response.sendRedirect("categories.jsp");
+				response.sendRedirect("Assignment/website/categories.jsp");
 			}
 		} catch (Exception e) {         
 			System.out.println("(DeleteProductServlet) Error: " + e + "\n");
-			response.sendRedirect("categories.jsp");
+			response.sendRedirect("Assignment/website/categories.jsp");
 		} 
 	}
 
