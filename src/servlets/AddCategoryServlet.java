@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import database.Database;
-import utils.CategoriesUtil;
+import utils.CategoryUtils;
 
 import java.io.PrintWriter;
 
@@ -99,7 +99,7 @@ public class AddCategoryServlet extends HttpServlet {
 							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
 							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 							
-							int count = CategoriesUtil.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
+							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
 						
 							if(count > 0){
 								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=success"); 

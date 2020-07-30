@@ -10,7 +10,7 @@ import database.Database;
 import javabeans.Category;
 
 
-public class CategoriesUtil {
+public class CategoryUtils {
 	
 	// get all categories
 	public ArrayList<Category> getCategories () throws Exception {
