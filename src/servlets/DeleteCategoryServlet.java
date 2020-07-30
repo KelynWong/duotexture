@@ -1,15 +1,35 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import database.Database;
+import utils.CategoryUtils;
+
+import java.io.PrintWriter;
+
+import java.sql.*;
 
 /**
  * Servlet implementation class DeleteCategoryServlet
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
  */
+
 @WebServlet("/DeleteCategoryServlet")
 public class DeleteCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,16 +46,92 @@ public class DeleteCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// get current session
+		HttpSession session=request.getSession();
+
+		try{ 
+			// validate if user is logged in with an account type
+			if(session.getAttribute("accountType")!=null){
+				// validate if user executing request is admin
+				if(!session.getAttribute("accountType").equals("admin")){
+					PrintWriter out = response.getWriter();  
+					out.println("<script type='text/javascript'>");
+					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("alert('You do not have access rights.');");
+					out.println("</script>");
+
+				}
+			}else{
+				PrintWriter out = response.getWriter();  
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("alert('You do not have access rights.');");
+				out.println("</script>");
+			}
+		} catch (Exception e){
+			System.out.println("(AddCategoryServlet) Admin Validation Error: " + e + "\n");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// get current session
+		HttpSession session=request.getSession();
+		
+		// get writer
+		PrintWriter out = response.getWriter();  
+
+		try{ 
+			// validate if user is logged in with an account type
+			if(session.getAttribute("accountType")!=null){
+				// validate if user executing request is admin
+				if(!session.getAttribute("accountType").equals("admin")){
+					
+					out.println("<script type='text/javascript'>");
+					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("alert('You do not have access rights.');");
+					out.println("</script>");
+				} else {
+					try {
+						if(request.getParameter("categoryId")!=null){
+								int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+								
+								// connect to mysql database
+								int count = CategoryUtils.deleteCategory(categoryId); 
+								
+								if(count > 0){
+									out.println("<script type='text/javascript'>");
+									out.println("window.location.href='Assignment/website/categories.jsp';");
+									out.println("alert('Category has successfully been deleted.');");
+									out.println("</script>");
+								}else{
+									out.println("<script type='text/javascript'>");
+									out.println("window.location.href='Assignment/website/categories.jsp';");
+									out.println("alert('Failed to delete category.');");
+									out.println("</script>");
+								}    
+							}else{
+								out.println("<script type='text/javascript'>");
+								out.println("window.location.href='Assignment/website/categories.jsp';");
+								out.println("alert('Failed to delete category.');");
+								out.println("</script>");
+							}
+					} catch (Exception e) {         
+						System.out.println("(DeleteCategoryServlet) Error: " + e + "\n");
+						response.sendRedirect("categories.jsp");
+					} 
+				}
+			}else{ 
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("alert('You do not have access rights.');");
+				out.println("</script>");
+			}
+		} catch (Exception e){
+			System.out.println("(AddCategoryServlet) Admin Validation Error: " + e + "\n");
+		}
 	}
 
 }
