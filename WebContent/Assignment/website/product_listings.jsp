@@ -35,7 +35,7 @@
         	session.setAttribute("categoryId", getCategoryId);
 	    	%>
 	    	<!-- search and add function -->
-	        <form class="form-inline col-11 justify-content-center" action="../../DeleteProductServlet?categoryId=<%= getCategoryId %>" method="post">
+	        <form class="form-inline col-11 justify-content-center" action="product_listings.jsp?categoryId=<%= getCategoryId %>" method="post">
 	            <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
 	            <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
 	            <%
