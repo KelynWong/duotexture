@@ -22,7 +22,6 @@ import java.sql.*;
 
 /**
  * Servlet implementation class AddProductServlet
- * Servlet implementation class EditProductServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1

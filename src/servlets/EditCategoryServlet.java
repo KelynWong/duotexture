@@ -13,7 +13,6 @@ import java.sql.*;
 
 /**
  * Servlet implementation class EditCategoryServlet
- * Servlet implementation class EditProductServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
