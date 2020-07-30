@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.Database;
@@ -13,7 +14,7 @@ import javabeans.Category;
 public class CategoryUtils {
 	
 	// get all categories
-	public ArrayList<Category> getCategories () throws Exception {
+	public ArrayList<Category> getCategories () throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -45,7 +46,7 @@ public class CategoryUtils {
 	}
 	
 	// get category by id
-	public Category getCategoryById (int categoryId) throws Exception {
+	public Category getCategoryById (int categoryId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -72,7 +73,7 @@ public class CategoryUtils {
 	}
 	
 	// add category
-	public static int insertCategory (String name, String description, String image) throws Exception {
+	public static int insertCategory (String name, String description, String image) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
@@ -90,7 +91,7 @@ public class CategoryUtils {
 	}
 	
 	// edit category
-	public int editCategory (String name, String description, String image, int categoryId) throws Exception {
+	public int editCategory (String name, String description, String image, int categoryId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
@@ -109,7 +110,7 @@ public class CategoryUtils {
 	}
 	
 	// delete category
-	public static int deleteCategory (int categoryId) throws Exception {
+	public static int deleteCategory (int categoryId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
