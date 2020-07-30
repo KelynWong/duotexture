@@ -4,83 +4,112 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.Database;
-import javabeans.Category;
-
+import javabeans.User;
 
 public class UserUtils {
 	
-	// get all categories
-	public ArrayList<Category> getCategories () throws Exception {
+	// get all users
+	public static ArrayList<User> getUsers () throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement and query string
+		// prepared statement, get all users query and result
 		Statement stmt = conn.createStatement();
-		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories;";
-		ResultSet getCategoryByIdResult = stmt.executeQuery(getCategoryByIdQuery);
+		String getUsersQuery = "SELECT * FROM duotexture.users;";
+		ResultSet getUsersResult = stmt.executeQuery(getUsersQuery);
 		
-		// create new ArrayList of category
-		ArrayList<Category> categoriesArrayList = new ArrayList<Category>();
+		// create new ArrayList of user
+		ArrayList<User> usersArrayList = new ArrayList<User>();
 		
 		// loop if there are new row
-		while(getCategoryByIdResult.next()) {
-			// create an instance of category
-			Category categoryBean = new Category();
+		while(getUsersResult.next()) {
+			// create an instance of user
+			User userBean = new User();
 			
-			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
-			categoryBean.setName(getCategoryByIdResult.getString("name"));
-			categoryBean.setDescription(getCategoryByIdResult.getString("description"));
-			categoryBean.setImage(getCategoryByIdResult.getString("image"));
+			userBean.setUserId(getUsersResult.getInt("userId"));
+			userBean.setEmail(getUsersResult.getString("email"));
+			userBean.setUsername(getUsersResult.getString("username"));
+			userBean.setPassword(getUsersResult.getString("password"));
 			
-			// add categoryBean to categoriesArrayList
-			categoriesArrayList.add(categoryBean);
+			// add userBean to usersArrayList
+			usersArrayList.add(userBean);
 		}
 		
 		// close connection
 		conn.close();
-		return categoriesArrayList;
+		return usersArrayList;
 	}
 	
-	// get category by id
-	public Category getCategoryById (int categoryId) throws Exception {
+	// get user by id
+	public static User getUserById (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement and query string
-		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories WHERE categoryId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getCategoryByIdQuery);
-		pstmt.setInt(1,  categoryId);
-		ResultSet getCategoryByIdResult = pstmt.executeQuery();
+		// prepared statement, get a user by user id query and result
+		String getUserByIdQuery = "SELECT * FROM duotexture.users WHERE userId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getUserByIdQuery);
+		pstmt.setInt(1,  userId);
+		ResultSet getUserByIdResult = pstmt.executeQuery();
 		
-		// create an instance of category
-		Category categoryBean = new Category();
+		// create an instance of user
+		User userBean = new User();
 		
 		// if there is a new row
-		if(getCategoryByIdResult.next()) {
-			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
-			categoryBean.setName(getCategoryByIdResult.getString("name"));
-			categoryBean.setDescription(getCategoryByIdResult.getString("description"));
-			categoryBean.setImage(getCategoryByIdResult.getString("image"));
+		if(getUserByIdResult.next()) {
+			userBean.setUserId(getUserByIdResult.getInt("userId"));
+			userBean.setEmail(getUserByIdResult.getString("email"));
+			userBean.setUsername(getUserByIdResult.getString("username"));
+			userBean.setPassword(getUserByIdResult.getString("password"));
 		}
 		
 		// close connection
 		conn.close();
-		return categoryBean;
+		return userBean;
 	}
 	
-	public static int insertCategory (String name, String description, String image) throws Exception {
+	// add user
+	public static int insertUser (String email, String username, String password, String userRole) throws SQLException, ClassNotFoundException {
+		// pre-define variables
+		int userId = 0;
+		
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
-		// insert inputs into categories
-		String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
-		PreparedStatement pstmt = conn.prepareStatement(addCategoryQuery);
-	    pstmt.setString(1, name);
-	    pstmt.setString(2, description);
-	    pstmt.setString(3, image);
+		// prepared statement, add users query and result
+		String addUserQuery = "INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES(?, ?, ?, ?);";
+		PreparedStatement pstmt = conn.prepareStatement(addUserQuery, Statement.RETURN_GENERATED_KEYS);
+		pstmt.setString(1, email);
+	    pstmt.setString(2, username);
+	    pstmt.setString(3, password);
+	    pstmt.setObject(4, userRole);
+		int count = pstmt.executeUpdate(); 
+		
+		if(count > 0) {
+			// get the last inserted id
+			userId = pstmt.getGeneratedKeys().getInt(1);
+		}
+		
+		// close connection
+		conn.close();
+		return userId;
+	}
+	
+	// edit user
+	public static int editUser (int userId, String email, String username, String password) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+
+		// prepared statement, edit user query and result
+		String updateUserQuery = "UPDATE duotexture.users SET email=?, username=?, password=? WHERE userId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(updateUserQuery);
+		pstmt.setString(1, email);
+	    pstmt.setString(2, username);
+	    pstmt.setString(3, password);
+	    pstmt.setObject(4, userId);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
@@ -88,32 +117,15 @@ public class UserUtils {
 		return count;
 	}
 	
-	public int editCategory (String name, String description, String image, int categoryId) throws Exception {
-		// connect to database
-		Connection conn = Database.connectToDatabase();
-
-		// edit and update category with inputs by category id
-		String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
-		PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
-	    pstmt.setString(1, name);
-	    pstmt.setString(2, description);
-	    pstmt.setString(3, image);
-	    pstmt.setInt(4, categoryId);
-		int count = pstmt.executeUpdate(); 
-		
-		// close connection
-		conn.close();
-		return count;
-	}
-	
-	public static int deleteCategory (int categoryId) throws Exception {
+	// delete user
+	public static int deleteUser (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// delete category by given id
-		String deleteCategory = "DELETE FROM duotexture.categories WHERE categoryId=?"; 
-		PreparedStatement pstmt = conn.prepareStatement(deleteCategory);
-	    pstmt.setInt(1, categoryId);
+		// prepared statement, delete user query and result
+		String deleteUserQuery = "DELETE FROM duotexture.users WHERE userId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(deleteUserQuery);
+	    pstmt.setInt(1, userId);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
