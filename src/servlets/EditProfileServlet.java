@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.sql.*;
+import utils.UserUtils;
+import utils.MemberUtils;
 
 /**
  * Servlet implementation class EditProfileServlet
@@ -41,88 +43,99 @@ public class EditProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		// get current session
+		HttpSession session=request.getSession();
+
+		// get writer
+		PrintWriter out = response.getWriter();  
+		
+		try{ 
+			// validate if user is logged in with an account type
+			if(session.getAttribute("accountType")!=null){
+				System.out.println("(EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile."); 
+				response.sendRedirect("Assignment/website/edit_profile.jsp");
+			} else{
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/login.jsp';");
+				out.println("alert('You are not logged in.');");
+				out.println("</script>");
+			}
+		} catch (Exception e){
+			System.out.println("(EditProfileServlet) Admin Validation Error: " + e + "\n");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-		try {          
-			if(request.getParameter("inputUsername")!=null){
-				String inputUsername = request.getParameter("inputUsername");
-				String inputEmail = request.getParameter("inputEmail");
-				String inputPassword = request.getParameter("inputPassword");
-				
-				// get current session
-        		HttpSession session=request.getSession();
-				
-				// connect to mysql database
-				Class.forName("com.mysql.jdbc.Driver");         
-				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
-				Connection conn = DriverManager.getConnection(connURL);   
-				
-				// edit and update user with inputs by user id
-				String updateUserQuery = "UPDATE duotexture.users SET email=?, username=?, password=? WHERE userId=?"; 
-				PreparedStatement pstmt = conn.prepareStatement(updateUserQuery);
-			    pstmt.setString(1, inputEmail);
-			    pstmt.setString(2, inputUsername);
-			    pstmt.setString(3, inputPassword);
-			    pstmt.setObject(4, session.getAttribute("userId"));
-				int count = pstmt.executeUpdate(); 
-				
-				// if user is admin
-				if(session.getAttribute("accountType").equals("admin")){
-					if(count > 0){
-						session.setAttribute("username", inputUsername);
-						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=success"); 
+		// get current session
+		HttpSession session=request.getSession();
+
+		// get writer
+		PrintWriter out = response.getWriter();  
+		
+		try{ 
+			// validate if user is logged in with an account type
+			if(session.getAttribute("accountType")!=null){
+				try {          
+					if(request.getParameter("inputUsername")!=null){
+						String inputUsername = request.getParameter("inputUsername");
+						String inputEmail = request.getParameter("inputEmail");
+						String inputPassword = request.getParameter("inputPassword");
+						
+						// edit user
+						int count = UserUtils.editUser((int)session.getAttribute("userId"), inputEmail, inputUsername, inputPassword);
+						
+						// if user is admin
+						if(session.getAttribute("accountType").equals("admin")){
+							if(count > 0){
+								session.setAttribute("username", inputUsername);
+								response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=success"); 
+							}else{
+								response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
+							}
+						}
+						
+						// if user is an member
+						else if(session.getAttribute("accountType").equals("member")){
+							String inputFirstName = request.getParameter("inputFirstName");
+							String inputLastName = request.getParameter("inputLastName");
+							String inputAddress = request.getParameter("inputAddress");
+							String inputCountry = request.getParameter("inputCountry");
+							String inputPostalCode = request.getParameter("inputPostalCode");
+							
+							// edit member
+							int count2 = MemberUtils.editMember(inputFirstName, inputLastName, inputCountry, inputAddress, inputPostalCode, (int)session.getAttribute("userId"));
+						    
+						    if(count2 > 0){
+						    	session.setAttribute("username", inputUsername);
+								response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=success"); 
+							}else{
+								response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
+							}
+						}        	
+						 			
 					}else{
+						System.out.println("(EditProfileServlet) Error: Wrong Flow\n");
 						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
 					}
+				} catch(java.sql.SQLIntegrityConstraintViolationException e){
+					System.out.println("(EditProfileServlet) Error: Duplicate Entry\n");
+					response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
+				} catch (Exception e) {         
+					System.out.println("(EditProfileServlet) Error: " + e + "\n");
+					response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
 				}
-				
-				// if user is an member
-				else if(session.getAttribute("accountType").equals("member")){
-					String inputFirstName = request.getParameter("inputFirstName");
-					String inputLastName = request.getParameter("inputLastName");
-					String inputAddress = request.getParameter("inputAddress");
-					String inputCountry = request.getParameter("inputCountry");
-					String inputPostalCode = request.getParameter("inputPostalCode");
-					
-					// edit and update members with inputs by user id
-					String updateMembersQuery = "UPDATE members SET first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE userId=?;"; 
-					PreparedStatement pstmt2 = conn.prepareStatement(updateMembersQuery);
-					pstmt2.setString(1, inputFirstName);
-				    pstmt2.setString(2, inputLastName);
-				    pstmt2.setString(3, inputCountry);
-				    pstmt2.setString(4, inputAddress);
-				    pstmt2.setString(5, inputPostalCode);
-				    pstmt2.setObject(6, session.getAttribute("userId"));
-				    int count2 = pstmt2.executeUpdate();
-				    
-				    if(count2 > 0){
-				    	session.setAttribute("username", inputUsername);
-						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=success"); 
-					}else{
-						response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
-					}
-				}        	
-				
-				conn.close(); 			
-			}else{
-				System.out.println("(SignUpServlet) Error: Wrong Flow\n");
-				response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");
+			} else{
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("alert('You are not logged in.');");
+				out.println("</script>");
 			}
-		} catch(java.sql.SQLIntegrityConstraintViolationException e){
-			System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
-			response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
-		} catch (Exception e) {         
-			System.out.println("(SignUpServlet) Error: " + e + "\n");
-			response.sendRedirect("Assignment/website/edit_profile.jsp?profileEdit=fail");	
-		}
+		} catch (Exception e){
+			System.out.println("(EditProfileServlet) Admin Validation Error: " + e + "\n");
+		}		
 	}
 
 }
