@@ -102,7 +102,7 @@ public class AddProductServlet extends HttpServlet {
 							int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
 							String inputImageUrl = request.getParameter("inputImageUrl");
 							
-							// insert inputs into products
+							// add product
 							int count = ProductUtils.insertProduct(inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
 						
 							if(count > 0){
