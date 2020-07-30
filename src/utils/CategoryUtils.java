@@ -106,7 +106,7 @@ public class CategoryUtils {
 		return count;
 	}
 	
-	public int deleteCategory (int categoryId) throws Exception {
+	public static int deleteCategory (int categoryId) throws Exception {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
