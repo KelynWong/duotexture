@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import database.Database;
 import javabeans.Category;
 
-
 public class CategoryUtils {
 	
 	// get all categories
