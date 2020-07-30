@@ -44,19 +44,8 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// get current session
-		HttpSession session=request.getSession();
-		
-		try{ 
-			// if user is logged in with an account type
-			if(session.getAttribute("accountType")!=null){
-				System.out.println("(LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp."); 
-				response.sendRedirect("Assignment/website/index.jsp");
-			}
-			
-		} catch (Exception e){
-			System.out.println("(LoginServlet) Admin Validation Error: " + e + "\n");
-		}
+		System.out.println("(LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp."); 
+		response.sendRedirect("Assignment/website/index.jsp");
 	}
 
 	/**
