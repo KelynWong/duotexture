@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.sql.*;
+import utils.CategoryUtils;
 
 /**
  * Servlet implementation class EditCategoryServlet
@@ -41,83 +42,95 @@ public class EditCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		// get current session
+		HttpSession session=request.getSession();
+
+		// get writer
+		PrintWriter out = response.getWriter();  
+		
+		try{ 
+			// validate if user is logged in with an account type
+			if(session.getAttribute("accountType")!=null){
+				// validate if user executing request is admin
+				if(!session.getAttribute("accountType").equals("admin")){
+					out.println("<script type='text/javascript'>");
+					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("alert('You do not have access rights.');");
+					out.println("</script>");
+				} else {
+					System.out.println("(EditCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to edit."); 
+					response.sendRedirect("Assignment/website/categories.jsp");
+				}
+			} else{
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("alert('You do not have access rights.');");
+				out.println("</script>");
+			}
+		} catch (Exception e){
+			System.out.println("(EditCategoryServlet) Admin Validation Error: " + e + "\n");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-		
 		// get current session
 		HttpSession session=request.getSession();
 
-//		try{ 
-//			// validate if user executing request is admin
-//			if(session.getAttribute("accountType")!=null){
-//				if(!session.getAttribute("accountType").equals("admin")){
-//					PrintWriter out = response.getWriter();  
-//					out.println("<script type='text/javascript'>");
-//					out.println("window.location.href='index.jsp';");
-//					out.println("alert('You do not have access rights.');");
-//					out.println("</script>");
-//
-//				}
-//			}else{
-//				PrintWriter out = response.getWriter();  
-//				out.println("<script type='text/javascript'>");
-//				out.println("window.location.href='index.jsp';");
-//				out.println("alert('You do not have access rights.');");
-//				out.println("</script>");
-//			}
-//		} catch (Exception e){
-//			System.out.println("(EditProductServlet) Admin Validation Error: " + e + "\n");
-//		}
+		// get writer
+		PrintWriter out = response.getWriter();  
 		
-		try {       
-			if(request.getParameter("inputCategoryId")!=null){
-				int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
-				String inputCategoryName = request.getParameter("inputCategoryName");
-				String inputCategoryDescription = request.getParameter("inputCategoryDescription");
-				String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
-				
-				// connect to mysql database
-				Class.forName("com.mysql.jdbc.Driver"); 
-				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-				Connection conn = DriverManager.getConnection(connURL);
-				
-				// edit and update products with inputs by product id
-				String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
-				PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
-			    pstmt.setString(1, inputCategoryName);
-			    pstmt.setString(2, inputCategoryDescription);
-			    pstmt.setString(3, inputCategoryImageUrl);
-			    pstmt.setInt(4, inputCategoryId);
-				int count = pstmt.executeUpdate(); 
-			
-				if(count > 0){
-					response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=success"); 
-				}else{
-					response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=fail");
+		try{ 
+			// validate if user is logged in with an account type
+			if(session.getAttribute("accountType")!=null){
+				// validate if user executing request is admin
+				if(!session.getAttribute("accountType").equals("admin")){
+					out.println("<script type='text/javascript'>");
+					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("alert('You do not have access rights.');");
+					out.println("</script>");
+				} else {
+					try {       
+						if(request.getParameter("inputCategoryId")!=null){
+							int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
+							String inputCategoryName = request.getParameter("inputCategoryName");
+							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
+							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
+
+							// edit category
+							int count = CategoryUtils.editCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl, inputCategoryId);
+							
+							if(count > 0){
+								response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=success"); 
+							}else{
+								response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=fail");
+							}
+							
+						}else{
+							System.out.println("(EditCategoryServlet) Error: Wrong Flow\n");
+							response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
+						}
+					} catch(java.sql.SQLIntegrityConstraintViolationException e){
+						System.out.println("(EditCategoryServlet) Error: Duplicate Entry\n");
+						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+					} catch (java.lang.NumberFormatException e) {         
+						System.out.println("(EditCategoryServlet) Error: Invalid Inputs\n"); 
+						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+					} catch (Exception e) {         
+						System.out.println("(EditCategoryServlet) Error :" + e + "\n");    
+						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+					}
 				}
-				
-				conn.close();   
-			}else{
-				System.out.println("(EditCategoryServlet) Error: Wrong Flow\n");
-				response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
+			} else{
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("alert('You do not have access rights.');");
+				out.println("</script>");
 			}
-		} catch(java.sql.SQLIntegrityConstraintViolationException e){
-			System.out.println("(EditCategoryServlet) Error: Duplicate Entry\n");
-			response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
-		} catch (java.lang.NumberFormatException e) {         
-			System.out.println("(EditCategoryServlet) Error: Invalid Inputs\n"); 
-			response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
-		} catch (Exception e) {         
-			System.out.println("(EditCategoryServlet) Error :" + e + "\n");    
-			response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+		} catch (Exception e){
+			System.out.println("(EditCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
