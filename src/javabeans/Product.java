@@ -1,6 +1,6 @@
 package javabeans;
 
-public class Products {
+public class Product {
 	private int productId;
 	private String name;
 	private String description;
@@ -11,12 +11,12 @@ public class Products {
 	private String image;
 	
 	// default constructor
-	public Products() {
+	public Product() {
 		
 	}
 	
 	// constructor overload
-	public Products(int productId, String name, String description, double cost_price, double retail_price, int quantity, int categoryId, String image) {
+	public Product(int productId, String name, String description, double cost_price, double retail_price, int quantity, int categoryId, String image) {
 		this.productId = productId;
 		this.name = name;
 		this.description = description;
