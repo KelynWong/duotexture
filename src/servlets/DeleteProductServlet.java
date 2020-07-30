@@ -58,7 +58,7 @@ public class DeleteProductServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(DeleteProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit."); 
+					System.out.println("(DeleteProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to delete."); 
 					response.sendRedirect("Assignment/website/categories.jsp");
 				}
 			} else{
@@ -84,6 +84,7 @@ public class DeleteProductServlet extends HttpServlet {
 		
 		// pre-define variable
 		int categoryId = 0;
+		
 		try {
 			if(session.getAttribute("categoryId")!=null){
 				if(request.getParameter("productId")!=null){
