@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,12 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import database.Database;
 import utils.CategoryUtils;
-
-import java.io.PrintWriter;
-
-import java.sql.*;
 
 /**
  * Servlet implementation class AddCategoryServlet
@@ -49,20 +45,21 @@ public class AddCategoryServlet extends HttpServlet {
 		// get current session
 		HttpSession session=request.getSession();
 
+		// get writer
+		PrintWriter out = response.getWriter();  
+		
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
-					PrintWriter out = response.getWriter();  
 					out.println("<script type='text/javascript'>");
 					out.println("window.location.href='Assignment/website/index.jsp';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
-
+				} else {
 				}
-			}else{
-				PrintWriter out = response.getWriter();  
+			} else{
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='Assignment/website/index.jsp';");
 				out.println("alert('You do not have access rights.');");
@@ -79,18 +76,20 @@ public class AddCategoryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
 		HttpSession session=request.getSession();
+		
+		// get writer
+		PrintWriter out = response.getWriter();  
 
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
-					PrintWriter out = response.getWriter();  
 					out.println("<script type='text/javascript'>");
 					out.println("window.location.href='Assignment/website/index.jsp';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
-				}else {
+				} else {
 					
 					try {       
 						if(request.getParameter("inputCategoryName")!=null){
@@ -102,11 +101,11 @@ public class AddCategoryServlet extends HttpServlet {
 						
 							if(count > 0){
 								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=success"); 
-							}else{
+							} else{
 								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
 							}
 						           
-						}else{
+						} else{
 							System.out.println("(AddCategoryServlet) Error: Wrong Flow\n");
 							response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
 						}
@@ -123,7 +122,6 @@ public class AddCategoryServlet extends HttpServlet {
 					
 				}
 			}else{
-				PrintWriter out = response.getWriter();  
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='Assignment/website/index.jsp';");
 				out.println("alert('You do not have access rights.');");
