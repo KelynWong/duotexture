@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javabeans.users;
+import javabeans.Users;
 
 public class usersDB {
-	public users getUsers () {
-		users uBean = null;
+	public Users getUsers () {
+		Users uBean = null;
 		Connection conn = null;
 		
 		try {
@@ -20,7 +20,7 @@ public class usersDB {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM duotexture.users");
 			
 			if(rs.next()) {
-				uBean = new users();
+				uBean = new Users();
 				uBean.setUserId(rs.getInt("userId"));
 				uBean.setEmail(rs.getString("email"));
 				uBean.setUsername(rs.getString("username"));

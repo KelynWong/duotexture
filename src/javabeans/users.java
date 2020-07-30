@@ -1,6 +1,6 @@
 package javabeans;
 
-public class users {
+public class Users {
 	private int userId;
 	private String email;
 	private String username;
@@ -8,12 +8,12 @@ public class users {
 	private String userRole;
 	
 	// default constructor
-	public users() {
+	public Users() {
 		
 	}
 	
 	// constructor overload
-	public users(int userId, String email, String username, String password, String userRole) {
+	public Users(int userId, String email, String username, String password, String userRole) {
 		this.userId = userId;
 		this.email = email;
 		this.username = username;
