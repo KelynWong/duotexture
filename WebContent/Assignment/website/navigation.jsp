@@ -76,7 +76,7 @@
 			// check if user's account and retrieve their username
 			if(session.getAttribute("accountType")!=null){ %>
 					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("username")%></a>
-					<a class="nav-link custom-font-mont fs-15 text-danger" href="log_out.jsp">Log Out</a>
+					<a class="nav-link custom-font-mont fs-15 text-danger" href="../../SignOutServlet">Log Out</a>
 					<%
 			}else{
 				%>
