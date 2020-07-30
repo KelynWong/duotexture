@@ -91,7 +91,7 @@ public class DeleteProductServlet extends HttpServlet {
 					categoryId = (int) session.getAttribute("categoryId");
 					int productId = Integer.parseInt(request.getParameter("productId"));
 					
-					// connect to database
+					// delete product
 					int count = ProductUtils.deleteProduct(productId); 
 					
 					if(count > 0){
