@@ -5,7 +5,7 @@ public class Member {
 	private String last_name;
 	private String country;
 	private String address;
-	private int postal_code;
+	private String postal_code;
 	private int userId;
 	
 	// default constructor
@@ -14,7 +14,7 @@ public class Member {
 	}
 	
 	// constructor overload
-	public Member(String first_name, String last_name, String country, String address, int postal_code, int userId) {
+	public Member(String first_name, String last_name, String country, String address, String postal_code, int userId) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.country = country;
@@ -44,7 +44,7 @@ public class Member {
 	}
 	
 	// get member postal code
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postal_code;
 	}
 	
@@ -74,7 +74,7 @@ public class Member {
 	}
 	
 	// set member postal code
-	public void setPostalCode(int postal_code) {
+	public void setPostalCode(String postal_code) {
 		this.postal_code= postal_code;
 	}
 	

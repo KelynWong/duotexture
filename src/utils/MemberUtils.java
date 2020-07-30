@@ -35,7 +35,7 @@ public class MemberUtils {
 			MemberBean.setLastName(getMembersResult.getString("last_name"));
 			MemberBean.setCountry(getMembersResult.getString("country"));
 			MemberBean.setAddress(getMembersResult.getString("address"));
-			MemberBean.setPostalCode(getMembersResult.getInt("postal_code"));
+			MemberBean.setPostalCode(getMembersResult.getString("postal_code"));
 			
 			// add MembersBean to categoriesArrayList
 			membersArrayList.add(MemberBean);
@@ -66,7 +66,7 @@ public class MemberUtils {
 			memberBean.setLastName(getMemberByIdResult.getString("last_name"));
 			memberBean.setCountry(getMemberByIdResult.getString("country"));
 			memberBean.setAddress(getMemberByIdResult.getString("address"));
-			memberBean.setPostalCode(getMemberByIdResult.getInt("postal_code"));
+			memberBean.setPostalCode(getMemberByIdResult.getString("postal_code"));
 			memberBean.setUserId(getMemberByIdResult.getInt("userId"));
 		}
 	
@@ -98,7 +98,7 @@ public class MemberUtils {
 	}
 	
 	// edit member
-	public static int editMember (String firstName, String lastName, String country, String address, int postalCode, int userId) throws SQLException, ClassNotFoundException {
+	public static int editMember (String firstName, String lastName, String country, String address, String postalCode, int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -109,7 +109,7 @@ public class MemberUtils {
 	    pstmt.setString(2, lastName);
 	    pstmt.setString(3, country);
 	    pstmt.setString(4, address);
-	    pstmt.setInt(5, postalCode);
+	    pstmt.setString(5, postalCode);
 	    pstmt.setInt(6, userId);
 	    int count = pstmt.executeUpdate();
 		
