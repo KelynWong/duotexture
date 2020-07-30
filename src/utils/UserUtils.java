@@ -91,7 +91,9 @@ public class UserUtils {
 		
 		if(count > 0) {
 			// get the last inserted id
-			userId = pstmt.getGeneratedKeys().getInt(1);
+			ResultSet addUserResult = pstmt.getGeneratedKeys();
+			addUserResult.next();
+			userId = addUserResult.getInt(1);
 		}
 		
 		// close connection
