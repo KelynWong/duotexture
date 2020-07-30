@@ -119,7 +119,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 							}
 					} catch (Exception e) {         
 						System.out.println("(DeleteCategoryServlet) Error: " + e + "\n");
-						response.sendRedirect("categories.jsp");
+						response.sendRedirect("Assignment/website/categories.jsp");
 					} 
 				}
 			} else{ 
