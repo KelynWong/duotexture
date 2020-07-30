@@ -1,18 +1,18 @@
 package javabeans;
 
-public class CategoryBean {
+public class Category {
 	private int categoryId;
 	private String name;
 	private String description;
 	private String image;
 	
 	// default constructor
-	public CategoryBean() {
+	public Category() {
 		
 	}
 	
 	// constructor overload
-	public CategoryBean(int categoryId, String name, String description, String image) {
+	public Category(int categoryId, String name, String description, String image) {
 		this.categoryId = categoryId;
 		this.name = name;
 		this.description = description;
