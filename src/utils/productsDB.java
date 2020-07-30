@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javabeans.products;
+import javabeans.Products;
 
 public class productsDB {
-	public products getProducts (int categoryId) {
-		products uBean = null;
+	public Products getProducts (int categoryId) {
+		Products uBean = null;
 		Connection conn = null;
 		
 		try {
@@ -22,7 +22,7 @@ public class productsDB {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM duotexture.products WHERE categoryId =" + categoryId);
 			
 			if(rs.next()) {
-				uBean = new products();
+				uBean = new Products();
 				uBean.setProductId(rs.getInt("userId"));
 				uBean.setName(rs.getString("email"));
 				uBean.setDescription(rs.getString("username"));
