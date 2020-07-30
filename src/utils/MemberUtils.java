@@ -76,7 +76,7 @@ public class MemberUtils {
 	}
 	
 	// add members
-	public static int insertMember (String firstName, String lastName, String country, String address, int postalCode, int userId) throws SQLException, ClassNotFoundException {
+	public static int insertMember (String firstName, String lastName, String country, String address, String postalCode, int userId) throws SQLException, ClassNotFoundException {
 
 		// connect to database
 		Connection conn = Database.connectToDatabase();
@@ -88,7 +88,7 @@ public class MemberUtils {
 	    pstmt.setString(2, lastName);
 	    pstmt.setString(3, country);
 	    pstmt.setString(4, address);
-	    pstmt.setInt(5, postalCode);
+	    pstmt.setString(5, postalCode);
 	    pstmt.setInt(6, userId);
 		int count = pstmt.executeUpdate(); 
 		
