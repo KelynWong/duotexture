@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import javabeans.User;
 import utils.UserUtils;
-import utils.MemberUtils;
 
 /**
  * Servlet implementation class LoginServlet
