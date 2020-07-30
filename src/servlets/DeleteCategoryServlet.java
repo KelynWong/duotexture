@@ -58,7 +58,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to edit."); 
+					System.out.println("(DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to delete."); 
 					response.sendRedirect("Assignment/website/categories.jsp");
 				}
 			} else{
