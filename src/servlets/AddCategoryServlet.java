@@ -18,7 +18,6 @@ import java.sql.*;
 
 /**
  * Servlet implementation class AddCategoryServlet
- * Servlet implementation class AddCategoryServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
