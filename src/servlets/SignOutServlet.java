@@ -40,18 +40,25 @@ public class SignOutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-			// response.getWriter().append("Served at: ").append(request.getContextPath());
 		// get current session
 		HttpSession session=request.getSession();
 		
-		// mark session invalid and destroy
-		session.invalidate();
-		PrintWriter out = response.getWriter();  
-		out.println("<script type='text/javascript'>");
-		out.println("window.location.href='Assignment/website/index.jsp';");
-		out.println("alert('Logged out.');");
-		out.println("</script>");
+		// get writer
+		PrintWriter out = response.getWriter();
+		
+		if(session.getAttribute("accountType")!=null){			
+			// mark session invalid and destroy
+			session.invalidate();  
+			out.println("<script type='text/javascript'>");
+			out.println("window.location.href='Assignment/website/index.jsp';");
+			out.println("alert('Logged out.');");
+			out.println("</script>");
+		} else {
+			out.println("<script type='text/javascript'>");
+			out.println("window.location.href='Assignment/website/index.jsp';");
+			out.println("alert('You are not logged in.');");
+			out.println("</script>");
+		}
 	}
 
 	/**
