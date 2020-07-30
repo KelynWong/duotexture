@@ -71,6 +71,7 @@ public class CategoryUtils {
 		return categoryBean;
 	}
 	
+	// add category
 	public static int insertCategory (String name, String description, String image) throws Exception {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
@@ -88,6 +89,7 @@ public class CategoryUtils {
 		return count;
 	}
 	
+	// edit category
 	public int editCategory (String name, String description, String image, int categoryId) throws Exception {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
@@ -106,6 +108,7 @@ public class CategoryUtils {
 		return count;
 	}
 	
+	// delete category
 	public static int deleteCategory (int categoryId) throws Exception {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
