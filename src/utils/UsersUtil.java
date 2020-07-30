@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import javabeans.Users;
 
-public class usersDB {
+public class UsersUtil {
 	public Users getUsers () {
 		Users uBean = null;
 		Connection conn = null;
