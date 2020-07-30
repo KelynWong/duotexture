@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +47,11 @@ public class SignOutServlet extends HttpServlet {
 		
 		// mark session invalid and destroy
 		session.invalidate();
-		response.sendRedirect("Assignment/website/index.jsp");
+		PrintWriter out = response.getWriter();  
+		out.println("<script type='text/javascript'>");
+		out.println("window.location.href='Assignment/website/index.jsp';");
+		out.println("alert('Logged out.');");
+		out.println("</script>");
 	}
 
 	/**
