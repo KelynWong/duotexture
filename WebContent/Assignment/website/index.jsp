@@ -24,7 +24,7 @@
 <body class="d-block w-100 vh-100 bg-img">
 	
 	<!-- import navigation bar -->
-    <%@ include file = "navigation.jsp" %>
+    <%@ include file = "components/navigation.jsp" %>
 
       <section class="col-12 p-5 row">
       	<!-- slide show -->
