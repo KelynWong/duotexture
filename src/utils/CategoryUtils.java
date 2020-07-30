@@ -93,7 +93,7 @@ public class CategoryUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// edit and update category with inputs by category id
-		String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
+		String updateCategoryQuery = "UPDATE duotexture.categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
 	    pstmt.setString(1, name);
 	    pstmt.setString(2, description);
