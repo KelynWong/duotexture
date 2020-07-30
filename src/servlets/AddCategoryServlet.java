@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import database.connection;
+import database.Database;
 
 import java.io.PrintWriter;
 
@@ -98,7 +98,7 @@ public class AddCategoryServlet extends HttpServlet {
 							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
 							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 							
-							Connection conn = connection.connectToDatabase();
+							Connection conn = Database.connectToDatabase();
 							
 							// insert inputs into categories
 							String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 

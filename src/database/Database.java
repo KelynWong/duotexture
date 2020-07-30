@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class connection {
+public class Database {
 
 	public static Connection connectToDatabase() throws SQLException, ClassNotFoundException {
 		// connect to database

@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import database.connection;
+import database.Database;
 import javabeans.categories;
 
 
@@ -21,7 +21,7 @@ public class CategoriesUtil {
 		
 		try {
 			// connect to database
-			conn = connection.connectToDatabase();
+			conn = Database.connectToDatabase();
 			
 			// prepared statement and query string
 			Statement stmt = conn.createStatement();
@@ -65,7 +65,7 @@ public class CategoriesUtil {
 		
 		try {
 			// connect to database
-			conn = connection.connectToDatabase();
+			conn = Database.connectToDatabase();
 			
 			// prepared statement and query string
 			String getCategoryByIdQuery = "SELECT * FROM duotexture.categories WHERE categoryId=?;";
@@ -104,7 +104,7 @@ public class CategoriesUtil {
 		
 		try {
 			// connect to database
-			conn = connection.connectToDatabase();
+			conn = Database.connectToDatabase();
 
 			// insert inputs into categories
 			String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
@@ -133,7 +133,7 @@ public class CategoriesUtil {
 		
 		try {
 			// connect to database
-			conn = connection.connectToDatabase();
+			conn = Database.connectToDatabase();
 
 			// edit and update category with inputs by category id
 			String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
@@ -163,7 +163,7 @@ public class CategoriesUtil {
 		
 		try {
 			// connect to database
-			conn = connection.connectToDatabase();
+			conn = Database.connectToDatabase();
 			
 			// delete category by given id
 			String deleteCategory = "DELETE FROM categories WHERE categoryId=?"; 
