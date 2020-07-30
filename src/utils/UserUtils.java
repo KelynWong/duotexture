@@ -34,6 +34,7 @@ public class UserUtils {
 			userBean.setEmail(getUsersResult.getString("email"));
 			userBean.setUsername(getUsersResult.getString("username"));
 			userBean.setPassword(getUsersResult.getString("password"));
+			userBean.setUserRole(getUsersResult.getString("userRole"));
 			
 			// add userBean to usersArrayList
 			usersArrayList.add(userBean);
