@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import database.Database;
-import javabeans.Categories;
+import javabeans.CategoryBean;
 
 
 public class CategoriesUtil {
 	
 	// get all categories
-	public ArrayList<Categories> getCategories () throws Exception {
+	public ArrayList<CategoryBean> getCategories () throws Exception {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -23,12 +23,12 @@ public class CategoriesUtil {
 		ResultSet getCategoryByIdResult = stmt.executeQuery(getCategoryByIdQuery);
 		
 		// create new ArrayList of categories object
-		ArrayList<Categories> categoriesArrayList = new ArrayList<Categories>();
+		ArrayList<CategoryBean> categoriesArrayList = new ArrayList<CategoryBean>();
 		
 		// loop if there are new row
 		while(getCategoryByIdResult.next()) {
 			// create an instance of categories
-			Categories categoryBean = new Categories();
+			CategoryBean categoryBean = new CategoryBean();
 			
 			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
 			categoryBean.setName(getCategoryByIdResult.getString("name"));
@@ -45,7 +45,7 @@ public class CategoriesUtil {
 	}
 	
 	// get category by id
-	public Categories getCategoryById (int categoryId) throws Exception {
+	public CategoryBean getCategoryById (int categoryId) throws Exception {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -56,7 +56,7 @@ public class CategoriesUtil {
 		ResultSet getCategoryByIdResult = pstmt.executeQuery();
 		
 		// create an instance of categories
-		Categories categoryBean = new Categories();
+		CategoryBean categoryBean = new CategoryBean();
 		
 		// if there is a new row
 		if(getCategoryByIdResult.next()) {
