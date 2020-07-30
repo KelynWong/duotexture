@@ -22,12 +22,12 @@ public class CategoryUtils {
 		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories;";
 		ResultSet getCategoryByIdResult = stmt.executeQuery(getCategoryByIdQuery);
 		
-		// create new ArrayList of categories object
+		// create new ArrayList of category
 		ArrayList<Category> categoriesArrayList = new ArrayList<Category>();
 		
 		// loop if there are new row
 		while(getCategoryByIdResult.next()) {
-			// create an instance of categories
+			// create an instance of category
 			Category categoryBean = new Category();
 			
 			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
@@ -55,7 +55,7 @@ public class CategoryUtils {
 		pstmt.setInt(1,  categoryId);
 		ResultSet getCategoryByIdResult = pstmt.executeQuery();
 		
-		// create an instance of categories
+		// create an instance of category
 		Category categoryBean = new Category();
 		
 		// if there is a new row
