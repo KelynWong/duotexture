@@ -17,7 +17,7 @@ public class CategoryUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement and query string
+		// prepared statement, get all categories query and result
 		Statement stmt = conn.createStatement();
 		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories;";
 		ResultSet getCategoryByIdResult = stmt.executeQuery(getCategoryByIdQuery);
@@ -49,7 +49,7 @@ public class CategoryUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement and query string
+		// prepared statement, get a category by category id query and result
 		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories WHERE categoryId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getCategoryByIdQuery);
 		pstmt.setInt(1,  categoryId);
@@ -76,7 +76,7 @@ public class CategoryUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
-		// insert inputs into categories
+		// prepared statement, add categories query and result
 		String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
 		PreparedStatement pstmt = conn.prepareStatement(addCategoryQuery);
 	    pstmt.setString(1, name);
@@ -94,7 +94,7 @@ public class CategoryUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
-		// edit and update category with inputs by category id
+		// prepared statement, edit category query and result
 		String updateCategoryQuery = "UPDATE duotexture.categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
 	    pstmt.setString(1, name);
@@ -113,7 +113,7 @@ public class CategoryUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// delete category by given id
+		// prepared statement, delete category query and result
 		String deleteCategory = "DELETE FROM duotexture.categories WHERE categoryId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(deleteCategory);
 	    pstmt.setInt(1, categoryId);

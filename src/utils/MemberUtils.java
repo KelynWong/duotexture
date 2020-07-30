@@ -17,7 +17,7 @@ public class MemberUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// statement, get all members query and results
+		// statement, get all members query and result
 		Statement stmt = conn.createStatement();
 		String getMembersQuery = "SELECT * FROM duotexture.members;";
 		ResultSet getMembersResult = stmt.executeQuery(getMembersQuery);
@@ -51,7 +51,7 @@ public class MemberUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get member by id query and results
+		// prepared statement, get a member by user id query and result
 		String getMemberByIdQuery = "SELECT * FROM duotexture.members WHERE userId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getMemberByIdQuery);
 		pstmt.setInt(1,  userId);
@@ -81,7 +81,7 @@ public class MemberUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, add members query and results
+		// prepared statement, add members query and result
 		String insertMemberQuery = "INSERT INTO members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES(?, ?, ?, ?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(insertMemberQuery);
 	    pstmt.setString(1, firstName);
