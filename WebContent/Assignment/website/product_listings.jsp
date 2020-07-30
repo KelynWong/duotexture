@@ -100,9 +100,13 @@
 				            		// if account is admin, allow access to edit and delete function
 				            		if(session.getAttribute("accountType").equals("admin")){
 					                   	%>
-					                   	<div>
-					                        <a href="edit_product.jsp?productId=<%= id %>" class="btn btn-warning mr-1">Edit</a>
-					                        <a onclick="return confirm('Are you sure you want to delete?')" href="delete_product.jsp?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId")%>" class="btn btn-danger">Delete</a>
+					                   	<div class="row mt-2">
+					                   		<form action="edit_product.jsp?productId=<%= id %>" method="post">
+					                        	<button type="submit" class="btn btn-warning ml-3 mr-2">Edit</button>
+					                        </form>
+					                        <form action="../../DeleteProductServlet?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId")%>" method="post">
+					                        	<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+					                        </form>
 					                    </div>
 					                   	<%
 					                }
