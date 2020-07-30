@@ -58,8 +58,8 @@
 				            		if(session.getAttribute("accountType").equals("admin")){
 					                   	%>
 					                   	<div class="row mt-2">
-					                   		<form action="../../EditCategoryServlet?categoryId=<%= categoryId %>" method="post">
-					                        	<button type="submit" class="btn btn-warning ml-3 mr-2" onclick="return confirm('Are you sure you want to delete?')">Edit</button>
+					                   		<form action="edit_category.jsp?categoryId=<%= categoryId %>" method="post">
+					                        	<button type="submit" class="btn btn-warning ml-3 mr-2">Edit</button>
 					                        </form>
 					                        <form action="../../DeleteCategoryServlet?categoryId=<%= categoryId %>" method="post">
 					                        	<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
