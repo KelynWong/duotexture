@@ -115,8 +115,8 @@ public class CategoryUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, delete category query and result
-		String deleteCategory = "DELETE FROM duotexture.categories WHERE categoryId=?"; 
-		PreparedStatement pstmt = conn.prepareStatement(deleteCategory);
+		String deleteCategoryQuery = "DELETE FROM duotexture.categories WHERE categoryId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(deleteCategoryQuery);
 	    pstmt.setInt(1, categoryId);
 		int count = pstmt.executeUpdate(); 
 		
