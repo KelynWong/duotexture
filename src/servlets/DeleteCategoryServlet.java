@@ -97,7 +97,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 						if(request.getParameter("categoryId")!=null){
 								int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 								
-								// connect to database
+								// delete category
 								int count = CategoryUtils.deleteCategory(categoryId); 
 								
 								if(count > 0){
