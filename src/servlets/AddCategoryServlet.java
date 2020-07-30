@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import database.Database;
+import utils.CategoriesUtil;
 
 import java.io.PrintWriter;
 
@@ -98,13 +99,7 @@ public class AddCategoryServlet extends HttpServlet {
 							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
 							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 							
-							// insert inputs into categories
-							String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
-							PreparedStatement pstmt = conn.prepareStatement(addCategoryQuery);
-						    pstmt.setString(1, inputCategoryName);
-						    pstmt.setString(2, inputCategoryDescription);
-						    pstmt.setString(3, inputCategoryImageUrl);
-							int count = pstmt.executeUpdate(); 
+							int count = CategoriesUtil.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
 						
 							if(count > 0){
 								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=success"); 
