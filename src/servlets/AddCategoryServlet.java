@@ -98,8 +98,6 @@ public class AddCategoryServlet extends HttpServlet {
 							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
 							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 							
-							Connection conn = Database.connectToDatabase();
-							
 							// insert inputs into categories
 							String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
 							PreparedStatement pstmt = conn.prepareStatement(addCategoryQuery);
@@ -113,8 +111,7 @@ public class AddCategoryServlet extends HttpServlet {
 							}else{
 								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
 							}
-						          
-							conn.close();    
+						           
 						}else{
 							System.out.println("(AddCategoryServlet) Error: Wrong Flow\n");
 							response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
