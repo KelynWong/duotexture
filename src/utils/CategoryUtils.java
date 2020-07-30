@@ -90,7 +90,7 @@ public class CategoryUtils {
 	}
 	
 	// edit category
-	public int editCategory (String name, String description, String image, int categoryId) throws SQLException, ClassNotFoundException {
+	public static int editCategory (String name, String description, String image, int categoryId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
