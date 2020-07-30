@@ -58,8 +58,10 @@ public class AddCategoryServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println(" (AddCategoryServlet) There's no action to be taken for GET. Redirecting to add_category.jsp to add category."); 
-					response.sendRedirect("Assignment/website/add_category.jsp");
+					out.println("<script type='text/javascript'>");
+					out.println("window.location.href='Assignment/website/add_category.jsp';");
+					out.println("alert('There's no action to be taken for GET. Redirecting to add_category.jsp to add category.');");
+					out.println("</script>");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
