@@ -13,7 +13,7 @@ import javabeans.Member;
 public class MemberUtils {
 	
 	// get all members
-	public ArrayList<Member> getMembers () throws Exception {
+	public ArrayList<Member> getMembers () throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -82,7 +82,7 @@ public class MemberUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, add members query and result
-		String insertMemberQuery = "INSERT INTO members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES(?, ?, ?, ?, ?, ?);";
+		String insertMemberQuery = "INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES(?, ?, ?, ?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(insertMemberQuery);
 	    pstmt.setString(1, firstName);
 	    pstmt.setString(2, lastName);
@@ -103,7 +103,7 @@ public class MemberUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, edit members query and result
-		String updateMembersQuery = "UPDATE members SET first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE userId=?;"; 
+		String updateMembersQuery = "UPDATE duotexture.members SET first_name=?, last_name=?, country=?, address=?, postal_code=? WHERE userId=?;"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateMembersQuery);
 		pstmt.setString(1, firstName);
 	    pstmt.setString(2, lastName);
@@ -114,6 +114,22 @@ public class MemberUtils {
 	    int count = pstmt.executeUpdate();
 		
 	    // close connection
+		conn.close();
+		return count;
+	}
+	
+	// delete member
+	public int deleteMember (int userId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, delete category query and result
+		String deleteMemberQuery = "DELETE FROM duotexture.members WHERE userId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(deleteMemberQuery);
+	    pstmt.setInt(1, userId);
+		int count = pstmt.executeUpdate(); 
+		
+		// close connection
 		conn.close();
 		return count;
 	}
