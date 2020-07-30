@@ -23,62 +23,62 @@ public class members {
 		this.userId = userId;
 	}
 	
-	// get member's first name
+	// get member first name
 	public String getFirstName() {
 		return first_name;
 	}
 	
-	// get member's last name
+	// get member last name
 	public String getLastName() {
 		return last_name;
 	}
 	
-	// get member's country
+	// get member country
 	public String getCountry() {
 		return country;
 	}
 	
-	// get member's address
+	// get member address
 	public String getAddress() {
 		return address;
 	}
 	
-	// get member's postal code
+	// get member postal code
 	public int getPostalCode() {
 		return postal_code;
 	}
 	
-	// get member's user id
+	// get member user id
 	public int getUserId() {
 		return userId;
 	}
 	
-	// set member's first name
+	// set member first name
 	public void setFirstName(String first_name) {
 		this.first_name= first_name;
 	}
 	
-	// set member's last name
+	// set member last name
 	public void setLastName(String last_name) {
 		this.last_name= last_name;
 	}
 	
-	// set member's country
+	// set member country
 	public void setCountry(String country) {
 		this.country= country;
 	}
 	
-	// set member's address
+	// set member address
 	public void setAddress(String address) {
 		this.address= address;
 	}
 	
-	// set member's postal code
+	// set member postal code
 	public void setPostalCode(int postal_code) {
 		this.postal_code= postal_code;
 	}
 	
-	// set member's user id
+	// set member user id
 	public void setUserId(int userId) {
 		this.userId= userId;
 	}
