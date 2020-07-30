@@ -46,7 +46,7 @@ public class SignOutServlet extends HttpServlet {
 		
 		// mark session invalid and destroy
 		session.invalidate();
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("Assignment/website/index.jsp");
 	}
 
 	/**
