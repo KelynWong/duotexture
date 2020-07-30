@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import database.connection;
 import javabeans.categories;
 
 
@@ -21,9 +22,7 @@ public class categoriesDB {
 		
 		try {
 			// connect to database
-			Class.forName("com.mysql.jdbc.Driver");
-			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
-			conn = DriverManager.getConnection(connURL);
+			conn = connection.connectToDatabase();
 			
 			// prepared statement and query string
 			Statement stmt = conn.createStatement();
@@ -67,9 +66,7 @@ public class categoriesDB {
 		
 		try {
 			// connect to database
-			Class.forName("com.mysql.jdbc.Driver");
-			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
-			conn = DriverManager.getConnection(connURL);
+			conn = connection.connectToDatabase();
 			
 			// prepared statement and query string
 			String getCategoryByIdQuery = "SELECT * FROM duotexture.categories WHERE categoryId=?;";
@@ -108,9 +105,7 @@ public class categoriesDB {
 		
 		try {
 			// connect to database
-			Class.forName("com.mysql.jdbc.Driver");
-			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
-			conn = DriverManager.getConnection(connURL);
+			conn = connection.connectToDatabase();
 
 			// insert inputs into categories
 			String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
@@ -139,9 +134,7 @@ public class categoriesDB {
 		
 		try {
 			// connect to database
-			Class.forName("com.mysql.jdbc.Driver");
-			String connURL = "jdbc:mysql://localhost/jad?user=root&password=password&serverTimezone=UTC";
-			conn = DriverManager.getConnection(connURL);
+			conn = connection.connectToDatabase();
 
 			// edit and update category with inputs by category id
 			String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
@@ -171,9 +164,7 @@ public class categoriesDB {
 		
 		try {
 			// connect to database
-			Class.forName("com.mysql.jdbc.Driver");         
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
-			conn = DriverManager.getConnection(connURL);   
+			conn = connection.connectToDatabase();
 			
 			// delete category by given id
 			String deleteCategory = "DELETE FROM categories WHERE categoryId=?"; 
