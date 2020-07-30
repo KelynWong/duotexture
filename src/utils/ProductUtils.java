@@ -4,83 +4,96 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.Database;
-import javabeans.Category;
-
+import javabeans.Product;
 
 public class ProductUtils {
 	
-	// get all categories
-	public ArrayList<Category> getCategories () throws Exception {
+	// get all products
+	public static ArrayList<Product> getProducts () throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement and query string
+		// prepared statement, get all products query and result
 		Statement stmt = conn.createStatement();
-		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories;";
-		ResultSet getCategoryByIdResult = stmt.executeQuery(getCategoryByIdQuery);
+		String getProductsQuery = "SELECT * FROM duotexture.products;";
+		ResultSet getProductsResult = stmt.executeQuery(getProductsQuery);
 		
-		// create new ArrayList of category
-		ArrayList<Category> categoriesArrayList = new ArrayList<Category>();
+		// create new ArrayList of product
+		ArrayList<Product> productsArrayList = new ArrayList<Product>();
 		
 		// loop if there are new row
-		while(getCategoryByIdResult.next()) {
-			// create an instance of category
-			Category categoryBean = new Category();
+		while(getProductsResult.next()) {
+			// create an instance of product
+			Product productBean = new Product();
 			
-			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
-			categoryBean.setName(getCategoryByIdResult.getString("name"));
-			categoryBean.setDescription(getCategoryByIdResult.getString("description"));
-			categoryBean.setImage(getCategoryByIdResult.getString("image"));
+			productBean.setProductId(getProductsResult.getInt("productId"));
+			productBean.setName(getProductsResult.getString("name"));
+			productBean.setDescription(getProductsResult.getString("description"));
+			productBean.setCostPrice(getProductsResult.getDouble("cost_price"));
+			productBean.setRetailPrice(getProductsResult.getDouble("retail_price"));
+			productBean.setQuantity(getProductsResult.getInt("quantity"));
+			productBean.setCategoryId(getProductsResult.getInt("categoryId"));
+			productBean.setImage(getProductsResult.getString("image"));
 			
-			// add categoryBean to categoriesArrayList
-			categoriesArrayList.add(categoryBean);
+			// add productBean to productsArrayList
+			productsArrayList.add(productBean);
 		}
 		
 		// close connection
 		conn.close();
-		return categoriesArrayList;
+		return productsArrayList;
 	}
 	
-	// get category by id
-	public Category getCategoryById (int categoryId) throws Exception {
+	// get product by id
+	public static Product getProductById (int productId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement and query string
-		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories WHERE categoryId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getCategoryByIdQuery);
-		pstmt.setInt(1,  categoryId);
-		ResultSet getCategoryByIdResult = pstmt.executeQuery();
+		// prepared statement, get a product by product id query and result
+		String getProductByIdQuery = "SELECT * FROM duotexture.products WHERE productId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getProductByIdQuery);
+		pstmt.setInt(1,  productId);
+		ResultSet getProductByIdResult = pstmt.executeQuery();
 		
-		// create an instance of category
-		Category categoryBean = new Category();
+		// create an instance of product
+		Product productBean = new Product();
 		
 		// if there is a new row
-		if(getCategoryByIdResult.next()) {
-			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
-			categoryBean.setName(getCategoryByIdResult.getString("name"));
-			categoryBean.setDescription(getCategoryByIdResult.getString("description"));
-			categoryBean.setImage(getCategoryByIdResult.getString("image"));
+		if(getProductByIdResult.next()) {
+			productBean.setProductId(getProductByIdResult.getInt("productId"));
+			productBean.setName(getProductByIdResult.getString("name"));
+			productBean.setDescription(getProductByIdResult.getString("description"));
+			productBean.setCostPrice(getProductByIdResult.getDouble("cost_price"));
+			productBean.setRetailPrice(getProductByIdResult.getDouble("retail_price"));
+			productBean.setQuantity(getProductByIdResult.getInt("quantity"));
+			productBean.setCategoryId(getProductByIdResult.getInt("categoryId"));
+			productBean.setImage(getProductByIdResult.getString("image"));
 		}
 		
 		// close connection
 		conn.close();
-		return categoryBean;
+		return productBean;
 	}
 	
-	public static int insertCategory (String name, String description, String image) throws Exception {
+	// add product
+	public static int insertProduct (String name, String description, double costPrice, double retailPrice, int quantity, int categoryId, String image) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
-		// insert inputs into categories
-		String addCategoryQuery = "INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES(?, ?, ?);"; 
-		PreparedStatement pstmt = conn.prepareStatement(addCategoryQuery);
-	    pstmt.setString(1, name);
+		// prepared statement, add products query and result
+		String addProductQuery = "INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES(?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement pstmt = conn.prepareStatement(addProductQuery);
+		pstmt.setString(1, name);
 	    pstmt.setString(2, description);
-	    pstmt.setString(3, image);
+	    pstmt.setDouble(3, costPrice);
+	    pstmt.setDouble(4, retailPrice);
+	    pstmt.setInt(5, quantity);
+	    pstmt.setInt(6, categoryId);
+	    pstmt.setString(7, image);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
@@ -88,17 +101,22 @@ public class ProductUtils {
 		return count;
 	}
 	
-	public int editCategory (String name, String description, String image, int categoryId) throws Exception {
+	// edit product
+	public static int editProduct (int productId, String name, String description, double costPrice, double retailPrice, int quantity, int categoryId, String image) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
-		// edit and update category with inputs by category id
-		String updateCategoryQuery = "UPDATE categories SET name=?, description=?, image=? WHERE categoryId=?;"; 
-		PreparedStatement pstmt = conn.prepareStatement(updateCategoryQuery);
-	    pstmt.setString(1, name);
+		// prepared statement, edit product query and result
+		String updateProductQuery = "UPDATE duotexture.products SET name=?, description=?, cost_price=?, retail_price=?, quantity=?, categoryId=?, image=? WHERE productId=?;"; 
+		PreparedStatement pstmt = conn.prepareStatement(updateProductQuery);
+		pstmt.setString(1, name);
 	    pstmt.setString(2, description);
-	    pstmt.setString(3, image);
-	    pstmt.setInt(4, categoryId);
+	    pstmt.setDouble(3, costPrice);
+	    pstmt.setDouble(4, retailPrice);
+	    pstmt.setInt(5, quantity);
+	    pstmt.setInt(6, categoryId);
+	    pstmt.setString(7, image);
+	    pstmt.setInt(8, productId);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
@@ -106,14 +124,15 @@ public class ProductUtils {
 		return count;
 	}
 	
-	public static int deleteProduct (int categoryId) throws Exception {
+	// delete product
+	public static int deleteProduct (int productId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// delete category by given id
-		String deleteCategory = "DELETE FROM duotexture.categories WHERE categoryId=?"; 
-		PreparedStatement pstmt = conn.prepareStatement(deleteCategory);
-	    pstmt.setInt(1, categoryId);
+		// prepared statement, delete product query and result
+		String deleteProductQuery = "DELETE FROM duotexture.products WHERE productId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(deleteProductQuery);
+	    pstmt.setInt(1, productId);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
