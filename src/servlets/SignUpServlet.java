@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,10 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.sql.*;
+import javabeans.User;
+import utils.UserUtils;
+import utils.MemberUtils;
 
 /**
- * Servlet implementation class SignUpServlet
+ * Servlet implementation class SignUpServletS
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -41,101 +45,82 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("(SignUpServlet) There's no action to be taken for GET. Redirecting to index.jsp."); 
+		response.sendRedirect("Assignment/website/index.jsp");		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
+		// get current session
+		HttpSession session=request.getSession();
 		
-		try {
-			if(request.getParameter("inputEmail")!=null){
-				String inputEmail = request.getParameter("inputEmail");
-				String inputUsername = request.getParameter("inputUsername");
-				String inputPassword = request.getParameter("inputPassword");
-				String inputFirstName = request.getParameter("inputFirstName");
-				String inputLastName = request.getParameter("inputLastName");
-				String inputAddress = request.getParameter("inputAddress");
-				String inputCountry = request.getParameter("inputCountry");
-				String inputPostalCode = request.getParameter("inputPostalCode");
-				
-				// get current session
-        		HttpSession session=request.getSession();
+		// get writer
+		PrintWriter out = response.getWriter();
+		
+		try{ 
+			// if user is logged in with an account type
+			if(session.getAttribute("accountType")==null){
+				try {
+					if(request.getParameter("inputEmail")!=null){
+						String inputEmail = request.getParameter("inputEmail");
+						String inputUsername = request.getParameter("inputUsername");
+						String inputPassword = request.getParameter("inputPassword");
+						String inputFirstName = request.getParameter("inputFirstName");
+						String inputLastName = request.getParameter("inputLastName");
+						String inputAddress = request.getParameter("inputAddress");
+						String inputCountry = request.getParameter("inputCountry");
+						String inputPostalCode = request.getParameter("inputPostalCode");
+						
+						// get all users
+						ArrayList<User> UsersArray = UserUtils.getUsers();
 
-				// connect to mysql database
-				Class.forName("com.mysql.jdbc.Driver");  
-				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-				Connection conn = DriverManager.getConnection(connURL);    
-				Statement stmt = conn.createStatement(); 
-				
-				// checks if email is equal to user's email
-				String getAllUsersEmailQuery = "SELECT email FROM duotexture.users;";
-				ResultSet getAllUsersEmailResult = stmt.executeQuery(getAllUsersEmailQuery); 
-				
-				while(getAllUsersEmailResult.next()){
-					String userEmail = getAllUsersEmailResult.getString("email");
-					if(userEmail.equals(inputEmail)){
-						throw new java.sql.SQLIntegrityConstraintViolationException("Duplicate Entry");
-					};
-				}		
-				
-				// insert inputs into users table
-				String insertUserQuery = "INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES(?, ?, ?, ?);";
-				PreparedStatement pstmt = conn.prepareStatement(insertUserQuery);
-			    pstmt.setString(1, inputEmail);
-			    pstmt.setString(2, inputUsername);
-			    pstmt.setString(3, inputPassword);
-			    pstmt.setString(4, "Member");
-				int count = pstmt.executeUpdate(); 
-				
-				if (count > 0){
-					// get last row of users
-					String getLastUserQuery = "SELECT * FROM users ORDER BY userId DESC LIMIT 1;";
-					ResultSet getLastUserResult = stmt.executeQuery(getLastUserQuery);
-					
-					getLastUserResult.next();
-					int userId = getLastUserResult.getInt("userId");
-					String memberUsername = getLastUserResult.getString("username");
-					
-					session.setAttribute("userId", userId);
-					session.setAttribute("username", memberUsername);
-					session.setAttribute("accountType", "member");
-					
-					// insert inputs into members table
-					String insertMemberQuery = "INSERT INTO members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES(?, ?, ?, ?, ?, ?);";
-					PreparedStatement pstmt2 = conn.prepareStatement(insertMemberQuery);
-				    pstmt2.setString(1, inputFirstName);
-				    pstmt2.setString(2, inputLastName);
-				    pstmt2.setString(3, inputCountry);
-				    pstmt2.setString(4, inputAddress);
-				    pstmt2.setString(5, inputPostalCode);
-				    pstmt2.setObject(6, userId);
-					int count2 = pstmt2.executeUpdate(); 
-					
-					if(count2 > 0){
-						response.sendRedirect("Assignment/website/index.jsp");
+						for (int x=0; x<UsersArray.size(); x++) {
+							String userEmail = UsersArray.get(x).getEmail();							
+							
+							// checks if email is equal to user's email
+							if(userEmail.equals(inputEmail)){
+								throw new java.sql.SQLIntegrityConstraintViolationException("Duplicate Entry");
+							};
+						}
+						
+						// add user
+						int userId = UserUtils.insertUser(inputEmail, inputUsername, inputPassword, "Member");
+						
+						if (userId != 0) {
+							session.setAttribute("userId", userId);
+							session.setAttribute("username", inputUsername);
+							session.setAttribute("accountType", "member");
+							
+							// add member
+							int count = MemberUtils.insertMember(inputFirstName, inputLastName, inputCountry, inputAddress, inputPostalCode, userId);
+							
+							if(count > 0){
+								response.sendRedirect("Assignment/website/index.jsp");
+							}else{
+								response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+							}
+						}
 					}else{
-						response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+						response.sendRedirect("Assignment/website/sign_up.jsp");
+						System.out.println("(SignUpServlet) Error: Wrong Flow\n");
 					}
-				}else{
+				} catch(java.sql.SQLIntegrityConstraintViolationException e){
+					System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
 					response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
-				}                  
-			           
-				conn.close();
-			}else{
-				response.sendRedirect("Assignment/website/sign_up.jsp");
-				System.out.println("(SignUpServlet) Error: Wrong Flow\n");
+				} catch(Exception e){
+					System.out.println("(SignUpServlet) Error: " + e + "\n");
+					response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+				}
+			} else{
+				out.println("<script type='text/javascript'>");
+				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("alert('You are already logged in.');");
+				out.println("</script>");
 			}
-		} catch(java.sql.SQLIntegrityConstraintViolationException e){
-			System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
-			response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
-		} catch(Exception e){
-			System.out.println("(SignUpServlet) Error: " + e + "\n");
-			response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+		} catch (Exception e){
+			System.out.println("(SignUpServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
