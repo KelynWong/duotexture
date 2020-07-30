@@ -105,13 +105,13 @@ public class DeleteCategoryServlet extends HttpServlet {
 									out.println("window.location.href='Assignment/website/categories.jsp';");
 									out.println("alert('Category has successfully been deleted.');");
 									out.println("</script>");
-								}else{
+								} else{
 									out.println("<script type='text/javascript'>");
 									out.println("window.location.href='Assignment/website/categories.jsp';");
 									out.println("alert('Failed to delete category.');");
 									out.println("</script>");
 								}    
-							}else{
+							} else{
 								out.println("<script type='text/javascript'>");
 								out.println("window.location.href='Assignment/website/categories.jsp';");
 								out.println("alert('Failed to delete category.');");
@@ -122,7 +122,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 						response.sendRedirect("categories.jsp");
 					} 
 				}
-			}else{ 
+			} else{ 
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='Assignment/website/index.jsp';");
 				out.println("alert('You do not have access rights.');");
