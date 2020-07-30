@@ -20,21 +20,21 @@ public class CategoryUtils {
 		
 		// prepared statement, get all categories query and result
 		Statement stmt = conn.createStatement();
-		String getCategoryByIdQuery = "SELECT * FROM duotexture.categories;";
-		ResultSet getCategoryByIdResult = stmt.executeQuery(getCategoryByIdQuery);
+		String getCategoriesQuery = "SELECT * FROM duotexture.categories;";
+		ResultSet getCategoriesResult = stmt.executeQuery(getCategoriesQuery);
 		
 		// create new ArrayList of category
 		ArrayList<Category> categoriesArrayList = new ArrayList<Category>();
 		
 		// loop if there are new row
-		while(getCategoryByIdResult.next()) {
+		while(getCategoriesResult.next()) {
 			// create an instance of category
 			Category categoryBean = new Category();
 			
-			categoryBean.setCategoryId(getCategoryByIdResult.getInt("categoryId"));
-			categoryBean.setName(getCategoryByIdResult.getString("name"));
-			categoryBean.setDescription(getCategoryByIdResult.getString("description"));
-			categoryBean.setImage(getCategoryByIdResult.getString("image"));
+			categoryBean.setCategoryId(getCategoriesResult.getInt("categoryId"));
+			categoryBean.setName(getCategoriesResult.getString("name"));
+			categoryBean.setDescription(getCategoriesResult.getString("description"));
+			categoryBean.setImage(getCategoriesResult.getString("image"));
 			
 			// add categoryBean to categoriesArrayList
 			categoriesArrayList.add(categoryBean);
