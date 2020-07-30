@@ -10,7 +10,7 @@ import database.connection;
 import javabeans.categories;
 
 
-public class categoriesDB {
+public class CategoriesUtil {
 	
 	// get all categories
 	public ArrayList<categories> getCategories () {
