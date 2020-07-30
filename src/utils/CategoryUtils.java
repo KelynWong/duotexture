@@ -13,7 +13,7 @@ import javabeans.Category;
 public class CategoryUtils {
 	
 	// get all categories
-	public ArrayList<Category> getCategories () throws SQLException, ClassNotFoundException {
+	public static ArrayList<Category> getCategories () throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -45,7 +45,7 @@ public class CategoryUtils {
 	}
 	
 	// get category by id
-	public Category getCategoryById (int categoryId) throws SQLException, ClassNotFoundException {
+	public static Category getCategoryById (int categoryId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
