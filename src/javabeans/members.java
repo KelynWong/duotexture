@@ -1,6 +1,6 @@
 package javabeans;
 
-public class members {
+public class Members {
 	private String first_name;
 	private String last_name;
 	private String country;
@@ -9,12 +9,12 @@ public class members {
 	private int userId;
 	
 	// default constructor
-	public members() {
+	public Members() {
 		
 	}
 	
 	// constructor overload
-	public members(String first_name, String last_name, String country, String address, int postal_code, int userId) {
+	public Members(String first_name, String last_name, String country, String address, int postal_code, int userId) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.country = country;
