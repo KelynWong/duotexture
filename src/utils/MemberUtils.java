@@ -13,7 +13,7 @@ import javabeans.Member;
 public class MemberUtils {
 	
 	// get all members
-	public ArrayList<Member> getMembers () throws SQLException, ClassNotFoundException {
+	public static ArrayList<Member> getMembers () throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -47,7 +47,7 @@ public class MemberUtils {
 	}
 	
 	// get member by id
-	public Member getMemberById (int userId) throws ClassNotFoundException, SQLException {
+	public static Member getMemberById (int userId) throws ClassNotFoundException, SQLException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -76,7 +76,7 @@ public class MemberUtils {
 	}
 	
 	// add members
-	public int insertMember (String firstName, String lastName, String country, String address, int postalCode, int userId) throws SQLException, ClassNotFoundException {
+	public static int insertMember (String firstName, String lastName, String country, String address, int postalCode, int userId) throws SQLException, ClassNotFoundException {
 
 		// connect to database
 		Connection conn = Database.connectToDatabase();
@@ -98,7 +98,7 @@ public class MemberUtils {
 	}
 	
 	// edit member
-	public int editMember (String firstName, String lastName, String country, String address, int postalCode, int userId) throws SQLException, ClassNotFoundException {
+	public static int editMember (String firstName, String lastName, String country, String address, int postalCode, int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -119,7 +119,7 @@ public class MemberUtils {
 	}
 	
 	// delete member
-	public int deleteMember (int userId) throws SQLException, ClassNotFoundException {
+	public static int deleteMember (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
