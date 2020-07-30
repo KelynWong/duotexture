@@ -39,7 +39,7 @@ public class categories {
 		return image;
 	}
 	
-	// set category id (should not be in usage)
+	// set category id
 	public void setCategoryId(int categoryId) {
 		this.categoryId= categoryId;
 	}
