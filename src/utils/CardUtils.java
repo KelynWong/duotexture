@@ -30,7 +30,6 @@ public class CardUtils {
 			// create an instance of card
 			Card cardBean = new Card();
 			
-			cardBean.setCardId(getCardsResult.getInt("cardId"));
 			cardBean.setUserId(getCardsResult.getInt("userId"));
 			cardBean.setCardOwner(getCardsResult.getString("cardOwner"));
 			cardBean.setCardNumber(getCardsResult.getInt("cardNumber"));
@@ -63,7 +62,6 @@ public class CardUtils {
 		
 		// if there is a new row
 		if(getCardByUserIdResult.next()) {
-			cardBean.setCardId(getCardByUserIdResult.getInt("cardId"));
 			cardBean.setUserId(getCardByUserIdResult.getInt("userId"));
 			cardBean.setCardOwner(getCardByUserIdResult.getString("cardOwner"));
 			cardBean.setCardNumber(getCardByUserIdResult.getInt("cardNumber"));
