@@ -27,7 +27,7 @@
     <%@ include file = "components/navigation.jsp" %>
 	
 	<%
-		ArrayList<Category> categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
+	ArrayList<Category> categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
 	%>
 	
     <section class="col-12 p-5 row justify-content-center">
