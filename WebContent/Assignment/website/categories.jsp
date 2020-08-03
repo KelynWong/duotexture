@@ -26,10 +26,6 @@
     <!-- import navigation bar -->
     <%@ include file = "components/navigation.jsp" %>
 	
-	<%
-	ArrayList<Category> categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
-	%>
-	
     <section class="col-12 p-5 row justify-content-center">
     <% for(int x=0; x<categoriesArrayList.size(); x++){  %>
 		<div class="card col-3 mx-5 mb-5" style="width: 18rem;">
