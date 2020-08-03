@@ -80,7 +80,7 @@ INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_pri
 INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Cotton T-shirt', 'Duo-Texture produced.', '3', '7.99', '280', '3', './assets/images/image19.jpg'); 
 
 -- Cart Table
-CREATE TABLE `duotexture`.`cart` (
+CREATE TABLE `duotexture`.`carts` (
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `duotexture`.`purchases` (
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
 
 -- Card Table
-CREATE TABLE `duotexture`.`card` (
+CREATE TABLE `duotexture`.`cards` (
   `userId` INT NOT NULL,
   `cardOwner` VARCHAR(45) NOT NULL,
   `cardNumber` INT NOT NULL,
