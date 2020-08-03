@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
@@ -38,6 +39,28 @@ public class CategoryServices {
 			}
 			
 			return Response.status(200).entity(categoriesJSONArray.toString()).build();
+			
+		} catch (Exception e) {
+			return Response.status(200).entity("Error occurred.").build();
+		}
+	}
+	
+	@Path("getcategory")
+	@GET
+	@Produces("application/json")
+	public Response getCategoryById(@QueryParam("categoryId") int categoryId) {
+		
+		try {
+			Category categoryBean = CategoryUtils.getCategoryById(categoryId);
+			
+			JSONObject categoryObject = new JSONObject();
+			
+			categoryObject.put("categoryId", categoryBean.getCategoryId());
+			categoryObject.put("name", categoryBean.getName());
+			categoryObject.put("description", categoryBean.getDescription());
+			categoryObject.put("image", categoryBean.getImage());
+			
+			return Response.status(200).entity(categoryBean.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();
