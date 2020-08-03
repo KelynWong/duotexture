@@ -1,7 +1,6 @@
 package javabeans;
 
 public class Card {
-	private int cardId;
 	private int userId;
 	private String cardOwner;
 	private int cardNumber;
@@ -15,19 +14,13 @@ public class Card {
 	}
 	
 	// constructor overload
-	public Card(int cardId, int userId, String cardOwner, int cardNumber, int expiryMonth, int expiryYear, int cvv) {
-		this.cardId = cardId;
+	public Card(int userId, String cardOwner, int cardNumber, int expiryMonth, int expiryYear, int cvv) {
 		this.userId = userId;
 		this.cardOwner = cardOwner;
 		this.cardNumber = cardNumber;
 		this.expiryMonth = expiryMonth;
 		this.expiryYear = expiryYear;
 		this.cvv = cvv;
-	}
-
-	// get card id
-	public int getCardId() {
-		return cardId;
 	}
 
 	// get user id
@@ -60,11 +53,6 @@ public class Card {
 		return cvv;
 	}
 
-	// set card id
-	public void setCardId(int cardId) {
-		this.cardId = cardId;
-	}
-	
 	// set user id
 	public void setUserId(int userId) {
 		this.userId = userId;
