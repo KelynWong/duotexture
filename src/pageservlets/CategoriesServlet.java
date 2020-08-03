@@ -36,7 +36,7 @@ import javabeans.Category;
  * 
  */
 
-@WebServlet("/Categories")
+@WebServlet("/categories")
 public class CategoriesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
