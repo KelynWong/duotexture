@@ -108,7 +108,8 @@ CREATE TABLE `duotexture`.`purchases` (
   PRIMARY KEY (`purchaseId`),
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
-  
+
+-- Card Table
 CREATE TABLE `duotexture`.`card` (
   `cardId` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL,
