@@ -75,8 +75,8 @@ public class CartUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add cart query and result
-		String addUserQuery = "INSERT INTO duotexture.cart(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
-		PreparedStatement pstmt = conn.prepareStatement(addUserQuery);
+		String addCartQuery = "INSERT INTO duotexture.cart(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
+		PreparedStatement pstmt = conn.prepareStatement(addCartQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
 		pstmt.setInt(3, quantity);
