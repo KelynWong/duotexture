@@ -1,4 +1,4 @@
-package servlets;
+package methodservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;

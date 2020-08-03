@@ -1,4 +1,4 @@
-package servlets;
+package methodservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import utils.CategoryUtils;
+import utils.ProductUtils;
 
 /**
- * Servlet implementation class EditCategoryServlet
+ * Servlet implementation class EditProductServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -26,14 +26,14 @@ import utils.CategoryUtils;
  * 
  */
 
-@WebServlet("/EditCategoryServlet")
-public class EditCategoryServlet extends HttpServlet {
+@WebServlet("/EditProductServlet")
+public class EditProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditCategoryServlet() {
+    public EditProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,7 +58,7 @@ public class EditCategoryServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(EditCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to edit.\n"); 
+					System.out.println("(EditProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit.\n"); 
 					response.sendRedirect("Assignment/website/categories.jsp");
 				}
 			} else{
@@ -68,7 +68,7 @@ public class EditCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(EditProductServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -93,34 +93,38 @@ public class EditCategoryServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					try {       
-						if(request.getParameter("inputCategoryId")!=null){
+						if(request.getParameter("inputProductId")!=null){
+							int inputProductId = Integer.parseInt(request.getParameter("inputProductId"));
+							String inputProductName = request.getParameter("inputProductName");
+							String inputProductDescription = request.getParameter("inputProductDescription");
+							Double inputCostPrice = Double.parseDouble(request.getParameter("inputCostPrice"));
+							Double inputRetailPrice = Double.parseDouble(request.getParameter("inputRetailPrice"));
+							int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
 							int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
-							String inputCategoryName = request.getParameter("inputCategoryName");
-							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
-							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
-
-							// edit category
-							int count = CategoryUtils.editCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl, inputCategoryId);
+							String inputImageUrl = request.getParameter("inputImageUrl");
 							
+							// edit product
+							int count = ProductUtils.editProduct(inputProductId, inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
+						
 							if(count > 0){
-								response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=success"); 
+								response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + inputProductId + "&productEdit=success"); 
 							}else{
-								response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=fail");
+								response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + inputProductId + "&productEdit=fail");
 							}
-							
+							  
 						}else{
-							System.out.println("(EditCategoryServlet) Error: Wrong Flow\n");
-							response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
+							System.out.println("(EditProductServlet) Error: Wrong Flow\n");
+							response.sendRedirect("Assignment/website/edit_product.jsp?productEdit=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
-						System.out.println("(EditCategoryServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						System.out.println("(EditProductServlet) Error: Duplicate Entry\n");
+						response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					} catch (java.lang.NumberFormatException e) {         
-						System.out.println("(EditCategoryServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						System.out.println("(EditProductServlet) Error: Invalid Inputs\n"); 
+						response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					} catch (Exception e) {         
-						System.out.println("(EditCategoryServlet) Error :" + e + "\n");    
-						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						System.out.println("(EditProductServlet) Error :" + e + "\n");    
+						response.sendRedirect("Assignment/website/edit_product.jsp?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					}
 				}
 			} else{
@@ -130,7 +134,7 @@ public class EditCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(EditProductServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 

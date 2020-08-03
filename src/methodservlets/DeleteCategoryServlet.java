@@ -1,4 +1,4 @@
-package servlets;
+package methodservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import utils.ProductUtils;
+import utils.CategoryUtils;
 
 /**
- * Servlet implementation class AddProductServlet
+ * Servlet implementation class DeleteCategoryServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -26,14 +26,14 @@ import utils.ProductUtils;
  * 
  */
 
-@WebServlet("/AddProductServlet")
-public class AddProductServlet extends HttpServlet {
+@WebServlet("/DeleteCategoryServlet")
+public class DeleteCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddProductServlet() {
+    public DeleteCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,8 +58,8 @@ public class AddProductServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(AddProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to add.\n"); 
-					response.sendRedirect("Assignment/website/add_category.jsp");
+					System.out.println("(DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to delete.\n"); 
+					response.sendRedirect("Assignment/website/categories.jsp");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -68,7 +68,7 @@ public class AddProductServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(AddProductServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(DeleteCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -78,62 +78,59 @@ public class AddProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
 		HttpSession session=request.getSession();
-
+		
 		// get writer
 		PrintWriter out = response.getWriter();  
-		
+
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
+					
 					out.println("<script type='text/javascript'>");
 					out.println("window.location.href='Assignment/website/index.jsp';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					try {       
-						if(request.getParameter("inputProductName")!=null){
-							String inputProductName = request.getParameter("inputProductName");
-							String inputProductDescription = request.getParameter("inputProductDescription");
-							Double inputCostPrice = Double.parseDouble(request.getParameter("inputCostPrice"));
-							Double inputRetailPrice = Double.parseDouble(request.getParameter("inputRetailPrice"));
-							int inputQuantity = Integer.parseInt(request.getParameter("inputQuantity"));
-							int inputCategoryId = Integer.parseInt(request.getParameter("inputCategoryId"));
-							String inputImageUrl = request.getParameter("inputImageUrl");
-							
-							// add product
-							int count = ProductUtils.insertProduct(inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
-						
-							if(count > 0){
-								response.sendRedirect("Assignment/website/add_product.jsp?productAddition=success"); 
-							}else{
-								response.sendRedirect("Assignment/website/add_product.jsp?productAddition=fail");
+					try {
+						if(request.getParameter("categoryId")!=null){
+								int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+								
+								// delete category
+								int count = CategoryUtils.deleteCategory(categoryId); 
+								
+								if(count > 0){
+									out.println("<script type='text/javascript'>");
+									out.println("window.location.href='Assignment/website/categories.jsp';");
+									out.println("alert('Category has successfully been deleted.');");
+									out.println("</script>");
+								} else{
+									out.println("<script type='text/javascript'>");
+									out.println("window.location.href='Assignment/website/categories.jsp';");
+									out.println("alert('Failed to delete category.');");
+									out.println("</script>");
+								}    
+							} else{
+								out.println("<script type='text/javascript'>");
+								out.println("window.location.href='Assignment/website/categories.jsp';");
+								out.println("alert('Failed to delete category.');");
+								out.println("</script>");
 							}
-						            
-						}else{
-							System.out.println("(AddProductServlet) Error: Wrong Flow\n");
-							response.sendRedirect("Assignment/website/add_product.jsp?productAddition=fail");
-						}
-					} catch(java.sql.SQLIntegrityConstraintViolationException e){
-						System.out.println("(AddProductServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("Assignment/website/add_product.jsp?productAddition=fail");
-					} catch (java.lang.NumberFormatException e) {         
-						System.out.println(" (AddProductServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("Assignment/website/add_product.jsp?productAddition=fail");
 					} catch (Exception e) {         
-						System.out.println("(AddProductServlet) Error: " + e + "\n"); 
-						response.sendRedirect("Assignment/website/add_product.jsp?productAddition=fail");
-					}
+						System.out.println("(DeleteCategoryServlet) Error: " + e + "\n");
+						response.sendRedirect("Assignment/website/categories.jsp");
+					} 
 				}
-			} else{
+			} else{ 
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='Assignment/website/index.jsp';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(AddProductServlet) Admin Validation Error: " + e + "\n");
-		}		
+			System.out.println("(DeleteCategoryServlet) Admin Validation Error: " + e + "\n");
+		}
 	}
+
 }
