@@ -81,8 +81,8 @@ public class CardUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add card query and result
-		String addUserQuery = "INSERT INTO duotexture.car(`userId`, `cardOwner`, `cardNumber`, `expiryMonth`, `expiryYear`, `cvv`) VALUES(?, ?, ?, ?, ?, ?);";
-		PreparedStatement pstmt = conn.prepareStatement(addUserQuery);
+		String addCardQuery = "INSERT INTO duotexture.card(`userId`, `cardOwner`, `cardNumber`, `expiryMonth`, `expiryYear`, `cvv`) VALUES(?, ?, ?, ?, ?, ?);";
+		PreparedStatement pstmt = conn.prepareStatement(addCardQuery);
 		pstmt.setInt(1, userId);
 	    pstmt.setString(2, cardOwner);
 	    pstmt.setInt(3, cardNumber);
