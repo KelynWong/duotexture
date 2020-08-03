@@ -45,7 +45,7 @@ public class CategoryServices {
 		}
 	}
 	
-	@Path("getcategory")
+	@Path("getcategorybyid")
 	@GET
 	@Produces("application/json")
 	public Response getCategoryById(@QueryParam("categoryId") int categoryId) {
