@@ -94,11 +94,11 @@ public class CartUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, edit cart query and result
-		String updateCartQuery = "UPDATE duotexture.cart SET  WHERE userId=?"; 
+		String updateCartQuery = "UPDATE duotexture.cart SET productId=?, quantity=? WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateCartQuery);
-		pstmt.setInt(1, userId);
-		pstmt.setInt(2, productId);
-		pstmt.setInt(3, quantity);
+		pstmt.setInt(1, productId);
+		pstmt.setInt(2, quantity);
+		pstmt.setInt(3, userId);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
