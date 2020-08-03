@@ -48,6 +48,43 @@ public class ProductUtils {
 		return productsArrayList;
 	}
 	
+	// get all products by category id
+	public static ArrayList<Product> getProductsByCategoryId (int categoryId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get all products by category id query and result		
+		String getProductByCategoryIdQuery = "SELECT * FROM duotexture.products WHERE productId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getProductByCategoryIdQuery);
+		pstmt.setInt(1, categoryId);
+		ResultSet getProductByCategoryIdResult = pstmt.executeQuery();
+		
+		// create new ArrayList of product
+		ArrayList<Product> productsArrayList = new ArrayList<Product>();
+		
+		// loop if there are new row
+		while(getProductByCategoryIdResult.next()) {
+			// create an instance of product
+			Product productBean = new Product();
+			
+			productBean.setProductId(getProductByCategoryIdResult.getInt("productId"));
+			productBean.setName(getProductByCategoryIdResult.getString("name"));
+			productBean.setDescription(getProductByCategoryIdResult.getString("description"));
+			productBean.setCostPrice(getProductByCategoryIdResult.getDouble("cost_price"));
+			productBean.setRetailPrice(getProductByCategoryIdResult.getDouble("retail_price"));
+			productBean.setQuantity(getProductByCategoryIdResult.getInt("quantity"));
+			productBean.setCategoryId(getProductByCategoryIdResult.getInt("categoryId"));
+			productBean.setImage(getProductByCategoryIdResult.getString("image"));
+			
+			// add productBean to productsArrayList
+			productsArrayList.add(productBean);
+		}
+		
+		// close connection
+		conn.close();
+		return productsArrayList;
+	}
+	
 	// get product by id
 	public static Product getProductById (int productId) throws SQLException, ClassNotFoundException {
 		// connect to database
