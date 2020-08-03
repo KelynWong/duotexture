@@ -26,7 +26,7 @@
       <section class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
         <li class="nav-item">
-			<a class="nav-link custom-font-mont fs-15" href="categories.jsp" role="button">All Categories</a>
+			<a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/categories" role="button">All Categories</a>
 		</li>
 		<%
 		try {
@@ -76,7 +76,7 @@
 			// check if user's account and retrieve their username
 			if(session.getAttribute("accountType")!=null){ %>
 					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("username")%></a>
-					<a class="nav-link custom-font-mont fs-15 text-danger" href="../../SignOutServlet">Log Out</a>
+					<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/SignOutServlet">Log Out</a>
 					<%
 			}else{
 				%>
