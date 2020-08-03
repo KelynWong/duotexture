@@ -81,43 +81,35 @@ INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_pri
 
 -- Cart Table
 CREATE TABLE `duotexture`.`cart` (
-  `cartId` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
-  PRIMARY KEY (`cartId`),
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
   
 -- Orders Table
 CREATE TABLE `duotexture`.`orders` (
-  `orderId` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
-  PRIMARY KEY (`orderId`),
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
   
 -- Purchases Table
 CREATE TABLE `duotexture`.`purchases` (
-  `purchaseId` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
-  PRIMARY KEY (`purchaseId`),
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
 
 -- Card Table
 CREATE TABLE `duotexture`.`card` (
-  `cardId` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL,
   `cardOwner` VARCHAR(45) NOT NULL,
   `cardNumber` INT NOT NULL,
   `expiryMonth` INT NOT NULL,
   `expiryYear` INT NOT NULL,
   `cvv` INT NOT NULL,
-  PRIMARY KEY (`cardId`),
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE
   );
