@@ -1,7 +1,6 @@
 package javabeans;
 
 public class Order {
-	private int orderId;
 	private int userId;
 	private int productId;
 	private int quantity;
@@ -12,16 +11,10 @@ public class Order {
 	}
 	
 	// constructor overload
-	public Order(int orderId, int userId, int productId, int quantity) {
-		this.orderId = orderId;
+	public Order(int userId, int productId, int quantity) {
 		this.userId = userId;
 		this.productId = productId;
 		this.quantity = quantity;
-	}
-	
-	// get order id
-	public int getOrderId() {
-		return orderId;
 	}
 	
 	// get user id
@@ -37,11 +30,6 @@ public class Order {
 	// get quantity
 	public int getQuantity() {
 		return quantity;
-	}
-	
-	// set order id
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
 	}
 	
 	// set user id
