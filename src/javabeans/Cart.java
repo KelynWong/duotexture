@@ -1,7 +1,6 @@
 package javabeans;
 
 public class Cart {
-	private int cartId;
 	private int userId;
 	private int productId;
 	private int quantity;
@@ -12,16 +11,10 @@ public class Cart {
 	}
 	
 	// constructor overload
-	public Cart(int cartId, int userId, int productId, int quantity) {
-		this.cartId = cartId;
+	public Cart(int userId, int productId, int quantity) {
 		this.userId = userId;
 		this.productId = productId;
 		this.quantity = quantity;
-	}
-	
-	// get cart id
-	public int getcartId() {
-		return cartId;
 	}
 	
 	// get user id
@@ -37,11 +30,6 @@ public class Cart {
 	// get quantity
 	public int getQuantity() {
 		return quantity;
-	}
-	
-	// set card id
-	public void setcartId(int cartId) {
-		this.cartId = cartId;
 	}
 	
 	// set user id
