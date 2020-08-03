@@ -106,7 +106,7 @@ public class PurchaseUtils {
 		return count;
 	}
 	
-	// delete Purchase
+	// delete purchase
 	public static int deletePurchase (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
