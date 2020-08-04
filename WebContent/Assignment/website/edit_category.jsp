@@ -61,25 +61,12 @@
 			if(request.getParameter("categoryId")!=null){
 				int getCategoryId = Integer.parseInt(request.getParameter("categoryId"));
 				
-				// connect to mysql database
-				Class.forName("com.mysql.jdbc.Driver"); 
-				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-				Connection conn = DriverManager.getConnection(connURL);   
-				Statement stmt = conn.createStatement(); 
-				
-				// get and display category details by given id
-				String getCategoryByIdQuery = "SELECT * FROM categories WHERE categoryId=? LIMIT 1";    
-				PreparedStatement pstmt = conn.prepareStatement(getCategoryByIdQuery);
-				
-			    pstmt.setInt(1, getCategoryId);
-				ResultSet getCategoryByIdResult = pstmt.executeQuery(); 
-			
-				getCategoryByIdResult.next();
-				String categoryCategoryId = getCategoryByIdResult.getString("categoryId");
-				String categoryName = getCategoryByIdResult.getString("name");               
-				String categoryDescription = getCategoryByIdResult.getString("description");
-				String categoryImage = getCategoryByIdResult.getString("image"); 
-				%>
+				Category category = (Category) request.getAttribute("category");
+
+				String categoryName = category.getName();
+				String categoryDescription = category.getDescription();
+				String categoryImage = category.getImage();
+		%>
 
 				<div class="form-row">
 		          <div class="form-group row col-md-12">
@@ -124,8 +111,7 @@
 		        }
 		        %>
 		        <button type="submit" class="btn btn-success">Edit</button>
-			<%
-			conn.close();      
+			<%    
 			}else{
 				%>
 				<p>Category Id is not declared.</p>
