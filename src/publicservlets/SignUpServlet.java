@@ -1,4 +1,4 @@
-package pageservlets;
+package publicservlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,10 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Category;
-import javabeans.Product;
 
 /**
- * Servlet implementation class ProductListingsServlet
+ * Servlet implementation class SignUpServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -37,14 +36,14 @@ import javabeans.Product;
  * 
  */
 
-@WebServlet("/productlistings")
-public class ProductListingsServlet extends HttpServlet {
+@WebServlet("/signup")
+public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListingsServlet() {
+    public SignUpServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -87,72 +86,17 @@ public class ProductListingsServlet extends HttpServlet {
 				
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
-
-				// get keyword
-				String keyword = request.getParameter("keywordInput");
 				
-				// get category id	
-				int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-				
-				// declare client
-				client = ClientBuilder.newClient();
-				
-				// check if search bar is empty
-				if(keyword!=null){
-					// target java and parse in data - get products by category id
-					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
-							.path("productservices/getproductsbycategoryidandkeyword").queryParam("categoryId", categoryId).queryParam("keyword", keyword);
-				}else{
-					// target java and parse in data - get products by category id
-					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
-							.path("productservices/getproductsbycategoryid").queryParam("categoryId", categoryId);
-				}
-				
-				// declare media is an application/json
-				invoBuilder = target.request(MediaType.APPLICATION_JSON);
-				
-				// get response
-				resp = invoBuilder.get();
-				
-				// if response status is ok
-				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
-					// get results from java class
-					JSONArray productsJSONArray = new JSONArray(resp.readEntity(new GenericType<String>() {}));
-					ArrayList<Product> productsArrayList = new ArrayList<Product>();
-					
-					for(int x=0; x<productsJSONArray.length(); x++) {
-						JSONObject productObject = (JSONObject) productsJSONArray.get(x);
-						
-						int productId = productObject.getInt("productId");
-						String name = productObject.getString("name");
-						String description = productObject.getString("description");
-						double cost_price = productObject.getDouble("cost_price");
-						double retail_price = productObject.getDouble("retail_price");
-						int quantity = productObject.getInt("quantity");
-						String image = productObject.getString("image");
-						
-						Product product = new Product(productId, name, description, cost_price, retail_price, categoryId, quantity,image);
-						productsArrayList.add(product);
-						
-						// store in request
-						request.setAttribute("productsArrayList", productsArrayList);
-						
-						// forward request to jsp for display
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_listings.jsp");
-						requestDispatcher.forward(request, response);
-					}
-				} else {
-					System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
-					response.sendRedirect("Assignment/website/index.jsp");
-				}
-				
+				// forward request to jsp for display
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/sign_up.jsp");
+				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
+				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(ProductListingsServlet) Error: " + e + "\n");
+			System.out.println("(CategoriesServlet.jsp) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
 

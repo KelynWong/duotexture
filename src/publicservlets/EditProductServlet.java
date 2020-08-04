@@ -1,4 +1,4 @@
-package pageservlets;
+package publicservlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import javabeans.Category;
 import javabeans.Product;
 
 /**
- * Servlet implementation class ProductDetailsServlet
+ * Servlet implementation class EditProductServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -37,14 +37,14 @@ import javabeans.Product;
  * 
  */
 
-@WebServlet("/productdetails")
-public class ProductDetailsServlet extends HttpServlet {
+@WebServlet("/editproduct")
+public class EditProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductDetailsServlet() {
+    public EditProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,7 +57,7 @@ public class ProductDetailsServlet extends HttpServlet {
 			// declare client
 			Client client = ClientBuilder.newClient();
 			
-			// target java and parse in data - get categories for navigation
+			// target java and parse in data - get categories for navigation and form drop-down
 			WebTarget target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 					.path("categoryservices/getcategories");
 			
@@ -122,20 +122,17 @@ public class ProductDetailsServlet extends HttpServlet {
 					request.setAttribute("product", product);
 					
 					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_details.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_product.jsp");
 					requestDispatcher.forward(request, response);
-				} else {
-					System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
-					response.sendRedirect("Assignment/website/index.jsp");
 				}
 				
 			} else {
-				System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
+				System.out.println("(EditProductServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(ProductDetailsServlet) Error: " + e + "\n");
+			System.out.println("(EditProductServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
 

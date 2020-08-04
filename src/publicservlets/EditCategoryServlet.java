@@ -1,4 +1,4 @@
-package pageservlets;
+package publicservlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import javabeans.Category;
 
 /**
- * Servlet implementation class CategoriesServlet
+ * Servlet implementation class EditCategoryServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -36,14 +36,14 @@ import javabeans.Category;
  * 
  */
 
-@WebServlet("/categories")
-public class CategoriesServlet extends HttpServlet {
+@WebServlet("/editcategory")
+public class EditCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategoriesServlet() {
+    public EditCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,7 +56,7 @@ public class CategoriesServlet extends HttpServlet {
 			// declare client
 			Client client = ClientBuilder.newClient();
 			
-			// target java and parse in data - get categories for navigation and page
+			// target java and parse in data - get categories for navigation
 			WebTarget target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 					.path("categoryservices/getcategories");
 			
@@ -87,18 +87,50 @@ public class CategoriesServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
-				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/categories.jsp");
-				requestDispatcher.forward(request, response);
+				// get category id
+				int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+				
+				// declare client
+				client = ClientBuilder.newClient();
+				
+				// target java and parse in data - get category by id
+				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+						.path("categoryservices/getcategorybyid").queryParam("categoryId", categoryId);
+				
+				// declare media is an application/json
+				invoBuilder = target.request(MediaType.APPLICATION_JSON);
+				
+				// get response
+				resp = invoBuilder.get();
+				
+				// if response status is ok
+				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+					JSONObject categoryObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+					
+					String name = categoryObject.getString("name");
+					String description = categoryObject.getString("description");
+					String image = categoryObject.getString("image");
+					
+					Category category = new Category(categoryId, name, description, image);
+					
+					// store in request
+					request.setAttribute("category", category);
+					
+					// forward request to jsp for display
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_category.jsp");
+					requestDispatcher.forward(request, response);
+				}
+				
 			} else {
-				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
+				System.out.println("(EditCategoryServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(CategoriesServlet.jsp) Error: " + e + "\n");
+			System.out.println("(EditCategoryServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
+
 	}
 
 	/**

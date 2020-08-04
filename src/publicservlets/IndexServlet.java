@@ -1,4 +1,4 @@
-package pageservlets;
+package publicservlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import javabeans.Category;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class IndexServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -36,14 +36,14 @@ import javabeans.Category;
  * 
  */
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/index")
+public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public IndexServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/login.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/index.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");

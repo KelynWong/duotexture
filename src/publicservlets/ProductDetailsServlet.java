@@ -1,4 +1,4 @@
-package pageservlets;
+package publicservlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,9 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Category;
+import javabeans.Product;
 
 /**
- * Servlet implementation class IndexServlet
+ * Servlet implementation class ProductDetailsServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -36,14 +37,14 @@ import javabeans.Category;
  * 
  */
 
-@WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/productdetails")
+public class ProductDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndexServlet() {
+    public ProductDetailsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -87,16 +88,54 @@ public class IndexServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
-				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/index.jsp");
-				requestDispatcher.forward(request, response);
+				// get product id	
+				int productId = Integer.parseInt(request.getParameter("productId"));
+				
+				// declare client
+				client = ClientBuilder.newClient();
+				
+				// target java and parse in data - get product by id
+				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+						.path("productservices/getproductbyid").queryParam("productId", productId);
+				
+				// declare media is an application/json
+				invoBuilder = target.request(MediaType.APPLICATION_JSON);
+				
+				// get response
+				resp = invoBuilder.get();
+				
+				// if response status is ok
+				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+					JSONObject productObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+					
+					String name = productObject.getString("name");
+					String description = productObject.getString("description");
+					double cost_price = productObject.getDouble("cost_price");
+					double retail_price = productObject.getDouble("retail_price");
+					int quantity = productObject.getInt("quantity");
+					int categoryId = productObject.getInt("categoryId");
+					String image = productObject.getString("image");
+					
+					Product product = new Product(productId, name, description, cost_price, retail_price, quantity, categoryId, image);
+					
+					// store in request
+					request.setAttribute("product", product);
+					
+					// forward request to jsp for display
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_details.jsp");
+					requestDispatcher.forward(request, response);
+				} else {
+					System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
+					response.sendRedirect("Assignment/website/index.jsp");
+				}
+				
 			} else {
-				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
+				System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(CategoriesServlet.jsp) Error: " + e + "\n");
+			System.out.println("(ProductDetailsServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
 

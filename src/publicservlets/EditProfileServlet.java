@@ -1,4 +1,4 @@
-package pageservlets;
+package publicservlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,9 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Category;
+import javabeans.Member;
+import javabeans.User;
 
 /**
- * Servlet implementation class EditCategoryServlet
+ * Servlet implementation class EditProfileServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -36,14 +38,14 @@ import javabeans.Category;
  * 
  */
 
-@WebServlet("/editcategory")
-public class EditCategoryServlet extends HttpServlet {
+@WebServlet("/editprofile")
+public class EditProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditCategoryServlet() {
+    public EditProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -86,16 +88,16 @@ public class EditCategoryServlet extends HttpServlet {
 				
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
-				
-				// get category id
-				int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+
+				// get user id	
+				int userId = Integer.parseInt(request.getParameter("userId"));
 				
 				// declare client
 				client = ClientBuilder.newClient();
 				
-				// target java and parse in data - get category by id
+				// target java and parse in data - get user by user id
 				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
-						.path("categoryservices/getcategorybyid").queryParam("categoryId", categoryId);
+						.path("userservices/getuserbyid").queryParam("userId", userId);
 				
 				// declare media is an application/json
 				invoBuilder = target.request(MediaType.APPLICATION_JSON);
@@ -105,29 +107,64 @@ public class EditCategoryServlet extends HttpServlet {
 				
 				// if response status is ok
 				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
-					JSONObject categoryObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+					JSONObject userObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
 					
-					String name = categoryObject.getString("name");
-					String description = categoryObject.getString("description");
-					String image = categoryObject.getString("image");
+					String email = userObject.getString("email");
+					String username = userObject.getString("username");
+					String password = userObject.getString("password");
+					String userRole = userObject.getString("userRole");
 					
-					Category category = new Category(categoryId, name, description, image);
+					User user= new User(userId, email, username, password, userRole);
 					
 					// store in request
-					request.setAttribute("category", category);
+					request.setAttribute("user", user);
 					
-					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_category.jsp");
-					requestDispatcher.forward(request, response);
+					// declare client
+					client = ClientBuilder.newClient();
+					
+					// target java and parse in data - get member by user id
+					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+							.path("memberservices/getmemberrbyuserid").queryParam("userId", userId);
+					
+					// declare media is an application/json
+					invoBuilder = target.request(MediaType.APPLICATION_JSON);
+					
+					// get response
+					resp = invoBuilder.get();
+					
+					// if response status is ok
+					if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+						JSONObject memberObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+						
+						String first_name = userObject.getString("first_name");
+						String last_name = userObject.getString("last_name");
+						String country = userObject.getString("country");
+						String address = userObject.getString("address");
+						String postal_code = userObject.getString("postal_code");
+						
+						Member member= new Member(first_name, last_name, country, address, postal_code, userId);
+						
+						// store in request
+						request.setAttribute("member", member);
+					
+						// forward request to jsp for display
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_profile.jsp");
+						requestDispatcher.forward(request, response);
+					} else {
+						System.out.println("(EditProfileServlet) Error: Response not ok. \n");
+						response.sendRedirect("Assignment/website/index.jsp");
+					}
+				} else {
+					System.out.println("(EditProfileServlet) Error: Response not ok. \n");
+					response.sendRedirect("Assignment/website/index.jsp");
 				}
-				
 			} else {
-				System.out.println("(EditCategoryServlet) Error: Response not ok. \n");
+				System.out.println("(EditProfileServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(EditCategoryServlet) Error: " + e + "\n");
+			System.out.println("(EditProfileServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
 

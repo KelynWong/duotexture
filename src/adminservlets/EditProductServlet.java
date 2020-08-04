@@ -1,4 +1,4 @@
-package methodservlets;
+package adminservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
