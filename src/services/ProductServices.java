@@ -49,6 +49,38 @@ public class ProductServices {
 		}
 	}
 	
+	@Path("getproductsbycategoryidandkeyword")
+	@GET
+	@Produces("application/json")
+	public Response getProductsByCategoryIdAndKeyword(@QueryParam("categoryId") int categoryId, @QueryParam("keyword") String keyword) {
+		
+		JSONArray searchProductsJSONArray = new JSONArray();
+		ArrayList<Product> searchProductsArrayList;
+		
+		try {
+			searchProductsArrayList = ProductUtils.getProductsByCategoryId(categoryId);
+			for (int x=0; x<searchProductsArrayList.size(); x++) {
+				JSONObject productObject = new JSONObject();
+				
+				productObject.put("productId", searchProductsArrayList.get(x).getProductId());
+				productObject.put("name", searchProductsArrayList.get(x).getName());
+				productObject.put("description", searchProductsArrayList.get(x).getDescription());
+				productObject.put("cost_price", searchProductsArrayList.get(x).getCostPrice());
+				productObject.put("retail_price", searchProductsArrayList.get(x).getRetailPrice());
+				productObject.put("quantity", searchProductsArrayList.get(x).getQuantity());
+				productObject.put("categoryId", searchProductsArrayList.get(x).getCategoryId());
+				productObject.put("image", searchProductsArrayList.get(x).getImage());
+				
+				searchProductsJSONArray.put(productObject);
+			}
+			
+			return Response.status(200).entity(searchProductsJSONArray.toString()).build();
+			
+		} catch (Exception e) {
+			return Response.status(200).entity("Error occurred.").build();
+		}
+	}
+	
 	@Path("getproductbyid")
 	@GET
 	@Produces("application/json")
