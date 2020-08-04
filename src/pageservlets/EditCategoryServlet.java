@@ -87,23 +87,24 @@ public class EditCategoryServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
+				// get category id
 				int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 				
 				// declare client
-				Client client2 = ClientBuilder.newClient();
+				client = ClientBuilder.newClient();
 				
 				// target java and parse in data - get category by id
-				WebTarget target2 = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 						.path("categoryservices/getcategorybyid").queryParam("categoryId", categoryId);
 				
 				// declare media is an application/json
-				Invocation.Builder invoBuilder2 = target.request(MediaType.APPLICATION_JSON);
+				invoBuilder = target.request(MediaType.APPLICATION_JSON);
 				
 				// get response
-				Response resp2 = invoBuilder.get();
+				resp = invoBuilder.get();
 				
-				// if response2 status is ok
-				if(resp2.getStatus() == Response.Status.OK.getStatusCode()) {
+				// if response status is ok
+				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
 					JSONObject categoryObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
 					
 					String name = categoryObject.getString("name");
@@ -111,6 +112,9 @@ public class EditCategoryServlet extends HttpServlet {
 					String image = categoryObject.getString("image");
 					
 					Category category = new Category(categoryId, name, description, image);
+					
+					// store in request
+					request.setAttribute("category", category);
 					
 					// forward request to jsp for display
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_category.jsp");
