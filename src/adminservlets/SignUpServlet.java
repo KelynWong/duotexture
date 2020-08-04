@@ -46,7 +46,7 @@ public class SignUpServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("(SignUpServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
-		response.sendRedirect("Assignment/website/index.jsp");		
+		response.sendRedirect("${pageContext.request.contextPath}/index");		
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class SignUpServlet extends HttpServlet {
 							int count = MemberUtils.insertMember(inputFirstName, inputLastName, inputCountry, inputAddress, inputPostalCode, userId);
 							
 							if(count > 0){
-								response.sendRedirect("Assignment/website/index.jsp");
+								response.sendRedirect("${pageContext.request.contextPath}/index");
 							}else{
 								response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
 							}
@@ -115,7 +115,7 @@ public class SignUpServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/index';");
 				out.println("alert('You are already logged in.');");
 				out.println("</script>");
 			}

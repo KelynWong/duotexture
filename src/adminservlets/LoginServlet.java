@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("(LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
-		response.sendRedirect("Assignment/website/index.jsp");
+		response.sendRedirect("${pageContext.request.contextPath}/index");
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
 								
 								session.setAttribute("userId", userId);
 				        		session.setAttribute("username", username);
-								response.sendRedirect("Assignment/website/index.jsp");
+								response.sendRedirect("${pageContext.request.contextPath}/index");
 							}
 						}
 						
@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/index';");
 				out.println("alert('You are already logged in.');");
 				out.println("</script>");
 			}

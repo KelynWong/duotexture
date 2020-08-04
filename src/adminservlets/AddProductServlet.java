@@ -54,7 +54,7 @@ public class AddProductServlet extends HttpServlet {
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("window.location.href='${pageContext.request.contextPath}/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
@@ -63,7 +63,7 @@ public class AddProductServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}
@@ -88,7 +88,7 @@ public class AddProductServlet extends HttpServlet {
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("window.location.href='${pageContext.request.contextPath}/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
@@ -128,7 +128,7 @@ public class AddProductServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}
