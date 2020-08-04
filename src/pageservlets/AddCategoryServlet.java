@@ -91,12 +91,12 @@ public class AddCategoryServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/add_category.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
+				System.out.println("(AddCategoryServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(CategoriesServlet.jsp) Error: " + e + "\n");
+			System.out.println("(AddCategoryServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
 
