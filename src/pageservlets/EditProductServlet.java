@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Category;
+import javabeans.Product;
 
 /**
  * Servlet implementation class EditProductServlet
@@ -87,30 +88,38 @@ public class EditProductServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
-				int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+				// get product id	
+				int productId = Integer.parseInt(request.getParameter("productId"));
 				
 				// declare client
-				Client client2 = ClientBuilder.newClient();
+				client = ClientBuilder.newClient();
 				
-				// target java and parse in data - get category by id
-				WebTarget target2 = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
-						.path("categoryservices/getcategorybyid").queryParam("categoryId", categoryId);
+				// target java and parse in data - get product by id
+				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+						.path("productservices/getproductbyid").queryParam("productId", productId);
 				
 				// declare media is an application/json
-				Invocation.Builder invoBuilder2 = target.request(MediaType.APPLICATION_JSON);
+				invoBuilder = target.request(MediaType.APPLICATION_JSON);
 				
 				// get response
-				Response resp2 = invoBuilder.get();
+				resp = invoBuilder.get();
 				
-				// if response2 status is ok
-				if(resp2.getStatus() == Response.Status.OK.getStatusCode()) {
-					JSONObject categoryObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+				// if response status is ok
+				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+					JSONObject productObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
 					
-					String name = categoryObject.getString("name");
-					String description = categoryObject.getString("description");
-					String image = categoryObject.getString("image");
+					String name = productObject.getString("name");
+					String description = productObject.getString("description");
+					double cost_price = productObject.getDouble("cost_price");
+					double retail_price = productObject.getDouble("retail_price");
+					int quantity = productObject.getInt("quantity");
+					int categoryId = productObject.getInt("categoryId");
+					String image = productObject.getString("image");
 					
-					Category category = new Category(categoryId, name, description, image);
+					Product product = new Product(productId, name, description, cost_price, retail_price, quantity, categoryId, image);
+					
+					// store in request
+					request.setAttribute("product", product);
 					
 					// forward request to jsp for display
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_product.jsp");
