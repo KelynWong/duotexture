@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Category;
+import javabeans.Member;
 import javabeans.User;
 
 /**
@@ -104,7 +105,7 @@ public class EditProfileServlet extends HttpServlet {
 				// get response
 				resp = invoBuilder.get();
 				
-				// if response2 status is ok
+				// if response status is ok
 				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
 					JSONObject userObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
 					
@@ -118,11 +119,45 @@ public class EditProfileServlet extends HttpServlet {
 					// store in request
 					request.setAttribute("user", user);
 					
-					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_profile.jsp");
-					requestDispatcher.forward(request, response);
+					// declare client
+					client = ClientBuilder.newClient();
+					
+					// target java and parse in data - get category by id
+					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+							.path("memberservices/getmemberrbyuserid").queryParam("userId", userId);
+					
+					// declare media is an application/json
+					invoBuilder = target.request(MediaType.APPLICATION_JSON);
+					
+					// get response
+					resp = invoBuilder.get();
+					
+					// if response status is ok
+					if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+						JSONObject memberObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+						
+						String first_name = userObject.getString("first_name");
+						String last_name = userObject.getString("last_name");
+						String country = userObject.getString("country");
+						String address = userObject.getString("address");
+						String postal_code = userObject.getString("postal_code");
+						
+						Member member= new Member(first_name, last_name, country, address, postal_code, userId);
+						
+						// store in request
+						request.setAttribute("member", member);
+					
+						// forward request to jsp for display
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_profile.jsp");
+						requestDispatcher.forward(request, response);
+					} else {
+						System.out.println("(EditProfileServlet) Error: Response not ok. \n");
+						response.sendRedirect("Assignment/website/index.jsp");
+					}
+				} else {
+					System.out.println("(EditProfileServlet) Error: Response not ok. \n");
+					response.sendRedirect("Assignment/website/index.jsp");
 				}
-				
 			} else {
 				System.out.println("(EditProfileServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
