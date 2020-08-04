@@ -30,67 +30,63 @@
       <!-- edit profile form -->
       <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="../../EditProfileServlet" method="post">
 		<%
-		try{
-			// connect to mysql database
-			Class.forName("com.mysql.jdbc.Driver");         
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";      
-			Connection conn = DriverManager.getConnection(connURL);
-			
+		try{			
 			if(session.getAttribute("accountType") !=null){
-					String getUserByIdQuery = "SELECT * FROM users WHERE userId = ? LIMIT 1;";
-					PreparedStatement pstmt = conn.prepareStatement(getUserByIdQuery);
-					pstmt.setObject(1, session.getAttribute("userId"));
-					
-					ResultSet getUserByIdResult = pstmt.executeQuery();
-					getUserByIdResult.next();
-					String userRole = getUserByIdResult.getString("userRole");
+				User user = (User) request.getAttribute("user");
+					String username = user.getUsername();
+					String email = user.getEmail();
+					String password = user.getPassword();
+					String userRole = user.getUserRole();
 					
 					// check if user is a member
-					if(getUserByIdResult.getString("userRole").equals("Member")){ %>
+					if(userRole.equals("Member")){ %>
 					<p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - M e m b e r - P r o f i l e</p>
      				<hr>
 				        <div class="form-row">
 				          <div class="form-group col-md-12">
 				            <label for="inputUsername">Username</label>
-				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getUserByIdResult.getString("username")%>" required>
+				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=username%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputEmail">Email</label>
-				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getUserByIdResult.getString("email")%>" required>
+				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=email%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputPassword">Password</label>
-				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" minlength="8" required>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=password%>" minlength="8" required>
 				          </div>
 				          <% 
-					        String getAllMembersDetailsQuery = "SELECT * FROM members WHERE userId = ? LIMIT 1;";
-							PreparedStatement pstmt2 = conn.prepareStatement(getAllMembersDetailsQuery);
-							pstmt2.setObject(1, session.getAttribute("userId"));
-							ResultSet getAllMembersDetailsResult = pstmt2.executeQuery();  
-							getAllMembersDetailsResult.next(); %>
+					        Member member = (Member) request.getAttribute("member");
+				          	
+				           	String first_name = member.getFirstName();
+				            String last_name = member.getLastName();
+				            String address = member.getAddress();
+				            String country = member.getCountry();
+				            String postal_code = member.getPostalCode();
+				          %>
 				          <div class="form-group col-md-6">
 				            <label for="inputFirstName">First Name</label>
-				            <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name" value="<%=getAllMembersDetailsResult.getString("first_name")%>" required>
+				            <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name" value="<%=first_name%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputLastName">Last Name</label>
-				            <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name" value="<%=getAllMembersDetailsResult.getString("last_name")%>" required>
+				            <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name" value="<%=last_name%>" required>
 				          </div>
 				        </div>
 				
 				        <div class="form-group">
 				          <label for="inputAddress">Address</label>
-				          <textarea type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St" required><%=getAllMembersDetailsResult.getString("address")%></textarea>
+				          <textarea type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St" required><%=address%></textarea>
 				        </div>
 				
 				        <div class="form-row">
 				          <div class="form-group col-md-10">
 				            <label for="inputCountry">Country</label>
-				            <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<%=getAllMembersDetailsResult.getString("country")%>" required>
+				            <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<%=country%>" required>
 				          </div>
 				          <div class="form-group col-md-2">
 				            <label for="inputPostalCode">Postal Code</label>
-				            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<%=getAllMembersDetailsResult.getString("postal_code")%>" required>
+				            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<%=postal_code%>" required>
 				          </div>
 				        </div>   
 			        <% 
@@ -101,15 +97,15 @@
 				        <div class="form-row">
 				          <div class="form-group col-md-12">
 				            <label for="inputUsername">Username</label>
-				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=getUserByIdResult.getString("username")%>" required>
+				            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Username" value="<%=username%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputEmail">Email</label>
-				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=getUserByIdResult.getString("email")%>" required>
+				            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="<%=email%>" required>
 				          </div>
 				          <div class="form-group col-md-6">
 				            <label for="inputPassword">Password</label>
-				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=getUserByIdResult.getString("password")%>" minlength="8" required>
+				            <input type="text" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" value="<%=password%>" minlength="8" required>
 				          </div>
 				        </div>
 			        <% }
