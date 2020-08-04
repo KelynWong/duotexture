@@ -46,7 +46,7 @@ public class SignUpServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("(SignUpServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
-		response.sendRedirect("${pageContext.request.contextPath}/index");		
+		response.sendRedirect(request.getContextPath() + "/index");		
 	}
 
 	/**
@@ -97,21 +97,21 @@ public class SignUpServlet extends HttpServlet {
 							int count = MemberUtils.insertMember(inputFirstName, inputLastName, inputCountry, inputAddress, inputPostalCode, userId);
 							
 							if(count > 0){
-								response.sendRedirect("${pageContext.request.contextPath}/index");
+								response.sendRedirect(request.getContextPath() + "/index");
 							}else{
-								response.sendRedirect("${pageContext.request.contextPath}/signup?registration=fail"); 
+								response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
 							}
 						}
 					}else{
-						response.sendRedirect("${pageContext.request.contextPath}/signup");
+						response.sendRedirect(request.getContextPath() + "/signup");
 						System.out.println("(SignUpServlet) Error: Wrong Flow\n");
 					}
 				} catch(java.sql.SQLIntegrityConstraintViolationException e){
 					System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
-					response.sendRedirect("${pageContext.request.contextPath}/signup?registration=fail"); 
+					response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
 				} catch(Exception e){
 					System.out.println("(SignUpServlet) Error: " + e + "\n");
-					response.sendRedirect("${pageContext.request.contextPath}/signup?registration=fail"); 
+					response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
 				}
 			} else{
 				out.println("<script type='text/javascript'>");

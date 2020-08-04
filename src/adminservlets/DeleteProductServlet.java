@@ -59,7 +59,7 @@ public class DeleteProductServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(DeleteProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to delete.\n"); 
-					response.sendRedirect("${pageContext.request.contextPath}/categories");
+					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -114,11 +114,11 @@ public class DeleteProductServlet extends HttpServlet {
 				}
 			}else{
 				System.out.println("(DeleteProductServlet) Error: CategoryId is null.\n");
-				response.sendRedirect("${pageContext.request.contextPath}/categories");
+				response.sendRedirect(request.getContextPath() + "/categories");
 			}
 		} catch (Exception e) {         
 			System.out.println("(DeleteProductServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/categories");
+			response.sendRedirect(request.getContextPath() + "/categories");
 		} 
 	}
 

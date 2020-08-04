@@ -59,7 +59,7 @@ public class AddCategoryServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(AddCategoryServlet) There's no action to be taken for GET. Redirecting to add_category.jsp to add category.\n"); 
-					response.sendRedirect("${pageContext.request.contextPath}/addcategory");
+					response.sendRedirect(request.getContextPath() + "/addcategory");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -103,24 +103,24 @@ public class AddCategoryServlet extends HttpServlet {
 							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
 						
 							if(count > 0){
-								response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=success"); 
+								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=success"); 
 							} else{
-								response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
+								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 							}
 						           
 						} else{
 							System.out.println("(AddCategoryServlet) Error: Wrong Flow\n");
-							response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
+							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
 						System.out.println("(AddCategoryServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
+						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 					} catch (java.lang.NumberFormatException e) {         
 						System.out.println(" (AddCategoryServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
+						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 					} catch (Exception e) {         
 						System.out.println(" (AddCategoryServlet) Error: " + e + "\n"); 
-						response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
+						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 					}
 					
 				}

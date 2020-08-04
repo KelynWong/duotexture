@@ -138,22 +138,22 @@ public class ProductListingsServlet extends HttpServlet {
 						request.setAttribute("productsArrayList", productsArrayList);
 						
 						// forward request to jsp for display
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/productlistings");
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/productlistings");
 						requestDispatcher.forward(request, response);
 					}
 				} else {
 					System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
-					response.sendRedirect("${pageContext.request.contextPath}/index");
+					response.sendRedirect(request.getContextPath() + "/index");
 				}
 				
 			} else {
 				System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(ProductListingsServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}

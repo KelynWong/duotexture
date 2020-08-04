@@ -88,16 +88,16 @@ public class AddProductServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/addproduct");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/addproduct");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(AddProductServlet) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(AddProductServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}

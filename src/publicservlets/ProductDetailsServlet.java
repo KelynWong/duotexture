@@ -122,21 +122,21 @@ public class ProductDetailsServlet extends HttpServlet {
 					request.setAttribute("product", product);
 					
 					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/productdetails");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/productdetails");
 					requestDispatcher.forward(request, response);
 				} else {
 					System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
-					response.sendRedirect("${pageContext.request.contextPath}/index");
+					response.sendRedirect(request.getContextPath() + "/index");
 				}
 				
 			} else {
 				System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(ProductDetailsServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}

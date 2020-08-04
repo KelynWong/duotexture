@@ -88,16 +88,16 @@ public class AddCategoryServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/addcategory");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/addcategory");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(AddCategoryServlet) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(AddCategoryServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}

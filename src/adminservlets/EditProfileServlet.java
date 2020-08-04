@@ -53,7 +53,7 @@ public class EditProfileServlet extends HttpServlet {
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
 				System.out.println("(EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile.\n"); 
-				response.sendRedirect("${pageContext.request.contextPath}/editprofile");
+				response.sendRedirect(request.getContextPath() + "/editprofile");
 			} else{
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='${pageContext.request.contextPath}/login';");
@@ -91,9 +91,9 @@ public class EditProfileServlet extends HttpServlet {
 						if(session.getAttribute("accountType").equals("admin")){
 							if(count > 0){
 								session.setAttribute("username", inputUsername);
-								response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=success"); 
+								response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=success"); 
 							}else{
-								response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=fail");
+								response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
 							}
 						}
 						
@@ -110,22 +110,22 @@ public class EditProfileServlet extends HttpServlet {
 						    
 						    if(count2 > 0){
 						    	session.setAttribute("username", inputUsername);
-								response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=success"); 
+								response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=success"); 
 							}else{
-								response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=fail");
+								response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
 							}
 						}        	
 						 			
 					}else{
 						System.out.println("(EditProfileServlet) Error: Wrong Flow\n");
-						response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
 					}
 				} catch(java.sql.SQLIntegrityConstraintViolationException e){
 					System.out.println("(EditProfileServlet) Error: Duplicate Entry\n");
-					response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=fail");	
+					response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");	
 				} catch (Exception e) {         
 					System.out.println("(EditProfileServlet) Error: " + e + "\n");
-					response.sendRedirect("${pageContext.request.contextPath}/editprofile?profileEdit=fail");	
+					response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");	
 				}
 			} else{
 				out.println("<script type='text/javascript'>");

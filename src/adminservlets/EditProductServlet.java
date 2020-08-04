@@ -59,7 +59,7 @@ public class EditProductServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(EditProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit.\n"); 
-					response.sendRedirect("${pageContext.request.contextPath}/categories");
+					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -107,24 +107,24 @@ public class EditProductServlet extends HttpServlet {
 							int count = ProductUtils.editProduct(inputProductId, inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
 						
 							if(count > 0){
-								response.sendRedirect("${pageContext.request.contextPath}/editproduct?productId=" + inputProductId + "&productEdit=success"); 
+								response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + inputProductId + "&productEdit=success"); 
 							}else{
-								response.sendRedirect("${pageContext.request.contextPath}/editproduct?productId=" + inputProductId + "&productEdit=fail");
+								response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + inputProductId + "&productEdit=fail");
 							}
 							  
 						}else{
 							System.out.println("(EditProductServlet) Error: Wrong Flow\n");
-							response.sendRedirect("${pageContext.request.contextPath}/editproduct?productEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editproduct?productEdit=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
 						System.out.println("(EditProductServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("${pageContext.request.contextPath}/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					} catch (java.lang.NumberFormatException e) {         
 						System.out.println("(EditProductServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("${pageContext.request.contextPath}/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					} catch (Exception e) {         
 						System.out.println("(EditProductServlet) Error :" + e + "\n");    
-						response.sendRedirect("${pageContext.request.contextPath}/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					}
 				}
 			} else{

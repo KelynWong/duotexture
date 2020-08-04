@@ -59,7 +59,7 @@ public class AddProductServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(AddProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to add.\n"); 
-					response.sendRedirect("${pageContext.request.contextPath}/addcategory.jsp");
+					response.sendRedirect(request.getContextPath() + "/addcategory.jsp");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -106,24 +106,24 @@ public class AddProductServlet extends HttpServlet {
 							int count = ProductUtils.insertProduct(inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
 						
 							if(count > 0){
-								response.sendRedirect("${pageContext.request.contextPath}/addproduct?productAddition=success"); 
+								response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=success"); 
 							}else{
-								response.sendRedirect("${pageContext.request.contextPath}/addproduct?productAddition=fail");
+								response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 							}
 						            
 						}else{
 							System.out.println("(AddProductServlet) Error: Wrong Flow\n");
-							response.sendRedirect("${pageContext.request.contextPath}/addproduct?productAddition=fail");
+							response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
 						System.out.println("(AddProductServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("${pageContext.request.contextPath}/addproduct?productAddition=fail");
+						response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 					} catch (java.lang.NumberFormatException e) {         
 						System.out.println(" (AddProductServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("${pageContext.request.contextPath}/addproduct?productAddition=fail");
+						response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 					} catch (Exception e) {         
 						System.out.println("(AddProductServlet) Error: " + e + "\n"); 
-						response.sendRedirect("${pageContext.request.contextPath}/addproduct?productAddition=fail");
+						response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 					}
 				}
 			} else{

@@ -117,18 +117,18 @@ public class EditCategoryServlet extends HttpServlet {
 					request.setAttribute("category", category);
 					
 					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/editcategory");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/editcategory");
 					requestDispatcher.forward(request, response);
 				}
 				
 			} else {
 				System.out.println("(EditCategoryServlet) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(EditCategoryServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}

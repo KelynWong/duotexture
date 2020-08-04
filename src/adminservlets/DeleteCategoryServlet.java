@@ -59,7 +59,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to delete.\n"); 
-					response.sendRedirect("${pageContext.request.contextPath}/categories");
+					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -119,7 +119,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 							}
 					} catch (Exception e) {         
 						System.out.println("(DeleteCategoryServlet) Error: " + e + "\n");
-						response.sendRedirect("${pageContext.request.contextPath}/categories");
+						response.sendRedirect(request.getContextPath() + "/categories");
 					} 
 				}
 			} else{ 

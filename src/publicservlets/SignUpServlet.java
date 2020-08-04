@@ -88,16 +88,16 @@ public class SignUpServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/signup");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/signup");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(CategoriesServlet.jsp) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}

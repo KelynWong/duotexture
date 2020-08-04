@@ -148,24 +148,24 @@ public class EditProfileServlet extends HttpServlet {
 						request.setAttribute("member", member);
 					
 						// forward request to jsp for display
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/editprofile");
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/editprofile");
 						requestDispatcher.forward(request, response);
 					} else {
 						System.out.println("(EditProfileServlet) Error: Response not ok. \n");
-						response.sendRedirect("${pageContext.request.contextPath}/index");
+						response.sendRedirect(request.getContextPath() + "/index");
 					}
 				} else {
 					System.out.println("(EditProfileServlet) Error: Response not ok. \n");
-					response.sendRedirect("${pageContext.request.contextPath}/index");
+					response.sendRedirect(request.getContextPath() + "/index");
 				}
 			} else {
 				System.out.println("(EditProfileServlet) Error: Response not ok. \n");
-				response.sendRedirect("${pageContext.request.contextPath}/index");
+				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(EditProfileServlet) Error: " + e + "\n");
-			response.sendRedirect("${pageContext.request.contextPath}/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
 	}
