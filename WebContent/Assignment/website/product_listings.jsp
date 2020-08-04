@@ -62,14 +62,7 @@
 		try {
 			String keywordInput = request.getParameter("keywordInput");
 			String getAllProductsByCategoryIdQuery;
-			ArrayList<Product> productsArrayList;
-			
-			// check if search bar is empty
-			if(keywordInput!=null){
-				productsArrayList = (ArrayList<Product>) request.getAttribute("searchProductsArrayList");
-			}else{
-				productsArrayList = (ArrayList<Product>) request.getAttribute("productsArrayList");
-			}
+			ArrayList<Product> productsArrayList = (ArrayList<Product>) request.getAttribute("searchProductsArrayList");
 		
 			for(int x=0; x<productsArrayList.size(); x++){
 				int id = productsArrayList.get(x).getProductId();
