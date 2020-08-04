@@ -59,7 +59,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to delete.\n"); 
-					response.sendRedirect("Assignment/website/categories.jsp");
+					response.sendRedirect("${pageContext.request.contextPath}/categories");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -102,24 +102,24 @@ public class DeleteCategoryServlet extends HttpServlet {
 								
 								if(count > 0){
 									out.println("<script type='text/javascript'>");
-									out.println("window.location.href='Assignment/website/categories.jsp';");
+									out.println("window.location.href='${pageContext.request.contextPath}/categories';");
 									out.println("alert('Category has successfully been deleted.');");
 									out.println("</script>");
 								} else{
 									out.println("<script type='text/javascript'>");
-									out.println("window.location.href='Assignment/website/categories.jsp';");
+									out.println("window.location.href='${pageContext.request.contextPath}/categories';");
 									out.println("alert('Failed to delete category.');");
 									out.println("</script>");
 								}    
 							} else{
 								out.println("<script type='text/javascript'>");
-								out.println("window.location.href='Assignment/website/categories.jsp';");
+								out.println("window.location.href='${pageContext.request.contextPath}/categories';");
 								out.println("alert('Failed to delete category.');");
 								out.println("</script>");
 							}
 					} catch (Exception e) {         
 						System.out.println("(DeleteCategoryServlet) Error: " + e + "\n");
-						response.sendRedirect("Assignment/website/categories.jsp");
+						response.sendRedirect("${pageContext.request.contextPath}/categories");
 					} 
 				}
 			} else{ 

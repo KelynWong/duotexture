@@ -59,7 +59,7 @@ public class EditCategoryServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(EditCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to edit.\n"); 
-					response.sendRedirect("Assignment/website/categories.jsp");
+					response.sendRedirect("${pageContext.request.contextPath}/categories");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -103,24 +103,24 @@ public class EditCategoryServlet extends HttpServlet {
 							int count = CategoryUtils.editCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl, inputCategoryId);
 							
 							if(count > 0){
-								response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=success"); 
+								response.sendRedirect("${pageContext.request.contextPath}/editcategory?categoryId=" + inputCategoryId + "&categoryEdit=success"); 
 							}else{
-								response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + inputCategoryId + "&categoryEdit=fail");
+								response.sendRedirect("${pageContext.request.contextPath}/editcategory?categoryId=" + inputCategoryId + "&categoryEdit=fail");
 							}
 							
 						}else{
 							System.out.println("(EditCategoryServlet) Error: Wrong Flow\n");
-							response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
+							response.sendRedirect("${pageContext.request.contextPath}/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
 						System.out.println("(EditCategoryServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						response.sendRedirect("${pageContext.request.contextPath}/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
 					} catch (java.lang.NumberFormatException e) {         
 						System.out.println("(EditCategoryServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						response.sendRedirect("${pageContext.request.contextPath}/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
 					} catch (Exception e) {         
 						System.out.println("(EditCategoryServlet) Error :" + e + "\n");    
-						response.sendRedirect("Assignment/website/edit_category.jsp?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						response.sendRedirect("${pageContext.request.contextPath}/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
 					}
 				}
 			} else{

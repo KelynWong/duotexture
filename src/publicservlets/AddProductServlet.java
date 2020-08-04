@@ -88,7 +88,7 @@ public class AddProductServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/add_product.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/addproduct");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(AddProductServlet) Error: Response not ok. \n");

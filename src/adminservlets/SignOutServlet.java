@@ -54,7 +54,7 @@ public class SignOutServlet extends HttpServlet {
 			System.out.println("(SignOutServlet) Logged out!\n");
 		} else {
 			out.println("<script type='text/javascript'>");
-			out.println("window.location.href='Assignment/website/login.jsp';");
+			out.println("window.location.href='${pageContext.request.contextPath}/login';");
 			out.println("alert('You are not logged in.');");
 			out.println("</script>");
 		}
@@ -77,7 +77,7 @@ public class SignOutServlet extends HttpServlet {
 				response.sendRedirect("${pageContext.request.contextPath}/index");
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/login.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/login';");
 				out.println("alert('You are not logged in.');");
 				out.println("</script>");
 			}

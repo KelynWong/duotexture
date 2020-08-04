@@ -59,7 +59,7 @@ public class DeleteProductServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					System.out.println("(DeleteProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to delete.\n"); 
-					response.sendRedirect("Assignment/website/categories.jsp");
+					response.sendRedirect("${pageContext.request.contextPath}/categories");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -96,29 +96,29 @@ public class DeleteProductServlet extends HttpServlet {
 					
 					if(count > 0){
 						out.println("<script type='text/javascript'>");
-						out.println("window.location.href='Assignment/website/product_listings.jsp?categoryId=" + categoryId + "';");
+						out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
 						out.println("alert('Product has successfully been deleted.');");
 						out.println("</script>");
 					}else{
 						out.println("<script type='text/javascript'>");
-						out.println("window.location.href='Assignment/website/product_listings.jsp?categoryId=" + categoryId + "';");
+						out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
 						out.println("alert('Failed to delete product.');");
 						out.println("</script>");						
 					}   
 				}else{
 					System.out.println("(DeleteProductServlet) Error: ProductId is null.\n");
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='Assignment/website/product_listings.jsp?categoryId=" + categoryId + "';");
+					out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
 					out.println("alert('Failed to delete product.');");
 					out.println("</script>");		
 				}
 			}else{
 				System.out.println("(DeleteProductServlet) Error: CategoryId is null.\n");
-				response.sendRedirect("Assignment/website/categories.jsp");
+				response.sendRedirect("${pageContext.request.contextPath}/categories");
 			}
 		} catch (Exception e) {         
 			System.out.println("(DeleteProductServlet) Error: " + e + "\n");
-			response.sendRedirect("Assignment/website/categories.jsp");
+			response.sendRedirect("${pageContext.request.contextPath}/categories");
 		} 
 	}
 

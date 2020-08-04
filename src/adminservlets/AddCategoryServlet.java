@@ -103,24 +103,24 @@ public class AddCategoryServlet extends HttpServlet {
 							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
 						
 							if(count > 0){
-								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=success"); 
+								response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=success"); 
 							} else{
-								response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
+								response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
 							}
 						           
 						} else{
 							System.out.println("(AddCategoryServlet) Error: Wrong Flow\n");
-							response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
+							response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
 						System.out.println("(AddCategoryServlet) Error: Duplicate Entry\n");
-						response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
+						response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
 					} catch (java.lang.NumberFormatException e) {         
 						System.out.println(" (AddCategoryServlet) Error: Invalid Inputs\n"); 
-						response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
+						response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
 					} catch (Exception e) {         
 						System.out.println(" (AddCategoryServlet) Error: " + e + "\n"); 
-						response.sendRedirect("Assignment/website/add_category.jsp?categoryAddition=fail");
+						response.sendRedirect("${pageContext.request.contextPath}/addcategory?categoryAddition=fail");
 					}
 					
 				}

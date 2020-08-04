@@ -99,19 +99,19 @@ public class SignUpServlet extends HttpServlet {
 							if(count > 0){
 								response.sendRedirect("${pageContext.request.contextPath}/index");
 							}else{
-								response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+								response.sendRedirect("${pageContext.request.contextPath}/signup?registration=fail"); 
 							}
 						}
 					}else{
-						response.sendRedirect("Assignment/website/sign_up.jsp");
+						response.sendRedirect("${pageContext.request.contextPath}/signup");
 						System.out.println("(SignUpServlet) Error: Wrong Flow\n");
 					}
 				} catch(java.sql.SQLIntegrityConstraintViolationException e){
 					System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
-					response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+					response.sendRedirect("${pageContext.request.contextPath}/signup?registration=fail"); 
 				} catch(Exception e){
 					System.out.println("(SignUpServlet) Error: " + e + "\n");
-					response.sendRedirect("Assignment/website/sign_up.jsp?registration=fail"); 
+					response.sendRedirect("${pageContext.request.contextPath}/signup?registration=fail"); 
 				}
 			} else{
 				out.println("<script type='text/javascript'>");

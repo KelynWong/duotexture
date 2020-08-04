@@ -97,7 +97,7 @@ public class LoginServlet extends HttpServlet {
 						}
 						
 						if(isAdmin == false && isMember == false){
-							response.sendRedirect("Assignment/website/login.jsp?accountType=none");
+							response.sendRedirect("${pageContext.request.contextPath}/login?accountType=none");
 						}
 						
 					}else{

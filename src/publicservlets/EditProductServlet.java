@@ -122,7 +122,7 @@ public class EditProductServlet extends HttpServlet {
 					request.setAttribute("product", product);
 					
 					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_product.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/editproduct");
 					requestDispatcher.forward(request, response);
 				}
 				

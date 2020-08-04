@@ -138,7 +138,7 @@ public class ProductListingsServlet extends HttpServlet {
 						request.setAttribute("productsArrayList", productsArrayList);
 						
 						// forward request to jsp for display
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_listings.jsp");
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/productlistings");
 						requestDispatcher.forward(request, response);
 					}
 				} else {

@@ -88,7 +88,7 @@ public class SignUpServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/sign_up.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/signup");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
