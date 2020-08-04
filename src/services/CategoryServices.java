@@ -60,7 +60,7 @@ public class CategoryServices {
 			categoryObject.put("description", categoryBean.getDescription());
 			categoryObject.put("image", categoryBean.getImage());
 			
-			return Response.status(200).entity(categoryBean.toString()).build();
+			return Response.status(200).entity(categoryObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();
