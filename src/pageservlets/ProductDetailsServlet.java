@@ -24,7 +24,7 @@ import javabeans.Category;
 import javabeans.Product;
 
 /**
- * Servlet implementation class ProductListingServlet
+ * Servlet implementation class ProductDetailsServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -127,12 +127,12 @@ public class ProductDetailsServlet extends HttpServlet {
 				}
 				
 			} else {
-				System.out.println("(ProductListingServlet) Error: Response not ok. \n");
+				System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
 				response.sendRedirect("Assignment/website/index.jsp");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(ProductListingServlet) Error: " + e + "\n");
+			System.out.println("(ProductDetailsServlet) Error: " + e + "\n");
 			response.sendRedirect("Assignment/website/index.jsp");
 		}
 
