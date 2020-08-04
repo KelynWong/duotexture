@@ -35,7 +35,7 @@
         	session.setAttribute("categoryId", getCategoryId);
 	    	%>
 	    	<!-- search and add function -->
-	        <form class="form-inline col-11 justify-content-center" action="product_listings.jsp?categoryId=<%= getCategoryId %>" method="post">
+	        <form class="form-inline col-11 justify-content-center" action="${pageContext.request.contextPath}/productlistings?categoryId=<%= getCategoryId %>" method="post">
 	            <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
 	            <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
 	            <%
@@ -44,7 +44,7 @@
 	            		// if account is admin, allow access to add function
 		            	if(session.getAttribute("accountType").equals("admin")){
 		                   	%>
-		                   	<a href="add_product.jsp" class="btn btn-success" style="margin-left: 10px">Add</a>
+		                   	<a href="${pageContext.request.contextPath}/addproduct" class="btn btn-success" style="margin-left: 10px">Add</a>
 		                   	<%
 		                }
 	            	}
@@ -72,12 +72,12 @@
 				
 				%>
 				<div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-		            <img src="<%= image %>" class="card-img-top mt-3" alt="...">
+		            <img src="<%= image %>" class="card-img-top mt-3" alt="..."> <!-- note!!! -->
 		            <div class="card-body d-flex flex-column">
 		                <p class="card-title fs-14" style="font-weight: bold"><%= name %></p>
 		                <p class="card-text fs-13"><%= description %></p>
 		                <div class="mx-2 pl-1 mt-auto">
-		                    <a href="product_details.jsp?productId=<%= id %>" class="btn btn-primary px-4 my-2">View Details</a>
+		                    <a href="${pageContext.request.contextPath}/productdetails?productId=<%= id %>" class="btn btn-primary px-4 my-2">View Details</a>
 				         	<%
 				            try{
 				            	if(session.getAttribute("accountType")!=null){
@@ -85,10 +85,10 @@
 				            		if(session.getAttribute("accountType").equals("admin")){
 					                   	%>
 					                   	<div class="row mt-2">
-					                   		<form action="edit_product.jsp?productId=<%= id %>" method="post">
+					                   		<form action="${pageContext.request.contextPath}/editproduct?productId=<%= id %>" method="post">
 					                        	<button type="submit" class="btn btn-warning ml-3 mr-2">Edit</button>
 					                        </form>
-					                        <form action="../../DeleteProductServlet?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId")%>" method="post">
+					                        <form action="${pageContext.request.contextPath}/DeleteProductServlet?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId")%>" method="post">
 					                        	<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
 					                        </form>
 					                    </div>

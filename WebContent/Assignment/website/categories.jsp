@@ -33,7 +33,7 @@
           <div class="card-body d-flex flex-column">
               <h5 class="card-title"><%= categoriesArrayList.get(x).getName() %></h5>
               <p class="card-text fs-13"><%= categoriesArrayList.get(x).getDescription() %></p>
-              <a class="mt-auto" href="product_listings.jsp?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" class="btn btn-primary">Explore More</a>
+              <a class="mt-auto" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" class="btn btn-primary">Explore More</a>
               <%
 		            try{
 		            	if(session.getAttribute("accountType")!=null){
@@ -41,10 +41,10 @@
 		            		if(session.getAttribute("accountType").equals("admin")){
 			                   	%>
 			                   	<div class="row mt-2">
-			                   		<form action="edit_category.jsp?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" method="post">
+			                   		<form action="${pageContext.request.contextPath}/editcategory?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" method="post">
 			                        	<button type="submit" class="btn btn-warning ml-3 mr-2">Edit</button>
 			                        </form>
-			                        <form action="../../DeleteCategoryServlet?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" method="post">
+			                        <form action="${pageContext.request.contextPath}/DeleteCategoryServlet?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" method="post">
 			                        	<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
 			                        </form>
 			                    </div>

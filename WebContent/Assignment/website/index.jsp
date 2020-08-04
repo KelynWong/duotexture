@@ -59,7 +59,7 @@
         <section class="m-5 col-5">
             <p class="text-white custom-font-playfair fs-50">In<br>Duo<br>Texture,</p>
             <p class="text-white custom-font-mont">you'll get no better but the best and that's on us.</p>
-            <button onclick="window.location.href='categories.jsp'" class="btn btn-danger">Shop Now</button>
+            <button onclick="window.location.href='${pageContext.request.contextPath}/categories'" class="btn btn-danger">Shop Now</button>
         </section>
       </section>
     <!--===============================================================================================-->

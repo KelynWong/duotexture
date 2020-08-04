@@ -54,16 +54,16 @@ public class AddCategoryServlet extends HttpServlet {
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("window.location.href='${pageContext.request.contextPath}/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
 					System.out.println("(AddCategoryServlet) There's no action to be taken for GET. Redirecting to add_category.jsp to add category.\n"); 
-					response.sendRedirect("Assignment/website/add_category.jsp");
+					response.sendRedirect("${pageContext.request.contextPath}/addcategory");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}
@@ -88,7 +88,7 @@ public class AddCategoryServlet extends HttpServlet {
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='Assignment/website/index.jsp';");
+					out.println("window.location.href='${pageContext.request.contextPath}/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
@@ -126,7 +126,7 @@ public class AddCategoryServlet extends HttpServlet {
 				}
 			}else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='Assignment/website/index.jsp';");
+				out.println("window.location.href='${pageContext.request.contextPath}/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}

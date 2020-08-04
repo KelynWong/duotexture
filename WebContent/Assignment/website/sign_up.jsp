@@ -26,7 +26,7 @@
     		if(session.getAttribute("accountType").equals("admin") || session.getAttribute("accountType").equals("member")){
     	   		%>
     	   		  <script type="text/javascript">
-    	   		  	window.location.href='index.jsp';
+    	   		  	window.location.href='${pageContext.request.contextPath}/index';
     	   			alert("You have already logged-in. Please log out first.");
     	   		  </script>
     	   		<%
@@ -45,7 +45,7 @@
 
     <section class="col-12 p-5 row">
       <!-- sign up form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="../../SignUpServlet" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/SignUpServlet" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - S i g n - U p - F o r m</p>
 
         <div class="form-row">

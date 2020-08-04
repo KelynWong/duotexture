@@ -26,7 +26,7 @@
 			if(!session.getAttribute("accountType").equals("admin")){
 				%>
 				<script type="text/javascript">
-				window.location.href='index.jsp';
+				window.location.href='${pageContext.request.contextPath}/index';
 				alert("You do not have access rights.");
 				</script>
 				<%
@@ -34,7 +34,7 @@
 		}else{
 			%>
 			<script type="text/javascript">
-			window.location.href='index.jsp';
+			window.location.href='${pageContext.request.contextPath}/index';
 			alert("You do not have access rights.");
 			</script>
 			<%
@@ -53,7 +53,7 @@
     <section class="col-12 p-5 row">
     
       <!-- add product form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="../../AddProductServlet" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/AddProductServlet" method="post">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d - L i s t i n g</p>
         <hr>
 
@@ -80,7 +80,7 @@
           </div>
           <div class="form-group col-md-3">
 		    <label for="inputCategoryId">Category Id</label>
-		    <select class="form-control" id="inputCategoryId" name="inputCategoryId">\
+		    <select class="form-control" id="inputCategoryId" name="inputCategoryId">
 		    	<option disabled selected>-- select an option --</option>
 			    <%
 			    try{			    	
