@@ -124,6 +124,9 @@ public class ProductDetailsServlet extends HttpServlet {
 					// forward request to jsp for display
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_details.jsp");
 					requestDispatcher.forward(request, response);
+				} else {
+					System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
+					response.sendRedirect("Assignment/website/index.jsp");
 				}
 				
 			} else {

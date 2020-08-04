@@ -56,7 +56,7 @@ public class CategoriesServlet extends HttpServlet {
 			// declare client
 			Client client = ClientBuilder.newClient();
 			
-			// target java and parse in data
+			// target java and parse in data - get categories for navigation and page
 			WebTarget target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 					.path("categoryservices/getcategories");
 			

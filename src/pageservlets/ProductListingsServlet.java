@@ -94,7 +94,7 @@ public class ProductListingsServlet extends HttpServlet {
 				// declare client
 				client = ClientBuilder.newClient();
 				
-				// target java and parse in data - get product by category id
+				// target java and parse in data - get products by category id
 				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 						.path("productservices/getproductsbycategoryid").queryParam("categoryId", categoryId);
 				

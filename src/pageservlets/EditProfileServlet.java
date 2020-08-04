@@ -95,7 +95,7 @@ public class EditProfileServlet extends HttpServlet {
 				// declare client
 				client = ClientBuilder.newClient();
 				
-				// target java and parse in data - get category by id
+				// target java and parse in data - get user by user id
 				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 						.path("userservices/getuserbyid").queryParam("userId", userId);
 				
@@ -122,7 +122,7 @@ public class EditProfileServlet extends HttpServlet {
 					// declare client
 					client = ClientBuilder.newClient();
 					
-					// target java and parse in data - get category by id
+					// target java and parse in data - get member by user id
 					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 							.path("memberservices/getmemberrbyuserid").queryParam("userId", userId);
 					
