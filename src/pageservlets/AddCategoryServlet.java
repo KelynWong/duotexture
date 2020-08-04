@@ -88,7 +88,7 @@ public class AddCategoryServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/index.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/add_category.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
