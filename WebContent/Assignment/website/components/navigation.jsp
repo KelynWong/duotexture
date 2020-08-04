@@ -34,7 +34,7 @@
 		for(int x=0; x<categoriesArrayList.size(); x++) {
 		%>
 			<li class="nav-item">
-	          <a class="nav-link custom-font-mont fs-15" href="product_listings.jsp?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
+	          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
 	        </li>
         <% 
 		} 
@@ -44,7 +44,7 @@
            		// if account is admin, allow access to add function
             	if(session.getAttribute("accountType").equals("admin")){
                    	%>
-                   	<a class="nav-link custom-font-mont fs-15 text-success" href="add_category.jsp" style="margin-left: 10px">Add</a>
+                   	<a class="nav-link custom-font-mont fs-15 text-success" href="${pageContext.request.contextPath}/addcategory" style="margin-left: 10px">Add</a>
                    	<%
                 }
            	}
@@ -60,13 +60,13 @@
 		try{
 			// check if user's account and retrieve their username
 			if(session.getAttribute("accountType")!=null){ %>
-					<a class="nav-link custom-font-mont fs-15 text-primary" href="edit_profile.jsp"><%=session.getAttribute("username")%></a>
+					<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/editprofile"><%=session.getAttribute("username")%></a>
 					<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/SignOutServlet">Log Out</a>
 					<%
 			}else{
 				%>
-	        	<a class="nav-link custom-font-mont fs-15 text-primary" href="login.jsp">Login</a>
-	        	<a class="nav-link custom-font-mont fs-15 text-danger" href="sign_up.jsp">Sign Up</a>
+	        	<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/login">Login</a>
+	        	<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/signup">Sign Up</a>
 				<%
 			}
 			
