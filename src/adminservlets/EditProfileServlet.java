@@ -110,22 +110,22 @@ public class EditProfileServlet extends HttpServlet {
 						    
 						    if(count2 > 0){
 						    	session.setAttribute("username", inputUsername);
-								response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=success"); 
+								response.sendRedirect(request.getContextPath() + "/editprofile?userId="+(int)session.getAttribute("userId")+"&profileEdit=success"); 
 							}else{
-								response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
+								response.sendRedirect(request.getContextPath() + "/editprofile?userId="+(int)session.getAttribute("userId")+"&profileEdit=fail");
 							}
 						}        	
 						 			
 					}else{
 						System.out.println("(EditProfileServlet) Error: Wrong Flow\n");
-						response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editprofile?userId="+(int)session.getAttribute("userId")+"&profileEdit=fail");
 					}
 				} catch(java.sql.SQLIntegrityConstraintViolationException e){
 					System.out.println("(EditProfileServlet) Error: Duplicate Entry\n");
-					response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");	
+					response.sendRedirect(request.getContextPath() + "/editprofile?userId="+(int)session.getAttribute("userId")+"&profileEdit=fail");
 				} catch (Exception e) {         
 					System.out.println("(EditProfileServlet) Error: " + e + "\n");
-					response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");	
+					response.sendRedirect(request.getContextPath() + "/editprofile?userId="+(int)session.getAttribute("userId")+"&profileEdit=fail");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
