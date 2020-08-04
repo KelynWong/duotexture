@@ -62,29 +62,20 @@
 		try {
 			String keywordInput = request.getParameter("keywordInput");
 			String getAllProductsByCategoryIdQuery;
-			
-			// connect to mysql database
-			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(connURL);   
+			ArrayList<Product> productsArrayList;
 			
 			// check if search bar is empty
 			if(keywordInput!=null){
-				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE products.categoryId = ? AND products.name LIKE '%" + keywordInput + "%';";
+				productsArrayList = (ArrayList<Product>) request.getAttribute("searchProductsArrayList");
 			}else{
-				getAllProductsByCategoryIdQuery = "SELECT * FROM products WHERE categoryId=?;";
+				productsArrayList = (ArrayList<Product>) request.getAttribute("productsArrayList");
 			}
-			
-			// get and display all products by category id
-			PreparedStatement pstmt = conn.prepareStatement(getAllProductsByCategoryIdQuery);
-		    pstmt.setObject(1, request.getParameter("categoryId"));
-			ResultSet getAllProductsByCategoryIdResult = pstmt.executeQuery(); 
 		
-			while(getAllProductsByCategoryIdResult.next())   { 
-				int id = getAllProductsByCategoryIdResult.getInt("productId");   
-				String name = getAllProductsByCategoryIdResult.getString("name");               
-				String description = getAllProductsByCategoryIdResult.getString("description");
-				String image = getAllProductsByCategoryIdResult.getString("image"); 
+			for(int x=0; x<productsArrayList.size(); x++){
+				int id = productsArrayList.get(x).getProductId();
+				String name = productsArrayList.get(x).getName();         
+				String description = productsArrayList.get(x).getDescription();
+				String image = productsArrayList.get(x).getImage();
 				
 				%>
 				<div class="card col-2 mx-2 mt-3" style="width: 18rem;">
@@ -119,8 +110,7 @@
 		            </div>
 		        </div>
 				<% 
-				}      
-		conn.close();     
+				}         
 		} catch (Exception e) {         
 			System.out.println("(product_listings.jsp) Error: " + e + "\n");     
 		} 
