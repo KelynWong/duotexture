@@ -61,27 +61,15 @@
 			if(request.getParameter("productId")!=null){
 				int getProductId = Integer.parseInt(request.getParameter("productId"));
 				
-				// connect to mysql database
-				Class.forName("com.mysql.jdbc.Driver"); 
-				String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-				Connection conn = DriverManager.getConnection(connURL);   
-				Statement stmt = conn.createStatement(); 
+				Product product = (Product) request.getAttribute("product");
 				
-				// get and display product details by given id
-				String getProductsByIdQuery = "SELECT * FROM products WHERE productId=? LIMIT 1";    
-				PreparedStatement pstmt = conn.prepareStatement(getProductsByIdQuery);
-				
-			    pstmt.setInt(1, getProductId);
-				ResultSet getProductsByIdResult = pstmt.executeQuery(); 
-			
-				getProductsByIdResult.next();
-				String productName = getProductsByIdResult.getString("name");               
-				String productDescription = getProductsByIdResult.getString("description");
-				String productCost = getProductsByIdResult.getString("cost_price");
-				String productPrice = getProductsByIdResult.getString("retail_price");
-				String productQuantity = getProductsByIdResult.getString("quantity");
-				int productCategoryId = getProductsByIdResult.getInt("categoryId");
-				String productImage = getProductsByIdResult.getString("image"); 
+				String productName = product.getName();               
+				String productDescription = product.getDescription();
+				Double productCost = product.getCostPrice();
+				Double productPrice = product.getRetailPrice();
+				int productQuantity = product.getQuantity();
+				int productCategoryId = product.getCategoryId();
+				String productImage = product.getImage();
 				%>
 
 				<div class="form-row">
@@ -113,18 +101,9 @@
 				    <label for="inputCategoryId">Category Id</label>
 				    <select class="form-control" id="inputCategoryId" name="inputCategoryId">
 					    <%
-					    try{
-							// get all categories
-							String getCategoriesQuery = "SELECT * FROM categories";    
-							ResultSet getCategoriesResults = stmt.executeQuery(getCategoriesQuery);
-							
-							while(getCategoriesResults.next())   { 
-								int categoryId = getCategoriesResults.getInt("categoryId");  
-								if(productCategoryId==categoryId){
-									out.println("<option selected>"+categoryId+"</option>");
-								}else{
-									out.println("<option>"+categoryId+"</option>");
-								}
+					    try{			    	
+					    	for(int x=0; x<categoriesArrayList.size(); x++) {
+								out.println("<option>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
 							} 
 								
 					      } catch(Exception e){
@@ -164,8 +143,7 @@
 		        }
 		        %>
 		        <button type="submit" class="btn btn-success">Edit</button>
-			<%
-			conn.close();      
+			<%   
 			}else{
 				%>
 				<p>Product Id is not declared.</p>
