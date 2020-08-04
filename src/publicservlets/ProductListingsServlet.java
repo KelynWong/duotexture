@@ -41,17 +41,10 @@ import javabeans.Product;
 public class ProductListingsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ProductListingsServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// declare client
@@ -99,7 +92,8 @@ public class ProductListingsServlet extends HttpServlet {
 				
 				// check if search bar is empty
 				if(keyword!=null){
-					// target java and parse in data - get products by category id
+					System.out.println("Keyword not null");
+					// target java and parse in data - get products by category id and keyword
 					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 							.path("productservices/getproductsbycategoryidandkeyword").queryParam("categoryId", categoryId).queryParam("keyword", keyword);
 				}else{
@@ -131,28 +125,28 @@ public class ProductListingsServlet extends HttpServlet {
 						int quantity = productObject.getInt("quantity");
 						String image = productObject.getString("image");
 						
-						Product product = new Product(productId, name, description, cost_price, retail_price, categoryId, quantity,image);
+						Product product = new Product(productId, name, description, cost_price, retail_price, quantity, categoryId, image);
 						productsArrayList.add(product);
-						
+					}
 						// store in request
 						request.setAttribute("productsArrayList", productsArrayList);
 						
 						// forward request to jsp for display
 						RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_listings.jsp");
 						requestDispatcher.forward(request, response);
-					}
+						
 				} else {
-					System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
+					System.out.println("(publicservlets/ProductListingsServlet) Error: Category Response not ok. \n");
 					response.sendRedirect(request.getContextPath() + "/index");
 				}
 				
 			} else {
-				System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/ProductListingsServlet) Error: Product Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(ProductListingsServlet) Error: " + e + "\n");
+			System.out.println("(publicservlets/ProductListingsServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 

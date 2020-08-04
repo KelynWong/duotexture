@@ -35,7 +35,8 @@
         	session.setAttribute("categoryId", getCategoryId);
 	    	%>
 	    	<!-- search and add function -->
-	        <form class="form-inline col-11 justify-content-center" action="${pageContext.request.contextPath}/productlistings?categoryId=<%= getCategoryId %>" method="post">
+	        <form class="form-inline col-11 justify-content-center" action="${pageContext.request.contextPath}/productlistings" method="get">
+	            <input class="form-control col-10" name="categoryId" type="hidden" value="<%=getCategoryId%>">
 	            <input class="form-control col-10" name="keywordInput" type="search" placeholder="Search">
 	            <button class="btn btn-outline-danger my-2 my-sm-0 search-btn" type="submit">Search</button>
 	            <%
@@ -62,7 +63,7 @@
 		try {
 			String keywordInput = request.getParameter("keywordInput");
 			String getAllProductsByCategoryIdQuery;
-			ArrayList<Product> productsArrayList = (ArrayList<Product>) request.getAttribute("searchProductsArrayList");
+			ArrayList<Product> productsArrayList = (ArrayList<Product>) request.getAttribute("productsArrayList");
 		
 			for(int x=0; x<productsArrayList.size(); x++){
 				int id = productsArrayList.get(x).getProductId();

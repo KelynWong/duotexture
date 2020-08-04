@@ -54,7 +54,7 @@ public class ProductUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get all products by category id query and result		
-		String getProductByCategoryIdQuery = "SELECT * FROM duotexture.products WHERE productId=?;";
+		String getProductByCategoryIdQuery = "SELECT * FROM duotexture.products WHERE categoryId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getProductByCategoryIdQuery);
 		pstmt.setInt(1, categoryId);
 		ResultSet getProductByCategoryIdResult = pstmt.executeQuery();
@@ -91,10 +91,10 @@ public class ProductUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get all products by category id and keyword query and result		
-		String getProductByCategoryIdAndKeywordQuery = "SELECT * FROM products WHERE products.categoryId = ? AND products.name LIKE '%?%';";
+		String getProductByCategoryIdAndKeywordQuery = "SELECT * FROM duotexture.products WHERE products.categoryId=? AND products.name LIKE ?";
 		PreparedStatement pstmt = conn.prepareStatement(getProductByCategoryIdAndKeywordQuery);
 		pstmt.setInt(1, categoryId);
-		pstmt.setString(2, keyword);
+		pstmt.setString(2, "%" + keyword + "%");
 		ResultSet getProductByCategoryIdAndKeywordResult = pstmt.executeQuery();
 		
 		// create new ArrayList of product

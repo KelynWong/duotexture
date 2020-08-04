@@ -58,7 +58,7 @@ public class ProductServices {
 		ArrayList<Product> searchProductsArrayList;
 		
 		try {
-			searchProductsArrayList = ProductUtils.getProductsByCategoryId(categoryId);
+			searchProductsArrayList = ProductUtils.getProductsByCategoryIdAndKeyword(categoryId, keyword);
 			for (int x=0; x<searchProductsArrayList.size(); x++) {
 				JSONObject productObject = new JSONObject();
 				
