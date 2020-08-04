@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import database.Database;
 import javabeans.Member;
+import javabeans.Order;
 
 public class MemberUtils {
 	
@@ -70,6 +71,35 @@ public class MemberUtils {
 			memberBean.setUserId(getMemberByIdResult.getInt("userId"));
 		}
 	
+		// close connection
+		conn.close();
+		return memberBean;
+	}
+	
+	// get member by user id
+	public static Member getMemberByUserId (int userId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get a member by user id query and result
+		String getMemberByUserIdQuery = "SELECT * FROM duotexture.members WHERE userId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getMemberByUserIdQuery);
+		pstmt.setInt(1,  userId);
+		ResultSet getMemberByUserIdResult = pstmt.executeQuery();
+		
+		// create an instance of order
+		Member memberBean = new Member();
+		
+		// if there is a new row
+		if(getMemberByUserIdResult.next()) {
+			memberBean.setFirstName(getMemberByUserIdResult.getString("first_name"));
+			memberBean.setLastName(getMemberByUserIdResult.getString("last_name"));
+			memberBean.setCountry(getMemberByUserIdResult.getString("country"));
+			memberBean.setAddress(getMemberByUserIdResult.getString("address"));
+			memberBean.setPostalCode(getMemberByUserIdResult.getString("postal_code"));
+			memberBean.setUserId(getMemberByUserIdResult.getInt("userId"));
+		}
+		
 		// close connection
 		conn.close();
 		return memberBean;
