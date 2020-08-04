@@ -29,18 +29,11 @@ import utils.CategoryUtils;
 @WebServlet("/AddCategoryServlet")
 public class AddCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	
     public AddCategoryServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
 		HttpSession session=request.getSession();
@@ -61,6 +54,7 @@ public class AddCategoryServlet extends HttpServlet {
 					System.out.println("(AddCategoryServlet) There's no action to be taken for GET. Redirecting to add_category.jsp to add category.\n"); 
 					response.sendRedirect(request.getContextPath() + "/addcategory");
 				}
+				
 			} else{
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='${pageContext.request.contextPath}/index';");
@@ -72,9 +66,6 @@ public class AddCategoryServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
 		HttpSession session=request.getSession();
@@ -95,13 +86,15 @@ public class AddCategoryServlet extends HttpServlet {
 					
 					try {       
 						if(request.getParameter("inputCategoryName")!=null){
+							// get fields
 							String inputCategoryName = request.getParameter("inputCategoryName");
 							String inputCategoryDescription = request.getParameter("inputCategoryDescription");
 							String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
 							
 							// add category
 							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
-						
+							
+							// check count
 							if(count > 0){
 								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=success"); 
 							} else{
