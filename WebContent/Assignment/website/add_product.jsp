@@ -83,20 +83,9 @@
 		    <select class="form-control" id="inputCategoryId" name="inputCategoryId">\
 		    	<option disabled selected>-- select an option --</option>
 			    <%
-			    try{
-			    	// connect to mysql database
-					Class.forName("com.mysql.jdbc.Driver"); 
-					String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-					Connection conn = DriverManager.getConnection(connURL);   
-					Statement stmt = conn.createStatement(); 
-					
-					// get and display all categories
-					String getAllCategoriesQuery = "SELECT * FROM categories";    
-					ResultSet getAllCategoriesResults = stmt.executeQuery(getAllCategoriesQuery);
-					
-					while(getAllCategoriesResults.next())   { 
-						int categoryId = getAllCategoriesResults.getInt("categoryId");  
-						out.println("<option>"+categoryId+"</option>");
+			    try{			    	
+			    	for(int x=0; x<categoriesArrayList.size(); x++) {
+						out.println("<option>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
 					} 
 						
 			      } catch(Exception e){
