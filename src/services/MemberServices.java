@@ -64,7 +64,7 @@ public class MemberServices {
 			memberObject.put("address", memberBean.getAddress());
 			memberObject.put("postal_code", memberBean.getPostalCode());
 			
-			return Response.status(200).entity(memberBean.toString()).build();
+			return Response.status(200).entity(memberObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();

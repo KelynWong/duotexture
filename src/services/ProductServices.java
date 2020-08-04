@@ -68,7 +68,7 @@ public class ProductServices {
 			productObject.put("categoryId", productBean.getCategoryId());
 			productObject.put("image", productBean.getImage());
 			
-			return Response.status(200).entity(productBean.toString()).build();
+			return Response.status(200).entity(productObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();

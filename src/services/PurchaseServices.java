@@ -58,7 +58,7 @@ public class PurchaseServices {
 			purchaseObject.put("productId", purchaseBean.getProductId());
 			purchaseObject.put("quantity", purchaseBean.getQuantity());
 			
-			return Response.status(200).entity(purchaseBean.toString()).build();
+			return Response.status(200).entity(purchaseObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();

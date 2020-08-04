@@ -58,7 +58,7 @@ public class CartServices {
 			cartObject.put("productId", cartBean.getProductId());
 			cartObject.put("quantity", cartBean.getQuantity());
 			
-			return Response.status(200).entity(cartBean.toString()).build();
+			return Response.status(200).entity(cartObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();

@@ -62,7 +62,7 @@ public class UserServices {
 			userObject.put("password", userBean.getPassword());
 			userObject.put("userRole", userBean.getUserRole());
 			
-			return Response.status(200).entity(userBean.toString()).build();
+			return Response.status(200).entity(userObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();

@@ -64,7 +64,7 @@ public class CardServices {
 			cardObject.put("expiryYear", cardBean.getExpiryYear());
 			cardObject.put("cvv", cardBean.getCvv());
 			
-			return Response.status(200).entity(cardBean.toString()).build();
+			return Response.status(200).entity(cardObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();

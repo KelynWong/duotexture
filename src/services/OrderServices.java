@@ -58,7 +58,7 @@ public class OrderServices {
 			orderObject.put("productId", orderBean.getProductId());
 			orderObject.put("quantity", orderBean.getQuantity());
 			
-			return Response.status(200).entity(orderBean.toString()).build();
+			return Response.status(200).entity(orderObject.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();
