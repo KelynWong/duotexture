@@ -123,12 +123,12 @@ public class EditCategoryServlet extends HttpServlet {
 				
 			} else {
 				System.out.println("(EditCategoryServlet) Error: Response not ok. \n");
-				response.sendRedirect("Assignment/website/index.jsp");
+				response.sendRedirect("${pageContext.request.contextPath}/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(EditCategoryServlet) Error: " + e + "\n");
-			response.sendRedirect("Assignment/website/index.jsp");
+			response.sendRedirect("${pageContext.request.contextPath}/index");
 		}
 
 	}

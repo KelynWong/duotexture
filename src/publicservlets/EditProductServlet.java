@@ -128,12 +128,12 @@ public class EditProductServlet extends HttpServlet {
 				
 			} else {
 				System.out.println("(EditProductServlet) Error: Response not ok. \n");
-				response.sendRedirect("Assignment/website/index.jsp");
+				response.sendRedirect("${pageContext.request.contextPath}/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(EditProductServlet) Error: " + e + "\n");
-			response.sendRedirect("Assignment/website/index.jsp");
+			response.sendRedirect("${pageContext.request.contextPath}/index");
 		}
 
 	}

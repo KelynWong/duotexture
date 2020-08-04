@@ -143,17 +143,17 @@ public class ProductListingsServlet extends HttpServlet {
 					}
 				} else {
 					System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
-					response.sendRedirect("Assignment/website/index.jsp");
+					response.sendRedirect("${pageContext.request.contextPath}/index");
 				}
 				
 			} else {
 				System.out.println("(ProductListingsServlet) Error: Response not ok. \n");
-				response.sendRedirect("Assignment/website/index.jsp");
+				response.sendRedirect("${pageContext.request.contextPath}/index");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("(ProductListingsServlet) Error: " + e + "\n");
-			response.sendRedirect("Assignment/website/index.jsp");
+			response.sendRedirect("${pageContext.request.contextPath}/index");
 		}
 
 	}
