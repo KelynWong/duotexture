@@ -60,7 +60,7 @@
 		try{
 			// check if user's account and retrieve their username
 			if(session.getAttribute("accountType")!=null){ %>
-					<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/editprofile"><%=session.getAttribute("username")%></a>
+					<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/editprofile?userId=<%=session.getAttribute("userId")%>"><%=session.getAttribute("username")%></a>
 					<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/SignOutServlet">Log Out</a>
 					<%
 			}else{
