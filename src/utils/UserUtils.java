@@ -65,6 +65,7 @@ public class UserUtils {
 			userBean.setEmail(getUserByIdResult.getString("email"));
 			userBean.setUsername(getUserByIdResult.getString("username"));
 			userBean.setPassword(getUserByIdResult.getString("password"));
+			userBean.setUserRole(getUserByIdResult.getString("userRole"));
 		}
 		
 		// close connection
