@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -55,6 +56,9 @@ public class EditProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			// get current session
+			HttpSession session=request.getSession();
+			
 			// declare client
 			Client client = ClientBuilder.newClient();
 			
@@ -90,7 +94,7 @@ public class EditProfileServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// get user id	
-				int userId = Integer.parseInt(request.getParameter("userId"));
+				int userId = (int) session.getAttribute("userId");
 				
 				// declare client
 				client = ClientBuilder.newClient();
