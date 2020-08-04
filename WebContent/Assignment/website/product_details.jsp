@@ -32,24 +32,15 @@
 		if(request.getParameter("productId")!=null){
 			int getProductId = Integer.parseInt(request.getParameter("productId"));
 			
-			// connect to mysql database
-			Class.forName("com.mysql.jdbc.Driver"); 
-			String connURL = "jdbc:mysql://localhost/duotexture?user=root&password=password&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(connURL);   
+			Product product = (Product) request.getAttribute("product");
 			
-			// get and display all products by product id
-			String getProductByIdQuery = "SELECT * FROM products WHERE productId=?";   
-			PreparedStatement pstmt = conn.prepareStatement(getProductByIdQuery);
-		    pstmt.setInt(1, getProductId);
-			ResultSet getProductByIdResult = pstmt.executeQuery(); 
-		
-			while(getProductByIdResult.next())   { 
-				int productId = getProductByIdResult.getInt("categoryId");   
-				String productName = getProductByIdResult.getString("name");               
-				String productDescription = getProductByIdResult.getString("description");
-				String productRetailPrice = getProductByIdResult.getString("retail_price");
-				String productQuantity = getProductByIdResult.getString("quantity");
-				String productImage = getProductByIdResult.getString("image"); 
+			String productName = product.getName();               
+			String productDescription = product.getDescription();
+			Double productCostPrice = product.getCostPrice();
+			Double productRetailPrice = product.getRetailPrice();
+			int productQuantity = product.getQuantity();
+			int productCategoryId = product.getCategoryId();
+			String productImage = product.getImage();
 				%>
 				
 				<section class="slide col-4">
@@ -66,9 +57,6 @@
 		            </section>
 		        </section>
 			<% 
-			} 
-				           
-			conn.close(); 
 		}else{
 			%>
 			<p>There isn't any product selected.</p>
