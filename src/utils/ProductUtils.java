@@ -85,6 +85,44 @@ public class ProductUtils {
 		return productsArrayList;
 	}
 	
+	// get all products by category id and keyword
+	public static ArrayList<Product> getProductsByCategoryIdAndKeyword (int categoryId, String keyword) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get all products by category id and keyword query and result		
+		String getProductByCategoryIdAndKeywordQuery = "SELECT * FROM products WHERE products.categoryId = ? AND products.name LIKE '%?%';";
+		PreparedStatement pstmt = conn.prepareStatement(getProductByCategoryIdAndKeywordQuery);
+		pstmt.setInt(1, categoryId);
+		pstmt.setString(2, keyword);
+		ResultSet getProductByCategoryIdAndKeywordResult = pstmt.executeQuery();
+		
+		// create new ArrayList of product
+		ArrayList<Product> searchProductsArrayList = new ArrayList<Product>();
+		
+		// loop if there are new row
+		while(getProductByCategoryIdAndKeywordResult.next()) {
+			// create an instance of product
+			Product productBean = new Product();
+			
+			productBean.setProductId(getProductByCategoryIdAndKeywordResult.getInt("productId"));
+			productBean.setName(getProductByCategoryIdAndKeywordResult.getString("name"));
+			productBean.setDescription(getProductByCategoryIdAndKeywordResult.getString("description"));
+			productBean.setCostPrice(getProductByCategoryIdAndKeywordResult.getDouble("cost_price"));
+			productBean.setRetailPrice(getProductByCategoryIdAndKeywordResult.getDouble("retail_price"));
+			productBean.setQuantity(getProductByCategoryIdAndKeywordResult.getInt("quantity"));
+			productBean.setCategoryId(getProductByCategoryIdAndKeywordResult.getInt("categoryId"));
+			productBean.setImage(getProductByCategoryIdAndKeywordResult.getString("image"));
+			
+			// add productBean to productsArrayList
+			searchProductsArrayList.add(productBean);
+		}
+		
+		// close connection
+		conn.close();
+		return searchProductsArrayList;
+	}
+	
 	// get product by id
 	public static Product getProductById (int productId) throws SQLException, ClassNotFoundException {
 		// connect to database
