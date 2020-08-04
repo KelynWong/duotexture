@@ -87,6 +87,9 @@ public class ProductListingsServlet extends HttpServlet {
 				
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
+
+				// get keyword
+				String keyword = request.getParameter("keywordInput");
 				
 				// get category id	
 				int categoryId = Integer.parseInt(request.getParameter("categoryId"));
@@ -94,9 +97,16 @@ public class ProductListingsServlet extends HttpServlet {
 				// declare client
 				client = ClientBuilder.newClient();
 				
-				// target java and parse in data - get products by category id
-				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
-						.path("productservices/getproductsbycategoryid").queryParam("categoryId", categoryId);
+				// check if search bar is empty
+				if(keyword!=null){
+					// target java and parse in data - get products by category id
+					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+							.path("productservices/getproductsbycategoryidandkeyword").queryParam("categoryId", categoryId).queryParam("keyword", keyword);
+				}else{
+					// target java and parse in data - get products by category id
+					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+							.path("productservices/getproductsbycategoryid").queryParam("categoryId", categoryId);
+				}
 				
 				// declare media is an application/json
 				invoBuilder = target.request(MediaType.APPLICATION_JSON);
