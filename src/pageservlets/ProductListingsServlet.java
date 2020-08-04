@@ -37,7 +37,7 @@ import javabeans.Product;
  * 
  */
 
-@WebServlet("/productdetails")
+@WebServlet("/productlistings")
 public class ProductListingsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
