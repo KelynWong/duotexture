@@ -148,7 +148,7 @@ public class EditProfileServlet extends HttpServlet {
 						request.setAttribute("member", member);
 					
 						// forward request to jsp for display
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher(request.getContextPath() + "/editprofile");
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_profile.jsp");
 						requestDispatcher.forward(request, response);
 					} else {
 						System.out.println("(EditProfileServlet) Error: Response not ok. \n");
