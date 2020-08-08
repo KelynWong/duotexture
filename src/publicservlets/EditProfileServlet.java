@@ -157,13 +157,13 @@ public class EditProfileServlet extends HttpServlet {
 						
 						if (profileEdit == null) {
 							// forward request to jsp for display
-							requestDispatcher = request.getServletContext().getRequestDispatcher("Assignment/website/edit_profile.jsp");
+							requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/edit_profile.jsp");
 						} else {
 							
 							if(profileEdit.equals("success")) {
-								requestDispatcher = request.getServletContext().getRequestDispatcher("Assignment/website/edit_profile.jsp?profileEdit=success");
+								requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/edit_profile.jsp?profileEdit=success");
 							} else {
-								requestDispatcher = request.getServletContext().getRequestDispatcher("Assignment/website/edit_profile.jsp?profileEdit=fail");
+								requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/edit_profile.jsp?profileEdit=fail");
 							}
 						}	
 						requestDispatcher.forward(request, response);
