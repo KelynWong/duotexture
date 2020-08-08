@@ -17,16 +17,23 @@ import utils.CategoryUtils;
 @Path("categoryservices")
 public class CategoryServices {
 	
+	// get all categories
 	@Path("getcategories")
 	@GET
 	@Produces("application/json")
 	public Response getCategories() {
 		
+		// create JSONArray
 		JSONArray categoriesJSONArray = new JSONArray();
+		
+		// declare ArrayList<Category>
 		ArrayList<Category> categoriesArrayList;
 		
 		try {
+			// get ArrayList result from utils and store it into categoriesArrayList
 			categoriesArrayList = CategoryUtils.getCategories();
+			
+			// convert result in categoriesArrayList to JSONObject and store in categoriesJSONArray
 			for (int x=0; x<categoriesArrayList.size(); x++) {
 				JSONObject categoryObject = new JSONObject();
 				
@@ -38,21 +45,26 @@ public class CategoryServices {
 				categoriesJSONArray.put(categoryObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(categoriesJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get category by id
 	@Path("getcategorybyid")
 	@GET
 	@Produces("application/json")
 	public Response getCategoryById(@QueryParam("categoryId") int categoryId) {
 		
 		try {
+			// get Category result from utils and store it into categoryBean
 			Category categoryBean = CategoryUtils.getCategoryById(categoryId);
 			
+			// store inside JSONObject
 			JSONObject categoryObject = new JSONObject();
 			
 			categoryObject.put("categoryId", categoryBean.getCategoryId());
@@ -60,9 +72,11 @@ public class CategoryServices {
 			categoryObject.put("description", categoryBean.getDescription());
 			categoryObject.put("image", categoryBean.getImage());
 			
+			// return success data
 			return Response.status(200).entity(categoryObject.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
