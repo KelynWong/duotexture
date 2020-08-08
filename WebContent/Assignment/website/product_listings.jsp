@@ -86,7 +86,8 @@
 				            		if(session.getAttribute("accountType").equals("admin")){
 					                   	%>
 					                   	<div class="row mt-2">
-					                   		<form action="${pageContext.request.contextPath}/editproduct?productId=<%= id %>" method="post">
+					                   		<form action="${pageContext.request.contextPath}/editproduct" method="get">
+					                   			<input name="productId" type="hidden" value="<%=id%>">
 					                        	<button type="submit" class="btn btn-warning ml-3 mr-2">Edit</button>
 					                        </form>
 					                        <form action="${pageContext.request.contextPath}/DeleteProductServlet?productId=<%= id %>&categoryId=<%= request.getParameter("categoryId")%>" method="post">
