@@ -41,7 +41,8 @@
 		            		if(session.getAttribute("accountType").equals("admin")){
 			                   	%>
 			                   	<div class="row mt-2">
-			                   		<form action="${pageContext.request.contextPath}/editcategory?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" method="get">
+			                   		<form action="${pageContext.request.contextPath}/editcategory" method="get">
+			                        	<input name="categoryId" type="hidden" value="<%= categoriesArrayList.get(x).getCategoryId() %>">
 			                        	<button type="submit" class="btn btn-warning ml-3 mr-2">Edit</button>
 			                        </form>
 			                        <form action="${pageContext.request.contextPath}/DeleteCategoryServlet?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" method="post">
