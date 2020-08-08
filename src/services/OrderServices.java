@@ -44,13 +44,13 @@ public class OrderServices {
 		}
 	}
 	
-	@Path("getorderbyuserid")
+	@Path("getordersbyuserid")
 	@GET
 	@Produces("application/json")
-	public Response getOrderByUserId(@QueryParam("userId") int userId) {
+	public Response getOrdersByUserId(@QueryParam("userId") int userId) {
 		
 		try {
-			Order orderBean = OrderUtils.getOrderByUserId(userId);
+			Order orderBean = OrderUtils.getOrdersByUserId(userId);
 			
 			JSONObject orderObject = new JSONObject();
 
