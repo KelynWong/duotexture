@@ -44,29 +44,34 @@ public class PurchaseUtils {
 	}
 	
 	// get purchases by user id
-	public static Purchase getPurchasesByUserId (int userId) throws SQLException, ClassNotFoundException {
+	public static ArrayList<Purchase> getPurchasesByUserId (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get purchases by user id query and result
-		String getPurchasesByUserIdQuery = "SELECT * FROM duotexture.purchase WHERE userId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getPurchasesByUserIdQuery);
-		pstmt.setInt(1,  userId);
-		ResultSet getPurchasesByUserIdResult = pstmt.executeQuery();
+		// statement, get all purchases query and result
+		Statement stmt = conn.createStatement();
+		String getPurchasesQuery = "SELECT * FROM duotexture.purchase WHERE userId=?;";
+		ResultSet getPurchasesResult = stmt.executeQuery(getPurchasesQuery);
 		
-		// create an instance of purchase
-		Purchase PurchaseBean = new Purchase();
+		// create new ArrayList of purchase
+		ArrayList<Purchase> PurchasesArrayList = new ArrayList<Purchase>();
 		
-		// if there is a new row
-		if(getPurchasesByUserIdResult.next()) {
-			PurchaseBean.setUserId(getPurchasesByUserIdResult.getInt("userId"));
-			PurchaseBean.setProductId(getPurchasesByUserIdResult.getInt("productId"));
-			PurchaseBean.setQuantity(getPurchasesByUserIdResult.getInt("quantity"));
+		// loop if there are new row
+		while(getPurchasesResult.next()) {
+			// create an instance of purchase
+			Purchase PurchaseBean = new Purchase();
+			
+			PurchaseBean.setUserId(getPurchasesResult.getInt("userId"));
+			PurchaseBean.setProductId(getPurchasesResult.getInt("productId"));
+			PurchaseBean.setQuantity(getPurchasesResult.getInt("quantity"));
+			
+			// add purchaseBean to PurchasesArrayList
+			PurchasesArrayList.add(PurchaseBean);
 		}
 		
 		// close connection
 		conn.close();
-		return PurchaseBean;
+		return PurchasesArrayList;
 	}
 	
 	// add purchase
