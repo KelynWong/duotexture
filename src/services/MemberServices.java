@@ -19,16 +19,23 @@ import utils.OrderUtils;
 @Path("memberservices")
 public class MemberServices {
 	
+	// get all members
 	@Path("getmembers")
 	@GET
 	@Produces("application/json")
 	public Response getMembers() {
 		
+		// create JSONArray
 		JSONArray membersJSONArray = new JSONArray();
+		
+		// declare ArrayList<Member> variable
 		ArrayList<Member> membersArrayList;
 		
 		try {
+			// get ArrayList result from utils and store it into membersArrayList
 			membersArrayList = MemberUtils.getMembers();
+			
+			// convert result in membersArrayList to JSONObject and store in membersJSONArray
 			for (int x=0; x<membersArrayList.size(); x++) {
 				JSONObject memberObject = new JSONObject();
 				
@@ -42,21 +49,26 @@ public class MemberServices {
 				membersJSONArray.put(memberObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(membersJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get member by id
 	@Path("getmemberbyid")
 	@GET
 	@Produces("application/json")
 	public Response getMemberById(@QueryParam("userId") int userId) {
 		
 		try {
+			// get Member result from utils and store it in memberBean
 			Member memberBean = MemberUtils.getMemberByUserId(userId);
 			
+			// store inside JSONObject
 			JSONObject memberObject = new JSONObject();
 
 			memberObject.put("userId", memberBean.getUserId());
@@ -66,21 +78,26 @@ public class MemberServices {
 			memberObject.put("address", memberBean.getAddress());
 			memberObject.put("postal_code", memberBean.getPostalCode());
 			
+			// return success data
 			return Response.status(200).entity(memberObject.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get member by user id
 	@Path("getmemberbyuserid")
 	@GET
 	@Produces("application/json")
 	public Response getMemberByUserId(@QueryParam("userId") int userId) {
 		
 		try {
+			// get Member result from utils and store it into memberBean
 			Member memberBean = MemberUtils.getMemberById(userId);
 			
+			// store inside JSONObject
 			JSONObject memberObject = new JSONObject();
 
 			memberObject.put("userId", memberBean.getUserId());
@@ -90,9 +107,11 @@ public class MemberServices {
 			memberObject.put("address", memberBean.getAddress());
 			memberObject.put("postal_code", memberBean.getPostalCode());
 			
+			// return success data
 			return Response.status(200).entity(memberObject.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
