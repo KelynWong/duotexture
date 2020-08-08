@@ -95,7 +95,7 @@ public class MemberServices {
 		
 		try {
 			// get Member result from utils and store it into memberBean
-			Member memberBean = MemberUtils.getMemberById(userId);
+			Member memberBean = MemberUtils.getMemberByUserId(userId);
 			
 			// store inside JSONObject
 			JSONObject memberObject = new JSONObject();
