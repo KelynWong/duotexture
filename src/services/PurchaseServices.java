@@ -48,17 +48,23 @@ public class PurchaseServices {
 	@GET
 	@Produces("application/json")
 	public Response getPurchasesByUserId(@QueryParam("userId") int userId) {
+
+		JSONArray purchasesJSONArray = new JSONArray();
+		ArrayList<Purchase> purchaseArrayList;
 		
 		try {
-			Purchase purchaseBean = PurchaseUtils.getPurchasesByUserId(userId);
+			purchaseArrayList = PurchaseUtils.getPurchasesByUserId(userId);
+			for (int x=0; x<purchaseArrayList.size(); x++) {
+				JSONObject purchaseObject = new JSONObject();
+				
+				purchaseObject.put("userId", purchaseArrayList.get(x).getUserId());
+				purchaseObject.put("productId", purchaseArrayList.get(x).getProductId());
+				purchaseObject.put("quantity", purchaseArrayList.get(x).getQuantity());
+				
+				purchasesJSONArray.put(purchaseObject);
+			}
 			
-			JSONObject purchaseObject = new JSONObject();
-
-			purchaseObject.put("userId", purchaseBean.getUserId());
-			purchaseObject.put("productId", purchaseBean.getProductId());
-			purchaseObject.put("quantity", purchaseBean.getQuantity());
-			
-			return Response.status(200).entity(purchaseObject.toString()).build();
+			return Response.status(200).entity(purchasesJSONArray.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();
