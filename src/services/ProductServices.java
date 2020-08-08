@@ -17,16 +17,23 @@ import utils.ProductUtils;
 @Path("productservices")
 public class ProductServices {
 	
+	// get products by category id
 	@Path("getproductsbycategoryid")
 	@GET
 	@Produces("application/json")
 	public Response getProductsByCategoryId(@QueryParam("categoryId") int categoryId) {
 		
+		// create JSONArray
 		JSONArray productsJSONArray = new JSONArray();
+		
+		// declare ArrayList<Product> variable
 		ArrayList<Product> productsArrayList;
 		
 		try {
+			// get ArrayList result from utils and store it into productsArrayList
 			productsArrayList = ProductUtils.getProductsByCategoryId(categoryId);
+			
+			// convert result in productsArrayList to JSONObject and store in productsJSONArray
 			for (int x=0; x<productsArrayList.size(); x++) {
 				JSONObject productObject = new JSONObject();
 				
@@ -42,23 +49,32 @@ public class ProductServices {
 				productsJSONArray.put(productObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(productsJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get products by category id and keyword
 	@Path("getproductsbycategoryidandkeyword")
 	@GET
 	@Produces("application/json")
 	public Response getProductsByCategoryIdAndKeyword(@QueryParam("categoryId") int categoryId, @QueryParam("keyword") String keyword) {
 		
+		// create JSONArray
 		JSONArray searchProductsJSONArray = new JSONArray();
+		
+		// declare ArrayList<Product> variable
 		ArrayList<Product> searchProductsArrayList;
 		
 		try {
+			// get ArrayList result from utils and store it into searchProductsArrayList
 			searchProductsArrayList = ProductUtils.getProductsByCategoryIdAndKeyword(categoryId, keyword);
+			
+			// convert result in searchProductsArrayList to JSONObject and store in searchProductsJSONArray
 			for (int x=0; x<searchProductsArrayList.size(); x++) {
 				JSONObject productObject = new JSONObject();
 				
@@ -74,21 +90,26 @@ public class ProductServices {
 				searchProductsJSONArray.put(productObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(searchProductsJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get product by id
 	@Path("getproductbyid")
 	@GET
 	@Produces("application/json")
 	public Response getProductById(@QueryParam("productId") int productId) {
 		
 		try {
+			// get Product result from utils and store it inside productBean
 			Product productBean = ProductUtils.getProductById(productId);
 			
+			// store inside JSONObject
 			JSONObject productObject = new JSONObject();
 			
 			productObject.put("productId", productBean.getProductId());
@@ -100,9 +121,11 @@ public class ProductServices {
 			productObject.put("categoryId", productBean.getCategoryId());
 			productObject.put("image", productBean.getImage());
 			
+			// return success data
 			return Response.status(200).entity(productObject.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
