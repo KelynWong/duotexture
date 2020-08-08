@@ -43,25 +43,25 @@ public class PurchaseUtils {
 		return PurchasesArrayList;
 	}
 	
-	// get purchase by user id
-	public static Purchase getPurchaseByUserId (int userId) throws SQLException, ClassNotFoundException {
+	// get purchases by user id
+	public static Purchase getPurchasesByUserId (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get a purchase by user id query and result
-		String getPurchaseByUserIdQuery = "SELECT * FROM duotexture.purchase WHERE userId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getPurchaseByUserIdQuery);
+		// prepared statement, get purchases by user id query and result
+		String getPurchasesByUserIdQuery = "SELECT * FROM duotexture.purchase WHERE userId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getPurchasesByUserIdQuery);
 		pstmt.setInt(1,  userId);
-		ResultSet getPurchaseByUserIdResult = pstmt.executeQuery();
+		ResultSet getPurchasesByUserIdResult = pstmt.executeQuery();
 		
 		// create an instance of purchase
 		Purchase PurchaseBean = new Purchase();
 		
 		// if there is a new row
-		if(getPurchaseByUserIdResult.next()) {
-			PurchaseBean.setUserId(getPurchaseByUserIdResult.getInt("userId"));
-			PurchaseBean.setProductId(getPurchaseByUserIdResult.getInt("productId"));
-			PurchaseBean.setQuantity(getPurchaseByUserIdResult.getInt("quantity"));
+		if(getPurchasesByUserIdResult.next()) {
+			PurchaseBean.setUserId(getPurchasesByUserIdResult.getInt("userId"));
+			PurchaseBean.setProductId(getPurchasesByUserIdResult.getInt("productId"));
+			PurchaseBean.setQuantity(getPurchasesByUserIdResult.getInt("quantity"));
 		}
 		
 		// close connection

@@ -44,13 +44,13 @@ public class PurchaseServices {
 		}
 	}
 	
-	@Path("getpurchasebyuserid")
+	@Path("getpurchasesbyuserid")
 	@GET
 	@Produces("application/json")
-	public Response getPurchaseByUserId(@QueryParam("userId") int userId) {
+	public Response getPurchasesByUserId(@QueryParam("userId") int userId) {
 		
 		try {
-			Purchase purchaseBean = PurchaseUtils.getPurchaseByUserId(userId);
+			Purchase purchaseBean = PurchaseUtils.getPurchasesByUserId(userId);
 			
 			JSONObject purchaseObject = new JSONObject();
 
