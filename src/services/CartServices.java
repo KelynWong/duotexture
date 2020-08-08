@@ -17,16 +17,23 @@ import utils.CartUtils;
 @Path("cartservices")
 public class CartServices {
 	
+	// get all carts
 	@Path("getcarts")
 	@GET
 	@Produces("application/json")
 	public Response getCarts() {
-		
+
+		// create JSONArray
 		JSONArray cartsJSONArray = new JSONArray();
+		
+		// declare ArrayList<Cart> variable
 		ArrayList<Cart> cartsArrayList;
 		
 		try {
+			// get ArrayList result from utils and store it into cartsArrayList
 			cartsArrayList = CartUtils.getCarts();
+			
+			// convert result in cardsArrayList to JSONObject and store in cardsJSONArray
 			for (int x=0; x<cartsArrayList.size(); x++) {
 				JSONObject cartObject = new JSONObject();
 				
@@ -37,13 +44,16 @@ public class CartServices {
 				cartsJSONArray.put(cartObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(cartsJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get carts by user id
 	@Path("getcartsbyuserid")
 	@GET
 	@Produces("application/json")
