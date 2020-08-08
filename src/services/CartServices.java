@@ -44,13 +44,13 @@ public class CartServices {
 		}
 	}
 	
-	@Path("getcartbyuserid")
+	@Path("getcartsbyuserid")
 	@GET
 	@Produces("application/json")
-	public Response getCartByUserId(@QueryParam("userId") int userId) {
+	public Response getCartsByUserId(@QueryParam("userId") int userId) {
 		
 		try {
-			Cart cartBean = CartUtils.getCartByUserId(userId);
+			Cart cartBean = CartUtils.getCartsByUserId(userId);
 			
 			JSONObject cartObject = new JSONObject();
 

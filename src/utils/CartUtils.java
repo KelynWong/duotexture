@@ -44,24 +44,24 @@ public class CartUtils {
 	}
 	
 	// get cart by user id
-	public static Cart getCartByUserId (int userId) throws SQLException, ClassNotFoundException {
+	public static Cart getCartsByUserId (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get a cart by user id query and result
-		String getCartByUserIdQuery = "SELECT * FROM duotexture.cart WHERE userId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getCartByUserIdQuery);
+		String getCartsByUserIdQuery = "SELECT * FROM duotexture.cart WHERE userId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getCartsByUserIdQuery);
 		pstmt.setInt(1,  userId);
-		ResultSet getCartByUserIdResult = pstmt.executeQuery();
+		ResultSet getCartsByUserIdResult = pstmt.executeQuery();
 		
 		// create an instance of cart
 		Cart cartBean = new Cart();
 		
 		// if there is a new row
-		if(getCartByUserIdResult.next()) {
-			cartBean.setUserId(getCartByUserIdResult.getInt("userId"));
-			cartBean.setProductId(getCartByUserIdResult.getInt("productId"));
-			cartBean.setQuantity(getCartByUserIdResult.getInt("quantity"));
+		if(getCartsByUserIdResult.next()) {
+			cartBean.setUserId(getCartsByUserIdResult.getInt("userId"));
+			cartBean.setProductId(getCartsByUserIdResult.getInt("productId"));
+			cartBean.setQuantity(getCartsByUserIdResult.getInt("quantity"));
 		}
 		
 		// close connection
