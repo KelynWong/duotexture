@@ -17,7 +17,7 @@ public class CartUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all carts query and result
+		// statement, get all carts query and result
 		Statement stmt = conn.createStatement();
 		String getCartsQuery = "SELECT * FROM duotexture.cart;";
 		ResultSet getCartsResult = stmt.executeQuery(getCartsQuery);

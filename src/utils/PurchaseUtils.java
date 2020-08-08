@@ -17,7 +17,7 @@ public class PurchaseUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all purchases query and result
+		// statement, get all purchases query and result
 		Statement stmt = conn.createStatement();
 		String getPurchasesQuery = "SELECT * FROM duotexture.purchase;";
 		ResultSet getPurchasesResult = stmt.executeQuery(getPurchasesQuery);

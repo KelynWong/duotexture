@@ -17,7 +17,7 @@ public class OrderUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all orders query and result
+		// statement, get all orders query and result
 		Statement stmt = conn.createStatement();
 		String getOrdersQuery = "SELECT * FROM duotexture.order;";
 		ResultSet getOrdersResult = stmt.executeQuery(getOrdersQuery);

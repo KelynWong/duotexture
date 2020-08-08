@@ -17,7 +17,7 @@ public class ProductUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all products query and result
+		// statement, get all products query and result
 		Statement stmt = conn.createStatement();
 		String getProductsQuery = "SELECT * FROM duotexture.products;";
 		ResultSet getProductsResult = stmt.executeQuery(getProductsQuery);

@@ -17,7 +17,7 @@ public class CategoryUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all categories query and result
+		// statement, get all categories query and result
 		Statement stmt = conn.createStatement();
 		String getCategoriesQuery = "SELECT * FROM duotexture.categories;";
 		ResultSet getCategoriesResult = stmt.executeQuery(getCategoriesQuery);

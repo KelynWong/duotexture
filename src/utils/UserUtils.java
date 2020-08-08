@@ -17,7 +17,7 @@ public class UserUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all users query and result
+		// statement, get all users query and result
 		Statement stmt = conn.createStatement();
 		String getUsersQuery = "SELECT * FROM duotexture.users;";
 		ResultSet getUsersResult = stmt.executeQuery(getUsersQuery);

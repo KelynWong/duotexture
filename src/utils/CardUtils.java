@@ -17,7 +17,7 @@ public class CardUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get all cards query and result
+		// statement, get all cards query and result
 		Statement stmt = conn.createStatement();
 		String getCardsQuery = "SELECT * FROM duotexture.cards;";
 		ResultSet getCardsResult = stmt.executeQuery(getCardsQuery);
