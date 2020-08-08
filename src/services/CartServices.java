@@ -59,18 +59,32 @@ public class CartServices {
 	@Produces("application/json")
 	public Response getCartsByUserId(@QueryParam("userId") int userId) {
 		
+		// create JSONArray
+		JSONArray cartsJSONArray = new JSONArray();
+		
+		// declare ArrayList<Cart> variable
+		ArrayList<Cart> cartsArrayList;
+		
 		try {
-			Cart cartBean = CartUtils.getCartsByUserId(userId);
+			// get ArrayList result from utils and store it into cartsArrayList
+			cartsArrayList =  CartUtils.getCartsByUserId(userId);
 			
-			JSONObject cartObject = new JSONObject();
-
-			cartObject.put("userId", cartBean.getUserId());
-			cartObject.put("productId", cartBean.getProductId());
-			cartObject.put("quantity", cartBean.getQuantity());
+			// convert result in cardsArrayList to JSONObject and store in cardsJSONArray
+			for (int x=0; x<cartsArrayList.size(); x++) {
+				JSONObject cartObject = new JSONObject();
+				
+				cartObject.put("userId", cartsArrayList.get(x).getUserId());
+				cartObject.put("productId", cartsArrayList.get(x).getProductId());
+				cartObject.put("quantity", cartsArrayList.get(x).getQuantity());
+				
+				cartsJSONArray.put(cartObject);
+			}
 			
-			return Response.status(200).entity(cartObject.toString()).build();
+			// return success data
+			return Response.status(200).entity(cartsJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
