@@ -91,12 +91,12 @@ public class SignUpServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/sign_up.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("(CategoriesServlet.jsp) Error: Response not ok. \n");
+				System.out.println("(publicservlets/SignUpServlet) Error: Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(CategoriesServlet.jsp) Error: " + e + "\n");
+			System.out.println("(publicservlets/SignUpServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 

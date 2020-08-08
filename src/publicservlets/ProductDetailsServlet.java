@@ -125,17 +125,17 @@ public class ProductDetailsServlet extends HttpServlet {
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_details.jsp");
 					requestDispatcher.forward(request, response);
 				} else {
-					System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
+					System.out.println("(publicservlets/ProductDetailsServlet) Error: Response not ok. \n");
 					response.sendRedirect(request.getContextPath() + "/index");
 				}
 				
 			} else {
-				System.out.println("(ProductDetailsServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/ProductDetailsServlet) Error: Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(ProductDetailsServlet) Error: " + e + "\n");
+			System.out.println("(publicservlets/ProductDetailsServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 

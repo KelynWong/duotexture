@@ -127,12 +127,12 @@ public class EditProductServlet extends HttpServlet {
 				}
 				
 			} else {
-				System.out.println("(EditProductServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/EditProductServlet) Error: Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(EditProductServlet) Error: " + e + "\n");
+			System.out.println("(publicservlets/EditProductServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 

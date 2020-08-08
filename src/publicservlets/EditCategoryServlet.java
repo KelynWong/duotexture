@@ -122,12 +122,12 @@ public class EditCategoryServlet extends HttpServlet {
 				}
 				
 			} else {
-				System.out.println("(EditCategoryServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/EditCategoryServlet) Error: Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(EditCategoryServlet) Error: " + e + "\n");
+			System.out.println("(publicservlets/EditCategoryServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
