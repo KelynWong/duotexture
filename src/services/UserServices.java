@@ -22,11 +22,17 @@ public class UserServices {
 	@Produces("application/json")
 	public Response getUsers() {
 		
+		// create JSONArray
 		JSONArray usersJSONArray = new JSONArray();
+		
+		// declare ArrayList<User> variable
 		ArrayList<User> usersArrayList;
 		
 		try {
+			// get ArrayList result from utils and store it into usersArrayList
 			usersArrayList = UserUtils.getUsers();
+			
+			// convert result in usersArrayList to JSONObject and store in usersJSONArray
 			for (int x=0; x<usersArrayList.size(); x++) {
 				JSONObject userObject = new JSONObject();
 				
@@ -39,21 +45,26 @@ public class UserServices {
 				usersJSONArray.put(userObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(usersJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
 	
+	// get user by id
 	@Path("getuserbyid")
 	@GET
 	@Produces("application/json")
 	public Response getUserById(@QueryParam("userId") int userId) {
 		
 		try {
+			// get User result from utils and store it into userBean
 			User userBean = UserUtils.getUserById(userId);
 			
+			// store inside JSONObject
 			JSONObject userObject = new JSONObject();
 			
 			userObject.put("userId", userBean.getUserId());
@@ -62,9 +73,11 @@ public class UserServices {
 			userObject.put("password", userBean.getPassword());
 			userObject.put("userRole", userBean.getUserRole());
 			
+			// return success data
 			return Response.status(200).entity(userObject.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
