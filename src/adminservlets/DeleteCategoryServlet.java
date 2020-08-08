@@ -54,7 +54,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='${pageContext.request.contextPath}/index';");
+					out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
@@ -63,7 +63,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='${pageContext.request.contextPath}/index';");
+				out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}
@@ -89,7 +89,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 				if(!session.getAttribute("accountType").equals("admin")){
 					
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='${pageContext.request.contextPath}/index';");
+					out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
@@ -102,18 +102,18 @@ public class DeleteCategoryServlet extends HttpServlet {
 								
 								if(count > 0){
 									out.println("<script type='text/javascript'>");
-									out.println("window.location.href='${pageContext.request.contextPath}/categories';");
+									out.println("window.location.href='../ST0510-JAD-Assignment/categories';");
 									out.println("alert('Category has successfully been deleted.');");
 									out.println("</script>");
 								} else{
 									out.println("<script type='text/javascript'>");
-									out.println("window.location.href='${pageContext.request.contextPath}/categories';");
+									out.println("window.location.href='../ST0510-JAD-Assignment/categories';");
 									out.println("alert('Failed to delete category.');");
 									out.println("</script>");
 								}    
 							} else{
 								out.println("<script type='text/javascript'>");
-								out.println("window.location.href='${pageContext.request.contextPath}/categories';");
+								out.println("window.location.href='../ST0510-JAD-Assignment/categories';");
 								out.println("alert('Failed to delete category.');");
 								out.println("</script>");
 							}
@@ -124,7 +124,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 				}
 			} else{ 
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='${pageContext.request.contextPath}/index';");
+				out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}

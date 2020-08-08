@@ -54,7 +54,7 @@ public class DeleteProductServlet extends HttpServlet {
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='${pageContext.request.contextPath}/index';");
+					out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
@@ -63,7 +63,7 @@ public class DeleteProductServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='${pageContext.request.contextPath}/index';");
+				out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 				out.println("alert('You do not have access rights.');");
 				out.println("</script>");
 			}
@@ -96,19 +96,19 @@ public class DeleteProductServlet extends HttpServlet {
 					
 					if(count > 0){
 						out.println("<script type='text/javascript'>");
-						out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
+						out.println("window.location.href='../ST0510-JAD-Assignment/productlistings?categoryId=" + categoryId + "';");
 						out.println("alert('Product has successfully been deleted.');");
 						out.println("</script>");
 					}else{
 						out.println("<script type='text/javascript'>");
-						out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
+						out.println("window.location.href='../ST0510-JAD-Assignment/productlistings?categoryId=" + categoryId + "';");
 						out.println("alert('Failed to delete product.');");
 						out.println("</script>");						
 					}   
 				}else{
 					System.out.println("(adminservlets/DeleteProductServlet) Error: ProductId is null.\n");
 					out.println("<script type='text/javascript'>");
-					out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
+					out.println("window.location.href='../ST0510-JAD-Assignment/productlistings?categoryId=" + categoryId + "';");
 					out.println("alert('Failed to delete product.');");
 					out.println("</script>");		
 				}

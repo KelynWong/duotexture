@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
-				out.println("window.location.href='${pageContext.request.contextPath}/index';");
+				out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 				out.println("alert('You are already logged in.');");
 				out.println("</script>");
 			}
