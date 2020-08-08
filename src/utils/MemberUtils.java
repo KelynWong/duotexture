@@ -47,35 +47,6 @@ public class MemberUtils {
 		return membersArrayList;
 	}
 	
-	// get member by id
-	public static Member getMemberById (int userId) throws ClassNotFoundException, SQLException {
-		// connect to database
-		Connection conn = Database.connectToDatabase();
-		
-		// prepared statement, get a member by user id query and result
-		String getMemberByIdQuery = "SELECT * FROM duotexture.members WHERE userId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getMemberByIdQuery);
-		pstmt.setInt(1,  userId);
-		ResultSet getMemberByIdResult = pstmt.executeQuery();
-		
-		// create an instance of member
-		Member memberBean = new Member();
-		
-		// if there is a new row
-		if(getMemberByIdResult.next()) {
-			memberBean.setFirstName(getMemberByIdResult.getString("first_name"));
-			memberBean.setLastName(getMemberByIdResult.getString("last_name"));
-			memberBean.setCountry(getMemberByIdResult.getString("country"));
-			memberBean.setAddress(getMemberByIdResult.getString("address"));
-			memberBean.setPostalCode(getMemberByIdResult.getString("postal_code"));
-			memberBean.setUserId(getMemberByIdResult.getInt("userId"));
-		}
-	
-		// close connection
-		conn.close();
-		return memberBean;
-	}
-	
 	// get member by user id
 	public static Member getMemberByUserId (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
