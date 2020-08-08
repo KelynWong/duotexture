@@ -48,7 +48,7 @@ public class OrderUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get a order by user id query and result
+		// prepared statement, get orders by user id query and result
 		String getOrdersByUserIdQuery = "SELECT * FROM duotexture.order WHERE userId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getOrdersByUserIdQuery);
 		pstmt.setInt(1,  userId);

@@ -48,7 +48,7 @@ public class CartUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get a cart by user id query and result
+		// prepared statement, get carts by user id query and result
 		String getCartsByUserIdQuery = "SELECT * FROM duotexture.cart WHERE userId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getCartsByUserIdQuery);
 		pstmt.setInt(1,  userId);
