@@ -58,7 +58,7 @@ public class AddProductServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(AddProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to add.\n"); 
+					System.out.println("(adminservlets/AddProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to add.\n"); 
 					response.sendRedirect(request.getContextPath() + "/addcategory.jsp");
 				}
 			} else{
@@ -68,7 +68,7 @@ public class AddProductServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(AddProductServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/AddProductServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -112,17 +112,17 @@ public class AddProductServlet extends HttpServlet {
 							}
 						            
 						}else{
-							System.out.println("(AddProductServlet) Error: Wrong Flow\n");
+							System.out.println("(adminservlets/AddProductServlet) Error: Wrong Flow\n");
 							response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
-						System.out.println("(AddProductServlet) Error: Duplicate Entry\n");
+						System.out.println("(adminservlets/AddProductServlet) Error: Duplicate Entry\n");
 						response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 					} catch (java.lang.NumberFormatException e) {         
-						System.out.println(" (AddProductServlet) Error: Invalid Inputs\n"); 
+						System.out.println(" (adminservlets/AddProductServlet) Error: Invalid Inputs\n"); 
 						response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 					} catch (Exception e) {         
-						System.out.println("(AddProductServlet) Error: " + e + "\n"); 
+						System.out.println("(adminservlets/AddProductServlet) Error: " + e + "\n"); 
 						response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
 					}
 				}
@@ -133,7 +133,7 @@ public class AddProductServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(AddProductServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/AddProductServlet) Admin Validation Error: " + e + "\n");
 		}		
 	}
 }

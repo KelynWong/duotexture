@@ -51,7 +51,7 @@ public class AddCategoryServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(AddCategoryServlet) There's no action to be taken for GET. Redirecting to add_category.jsp to add category.\n"); 
+					System.out.println("(adminservlets/AddCategoryServlet) There's no action to be taken for GET. Redirecting to add_category.jsp to add category.\n"); 
 					response.sendRedirect(request.getContextPath() + "/addcategory");
 				}
 				
@@ -62,7 +62,7 @@ public class AddCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(AddCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/AddCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -102,17 +102,17 @@ public class AddCategoryServlet extends HttpServlet {
 							}
 						           
 						} else{
-							System.out.println("(AddCategoryServlet) Error: Wrong Flow\n");
+							System.out.println("(adminservlets/AddCategoryServlet) Error: Wrong Flow\n");
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
-						System.out.println("(AddCategoryServlet) Error: Duplicate Entry\n");
+						System.out.println("(adminservlets/AddCategoryServlet) Error: Duplicate Entry\n");
 						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 					} catch (java.lang.NumberFormatException e) {         
-						System.out.println(" (AddCategoryServlet) Error: Invalid Inputs\n"); 
+						System.out.println(" (adminservlets/AddCategoryServlet) Error: Invalid Inputs\n"); 
 						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 					} catch (Exception e) {         
-						System.out.println(" (AddCategoryServlet) Error: " + e + "\n"); 
+						System.out.println(" (adminservlets/AddCategoryServlet) Error: " + e + "\n"); 
 						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 					}
 					
@@ -124,7 +124,7 @@ public class AddCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(AddCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/AddCategoryServlet) Admin Validation Error: " + e + "\n");
 		}	
 	}
 

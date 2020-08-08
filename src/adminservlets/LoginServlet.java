@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("(LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
+		System.out.println("(adminservlets/LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
 		response.sendRedirect(request.getContextPath() + "/index");
 	}
 
@@ -102,10 +102,10 @@ public class LoginServlet extends HttpServlet {
 						
 					}else{
 						response.sendRedirect("login.jsp");
-						System.out.println("(LoginServlet) Error: Wrong Flow\n");
+						System.out.println("(adminservlets/LoginServlet) Error: Wrong Flow\n");
 					}
 				}catch(Exception e){
-					System.out.println("(LoginServlet) Error: " + e + "\n");
+					System.out.println("(adminservlets/LoginServlet) Error: " + e + "\n");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(LoginServlet) Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/LoginServlet) Validation Error: " + e + "\n");
 		}
 	}
 }

@@ -16,7 +16,7 @@ import utils.UserUtils;
 import utils.MemberUtils;
 
 /**
- * Servlet implementation class SignUpServletS
+ * Servlet implementation class SignUpServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -45,7 +45,7 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("(SignUpServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
+		System.out.println("(adminservlets/SignUpServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
 		response.sendRedirect(request.getContextPath() + "/index");		
 	}
 
@@ -104,13 +104,13 @@ public class SignUpServlet extends HttpServlet {
 						}
 					}else{
 						response.sendRedirect(request.getContextPath() + "/signup");
-						System.out.println("(SignUpServlet) Error: Wrong Flow\n");
+						System.out.println("(adminservlets/SignUpServlet) Error: Wrong Flow\n");
 					}
 				} catch(java.sql.SQLIntegrityConstraintViolationException e){
-					System.out.println("(SignUpServlet) Error: Duplicate Entry\n");
+					System.out.println("(adminservlets/SignUpServlet) Error: Duplicate Entry\n");
 					response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
 				} catch(Exception e){
-					System.out.println("(SignUpServlet) Error: " + e + "\n");
+					System.out.println("(adminservlets/SignUpServlet) Error: " + e + "\n");
 					response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
 				}
 			} else{
@@ -120,7 +120,7 @@ public class SignUpServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(SignUpServlet) Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/SignUpServlet) Validation Error: " + e + "\n");
 		}
 	}
 

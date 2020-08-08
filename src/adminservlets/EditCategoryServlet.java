@@ -58,7 +58,7 @@ public class EditCategoryServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(EditCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to edit.\n"); 
+					System.out.println("(adminservlets/EditCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to edit.\n"); 
 					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
@@ -68,7 +68,7 @@ public class EditCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/EditCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -109,17 +109,17 @@ public class EditCategoryServlet extends HttpServlet {
 							}
 							
 						}else{
-							System.out.println("(EditCategoryServlet) Error: Wrong Flow\n");
+							System.out.println("(adminservlets/EditCategoryServlet) Error: Wrong Flow\n");
 							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "categoryEdit=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
-						System.out.println("(EditCategoryServlet) Error: Duplicate Entry\n");
+						System.out.println("(adminservlets/EditCategoryServlet) Error: Duplicate Entry\n");
 						response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
 					} catch (java.lang.NumberFormatException e) {         
-						System.out.println("(EditCategoryServlet) Error: Invalid Inputs\n"); 
+						System.out.println("(adminservlets/EditCategoryServlet) Error: Invalid Inputs\n"); 
 						response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
 					} catch (Exception e) {         
-						System.out.println("(EditCategoryServlet) Error :" + e + "\n");    
+						System.out.println("(adminservlets/EditCategoryServlet) Error :" + e + "\n");    
 						response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
 					}
 				}
@@ -130,7 +130,7 @@ public class EditCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/EditCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 

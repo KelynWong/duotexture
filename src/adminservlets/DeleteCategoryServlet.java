@@ -58,7 +58,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to delete.\n"); 
+					System.out.println("(adminservlets/DeleteCategoryServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a category to delete.\n"); 
 					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
@@ -68,7 +68,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(DeleteCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/DeleteCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -118,7 +118,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 								out.println("</script>");
 							}
 					} catch (Exception e) {         
-						System.out.println("(DeleteCategoryServlet) Error: " + e + "\n");
+						System.out.println("(adminservlets/DeleteCategoryServlet) Error: " + e + "\n");
 						response.sendRedirect(request.getContextPath() + "/categories");
 					} 
 				}
@@ -129,7 +129,7 @@ public class DeleteCategoryServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(DeleteCategoryServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/DeleteCategoryServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 

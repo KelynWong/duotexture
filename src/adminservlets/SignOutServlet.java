@@ -51,7 +51,7 @@ public class SignOutServlet extends HttpServlet {
 			// mark session invalid and destroy
 			session.invalidate();  
 			response.sendRedirect(request.getContextPath() + "/index");
-			System.out.println("(SignOutServlet) Logged out!\n");
+			System.out.println("(adminservlets/SignOutServlet) Logged out!\n");
 		} else {
 			out.println("<script type='text/javascript'>");
 			out.println("window.location.href='${pageContext.request.contextPath}/login';");
@@ -73,7 +73,7 @@ public class SignOutServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
-				System.out.println("(SignOutServlet) There's no action to be taken for POST. Redirecting to index.jsp.\n"); 
+				System.out.println("(adminservlets/SignOutServlet) There's no action to be taken for POST. Redirecting to index.jsp.\n"); 
 				response.sendRedirect(request.getContextPath() + "/index");
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -82,7 +82,7 @@ public class SignOutServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(SignOutServlet) Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/SignOutServlet) Validation Error: " + e + "\n");
 		}
 	}
 

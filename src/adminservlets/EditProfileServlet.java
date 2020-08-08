@@ -52,7 +52,7 @@ public class EditProfileServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
-				System.out.println("(EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile.\n"); 
+				System.out.println("(adminservlets/EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile.\n"); 
 				response.sendRedirect(request.getContextPath() + "/editprofile");
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -61,7 +61,7 @@ public class EditProfileServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditProfileServlet) Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/EditProfileServlet) Validation Error: " + e + "\n");
 		}
 	}
 
@@ -117,14 +117,14 @@ public class EditProfileServlet extends HttpServlet {
 						}        	
 						 			
 					}else{
-						System.out.println("(EditProfileServlet) Error: Wrong Flow\n");
+						System.out.println("(adminservlets/EditProfileServlet) Error: Wrong Flow\n");
 						response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
 					}
 				} catch(java.sql.SQLIntegrityConstraintViolationException e){
-					System.out.println("(EditProfileServlet) Error: Duplicate Entry\n");
+					System.out.println("(adminservlets/EditProfileServlet) Error: Duplicate Entry\n");
 					response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
 				} catch (Exception e) {         
-					System.out.println("(EditProfileServlet) Error: " + e + "\n");
+					System.out.println("(adminservlets/EditProfileServlet) Error: " + e + "\n");
 					response.sendRedirect(request.getContextPath() + "/editprofile?profileEdit=fail");
 				}
 			} else{
@@ -134,7 +134,7 @@ public class EditProfileServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditProfileServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/EditProfileServlet) Admin Validation Error: " + e + "\n");
 		}		
 	}
 

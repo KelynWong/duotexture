@@ -58,7 +58,7 @@ public class DeleteProductServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(DeleteProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to delete.\n"); 
+					System.out.println("(adminservlets/DeleteProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to delete.\n"); 
 					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
@@ -68,7 +68,7 @@ public class DeleteProductServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(DeleteProductServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/DeleteProductServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -106,18 +106,18 @@ public class DeleteProductServlet extends HttpServlet {
 						out.println("</script>");						
 					}   
 				}else{
-					System.out.println("(DeleteProductServlet) Error: ProductId is null.\n");
+					System.out.println("(adminservlets/DeleteProductServlet) Error: ProductId is null.\n");
 					out.println("<script type='text/javascript'>");
 					out.println("window.location.href='${pageContext.request.contextPath}/productlistings?categoryId=" + categoryId + "';");
 					out.println("alert('Failed to delete product.');");
 					out.println("</script>");		
 				}
 			}else{
-				System.out.println("(DeleteProductServlet) Error: CategoryId is null.\n");
+				System.out.println("(adminservlets/DeleteProductServlet) Error: CategoryId is null.\n");
 				response.sendRedirect(request.getContextPath() + "/categories");
 			}
 		} catch (Exception e) {         
-			System.out.println("(DeleteProductServlet) Error: " + e + "\n");
+			System.out.println("(adminservlets/DeleteProductServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/categories");
 		} 
 	}

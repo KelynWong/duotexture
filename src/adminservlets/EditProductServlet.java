@@ -58,7 +58,7 @@ public class EditProductServlet extends HttpServlet {
 					out.println("alert('You do not have access rights.');");
 					out.println("</script>");
 				} else {
-					System.out.println("(EditProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit.\n"); 
+					System.out.println("(adminservlets/EditProductServlet) There's no action to be taken for GET. Redirecting to categories.jsp to select a product of a category to edit.\n"); 
 					response.sendRedirect(request.getContextPath() + "/categories");
 				}
 			} else{
@@ -68,7 +68,7 @@ public class EditProductServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditProductServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/EditProductServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
@@ -113,17 +113,17 @@ public class EditProductServlet extends HttpServlet {
 							}
 							  
 						}else{
-							System.out.println("(EditProductServlet) Error: Wrong Flow\n");
+							System.out.println("(adminservlets/EditProductServlet) Error: Wrong Flow\n");
 							response.sendRedirect(request.getContextPath() + "/editproduct?productEdit=fail");
 						}
 					} catch(java.sql.SQLIntegrityConstraintViolationException e){
-						System.out.println("(EditProductServlet) Error: Duplicate Entry\n");
+						System.out.println("(adminservlets/EditProductServlet) Error: Duplicate Entry\n");
 						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					} catch (java.lang.NumberFormatException e) {         
-						System.out.println("(EditProductServlet) Error: Invalid Inputs\n"); 
+						System.out.println("(adminservlets/EditProductServlet) Error: Invalid Inputs\n"); 
 						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					} catch (Exception e) {         
-						System.out.println("(EditProductServlet) Error :" + e + "\n");    
+						System.out.println("(adminservlets/EditProductServlet) Error :" + e + "\n");    
 						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
 					}
 				}
@@ -134,7 +134,7 @@ public class EditProductServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(EditProductServlet) Admin Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/EditProductServlet) Admin Validation Error: " + e + "\n");
 		}
 	}
 
