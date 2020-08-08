@@ -122,7 +122,7 @@ public class ProductDetailsServlet extends HttpServlet {
 					request.setAttribute("product", product);
 					
 					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/product_details.jsp");
+					RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("Assignment/website/product_details.jsp");
 					requestDispatcher.forward(request, response);
 				} else {
 					System.out.println("(publicservlets/ProductDetailsServlet) Error: Response not ok. \n");

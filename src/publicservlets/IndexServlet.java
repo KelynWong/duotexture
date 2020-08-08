@@ -88,7 +88,7 @@ public class IndexServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/index.jsp");
+				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("Assignment/website/index.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(publicservlets/IndexServlet) Error: Response not ok. \n");

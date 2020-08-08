@@ -117,7 +117,7 @@ public class EditCategoryServlet extends HttpServlet {
 					request.setAttribute("category", category);
 					
 					// forward request to jsp for display
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Assignment/website/edit_category.jsp");
+					RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("Assignment/website/edit_category.jsp");
 					requestDispatcher.forward(request, response);
 				}
 				
