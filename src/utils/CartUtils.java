@@ -43,8 +43,8 @@ public class CartUtils {
 		return cartsArrayList;
 	}
 	
-	// get cart by user id
-	public static Cart getCartsByUserId (int userId) throws SQLException, ClassNotFoundException {
+	// get carts by user id
+	public static ArrayList<Cart> getCartsByUserId (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
@@ -54,19 +54,25 @@ public class CartUtils {
 		pstmt.setInt(1,  userId);
 		ResultSet getCartsByUserIdResult = pstmt.executeQuery();
 		
-		// create an instance of cart
-		Cart cartBean = new Cart();
+		// create new ArrayList of cart
+		ArrayList<Cart> cartsArrayList = new ArrayList<Cart>();
 		
-		// if there is a new row
-		if(getCartsByUserIdResult.next()) {
+		// loop if there are new row
+		while(getCartsByUserIdResult.next()) {
+			// create an instance of cart
+			Cart cartBean = new Cart();
+			
 			cartBean.setUserId(getCartsByUserIdResult.getInt("userId"));
 			cartBean.setProductId(getCartsByUserIdResult.getInt("productId"));
 			cartBean.setQuantity(getCartsByUserIdResult.getInt("quantity"));
+			
+			// add cartBean to cartsArrayList
+			cartsArrayList.add(cartBean);
 		}
 		
 		// close connection
 		conn.close();
-		return cartBean;
+		return cartsArrayList;
 	}
 	
 	// add cart
