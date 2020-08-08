@@ -17,29 +17,38 @@ import utils.PurchaseUtils;
 @Path("purchaseservices")
 public class PurchaseServices {
 	
+	// get all purchases
 	@Path("getpurchases")
 	@GET
 	@Produces("application/json")
 	public Response getPurchases() {
 		
+		// create JSONArray
 		JSONArray purchasesJSONArray = new JSONArray();
-		ArrayList<Purchase> purchaseArrayList;
+		
+		// declare ArrayList<Purchase> variable
+		ArrayList<Purchase> purchasesArrayList;
 		
 		try {
-			purchaseArrayList = PurchaseUtils.getPurchases();
-			for (int x=0; x<purchaseArrayList.size(); x++) {
+			// get ArrayList result from utils and store it into purchasesArrayList
+			purchasesArrayList = PurchaseUtils.getPurchases();
+			
+			// convert result in purchasesArrayList to JSONObject and store in purchasesJSONArray
+			for (int x=0; x<purchasesArrayList.size(); x++) {
 				JSONObject purchaseObject = new JSONObject();
 				
-				purchaseObject.put("userId", purchaseArrayList.get(x).getUserId());
-				purchaseObject.put("productId", purchaseArrayList.get(x).getProductId());
-				purchaseObject.put("quantity", purchaseArrayList.get(x).getQuantity());
+				purchaseObject.put("userId", purchasesArrayList.get(x).getUserId());
+				purchaseObject.put("productId", purchasesArrayList.get(x).getProductId());
+				purchaseObject.put("quantity", purchasesArrayList.get(x).getQuantity());
 				
 				purchasesJSONArray.put(purchaseObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(purchasesJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
@@ -49,24 +58,32 @@ public class PurchaseServices {
 	@Produces("application/json")
 	public Response getPurchasesByUserId(@QueryParam("userId") int userId) {
 
+		// create JSONArray
 		JSONArray purchasesJSONArray = new JSONArray();
-		ArrayList<Purchase> purchaseArrayList;
+		
+		// declare ArrayList<Purchase> variable
+		ArrayList<Purchase> purchasesArrayList;
 		
 		try {
-			purchaseArrayList = PurchaseUtils.getPurchasesByUserId(userId);
-			for (int x=0; x<purchaseArrayList.size(); x++) {
+			// get ArrayList result from utils and store it into purchasesArrayList
+			purchasesArrayList = PurchaseUtils.getPurchasesByUserId(userId);
+			
+			// convert result in purchasesArrayList to JSONObject and store in purchasesJSONArray
+			for (int x=0; x<purchasesArrayList.size(); x++) {
 				JSONObject purchaseObject = new JSONObject();
 				
-				purchaseObject.put("userId", purchaseArrayList.get(x).getUserId());
-				purchaseObject.put("productId", purchaseArrayList.get(x).getProductId());
-				purchaseObject.put("quantity", purchaseArrayList.get(x).getQuantity());
+				purchaseObject.put("userId", purchasesArrayList.get(x).getUserId());
+				purchaseObject.put("productId", purchasesArrayList.get(x).getProductId());
+				purchaseObject.put("quantity", purchasesArrayList.get(x).getQuantity());
 				
 				purchasesJSONArray.put(purchaseObject);
 			}
 			
+			// return success data
 			return Response.status(200).entity(purchasesJSONArray.toString()).build();
 			
 		} catch (Exception e) {
+			// return error data
 			return Response.status(200).entity("Error occurred.").build();
 		}
 	}
