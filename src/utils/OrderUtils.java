@@ -44,29 +44,35 @@ public class OrderUtils {
 	}
 	
 	// get order by user id
-	public static Order getOrdersByUserId (int userId) throws SQLException, ClassNotFoundException {
+	public static ArrayList<Order> getOrdersByUserId (int userId) throws SQLException, ClassNotFoundException {
+		
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// prepared statement, get orders by user id query and result
-		String getOrdersByUserIdQuery = "SELECT * FROM duotexture.order WHERE userId=?;";
-		PreparedStatement pstmt = conn.prepareStatement(getOrdersByUserIdQuery);
-		pstmt.setInt(1,  userId);
-		ResultSet getOrdersByUserIdResult = pstmt.executeQuery();
+		// statement, get all orders query and result
+		Statement stmt = conn.createStatement();
+		String getOrdersQuery = "SELECT * FROM duotexture.order WHERE userId=?;";
+		ResultSet getOrdersResult = stmt.executeQuery(getOrdersQuery);
 		
-		// create an instance of order
-		Order OrderBean = new Order();
+		// create new ArrayList of order
+		ArrayList<Order> OrdersArrayList = new ArrayList<Order>();
 		
-		// if there is a new row
-		if(getOrdersByUserIdResult.next()) {
-			OrderBean.setUserId(getOrdersByUserIdResult.getInt("userId"));
-			OrderBean.setProductId(getOrdersByUserIdResult.getInt("productId"));
-			OrderBean.setQuantity(getOrdersByUserIdResult.getInt("quantity"));
+		// loop if there are new row
+		while(getOrdersResult.next()) {
+			// create an instance of Order
+			Order OrderBean = new Order();
+			
+			OrderBean.setUserId(getOrdersResult.getInt("userId"));
+			OrderBean.setProductId(getOrdersResult.getInt("productId"));
+			OrderBean.setQuantity(getOrdersResult.getInt("quantity"));
+			
+			// add orderBean to OrdersArrayList
+			OrdersArrayList.add(OrderBean);
 		}
 		
 		// close connection
 		conn.close();
-		return OrderBean;
+		return OrdersArrayList;
 	}
 	
 	// add order

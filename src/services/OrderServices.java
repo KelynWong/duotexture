@@ -49,16 +49,22 @@ public class OrderServices {
 	@Produces("application/json")
 	public Response getOrdersByUserId(@QueryParam("userId") int userId) {
 		
+		JSONArray ordersJSONArray = new JSONArray();
+		ArrayList<Order> ordersArrayList;
+		
 		try {
-			Order orderBean = OrderUtils.getOrdersByUserId(userId);
+			ordersArrayList = OrderUtils.getOrdersByUserId(userId);
+			for (int x=0; x<ordersArrayList.size(); x++) {
+				JSONObject orderObject = new JSONObject();
+				
+				orderObject.put("userId", ordersArrayList.get(x).getUserId());
+				orderObject.put("productId", ordersArrayList.get(x).getProductId());
+				orderObject.put("quantity", ordersArrayList.get(x).getQuantity());
+				
+				ordersJSONArray.put(orderObject);
+			}
 			
-			JSONObject orderObject = new JSONObject();
-
-			orderObject.put("userId", orderBean.getUserId());
-			orderObject.put("productId", orderBean.getProductId());
-			orderObject.put("quantity", orderBean.getQuantity());
-			
-			return Response.status(200).entity(orderObject.toString()).build();
+			return Response.status(200).entity(ordersJSONArray.toString()).build();
 			
 		} catch (Exception e) {
 			return Response.status(200).entity("Error occurred.").build();
