@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import java.util.Iterator;
 import utils.CategoryUtils;
@@ -77,6 +76,11 @@ public class AddCategoryServlet extends HttpServlet {
 		}
 	}
 
+	// upload settings
+    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
+    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
+    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
 		HttpSession session=request.getSession();
@@ -98,34 +102,40 @@ public class AddCategoryServlet extends HttpServlet {
 					 if (ServletFileUpload.isMultipartContent(request)){
 						 
 				        try {
-				        	// Create a factory for disk-based file items
+				        	// create a factory for disk-based file items
 				        	DiskFileItemFactory factory = new DiskFileItemFactory();
+				        	
+				        	// sets memory threshold - beyond which files are stored in disk
+				            factory.setSizeThreshold(MEMORY_THRESHOLD);
 
-				        	// Configure a repository (to ensure a secure temporary location is used)
+				        	// configure a repository (to ensure a secure temporary location is used)
 				        	ServletContext servletContext = this.getServletConfig().getServletContext();
 				        	File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
 				        	factory.setRepository(repository);
 
-				        	// Create a new file upload handler
+				        	// create a new file upload handler
 				        	ServletFileUpload upload = new ServletFileUpload(factory);
+				        	
+				        	// sets maximum size of upload file
+				            upload.setFileSizeMax(MAX_FILE_SIZE);
+				             
+				            // sets maximum size of request (include file + form data)
+				            upload.setSizeMax(MAX_REQUEST_SIZE);
 
-				        	// Parse the request
-				        	List<FileItem> items = upload.parseRequest((RequestContext) request);
+				        	// parse the request
+				        	List<FileItem> items = upload.parseRequest(request);
 
-				        	// Process the uploaded items
+				        	// process the uploaded items
 				        	Iterator<FileItem> iter = items.iterator();
 				        	
-				        	System.out.println("iter");
-				        	System.out.println(iter);
+				        	String[] fieldNameArray;
+				        	String[] valueArray;
+				        	
 				        	while (iter.hasNext()) {
 				        	    FileItem item = iter.next();
-				        	    System.out.println("item");
-				        	    System.out.println(item);
 				        	    if (item.isFormField()) {
 				        	    	String name = item.getFieldName();
-				        	    	System.out.println("name");
-				        	    	System.out.println(name);
-				        	        String value = item.getString();
+				        	        String value = item.getString();				        	        
 				        	    } else {
 				        	    	String fieldName = item.getFieldName();
 				        	        String fileName = item.getName();
