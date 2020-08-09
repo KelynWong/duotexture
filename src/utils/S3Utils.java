@@ -103,7 +103,7 @@ public class S3Utils {
 	}
 	
 	// upload file into s3 bucket
-	public static void uploadFile(String object_name, InputStream file) throws Exception {
+	public static String uploadFile(String object_name, InputStream file) throws Exception {
 		// create s3 client
 		AmazonS3 s3client = S3Client.CreateS3Client();
 				
@@ -111,6 +111,12 @@ public class S3Utils {
         String bucket_name = S3Client.BUCKET_NAME;
 
         s3client.putObject(new PutObjectRequest(bucket_name, object_name, file, new ObjectMetadata()));
+        
+        String imageUrl = String.valueOf(s3client.getUrl(
+        		bucket_name, // The S3 Bucket To Upload To
+                object_name)); //The key for the uploaded object
+        
+        return imageUrl;
 	}
 	
 	// delete file in s3 bucket
