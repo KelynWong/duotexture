@@ -18,6 +18,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import connection.S3Client;
 
 public class S3Utils {
+	
+	// create s3 bucket
 	public static void createBucket() throws Exception {
 		// create s3 client
 		AmazonS3 s3client = S3Client.CreateS3Client();
@@ -29,6 +31,7 @@ public class S3Utils {
 		s3client.createBucket(bucket_name);
 	}
 	
+	// delete s3 bucket
 	public static void deleteBucket() throws Exception {
 		// create s3 client
 		AmazonS3 s3client = S3Client.CreateS3Client();
@@ -40,6 +43,7 @@ public class S3Utils {
 		s3client.deleteBucket(bucket_name);
 	}
 	
+	// create folder in s3 bucket
 	public static void createFolder(String bucketName, String folderName, AmazonS3 client, String SUFFIX) {
 		
 		// create meta-data for your folder and set content-length to 0
@@ -57,6 +61,7 @@ public class S3Utils {
 		client.putObject(putObjectRequest);
 	}
 	
+	// delete folder in s3 bucket
 	public static void deleteFolder(String bucketName, String folderName, AmazonS3 client) {
 		// get list of objects in folder
 		List fileList = client.listObjects(bucketName, folderName).getObjectSummaries();
@@ -74,6 +79,7 @@ public class S3Utils {
 		client.deleteObject(bucketName, folderName);
 	}
 	
+	// get list of all buckets in s3
 	public static List<Bucket> listS3Buckets() throws Exception {
 		// create s3 client
 		AmazonS3 s3client = S3Client.CreateS3Client();
@@ -85,11 +91,13 @@ public class S3Utils {
 		return buckets;
 	}
 	
+	// upload file into s3 bucket
 	public static void uploadFile() throws Exception {
 		String bucket_name = S3Client.BUCKET_NAME;
 		
 	}
 	
+	// get object from s3 bucket
 	public void getObject(AmazonS3 s3client)  {
         String bucketName = S3Client.BUCKET_NAME;
         String objectName = S3Client.BUCKET_FILE_PATH;
