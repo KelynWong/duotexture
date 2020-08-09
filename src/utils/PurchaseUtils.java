@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import database.Database;
+import connection.Database;
 import javabeans.Purchase;
 
 public class PurchaseUtils {
