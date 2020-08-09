@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +16,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import javassist.bytecode.Descriptor.Iterator;
+import java.util.Iterator;
 import utils.CategoryUtils;
 
 /**
@@ -96,26 +98,42 @@ public class AddCategoryServlet extends HttpServlet {
 					 if (ServletFileUpload.isMultipartContent(request)){
 						 
 				        try {
-				            // Create a factory for disk-based file items
-				            FileItemFactory factory = new DiskFileItemFactory();
+				        	// Create a factory for disk-based file items
+				        	DiskFileItemFactory factory = new DiskFileItemFactory();
 
-				            // Create a new file upload handler
-				            ServletFileUpload upload = new ServletFileUpload(factory);
+				        	// Configure a repository (to ensure a secure temporary location is used)
+				        	ServletContext servletContext = this.getServletConfig().getServletContext();
+				        	File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+				        	factory.setRepository(repository);
 
-				            // Parse the request
-				            List items = upload.parseRequest(request); /* FileItem */
+				        	// Create a new file upload handler
+				        	ServletFileUpload upload = new ServletFileUpload(factory);
 
-				            File repositoryPath = new File("\\temp");
-				            DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-				            diskFileItemFactory.setRepository(repositoryPath);
+				        	// Parse the request
+				        	List<FileItem> items = upload.parseRequest((RequestContext) request);
 
-				            Iterator iter = items.iterator();
-				            
-				            while (iter.hasNext()) {
-				                FileItem item = (FileItem) iter.next();
-				                File uploadedFile = new File("\\applets");
-				                item.write(uploadedFile);
-				            }
+				        	// Process the uploaded items
+				        	Iterator<FileItem> iter = items.iterator();
+				        	
+				        	System.out.println("iter");
+				        	System.out.println(iter);
+				        	while (iter.hasNext()) {
+				        	    FileItem item = iter.next();
+				        	    System.out.println("item");
+				        	    System.out.println(item);
+				        	    if (item.isFormField()) {
+				        	    	String name = item.getFieldName();
+				        	    	System.out.println("name");
+				        	    	System.out.println(name);
+				        	        String value = item.getString();
+				        	    } else {
+				        	    	String fieldName = item.getFieldName();
+				        	        String fileName = item.getName();
+				        	        String contentType = item.getContentType();
+				        	        boolean isInMemory = item.isInMemory();
+				        	        long sizeInBytes = item.getSize();
+				        	    }
+				        	}
 				            
 				            try {       
 								if(request.getParameter("inputCategoryName")!=null){
@@ -155,7 +173,7 @@ public class AddCategoryServlet extends HttpServlet {
 				        	System.out.println("(adminservlets/AddCategoryServlet) Error: FileUploadException \n");
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 				        } catch (Exception ex) {
-				        	System.out.println("(adminservlets/AddCategoryServlet) Error: " + e + "\n");
+				        	System.out.println("(adminservlets/AddCategoryServlet) Error: " + ex + "\n");
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 				        }
 				    }
