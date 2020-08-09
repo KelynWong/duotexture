@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -110,5 +111,20 @@ public class S3Utils {
         String bucket_name = S3Client.BUCKET_NAME;
 
         s3client.putObject(bucket_name, object_name, new File(file_path));
+	}
+	
+	// list files in s3 bucket
+	public static List<S3ObjectSummary> listFiles() throws Exception {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+				
+		// pre-define variables
+        String bucket_name = S3Client.BUCKET_NAME;
+        
+        // get list of objects in bucket
+        ObjectListing objectListing = s3client.listObjects(bucket_name);
+        List<S3ObjectSummary> objectsList = objectListing.getObjectSummaries();
+        
+        return objectsList;
 	}
 }
