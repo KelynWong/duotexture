@@ -29,7 +29,19 @@ public class S3Utils {
 		s3client.createBucket(bucket_name);
 	}
 	
+	public static void deleteBucket() throws Exception {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+		
+		// declare variable
+		String bucket_name = S3Client.BUCKET_NAME;
+		
+		// create s3 bucket
+		s3client.deleteBucket(bucket_name);
+	}
+	
 	public static void createFolder(String bucketName, String folderName, AmazonS3 client, String SUFFIX) {
+		
 		// create meta-data for your folder and set content-length to 0
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(0);
