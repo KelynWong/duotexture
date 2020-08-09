@@ -5,14 +5,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import connection.S3Client;
@@ -90,7 +86,7 @@ public class S3Utils {
 		String folder_name = S3Client.FOLDER_NAME;
 				
 		// get list of objects in folder
-		List fileList = s3client.listObjects(bucket_name, folder_name).getObjectSummaries();
+		List<S3ObjectSummary> fileList = s3client.listObjects(bucket_name, folder_name).getObjectSummaries();
 		
 		// for each object in fileList
 		for (Object object : fileList) {
