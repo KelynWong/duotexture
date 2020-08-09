@@ -106,28 +106,26 @@ public class S3Utils {
 	}
 	
 	// upload file into s3 bucket
-	public static void uploadFile() throws Exception {
-		String bucket_name = S3Client.BUCKET_NAME;
-		
+	public static void uploadFile(String object_name, String file_path) throws Exception {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+				
+		// pre-define variables
+        String bucket_name = S3Client.BUCKET_NAME;
+
+        s3client.putObject(bucket_name, object_name, new File(file_path));
 	}
 	
 	// get object from s3 bucket
-	public void getObject()  {
+	public void getObject(String objectName, String file_path)  {
 		// create s3 client
 		AmazonS3 s3client = S3Client.CreateS3Client();
 				
 		// pre-define variables
         String bucketName = S3Client.BUCKET_NAME;
-        String objectName = S3Client.BUCKET_FILE_PATH;
-        String downloadPath = S3Client.LOCAL_DOWNLOAD_PATH;
 
         try {
         S3Object s3object = s3client.getObject(bucketName, objectName);
-        S3ObjectInputStream inputStream = s3object.getObjectContent();
-        FileUtils.copyInputStreamToFile(inputStream, new File(downloadPath));
-        
-        
-        System.out.println("file copied to destination.");
         }catch(Exception e) {
         	e.printStackTrace();
         }
