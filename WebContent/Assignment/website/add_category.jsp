@@ -66,13 +66,15 @@
             <label for="inputCategoryDescription">Description</label>
             <input type="text" class="form-control" id="inputCategoryDescription" name="inputCategoryDescription" placeholder="Category description" required>
           </div>
-        </div>
-        
-        <div class="form-row">
-	        <div class="form-group col-md-12">
-	          <label for="inputCategoryImageUrl">Image Url</label>
-	          <input type="text" class="form-control" id="inputCategoryImageUrl" name="inputCategoryImageUrl" placeholder="./assets/images/image1.jpg" required>
-	        </div>
+	      <div class="form-group col-md-12">
+	        <label for="inputCategoryImageUrl">Image Upload</label>
+	        <input type="file" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl" required>
+	      </div>
+	      <div class="form-group col-md-12">
+	        <label class="col-md-12 p-0" style="display: none;" for="previewCategoryImageUrl" id="previewCategoryImageUrlLabel">Image Preview</label>
+	        <img id="previewCategoryImageUrl" src="#" style="display: none;" alt="Category Image">
+	      </div>
+	        
 	    </div>
         
         <%
@@ -106,6 +108,27 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+    
+    function readFile(input, previewImage, previewLabel) {
+    	if (input.files && input.files[0]) {
+    		var reader = new FileReader();
+    		
+    		reader.onload = function(e) {
+    			$(previewLabel).attr('style', "display: block")
+    			$(previewImage).attr('src', e.target.result);
+    			$(previewImage).attr('style', "display: block; max-height: 200px");
+    		}
+    		
+    		reader.readAsDataURL(input.files[0]);
+    	}	
+    }
+    
+    $("#inputCategoryImageUrl").change(function() {
+    	readFile(this, "#previewCategoryImageUrl", "previewCategoryImageUrlLabel")
+    })
+    
+    </script>
     <!--===============================================================================================-->
 </body>
 </html>
