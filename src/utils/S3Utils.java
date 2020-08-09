@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import connection.S3Client;
 
@@ -37,6 +38,23 @@ public class S3Utils {
 
 		// send request to S3 to create folder
 		client.putObject(putObjectRequest);
+	}
+	
+	public static void deleteFolder(String bucketName, String folderName, AmazonS3 client) {
+		// get list of objects in folder
+		List fileList = client.listObjects(bucketName, folderName).getObjectSummaries();
+		
+		// for each object in fileList
+		for (Object object : fileList) {
+			// get file from object
+			S3ObjectSummary file = (S3ObjectSummary) object;
+			
+			// delete file
+			client.deleteObject(bucketName, file.getKey());
+		}
+		
+		// delete folder
+		client.deleteObject(bucketName, folderName);
 	}
 	
 	public static List<Bucket> listS3Buckets() throws Exception {
