@@ -18,7 +18,10 @@ public class S3Client {
 		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY_ID, ACCESS_SEC_KEY);
 		
 		// create a client connection based on credentials
-		AmazonS3 s3client = AmazonS3ClientBuilder.standard() .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();;
+		AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(Regions.US_EAST_2)
+				.build();;
 		
 		return s3client;
 	}
