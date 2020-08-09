@@ -2,6 +2,7 @@ package adminservlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -19,8 +20,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import utils.CategoryUtils;
+import utils.S3Utils;
 
 /**
  * Servlet implementation class AddCategoryServlet
@@ -100,6 +103,7 @@ public class AddCategoryServlet extends HttpServlet {
 				} else {
 					
 					 if (ServletFileUpload.isMultipartContent(request)){
+						 String imageFile = null;
 						 
 				        try {
 				        	// create a factory for disk-based file items
@@ -109,10 +113,13 @@ public class AddCategoryServlet extends HttpServlet {
 				            factory.setSizeThreshold(MEMORY_THRESHOLD);
 
 				        	// configure a repository (to ensure a secure temporary location is used)
-				        	ServletContext servletContext = this.getServletConfig().getServletContext();
-				        	File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-				        	factory.setRepository(repository);
-
+				            
+//				        	ServletContext servletContext = this.getServletConfig().getServletContext();
+//				        	File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+//				        	factory.setRepository(repository);
+				        	
+				        	factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+				        	 
 				        	// create a new file upload handler
 				        	ServletFileUpload upload = new ServletFileUpload(factory);
 				        	
@@ -128,65 +135,54 @@ public class AddCategoryServlet extends HttpServlet {
 				        	// process the uploaded items
 				        	Iterator<FileItem> iter = items.iterator();
 				        	
-				        	String[] fieldNameArray;
-				        	String[] valueArray;
+				        	ArrayList<String> valueArrayList = new ArrayList<String>();
 				        	
 				        	while (iter.hasNext()) {
 				        	    FileItem item = iter.next();
 				        	    if (item.isFormField()) {
-				        	    	String name = item.getFieldName();
-				        	        String value = item.getString();				        	        
+				        	        String value = item.getString();
+				        	        valueArrayList.add(value);
 				        	    } else {
-				        	    	String fieldName = item.getFieldName();
-				        	        String fileName = item.getName();
-				        	        String contentType = item.getContentType();
-				        	        boolean isInMemory = item.isInMemory();
-				        	        long sizeInBytes = item.getSize();
+				        	    	File file = new File(item.getName());
+				        	    	String fileName = file.getName();
+				        	    	S3Utils.uploadFile(fileName, file);
 				        	    }
 				        	}
 				            
-				            try {       
-								if(request.getParameter("inputCategoryName")!=null){
-									// get fields
-									String inputCategoryName = request.getParameter("inputCategoryName");
-									String inputCategoryDescription = request.getParameter("inputCategoryDescription");
-									String inputCategoryImageUrl = request.getParameter("inputCategoryImageUrl");
-									
-									// add category
-									int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
-									
-									// check count
-									if(count > 0){
-										response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=success"); 
-									} else{
-										response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
-									}
-								           
-								} else{
-									System.out.println("(adminservlets/AddCategoryServlet) Error: Wrong Flow\n");
-									response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
-								}
-								
-							} catch(java.sql.SQLIntegrityConstraintViolationException e){
-								System.out.println("(adminservlets/AddCategoryServlet) Error: Duplicate Entry\n");
-								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
-							} catch (java.lang.NumberFormatException e) {         
-								System.out.println(" (adminservlets/AddCategoryServlet) Error: Invalid Inputs\n"); 
-								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
-							} catch (Exception e) {         
-								System.out.println(" (adminservlets/AddCategoryServlet) Error: " + e + "\n"); 
+
+							// get fields
+							String inputCategoryName = (String) valueArrayList.get(0);
+							String inputCategoryDescription = (String) valueArrayList.get(1);
+							String inputCategoryImageUrl = imageFile;
+							
+							// add category
+							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
+							
+							// check count
+							if(count > 0){
+								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=success"); 
+							} else{
 								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 							}
-				            
-				            
+								           
+								
+						} catch(java.sql.SQLIntegrityConstraintViolationException e){
+							System.out.println("(adminservlets/AddCategoryServlet) Error: SQL Exception \n");
+							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
+						} catch (java.lang.NumberFormatException e) {         
+							System.out.println(" (adminservlets/AddCategoryServlet) Error: Invalid Inputs\n"); 
+							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 				        } catch (FileUploadException ex) {
 				        	System.out.println("(adminservlets/AddCategoryServlet) Error: FileUploadException \n");
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
-				        } catch (Exception ex) {
-				        	System.out.println("(adminservlets/AddCategoryServlet) Error: " + ex + "\n");
+						} catch (Exception e) {         
+							System.out.println(" (adminservlets/AddCategoryServlet) Error: " + e + "\n"); 
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
-				        }
-				    }
+						}
+				    } else{
+						System.out.println("(adminservlets/AddCategoryServlet) Error: Wrong Flow\n");
+						response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
+					}
 				}
 					 
 			}else{
