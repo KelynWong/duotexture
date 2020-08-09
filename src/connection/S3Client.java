@@ -1,4 +1,4 @@
-package s3;
+package connection;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

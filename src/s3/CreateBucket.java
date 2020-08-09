@@ -3,6 +3,8 @@ package s3;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 
+import connection.S3Client;
+
 public class CreateBucket {
 	public static void main(String[] args) {
 		try {
