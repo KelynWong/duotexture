@@ -29,7 +29,7 @@
     <section class="col-12 p-5 row justify-content-center">
     <% for(int x=0; x<categoriesArrayList.size(); x++){  %>
 		<div class="card col-3 mx-5 mb-5" style="width: 18rem;">
-          <img src="${pageContext.request.contextPath}/Assignment/website/<%= categoriesArrayList.get(x).getImage() %>" class="card-img-top mt-3" alt="...">
+          <img src="<%= categoriesArrayList.get(x).getImage() %>" class="card-img-top mt-3" alt="...">
           <div class="card-body d-flex flex-column">
               <h5 class="card-title"><%= categoriesArrayList.get(x).getName() %></h5>
               <p class="card-text fs-13"><%= categoriesArrayList.get(x).getDescription() %></p>
