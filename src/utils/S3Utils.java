@@ -44,8 +44,15 @@ public class S3Utils {
 	}
 	
 	// create folder in s3 bucket
-	public static void createFolder(String bucketName, String folderName, AmazonS3 client, String SUFFIX) {
+	public static void createFolder() throws Exception {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
 		
+		// declare variable
+		String bucket_name = S3Client.BUCKET_NAME;
+		String folderName = "";
+		String SUFFIX = "/";
+				
 		// create meta-data for your folder and set content-length to 0
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(0);
@@ -54,11 +61,11 @@ public class S3Utils {
 		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
 
 		// create a PutObjectRequest passing the folder name suffixed by /
-		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folderName + SUFFIX, emptyContent,
+		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket_name, folderName + SUFFIX, emptyContent,
 				metadata);
 
 		// send request to S3 to create folder
-		client.putObject(putObjectRequest);
+		s3client.putObject(putObjectRequest);
 	}
 	
 	// delete folder in s3 bucket
