@@ -50,8 +50,8 @@ public class S3Utils {
 		
 		// declare variable
 		String bucket_name = S3Client.BUCKET_NAME;
-		String folderName = "";
-		String SUFFIX = "/";
+		String folder_name = S3Client.FOLDER_NAME;
+		String SUFFIX = S3Client.SUFFIX;
 				
 		// create meta-data for your folder and set content-length to 0
 		ObjectMetadata metadata = new ObjectMetadata();
@@ -61,7 +61,7 @@ public class S3Utils {
 		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
 
 		// create a PutObjectRequest passing the folder name suffixed by /
-		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket_name, folderName + SUFFIX, emptyContent,
+		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket_name, folder_name + SUFFIX, emptyContent,
 				metadata);
 
 		// send request to S3 to create folder
