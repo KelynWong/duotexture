@@ -143,9 +143,9 @@ public class AddCategoryServlet extends HttpServlet {
 				        	        String value = item.getString();
 				        	        valueArrayList.add(value);
 				        	    } else {
-				        	    	File file = new File(item.getName());
-				        	    	String fileName = file.getName();
-				        	    	S3Utils.uploadFile(fileName, file);
+				        	    	InputStream fileInputStream = item.getInputStream();
+				        	    	String fileName = new File(item.getName()).getName();
+				        	    	S3Utils.uploadFile(fileName, fileInputStream);
 				        	    }
 				        	}
 				            
