@@ -43,6 +43,18 @@ public class S3Utils {
 		s3client.deleteBucket(bucket_name);
 	}
 	
+	// get list of all buckets in s3
+	public static List<Bucket> listS3Buckets() throws Exception {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+		
+		// get list of buckets
+		List<Bucket> buckets = s3client.listBuckets();
+		
+		// return results
+		return buckets;
+	}
+	
 	// create folder in s3 bucket
 	public static void createFolder() throws Exception {
 		// create s3 client
@@ -91,18 +103,6 @@ public class S3Utils {
 		
 		// delete folder
 		s3client.deleteObject(bucket_name, folder_name);
-	}
-	
-	// get list of all buckets in s3
-	public static List<Bucket> listS3Buckets() throws Exception {
-		// create s3 client
-		AmazonS3 s3client = S3Client.CreateS3Client();
-		
-		// get list of buckets
-		List<Bucket> buckets = s3client.listBuckets();
-		
-		// return results
-		return buckets;
 	}
 	
 	// upload file into s3 bucket
