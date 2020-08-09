@@ -113,6 +113,18 @@ public class S3Utils {
         s3client.putObject(bucket_name, object_name, new File(file_path));
 	}
 	
+	// delete file in s3 bucket
+	public static void deleteFile(String object_name) throws Exception {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+				
+		// pre-define variables
+        String bucket_name = S3Client.BUCKET_NAME;
+        
+        // delete object
+        s3client.deleteObject(bucket_name, object_name);
+	}
+	
 	// list files in s3 bucket
 	public static List<S3ObjectSummary> listFiles() throws Exception {
 		// create s3 client
