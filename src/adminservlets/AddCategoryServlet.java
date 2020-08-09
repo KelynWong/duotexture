@@ -103,7 +103,7 @@ public class AddCategoryServlet extends HttpServlet {
 				} else {
 					
 					 if (ServletFileUpload.isMultipartContent(request)){
-						 String imageFile = null;
+						 String imageUrl = null;
 						 
 				        try {
 				        	// create a factory for disk-based file items
@@ -145,7 +145,7 @@ public class AddCategoryServlet extends HttpServlet {
 				        	    } else {
 				        	    	InputStream fileInputStream = item.getInputStream();
 				        	    	String fileName = new File(item.getName()).getName();
-				        	    	S3Utils.uploadFile(fileName, fileInputStream);
+				        	    	imageUrl = S3Utils.uploadFile(fileName, fileInputStream);
 				        	    }
 				        	}
 				            
@@ -153,7 +153,7 @@ public class AddCategoryServlet extends HttpServlet {
 							// get fields
 							String inputCategoryName = (String) valueArrayList.get(0);
 							String inputCategoryDescription = (String) valueArrayList.get(1);
-							String inputCategoryImageUrl = imageFile;
+							String inputCategoryImageUrl = imageUrl;
 							
 							// add category
 							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
@@ -170,13 +170,13 @@ public class AddCategoryServlet extends HttpServlet {
 							System.out.println("(adminservlets/AddCategoryServlet) Error: SQL Exception \n");
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 						} catch (java.lang.NumberFormatException e) {         
-							System.out.println(" (adminservlets/AddCategoryServlet) Error: Invalid Inputs\n"); 
+							System.out.println("(adminservlets/AddCategoryServlet) Error: Invalid Inputs\n"); 
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 				        } catch (FileUploadException ex) {
 				        	System.out.println("(adminservlets/AddCategoryServlet) Error: FileUploadException \n");
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 						} catch (Exception e) {         
-							System.out.println(" (adminservlets/AddCategoryServlet) Error: " + e + "\n"); 
+							System.out.println("(adminservlets/AddCategoryServlet) Error: " + e + "\n"); 
 							response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
 						}
 				    } else{
