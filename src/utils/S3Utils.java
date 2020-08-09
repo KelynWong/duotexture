@@ -81,7 +81,7 @@ public class S3Utils {
 	}
 	
 	// delete folder in s3 bucket
-	public static void deleteFolder() {
+	public static void deleteFolder() throws Exception {
 		// create s3 client
 		AmazonS3 s3client = S3Client.CreateS3Client();
 		
