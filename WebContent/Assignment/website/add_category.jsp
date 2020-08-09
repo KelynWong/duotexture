@@ -68,7 +68,7 @@
           </div>
 	      <div class="form-group col-md-12">
 	        <label for="inputCategoryImageUrl">Image Upload</label>
-	        <input type="file" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl" required>
+	        <input type="file" multiple="false" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl" required>
 	      </div>
 	      <div class="form-group col-md-12">
 	        <label class="col-md-12 p-0" style="display: none;" for="previewCategoryImageUrl" id="previewCategoryImageUrlLabel">Image Preview</label>
