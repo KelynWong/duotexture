@@ -8,6 +8,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 public class S3Client {
+	// global variables
+	final static String BUCKET_NAME = "jad-bucket";
 	
 	public static AmazonS3 CreateS3Client() throws Exception{
 		// pre-define variables
