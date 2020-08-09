@@ -69,9 +69,16 @@ public class S3Utils {
 	}
 	
 	// delete folder in s3 bucket
-	public static void deleteFolder(String bucketName, String folderName, AmazonS3 client) {
+	public static void deleteFolder() {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+		
+		// declare variable
+		String bucket_name = S3Client.BUCKET_NAME;
+		String folder_name = S3Client.FOLDER_NAME;
+				
 		// get list of objects in folder
-		List fileList = client.listObjects(bucketName, folderName).getObjectSummaries();
+		List fileList = s3client.listObjects(bucket_name, folder_name).getObjectSummaries();
 		
 		// for each object in fileList
 		for (Object object : fileList) {
@@ -79,11 +86,11 @@ public class S3Utils {
 			S3ObjectSummary file = (S3ObjectSummary) object;
 			
 			// delete file
-			client.deleteObject(bucketName, file.getKey());
+			s3client.deleteObject(bucket_name, file.getKey());
 		}
 		
 		// delete folder
-		client.deleteObject(bucketName, folderName);
+		s3client.deleteObject(bucket_name, folder_name);
 	}
 	
 	// get list of all buckets in s3
