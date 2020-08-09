@@ -1,13 +1,18 @@
 package utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
+
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import connection.S3Client;
@@ -24,7 +29,7 @@ public class S3Utils {
 		s3client.createBucket(bucket_name);
 	}
 	
-	public static void createFolder(String bucketName, String folderName, AmazonS3 client,String SUFFIX) {
+	public static void createFolder(String bucketName, String folderName, AmazonS3 client, String SUFFIX) {
 		// create meta-data for your folder and set content-length to 0
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(0);
@@ -72,4 +77,21 @@ public class S3Utils {
 		String bucket_name = S3Client.BUCKET_NAME;
 		
 	}
+	
+	public void getObject(AmazonS3 s3client)  {
+        String bucketName = S3Client.BUCKET_NAME;
+        String objectName = S3Client.BUCKET_FILE_PATH;
+        String downloadPath = S3Client.LOCAL_DOWNLOAD_PATH;
+
+        try {
+        S3Object s3object = s3client.getObject(bucketName, objectName);
+        S3ObjectInputStream inputStream = s3object.getObjectContent();
+        FileUtils.copyInputStreamToFile(inputStream, new File(downloadPath));
+        
+        
+        System.out.println("file copied to destination.");
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
+    }
 }
