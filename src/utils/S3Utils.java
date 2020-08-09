@@ -112,7 +112,11 @@ public class S3Utils {
 	}
 	
 	// get object from s3 bucket
-	public void getObject(AmazonS3 s3client)  {
+	public void getObject()  {
+		// create s3 client
+		AmazonS3 s3client = S3Client.CreateS3Client();
+				
+		// pre-define variables
         String bucketName = S3Client.BUCKET_NAME;
         String objectName = S3Client.BUCKET_FILE_PATH;
         String downloadPath = S3Client.LOCAL_DOWNLOAD_PATH;
