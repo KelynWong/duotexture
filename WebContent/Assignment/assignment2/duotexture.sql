@@ -38,7 +38,7 @@ CREATE TABLE `duotexture`.`categories` (
   `categoryId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` LONGTEXT NOT NULL,
-  `image` VARCHAR(45) NOT NULL,
+  `image` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`categoryId`));
   
 INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Men', 'IN STYLE - The Casual Classics.<br>Vintage styles with a modern twist to match everything you have.', './assets/images/image1.jpg');
@@ -54,7 +54,7 @@ CREATE TABLE `duotexture`.`products` (
   `retail_price` DOUBLE NOT NULL,
   `quantity` INT NOT NULL,
   `categoryId` INT NOT NULL,
-  `image` VARCHAR(45) NOT NULL,
+  `image` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`productId`),
   FOREIGN KEY (`categoryId`) REFERENCES `duotexture`.`categories` (`categoryId`) ON DELETE CASCADE);
 
