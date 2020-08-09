@@ -53,7 +53,7 @@
     <section class="col-12 p-5 row">
     
       <!-- add category form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/AddCategoryServlet" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/AddCategoryServlet" method="post" enctype="multipart/form-data">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d - C a t e g o r y</p>
         <hr>
 
