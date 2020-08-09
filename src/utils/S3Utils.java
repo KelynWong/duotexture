@@ -115,19 +115,4 @@ public class S3Utils {
 
         s3client.putObject(bucket_name, object_name, new File(file_path));
 	}
-	
-	// get object from s3 bucket
-	public void getObject(String objectName, String file_path)  {
-		// create s3 client
-		AmazonS3 s3client = S3Client.CreateS3Client();
-				
-		// pre-define variables
-        String bucketName = S3Client.BUCKET_NAME;
-
-        try {
-        S3Object s3object = s3client.getObject(bucketName, objectName);
-        }catch(Exception e) {
-        	e.printStackTrace();
-        }
-    }
 }
