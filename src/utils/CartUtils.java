@@ -105,6 +105,7 @@ public class CartUtils {
 		pstmt.setInt(1, productId);
 		pstmt.setInt(2, quantity);
 		pstmt.setInt(3, userId);
+		pstmt.setInt(4, productId);
 		int count = pstmt.executeUpdate(); 
 		
 		// close connection
@@ -113,6 +114,23 @@ public class CartUtils {
 	}
 	
 	// delete cart
+	public static int deleteCart (int userId, int productId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, delete cart query and result
+		String deleteCartQuery = "DELETE FROM duotexture.carts WHERE userId=? AND productId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(deleteCartQuery);
+	    pstmt.setInt(1, userId);
+	    pstmt.setInt(2, productId);
+		int count = pstmt.executeUpdate(); 
+		
+		// close connection
+		conn.close();
+		return count;
+	}
+	
+	// delete carts
 	public static int deleteCarts (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
