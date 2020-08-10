@@ -180,8 +180,8 @@
     	}	
     }
     
-    $("#inputCategoryImageUrl").change(function() {
-    	readFile(this, "#previewCategoryImageUrl", "previewCategoryImageUrlLabel")
+    $("#inputImageUrl").change(function() {
+    	readFile(this, "#previewImageUrl", "previewImageUrlLabel")
     })
     
     </script>
