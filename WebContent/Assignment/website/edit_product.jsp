@@ -121,7 +121,7 @@
 			      <div class="form-group col-md-12">
 			        <label class="col-md-12 p-0" style="display: block; max-height: 200px" id="previewImageUrlLabel">Image Preview</label>
 			        <img id="previewImageUrl" src="<%= productImage %>" style="display: block; max-height: 200px" alt="Category Image">
-			        <input id="inputImageUrl" type="hidden" name="inputImageUrl" value="<%= productImage %>">
+			        <input id="previewInputImageUrl" type="hidden" name="previewInputImageUrl" value="<%= productImage %>">
 			      </div>
 			    </div>
 		        <%
