@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utils.CategoryUtils;
+import utils.S3Utils;
 
 /**
  * Servlet implementation class DeleteCategoryServlet
@@ -96,6 +97,14 @@ public class DeleteCategoryServlet extends HttpServlet {
 					try {
 						if(request.getParameter("categoryId")!=null){
 								int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+								
+								String categoryImageUrl = CategoryUtils.getCategoryImageUrl(categoryId);
+								String object_name = categoryImageUrl.substring(categoryImageUrl.lastIndexOf('/') + 1);
+								
+								System.out.println(object_name);
+								
+								// delete file
+								S3Utils.deleteFile(object_name);
 								
 								// delete category
 								int count = CategoryUtils.deleteCategory(categoryId); 
