@@ -103,7 +103,11 @@
 					    <%
 					    try{			    	
 					    	for(int x=0; x<categoriesArrayList.size(); x++) {
-								out.println("<option>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
+					    		if(productCategoryId==categoriesArrayList.get(x).getCategoryId()){
+					    			out.println("<option selected>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
+								}else{
+									out.println("<option>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
+								}
 							} 
 								
 					      } catch(Exception e){
