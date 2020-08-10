@@ -57,24 +57,43 @@
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A n a l y t i c s</p>
         <hr>
         
-		<ul class="nav nav-tabs" role="tablist">
-		  <li class="nav-item">
-		    <a class="nav-link active" id="customers-tab" data-toggle="tab" href="#customers" role="tab" aria-controls="customers" aria-selected="true">Customers</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false">Products</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
-		  </li>
-		</ul>
-		
-		<div class="tab-content mt-3">
-		  <div class="tab-pane fade show active" id="customers" role="tabpanel" aria-labelledby="customers-tab">Customers Management</div>
-		  <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">Products Management</div>
-		  <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">Orders Management</div>
-		</div>
-		
+        <section class="row">
+	        <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			  <a class="nav-link active" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="#v-pills-customer" aria-selected="true">Customer</a>
+			  <a class="nav-link" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false">Product</a>
+			  <a class="nav-link" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">Order</a>
+			</div>
+			
+			<div class="tab-content col-8" id="v-pills-tabContent" style="margin:auto">
+			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel" aria-labelledby="v-pills-customer-tab">
+				  <table class="table">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">User Id</th>
+				      <th scope="col">First Name</th>
+				      <th scope="col">Last Name</th>
+				      <th scope="col">Country</th>
+				      <th scope="col">Address</th>
+				      <th scope="col">Postal Code</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>Singapore</td>
+				      <td>Tampines Street 123</td>
+				      <td>123456</td>
+				    </tr>
+				  </tbody>
+				</table>
+			  </div>
+			  <div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">...</div>
+			  <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">...</div>
+			</div>
+        </section>
+        
    	  </section>
     </section>
     <!--===============================================================================================-->
