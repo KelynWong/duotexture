@@ -107,7 +107,7 @@ CREATE TABLE `duotexture`.`purchases` (
 CREATE TABLE `duotexture`.`cards` (
   `userId` INT NOT NULL,
   `cardOwner` VARCHAR(45) NOT NULL,
-  `cardNumber` INT NOT NULL,
+  `cardNumber` VARCHAR(45) NOT NULL,
   `expiryMonth` INT NOT NULL,
   `expiryYear` INT NOT NULL,
   `cvv` INT NOT NULL,
