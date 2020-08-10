@@ -68,7 +68,7 @@
           </div>
 	      <div class="form-group col-md-12">
 	        <label for="inputCategoryImageUrl">Image Upload</label>
-	        <input type="file" multiple="false" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl" required>
+	        <input type="file" accept=".jpg,.jpeg,.png" multiple="false" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl" onchange="validateFileType()" required>
 	      </div>
 	      <div class="form-group col-md-12">
 	        <label class="col-md-12 p-0" style="display: none;" for="previewCategoryImageUrl" id="previewCategoryImageUrlLabel">Image Preview</label>
@@ -127,6 +127,18 @@
     $("#inputCategoryImageUrl").change(function() {
     	readFile(this, "#previewCategoryImageUrl", "previewCategoryImageUrlLabel")
     })
+    
+    function validateFileType(){
+        var fileName = document.getElementById("inputCategoryImageUrl").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+
+        }else{
+        	document.getElementById("inputCategoryImageUrl").value = "";
+            alert("Only jpg/jpeg and png files are allowed!");
+        }   
+    }
     
     </script>
     <!--===============================================================================================-->
