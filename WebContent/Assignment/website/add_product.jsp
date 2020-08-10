@@ -53,7 +53,7 @@
     <section class="col-12 p-5 row">
     
       <!-- add product form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/AddProductServlet" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d - L i s t i n g</p>
         <hr>
 
@@ -97,10 +97,14 @@
         </div>
         
         <div class="form-row">
-	        <div class="form-group col-md-12">
-	          <label for="inputImageUrl">Image Url</label>
-	          <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" placeholder="./assets/images/image1.jpg" required>
-	        </div>
+	      <div class="form-group col-md-12">
+	        <label for="inputImageUrl">Image Upload</label>
+	        <input type="file" multiple="false" class="form-control" style="min-height: 45px" id="inputImageUrl" name="inputImageUrl" required>
+	      </div>
+	      <div class="form-group col-md-12">
+	        <label class="col-md-12 p-0" style="display: none;" for="previewImageUrl" id="previewImageUrlLabel">Image Preview</label>
+	        <img id="previewImageUrl" src="#" style="display: none;" alt="Product Image">
+	      </div>
 	    </div>
         
         <%
@@ -134,6 +138,27 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+    
+    function readFile(input, previewImage, previewLabel) {
+    	if (input.files && input.files[0]) {
+    		var reader = new FileReader();
+    		
+    		reader.onload = function(e) {
+    			$(previewLabel).attr('style', "display: block")
+    			$(previewImage).attr('src', e.target.result);
+    			$(previewImage).attr('style', "display: block; max-height: 200px");
+    		}
+    		
+    		reader.readAsDataURL(input.files[0]);
+    	}	
+    }
+    
+    $("#inputImageUrl").change(function() {
+    	readFile(this, "#previewImageUrl", "previewImageUrlLabel")
+    })
+    
+    </script>
     <!--===============================================================================================-->
 </body>
 </html>
