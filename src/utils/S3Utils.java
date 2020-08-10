@@ -111,9 +111,11 @@ public class S3Utils {
 				
 		// pre-define variables
         String bucket_name = S3Client.BUCKET_NAME;
-        String final_object_name = object_name + ( new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) );
-        System.out.println(final_object_name);
+        
+        // make object_name unique
+        String final_object_name = object_name + ( new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()));
 
+        // upload file
         s3client.putObject(new PutObjectRequest(bucket_name, final_object_name, file, new ObjectMetadata()));
         
         String imageUrl = String.valueOf(s3client.getUrl(
