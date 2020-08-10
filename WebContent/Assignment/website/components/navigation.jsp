@@ -29,10 +29,11 @@
 			<a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/categories" role="button">All Categories</a>
 		</li>
 		<%
+		ArrayList<Category> categoriesArrayList;
 		try{
 			if(request.getAttribute("categoriesArrayList") != null) {
-				ArrayList<Category> categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
-				
+				categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
+			
 				for(int x=0; x<categoriesArrayList.size(); x++) {
 				%>
 					<li class="nav-item">
