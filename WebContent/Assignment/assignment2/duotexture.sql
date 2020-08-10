@@ -29,9 +29,9 @@ CREATE TABLE `duotexture`.`members` (
   `userId` INT NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE);
   
-INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '1', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345', 4);
-INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '2', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345', 5);
-INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '3', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '12345', 6);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '1', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '123456', 4);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '2', 'United States', 'Los Angelus, Unit #21-222', '423233', 5);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '3', 'Canada', 'Toronto 21 House 221 #01-234', '544542', 6);
 
 -- Categories Table
 CREATE TABLE `duotexture`.`categories` (
