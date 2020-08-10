@@ -19,7 +19,7 @@ public class PurchaseUtils {
 		
 		// statement, get all purchases query and result
 		Statement stmt = conn.createStatement();
-		String getPurchasesQuery = "SELECT * FROM duotexture.purchase;";
+		String getPurchasesQuery = "SELECT * FROM duotexture.purchases;";
 		ResultSet getPurchasesResult = stmt.executeQuery(getPurchasesQuery);
 		
 		// create new ArrayList of purchase
@@ -50,7 +50,7 @@ public class PurchaseUtils {
 		
 		// statement, get all purchases query and result
 		Statement stmt = conn.createStatement();
-		String getPurchasesQuery = "SELECT * FROM duotexture.purchase WHERE userId=?;";
+		String getPurchasesQuery = "SELECT * FROM duotexture.purchases WHERE userId=?;";
 		ResultSet getPurchasesResult = stmt.executeQuery(getPurchasesQuery);
 		
 		// create new ArrayList of purchase
@@ -80,7 +80,7 @@ public class PurchaseUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add purchase query and result
-		String addPurchaseQuery = "INSERT INTO duotexture.purchase(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
+		String addPurchaseQuery = "INSERT INTO duotexture.purchases(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addPurchaseQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
@@ -99,7 +99,7 @@ public class PurchaseUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, edit purchase query and result
-		String updatePurchaseQuery = "UPDATE duotexture.purchase SET productId=?, quantity=? WHERE userId=?"; 
+		String updatePurchaseQuery = "UPDATE duotexture.purchases SET productId=?, quantity=? WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(updatePurchaseQuery);
 		pstmt.setInt(1, productId);
 		pstmt.setInt(2, quantity);
@@ -117,7 +117,7 @@ public class PurchaseUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, delete purchase query and result
-		String deletePurchaseQuery = "DELETE FROM duotexture.purchase WHERE userId=?"; 
+		String deletePurchaseQuery = "DELETE FROM duotexture.purchases WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(deletePurchaseQuery);
 	    pstmt.setInt(1, userId);
 		int count = pstmt.executeUpdate(); 
