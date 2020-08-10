@@ -41,9 +41,9 @@ CREATE TABLE `duotexture`.`categories` (
   `image` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`categoryId`));
   
-INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Men', 'IN STYLE - The Casual Classics.<br>Vintage styles with a modern twist to match everything you have.', './assets/images/image1.jpg');
-INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Women', "MOTHERS' DAY SPECIAL<br>Extra 30% off! Use code `30MOM` to get your mother a gift! Promotion ends on 30 May 2020.", './assets/images/image2.jpg');
-INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Kids', 'Kids sportswear up to 40% off.<br>Cruise through the week with our fashionable picks at discounted price.', './assets/images/image3.jpg');
+INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Men', 'IN STYLE - The Casual Classics.<br>Vintage styles with a modern twist to match everything you have.', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image1.jpg20200810_184859');
+INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Women', "MOTHERS' DAY SPECIAL<br>Extra 30% off! Use code `30MOM` to get your mother a gift! Promotion ends on 30 May 2020.", 'https://jad-bucket.s3.us-east-2.amazonaws.com/image2.jpg20200810_184909');
+INSERT INTO duotexture.categories(`name`, `description`, `image`) VALUES('Kids', 'Kids sportswear up to 40% off.<br>Cruise through the week with our fashionable picks at discounted price.', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image3.jpg20200810_184918');
 
 -- Products Table
 CREATE TABLE `duotexture`.`products` (
@@ -58,26 +58,26 @@ CREATE TABLE `duotexture`.`products` (
   PRIMARY KEY (`productId`),
   FOREIGN KEY (`categoryId`) REFERENCES `duotexture`.`categories` (`categoryId`) ON DELETE CASCADE);
 
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture V-neck Shirt', 'Duo-Texture produced.', '10', '32.00', '180', '1', './assets/images/image4.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Semi Wide Slacks', 'Duo-Texture produced.', '15', '49.90', '510', '1', './assets/images/image5.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Leather Loafer', 'Duo-Texture produced.', '7.20', '25.80', '520', '1', './assets/images/image6.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Rider Leather Jacket', 'Duo-Texture produced.', '31', '56.00', '820', '1', './assets/images/image7.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Bledy Paisley Shirt', 'Duo-Texture produced.', '9.90', '23.90', '160', '1', './assets/images/image8.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Denim Pants', 'Duo-Texture produced.', '7.20', '22.80', '290', '1', './assets/images/image9.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Circle Slick Necklace', 'Duo-Texture produced.', '3.40', '11.49', '840', '1', './assets/images/image10.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Denim Jacket', 'Duo-Texture produced.', '37', '63.95', '470', '1', './assets/images/image11.jpg');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture V-neck Shirt', 'Duo-Texture produced.', '10', '32.00', '180', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image4.jpg20200810_184926');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Semi Wide Slacks', 'Duo-Texture produced.', '15', '49.90', '510', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image5.jpg20200810_184934');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Leather Loafer', 'Duo-Texture produced.', '7.20', '25.80', '520', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image6.jpg20200810_184951');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Rider Leather Jacket', 'Duo-Texture produced.', '31', '56.00', '820', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image7.jpg20200810_185015');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Bledy Paisley Shirt', 'Duo-Texture produced.', '9.90', '23.90', '160', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image8.jpg20200810_185025');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Denim Pants', 'Duo-Texture produced.', '7.20', '22.80', '290', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image9.jpg20200810_185033');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Circle Slick Necklace', 'Duo-Texture produced.', '3.40', '11.49', '840', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image10.jpg20200810_185050');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Denim Jacket', 'Duo-Texture produced.', '37', '63.95', '470', '1', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image11.jpg20200810_185105');
 
 
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Lace Short Sleeve Shirt', 'Duo-Texture produced.', '24', '59.40', '450', '2', './assets/images/image12.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Collar Chiffon Shirt', 'Duo-Texture produced.', '18', '47.20', '370', '2', './assets/images/image13.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture High Waist Skirt', 'Duo-Texture produced.', '20', '52.75', '290', '2', './assets/images/image14.jpg');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Lace Short Sleeve Shirt', 'Duo-Texture produced.', '24', '59.40', '450', '2', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image12.jpg20200810_185116');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Collar Chiffon Shirt', 'Duo-Texture produced.', '18', '47.20', '370', '2', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image13.jpg20200810_185127');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture High Waist Skirt', 'Duo-Texture produced.', '20', '52.75', '290', '2', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image14.jpg20200810_185136');
 
 
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Short Sleeve T-shirt', 'Duo-Texture produced.', '3.50', '10.50', '1000', '3', './assets/images/image15.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Harem Pants', 'Duo-Texture produced.', '2', '7.99', '130', '3', './assets/images/image16.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Sleeveless T-shirt', 'Duo-Texture produced.', '6.70', '22.80', '490', '3', './assets/images/image17.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Flower Floral Leggings', 'Duo-Texture produced.', '3.50', '10.50', '740', '3', './assets/images/image18.jpg');
-INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Cotton T-shirt', 'Duo-Texture produced.', '3', '7.99', '280', '3', './assets/images/image19.jpg'); 
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Short Sleeve T-shirt', 'Duo-Texture produced.', '3.50', '10.50', '1000', '3', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image15.jpg20200810_185219');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Harem Pants', 'Duo-Texture produced.', '2', '7.99', '130', '3', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image16.jpg20200810_185228');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Sleeveless T-shirt', 'Duo-Texture produced.', '6.70', '22.80', '490', '3', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image17.jpg20200810_185251');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Flower Floral Leggings', 'Duo-Texture produced.', '3.50', '10.50', '740', '3', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image18.jpg20200810_185310');
+INSERT INTO duotexture.products(`name`, `description`, `cost_price`, `retail_price`, `quantity`, `categoryId`, `image`) VALUES('Duo Texture Cotton T-shirt', 'Duo-Texture produced.', '3', '7.99', '280', '3', 'https://jad-bucket.s3.us-east-2.amazonaws.com/image19.jpg20200810_185322'); 
 
 -- Cart Table
 CREATE TABLE `duotexture`.`carts` (
