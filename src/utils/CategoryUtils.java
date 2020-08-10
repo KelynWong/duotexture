@@ -123,4 +123,25 @@ public class CategoryUtils {
 		conn.close();
 		return count;
 	}
+	
+	// get image url
+	public static String getCategoryImageUrl (int categoryId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get category image url query and result
+		String getCategoryImageUrlQuery = "SELECT image FROM duotexture.categories WHERE categoryId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(getCategoryImageUrlQuery);
+	    pstmt.setInt(1, categoryId);
+	    ResultSet getCategoryImageUrlResult = pstmt.executeQuery(); 
+	    
+	    String categoryImageUrl = "";
+	    if (getCategoryImageUrlResult.next()) {
+	    	categoryImageUrl = getCategoryImageUrlResult.getString("image");
+	    }
+		
+		// close connection
+		conn.close();
+		return categoryImageUrl;
+	}
 }
