@@ -76,6 +76,13 @@
 			// check if user's account and retrieve their username
 			if(session.getAttribute("accountType")!=null){ %>
 					<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/editprofile?userId=<%=session.getAttribute("userId")%>"><%=session.getAttribute("username")%></a>
+					<%
+					if(session.getAttribute("accountType").equals("admin")){
+					%>
+						<a class="nav-link custom-font-mont fs-15 text-info" href="${pageContext.request.contextPath}/AnalyticsServlet">Analytics</a>
+					<%
+					}
+					%>
 					<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/SignOutServlet">Log Out</a>
 					<%
 			}else{
