@@ -141,8 +141,9 @@ public class EditCategoryServlet extends HttpServlet {
 				        	        String value = item.getString();
 				        	        valueArrayList.add(value);
 				        	    } else {
-				        	    	String content = "";
-				        	    	if(!content.equals("")) {
+				        	    	long inputFileSize = item.getSize();
+				        	    	
+				        	    	if(inputFileSize>0) {
 				        	    		// #1 delete existing image 
 				        	    		System.out.println("entered");
 				        	    		// get image url from database
