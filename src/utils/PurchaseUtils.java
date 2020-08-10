@@ -48,22 +48,23 @@ public class PurchaseUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
-		// statement, get all purchases query and result
-		Statement stmt = conn.createStatement();
-		String getPurchasesQuery = "SELECT * FROM duotexture.purchases WHERE userId=?;";
-		ResultSet getPurchasesResult = stmt.executeQuery(getPurchasesQuery);
-		
+		// prepared statement, get all purchases query and result
+		String getPurchasesByUserIdQuery = "SELECT * FROM duotexture.purchases WHERE userId=?;";
+		PreparedStatement pstmt = conn.prepareStatement(getPurchasesByUserIdQuery);
+		pstmt.setInt(1, userId);
+		ResultSet getPurchasesByUserIdResult = pstmt.executeQuery();
+				
 		// create new ArrayList of purchase
 		ArrayList<Purchase> PurchasesArrayList = new ArrayList<Purchase>();
 		
 		// loop if there are new row
-		while(getPurchasesResult.next()) {
+		while(getPurchasesByUserIdResult.next()) {
 			// create an instance of purchase
 			Purchase PurchaseBean = new Purchase();
 			
-			PurchaseBean.setUserId(getPurchasesResult.getInt("userId"));
-			PurchaseBean.setProductId(getPurchasesResult.getInt("productId"));
-			PurchaseBean.setQuantity(getPurchasesResult.getInt("quantity"));
+			PurchaseBean.setUserId(getPurchasesByUserIdResult.getInt("userId"));
+			PurchaseBean.setProductId(getPurchasesByUserIdResult.getInt("productId"));
+			PurchaseBean.setQuantity(getPurchasesByUserIdResult.getInt("quantity"));
 			
 			// add purchaseBean to PurchasesArrayList
 			PurchasesArrayList.add(PurchaseBean);
