@@ -96,6 +96,9 @@ public class EditProductServlet extends HttpServlet {
 		// get writer
 		PrintWriter out = response.getWriter();  
 		
+		// declare global variable
+		ArrayList<String> valueArrayList = new ArrayList<String>();
+		
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
@@ -134,8 +137,6 @@ public class EditProductServlet extends HttpServlet {
 				        	// process the uploaded items
 				        	Iterator<FileItem> iter = items.iterator();
 				        	
-				        	ArrayList<String> valueArrayList = new ArrayList<String>();
-				        	
 				        	while (iter.hasNext()) {
 				        	    FileItem item = iter.next();
 				        	    if (item.isFormField()) {
@@ -143,7 +144,7 @@ public class EditProductServlet extends HttpServlet {
 				        	        valueArrayList.add(value);
 				        	    } else {
 				        	    	long inputFileSize = item.getSize();
-				        	    	System.out.println(inputFileSize);
+				        	    	
 				        	    	if(inputFileSize>0) {
 				        	    		// #1 delete existing image 
 
@@ -190,21 +191,21 @@ public class EditProductServlet extends HttpServlet {
 								
 				        } catch(java.sql.SQLIntegrityConstraintViolationException e){
 							System.out.println("(adminservlets/EditProductServlet) Error: Duplicate Entry\n");
-							response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + Integer.parseInt(valueArrayList.get(0)) + "&productEdit=fail");
 						} catch (java.lang.NumberFormatException e) {         
 							System.out.println("(adminservlets/EditProductServlet) Error: Invalid Inputs\n"); 
-							response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + Integer.parseInt(valueArrayList.get(0)) + "&productEdit=fail");
 				        } catch (FileUploadException ex) {
 				        	System.out.println("(adminservlets/EditProductServlet) Error: FileUploadException \n");
-				        	response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+				        	response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + Integer.parseInt(valueArrayList.get(0)) + "&productEdit=fail");
 						} catch (Exception e) {         
 							System.out.println("(adminservlets/EditProductServlet) Error: " + e + "\n"); 
-							response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + Integer.parseInt(valueArrayList.get(0)) + "&productEdit=fail");
 						}
 				        
 				    } else{
 						System.out.println("(adminservlets/EditProductServlet) Error: Wrong Flow\n");
-						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + request.getParameter("inputProductId") + "&productEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + Integer.parseInt(valueArrayList.get(0)) + "&productEdit=fail");
 					}
 				}
 					 
