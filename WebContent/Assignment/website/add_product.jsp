@@ -79,13 +79,13 @@
             <input type="text" class="form-control" id="inputQuantity" name="inputQuantity" placeholder="Quantity" required>
           </div>
           <div class="form-group col-md-3">
-		    <label for="inputCategoryId">Category Id</label>
+		    <label for="inputCategoryId">Category</label>
 		    <select class="form-control" id="inputCategoryId" name="inputCategoryId">
 		    	<option disabled selected>-- select an option --</option>
 			    <%
 			    try{			    	
 			    	for(int x=0; x<categoriesArrayList.size(); x++) {
-						out.println("<option>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
+						out.println("<option value="+categoriesArrayList.get(x).getCategoryId()+">"+categoriesArrayList.get(x).getName()+"</option>");
 					} 
 						
 			      } catch(Exception e){
