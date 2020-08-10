@@ -68,7 +68,7 @@
 			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel" aria-labelledby="v-pills-customer-tab">
 			  		
 			  	  <!-- List of Customers -->
-				  <table class="table">
+				  <table class="table table-bordered">
 				  <thead class="thead-dark">
 				    <tr>
 				      <th scope="col">User Id</th>
@@ -88,12 +88,44 @@
 				      <td>Tampines Street 123</td>
 				      <td>123456</td>
 				    </tr>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>Singapore</td>
+				      <td>Tampines Street 123</td>
+				      <td>123456</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>Singapore</td>
+				      <td>Tampines Street 123</td>
+				      <td>123456</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>Singapore</td>
+				      <td>Tampines Street 123</td>
+				      <td>123456</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>Singapore</td>
+				      <td>Tampines Street 123</td>
+				      <td>123456</td>
+				    </tr>
 				  </tbody>
 				</table>
 				
 				<!-- Pagination -->
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
+				<nav>
+				  <ul class="pagination justify-content-end">
 				    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 				    <li class="page-item active"><a class="page-link" href="#">1</a></li>
 				    <li class="page-item"><a class="page-link" href="#">2</a></li>
