@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import utils.CategoryUtils;
 import utils.ProductUtils;
+import utils.S3Utils;
 
 /**
  * Servlet implementation class DeleteProductServlet
@@ -90,6 +92,12 @@ public class DeleteProductServlet extends HttpServlet {
 				if(request.getParameter("productId")!=null){
 					categoryId = (int) session.getAttribute("categoryId");
 					int productId = Integer.parseInt(request.getParameter("productId"));
+					
+					String productImageUrl = ProductUtils.getProductImageUrl(productId);
+					String object_name = productImageUrl.substring(productImageUrl.lastIndexOf('/') + 1);
+					
+					// delete file
+					S3Utils.deleteFile(object_name);
 					
 					// delete product
 					int count = ProductUtils.deleteProduct(productId); 
