@@ -214,4 +214,25 @@ public class ProductUtils {
 		conn.close();
 		return count;
 	}
+	
+	// get image url
+	public static String getProductImageUrl (int productId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get product image url query and result
+		String getProductImageUrlQuery = "SELECT image FROM duotexture.products WHERE productId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(getProductImageUrlQuery);
+	    pstmt.setInt(1, productId);
+	    ResultSet getProductImageUrlResult = pstmt.executeQuery(); 
+	    
+	    String productImageUrl = "";
+	    if (getProductImageUrlResult.next()) {
+	    	productImageUrl = getProductImageUrlResult.getString("image");
+	    }
+		
+		// close connection
+		conn.close();
+		return productImageUrl;
+	}
 }
