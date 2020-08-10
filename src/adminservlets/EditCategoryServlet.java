@@ -93,7 +93,10 @@ public class EditCategoryServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 
 		// get writer
-		PrintWriter out = response.getWriter();  
+		PrintWriter out = response.getWriter(); 
+		
+		// declare global variable
+		ArrayList<String> valueArrayList = new ArrayList<String>();
 		
 		try{ 
 			// validate if user is logged in with an account type
@@ -132,8 +135,6 @@ public class EditCategoryServlet extends HttpServlet {
 
 				        	// process the uploaded items
 				        	Iterator<FileItem> iter = items.iterator();
-				        	
-				        	ArrayList<String> valueArrayList = new ArrayList<String>();
 				        	
 				        	while (iter.hasNext()) {
 				        	    FileItem item = iter.next();
@@ -188,21 +189,21 @@ public class EditCategoryServlet extends HttpServlet {
 								
 				        } catch(java.sql.SQLIntegrityConstraintViolationException e){
 							System.out.println("(adminservlets/EditCategoryServlet) Error: Duplicate Entry\n");
-							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + Integer.parseInt(valueArrayList.get(0)) + "&categoryEdit=fail");
 						} catch (java.lang.NumberFormatException e) {         
 							System.out.println("(adminservlets/EditCategoryServlet) Error: Invalid Inputs\n"); 
-							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + Integer.parseInt(valueArrayList.get(0)) + "&categoryEdit=fail");
 				        } catch (FileUploadException ex) {
 				        	System.out.println("(adminservlets/EditCategoryServlet) Error: FileUploadException \n");
-				        	response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+				        	response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + Integer.parseInt(valueArrayList.get(0)) + "&categoryEdit=fail");
 						} catch (Exception e) {         
 							System.out.println("(adminservlets/EditCategoryServlet) Error: " + e + "\n"); 
-							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+							response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + Integer.parseInt(valueArrayList.get(0)) + "&categoryEdit=fail");
 						}
 				        
 				    } else{
 						System.out.println("(adminservlets/EditCategoryServlet) Error: Wrong Flow\n");
-						response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + request.getParameter("inputCategoryId") + "&categoryEdit=fail");
+						response.sendRedirect(request.getContextPath() + "/editcategory?categoryId=" + Integer.parseInt(valueArrayList.get(0)) + "&categoryEdit=fail");
 					}
 				}
 					 
