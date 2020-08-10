@@ -120,7 +120,7 @@
 				<div class="form-row">
 				<div class="form-group col-md-12">
 			        <label for="inputImageUrl">Image Upload</label>
-			        <input type="file" multiple="false" class="form-control" style="min-height: 45px" id="inputImageUrl" name="inputImageUrl">
+			        <input type="file" accept=".jpg,.jpeg,.png" class="form-control" style="min-height: 45px" id="inputImageUrl" name="inputImageUrl" onchange="validateFileType()">
 			      </div>
 			      <div class="form-group col-md-12">
 			        <label class="col-md-12 p-0" style="display: block; max-height: 200px" id="previewImageUrlLabel">Image Preview</label>
@@ -187,6 +187,18 @@
     $("#inputImageUrl").change(function() {
     	readFile(this, "#previewImageUrl", "previewImageUrlLabel")
     })
+    
+    function validateFileType(){
+        var fileName = document.getElementById("inputImageUrl").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+
+        }else{
+        	document.getElementById("inputImageUrl").value = "";
+            alert("Only jpg/jpeg and png files are allowed!");
+        }   
+    }
     
     </script>
     <!--===============================================================================================-->
