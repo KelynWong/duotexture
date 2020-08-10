@@ -98,15 +98,15 @@
 		            <input type="text" class="form-control" id="inputQuantity" name="inputQuantity" value="<%= productQuantity %>" required>
 		          </div>
 		          <div class="form-group col-md-3">
-				    <label for="inputCategoryId">Category Id</label>
+				    <label for="inputCategoryId">Category</label>
 				    <select class="form-control" id="inputCategoryId" name="inputCategoryId">
 					    <%
 					    try{			    	
 					    	for(int x=0; x<categoriesArrayList.size(); x++) {
 					    		if(productCategoryId==categoriesArrayList.get(x).getCategoryId()){
-					    			out.println("<option selected>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
+					    			out.println("<option selected value="+categoriesArrayList.get(x).getCategoryId()+">"+categoriesArrayList.get(x).getName()+"</option>");
 								}else{
-									out.println("<option>"+categoriesArrayList.get(x).getCategoryId()+"</option>");
+									out.println("<option value="+categoriesArrayList.get(x).getCategoryId()+">"+categoriesArrayList.get(x).getName()+"</option>");
 								}
 							} 
 								
