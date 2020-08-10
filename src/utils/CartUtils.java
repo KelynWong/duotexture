@@ -19,7 +19,7 @@ public class CartUtils {
 		
 		// statement, get all carts query and result
 		Statement stmt = conn.createStatement();
-		String getCartsQuery = "SELECT * FROM duotexture.cart;";
+		String getCartsQuery = "SELECT * FROM duotexture.carts;";
 		ResultSet getCartsResult = stmt.executeQuery(getCartsQuery);
 		
 		// create new ArrayList of cart
@@ -49,7 +49,7 @@ public class CartUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get carts by user id query and result
-		String getCartsByUserIdQuery = "SELECT * FROM duotexture.cart WHERE userId=?;";
+		String getCartsByUserIdQuery = "SELECT * FROM duotexture.carts WHERE userId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getCartsByUserIdQuery);
 		pstmt.setInt(1,  userId);
 		ResultSet getCartsByUserIdResult = pstmt.executeQuery();
@@ -81,7 +81,7 @@ public class CartUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add cart query and result
-		String addCartQuery = "INSERT INTO duotexture.cart(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
+		String addCartQuery = "INSERT INTO duotexture.carts(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addCartQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
@@ -100,7 +100,7 @@ public class CartUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, edit cart query and result
-		String updateCartQuery = "UPDATE duotexture.cart SET productId=?, quantity=? WHERE userId=?"; 
+		String updateCartQuery = "UPDATE duotexture.carts SET productId=?, quantity=? WHERE userId=? AND productId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateCartQuery);
 		pstmt.setInt(1, productId);
 		pstmt.setInt(2, quantity);
@@ -113,12 +113,12 @@ public class CartUtils {
 	}
 	
 	// delete cart
-	public static int deleteCart (int userId) throws SQLException, ClassNotFoundException {
+	public static int deleteCarts (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, delete cart query and result
-		String deleteCartQuery = "DELETE FROM duotexture.cart WHERE userId=?"; 
+		String deleteCartQuery = "DELETE FROM duotexture.carts WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(deleteCartQuery);
 	    pstmt.setInt(1, userId);
 		int count = pstmt.executeUpdate(); 
