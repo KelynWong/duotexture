@@ -53,7 +53,7 @@
     <section class="col-12 p-5 row">
     	
       <!-- edit category form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/EditCategoryServlet" method="post">
+      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/EditCategoryServlet" method="post" enctype="multipart/form-data">
         <p class="custom-font-playfair fs-15">D u o - T e x t u r e - E d i t - C a t e g o r y</p>
         <hr>
 		<%
@@ -82,9 +82,14 @@
 		            <textarea type="text" class="form-control" id="inputCategoryDescription" name="inputCategoryDescription" required><%= categoryDescription %></textarea>
 		          </div>
 		          <div class="form-group col-md-12">
-		            <label for="inputCategoryImageUrl">Image url</label>
-		            <input type="text" class="form-control" id="inputCategoryImageUrl" name="inputCategoryImageUrl" value="<%= categoryImage %>" required>
-		          </div>
+			        <label for="inputCategoryImageUrl">Image Upload</label>
+			        <input type="file" multiple="false" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl">
+			      </div>
+			      <div class="form-group col-md-12">
+			        <label class="col-md-12 p-0" style="display: block; max-height: 200px" id="previewCategoryImageUrlLabel">Image Preview</label>
+			        <img id="previewCategoryImageUrl" src="<%= categoryImage %>" style="display: block; max-height: 200px" alt="Category Image">
+			        <input id="previewInputCategoryImageUrl" type="hidden" name="previewCategoryImageUrl" value="<%= categoryImage %>">
+			      </div>
 		        </div>
 		        
 		        <%
