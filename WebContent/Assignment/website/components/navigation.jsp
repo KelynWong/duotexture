@@ -29,15 +29,28 @@
 			<a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/categories" role="button">All Categories</a>
 		</li>
 		<%
-		ArrayList<Category> categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
-		
-		for(int x=0; x<categoriesArrayList.size(); x++) {
-		%>
-			<li class="nav-item">
-	          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
-	        </li>
-        <% 
-		} 
+		try{
+			if(request.getAttribute("categoriesArrayList") != null) {
+				ArrayList<Category> categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
+				
+				for(int x=0; x<categoriesArrayList.size(); x++) {
+				%>
+					<li class="nav-item">
+			          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
+			        </li>
+		        <% 
+				} 
+			} else {
+				%>
+				<script type="text/javascript">
+				window.location.href='${pageContext.request.contextPath}/index';
+				alert("Access denied.");
+				</script>
+				<%
+			}
+		} catch (Exception e) {
+			System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
+		}
 			
 		try{
            	if(session.getAttribute("accountType")!=null){
