@@ -113,11 +113,6 @@ public class AddCategoryServlet extends HttpServlet {
 				            factory.setSizeThreshold(MEMORY_THRESHOLD);
 
 				        	// configure a repository (to ensure a secure temporary location is used)
-				            
-//				        	ServletContext servletContext = this.getServletConfig().getServletContext();
-//				        	File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-//				        	factory.setRepository(repository);
-				        	
 				        	factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 				        	 
 				        	// create a new file upload handler
