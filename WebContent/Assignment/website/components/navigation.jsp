@@ -29,18 +29,11 @@
 			<a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/categories" role="button">All Categories</a>
 		</li>
 		<%
-		ArrayList<Category> categoriesArrayList;
+		ArrayList<Category> categoriesArrayList = null;
+		
 		try{
 			if(request.getAttribute("categoriesArrayList") != null) {
 				categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
-			
-				for(int x=0; x<categoriesArrayList.size(); x++) {
-				%>
-					<li class="nav-item">
-			          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
-			        </li>
-		        <% 
-				} 
 			} else {
 				%>
 				<script type="text/javascript">
@@ -52,6 +45,14 @@
 		} catch (Exception e) {
 			System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
 		}
+		
+		for(int x=0; x<categoriesArrayList.size(); x++) {
+		%>
+			<li class="nav-item">
+	          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
+	        </li>
+        <% 
+		} 
 			
 		try{
            	if(session.getAttribute("accountType")!=null){
