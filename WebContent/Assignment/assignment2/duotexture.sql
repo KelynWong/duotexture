@@ -36,7 +36,7 @@ INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, 
 -- Categories Table
 CREATE TABLE `duotexture`.`categories` (
   `categoryId` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) UNIQUE NOT NULL,
   `description` LONGTEXT NOT NULL,
   `image` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`categoryId`));
