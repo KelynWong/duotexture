@@ -66,6 +66,8 @@
 			
 			<div class="tab-content col-8" id="v-pills-tabContent" style="margin:auto">
 			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel" aria-labelledby="v-pills-customer-tab">
+			  		
+			  	  <!-- List of Customers -->
 				  <table class="table">
 				  <thead class="thead-dark">
 				    <tr>
@@ -88,6 +90,18 @@
 				    </tr>
 				  </tbody>
 				</table>
+				
+				<!-- Pagination -->
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+				  </ul>
+				</nav>
+				
 			  </div>
 			  <div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">...</div>
 			  <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">...</div>
