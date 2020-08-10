@@ -40,7 +40,7 @@
 			<%
 		}
 	} catch (Exception e){
-		System.out.println("(add_category.jsp) Admin Validation Error: " + e + "\n");
+		System.out.println("(analytics.jsp) Admin Validation Error: " + e + "\n");
 	}
 	%>
 </head>
@@ -52,57 +52,30 @@
 
     <section class="col-12 p-5 row">
     
-      <!-- add category form -->
-      <form class="mx-auto col-8 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)" action="${pageContext.request.contextPath}/AddCategoryServlet" method="post" enctype="multipart/form-data">
-        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A d d - C a t e g o r y</p>
+      <!-- analytics -->
+      <section class="mx-auto col-10 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
+        <p class="custom-font-playfair fs-15">D u o - T e x t u r e - A n a l y t i c s</p>
         <hr>
-
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="inputCategoryName">Name</label>
-            <input type="text" class="form-control" id="inputCategoryName" name="inputCategoryName" placeholder="Name of category" required>
-          </div>
-          <div class="form-group col-md-12">
-            <label for="inputCategoryDescription">Description</label>
-            <input type="text" class="form-control" id="inputCategoryDescription" name="inputCategoryDescription" placeholder="Category description" required>
-          </div>
-	      <div class="form-group col-md-12">
-	        <label for="inputCategoryImageUrl">Image Upload</label>
-	        <input type="file" accept=".jpg,.jpeg,.png" class="form-control" style="min-height: 45px" id="inputCategoryImageUrl" name="inputCategoryImageUrl" onchange="validateFileType()" required>
-	      </div>
-	      <div class="form-group col-md-12">
-	        <label class="col-md-12 p-0" style="display: none;" for="previewCategoryImageUrl" id="previewCategoryImageUrlLabel">Image Preview</label>
-	        <img id="previewCategoryImageUrl" src="#" style="display: none;" alt="Category Image">
-	      </div>
-	        
-	    </div>
         
-        <%
-       	try{
-       		// display different error message dependant on request success and failure
-       		if(request.getParameter("categoryAddition")!=null){
-       			String errorMessage = "";
-       			String categoryAddition = request.getParameter("categoryAddition");
-               	
-               	if(categoryAddition.equals("fail")){
-               		errorMessage = "Attempt to add failed. Please try again.";
-               		%>
-    		        <small class="text-danger"><%= errorMessage %><br><br></small>
-    		        <%
-               	}else if(categoryAddition.equals("success")){
-               		errorMessage = "Successfully Added.";
-               		%>
-    		        <small class="text-success"><%= errorMessage %><br><br></small>
-    		        <%
-               	}	
-       		}
-       	} catch(Exception e){
-        	System.out.println("(add_category.jsp) Message Error: " + e + "\n");
-        }
-        %>
-
-        <button type="submit" class="btn btn-success">Add</button>
-      </form>
+		<ul class="nav nav-tabs" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="customers-tab" data-toggle="tab" href="#customers" role="tab" aria-controls="customers" aria-selected="true">Customers</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false">Products</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+		  </li>
+		</ul>
+		
+		<div class="tab-content mt-3">
+		  <div class="tab-pane fade show active" id="customers" role="tabpanel" aria-labelledby="customers-tab">Customers Management</div>
+		  <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">Products Management</div>
+		  <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">Orders Management</div>
+		</div>
+		
+   	  </section>
     </section>
     <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
