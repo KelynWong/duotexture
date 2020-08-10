@@ -120,7 +120,7 @@ public class S3Utils {
         
         String imageUrl = String.valueOf(s3client.getUrl(
         		bucket_name, // The S3 Bucket To Upload To
-                object_name)); //The key for the uploaded object
+                final_object_name)); //The key for the uploaded object
         
         return imageUrl;
 	}
