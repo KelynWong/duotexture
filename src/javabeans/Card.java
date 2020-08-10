@@ -3,7 +3,7 @@ package javabeans;
 public class Card {
 	private int userId;
 	private String cardOwner;
-	private int cardNumber;
+	private String cardNumber;
 	private int expiryMonth;
 	private int expiryYear;
 	private int cvv;
@@ -14,7 +14,7 @@ public class Card {
 	}
 	
 	// constructor overload
-	public Card(int userId, String cardOwner, int cardNumber, int expiryMonth, int expiryYear, int cvv) {
+	public Card(int userId, String cardOwner, String cardNumber, int expiryMonth, int expiryYear, int cvv) {
 		this.userId = userId;
 		this.cardOwner = cardOwner;
 		this.cardNumber = cardNumber;
@@ -34,7 +34,7 @@ public class Card {
 	}
 
 	// get card number
-	public int getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
@@ -64,7 +64,7 @@ public class Card {
 	}
 	
 	// set card number
-	public void setCardNumber(int cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 

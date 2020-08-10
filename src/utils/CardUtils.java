@@ -32,7 +32,7 @@ public class CardUtils {
 			
 			cardBean.setUserId(getCardsResult.getInt("userId"));
 			cardBean.setCardOwner(getCardsResult.getString("cardOwner"));
-			cardBean.setCardNumber(getCardsResult.getInt("cardNumber"));
+			cardBean.setCardNumber(getCardsResult.getString("cardNumber"));
 			cardBean.setExpiryMonth(getCardsResult.getInt("expiryMonth"));
 			cardBean.setExpiryYear(getCardsResult.getInt("expiryYear"));
 			cardBean.setCvv(getCardsResult.getInt("cvv"));
@@ -64,7 +64,7 @@ public class CardUtils {
 		if(getCardByUserIdResult.next()) {
 			cardBean.setUserId(getCardByUserIdResult.getInt("userId"));
 			cardBean.setCardOwner(getCardByUserIdResult.getString("cardOwner"));
-			cardBean.setCardNumber(getCardByUserIdResult.getInt("cardNumber"));
+			cardBean.setCardNumber(getCardByUserIdResult.getString("cardNumber"));
 			cardBean.setExpiryMonth(getCardByUserIdResult.getInt("expiryMonth"));
 			cardBean.setExpiryYear(getCardByUserIdResult.getInt("expiryYear"));
 			cardBean.setCvv(getCardByUserIdResult.getInt("cvv"));
@@ -81,7 +81,7 @@ public class CardUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add card query and result
-		String addCardQuery = "INSERT INTO duotexture.card(`userId`, `cardOwner`, `cardNumber`, `expiryMonth`, `expiryYear`, `cvv`) VALUES(?, ?, ?, ?, ?, ?);";
+		String addCardQuery = "INSERT INTO duotexture.cards(`userId`, `cardOwner`, `cardNumber`, `expiryMonth`, `expiryYear`, `cvv`) VALUES(?, ?, ?, ?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addCardQuery);
 		pstmt.setInt(1, userId);
 	    pstmt.setString(2, cardOwner);
@@ -102,7 +102,7 @@ public class CardUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, edit card query and result
-		String updateCardQuery = "UPDATE duotexture.card SET cardOwner=?, cardNumber=?, expiryMonth=?, expiryYear=?, cvv=? WHERE userId=?"; 
+		String updateCardQuery = "UPDATE duotexture.cards SET cardOwner=?, cardNumber=?, expiryMonth=?, expiryYear=?, cvv=? WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateCardQuery);
 	    pstmt.setString(1, cardOwner);
 	    pstmt.setInt(2, cardNumber);
@@ -123,7 +123,7 @@ public class CardUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, delete card query and result
-		String deleteCardQuery = "DELETE FROM duotexture.card WHERE userId=?"; 
+		String deleteCardQuery = "DELETE FROM duotexture.cards WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(deleteCardQuery);
 	    pstmt.setInt(1, userId);
 		int count = pstmt.executeUpdate(); 
