@@ -52,7 +52,7 @@ public class CardUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get a card by user id query and result
-		String getCardByUserIdQuery = "SELECT * FROM duotexture.card WHERE userId=?;";
+		String getCardByUserIdQuery = "SELECT * FROM duotexture.cards WHERE userId=?;";
 		PreparedStatement pstmt = conn.prepareStatement(getCardByUserIdQuery);
 		pstmt.setInt(1,  userId);
 		ResultSet getCardByUserIdResult = pstmt.executeQuery();
