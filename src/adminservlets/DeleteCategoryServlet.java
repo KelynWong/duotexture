@@ -98,10 +98,11 @@ public class DeleteCategoryServlet extends HttpServlet {
 						if(request.getParameter("categoryId")!=null){
 								int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 								
+								// get image url from database
 								String categoryImageUrl = CategoryUtils.getCategoryImageUrl(categoryId);
-								String object_name = categoryImageUrl.substring(categoryImageUrl.lastIndexOf('/') + 1);
 								
-								System.out.println(object_name);
+								// get object name from image url
+								String object_name = categoryImageUrl.substring(categoryImageUrl.lastIndexOf('/') + 1);
 								
 								// delete file
 								S3Utils.deleteFile(object_name);
