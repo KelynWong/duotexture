@@ -19,7 +19,7 @@ public class OrderUtils {
 		
 		// statement, get all orders query and result
 		Statement stmt = conn.createStatement();
-		String getOrdersQuery = "SELECT * FROM duotexture.order;";
+		String getOrdersQuery = "SELECT * FROM duotexture.orders;";
 		ResultSet getOrdersResult = stmt.executeQuery(getOrdersQuery);
 		
 		// create new ArrayList of order
@@ -51,7 +51,7 @@ public class OrderUtils {
 		
 		// statement, get all orders query and result
 		Statement stmt = conn.createStatement();
-		String getOrdersQuery = "SELECT * FROM duotexture.order WHERE userId=?;";
+		String getOrdersQuery = "SELECT * FROM duotexture.orders WHERE userId=?;";
 		ResultSet getOrdersResult = stmt.executeQuery(getOrdersQuery);
 		
 		// create new ArrayList of order
@@ -81,7 +81,7 @@ public class OrderUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add order query and result
-		String addOrderQuery = "INSERT INTO duotexture.order(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
+		String addOrderQuery = "INSERT INTO duotexture.orders(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addOrderQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
@@ -100,7 +100,7 @@ public class OrderUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, edit order query and result
-		String updateOrderQuery = "UPDATE duotexture.order SET productId=?, quantity=? WHERE userId=?"; 
+		String updateOrderQuery = "UPDATE duotexture.orders SET productId=?, quantity=? WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(updateOrderQuery);
 		pstmt.setInt(1, productId);
 		pstmt.setInt(2, quantity);
@@ -118,7 +118,7 @@ public class OrderUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, delete order query and result
-		String deleteOrderQuery = "DELETE FROM duotexture.order WHERE userId=?"; 
+		String deleteOrderQuery = "DELETE FROM duotexture.orders WHERE userId=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(deleteOrderQuery);
 	    pstmt.setInt(1, userId);
 		int count = pstmt.executeUpdate(); 
