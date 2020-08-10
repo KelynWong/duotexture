@@ -145,7 +145,7 @@ public class EditCategoryServlet extends HttpServlet {
 				        	    	
 				        	    	if(inputFileSize>0) {
 				        	    		// #1 delete existing image 
-				        	    		System.out.println("entered");
+				        	    		
 				        	    		// get image url from database
 										String categoryImageUrl = CategoryUtils.getCategoryImageUrl(Integer.parseInt(valueArrayList.get(0)));
 										
@@ -170,10 +170,8 @@ public class EditCategoryServlet extends HttpServlet {
 							String inputCategoryImageUrl;
 							
 							if(imageUrl == null) {
-								System.out.println("image == null");
 								inputCategoryImageUrl = (String) valueArrayList.get(3);
 							} else {
-								System.out.println("image != null ");
 								inputCategoryImageUrl = imageUrl;
 							}
 							
