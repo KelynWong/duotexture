@@ -3,6 +3,8 @@ package utils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -109,8 +111,10 @@ public class S3Utils {
 				
 		// pre-define variables
         String bucket_name = S3Client.BUCKET_NAME;
+        String final_object_name = object_name + ( new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) );
+        System.out.println(final_object_name);
 
-        s3client.putObject(new PutObjectRequest(bucket_name, object_name, file, new ObjectMetadata()));
+        s3client.putObject(new PutObjectRequest(bucket_name, final_object_name, file, new ObjectMetadata()));
         
         String imageUrl = String.valueOf(s3client.getUrl(
         		bucket_name, // The S3 Bucket To Upload To
