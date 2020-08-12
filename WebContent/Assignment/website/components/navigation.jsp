@@ -34,17 +34,6 @@
 		try{
 			if(request.getAttribute("categoriesArrayList") != null) {
 				categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
-			} else {
-				%>
-				<script type="text/javascript">
-				window.location.href='${pageContext.request.contextPath}/index';
-				alert("Access denied.");
-				</script>
-				<%
-			}
-		} catch (Exception e) {
-			System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
-		}
 		
 		for(int x=0; x<categoriesArrayList.size(); x++) {
 		%>
@@ -95,7 +84,19 @@
 		} catch(Exception e){ 
 			System.out.println("(navigation.jsp) Error: " + e + "\n");
 		}
-		%>
+		
+		
+		} else {
+				%>
+				<script type="text/javascript">
+				window.location.href='${pageContext.request.contextPath}/index';
+				alert("Access denied.");
+				</script>
+				<%
+			}
+		} catch (Exception e) {
+			System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
+		}%>
 		</ul>
       </section>
     </nav>
