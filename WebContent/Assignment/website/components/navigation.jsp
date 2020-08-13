@@ -68,7 +68,7 @@
 					<%
 					if(session.getAttribute("accountType").equals("admin")){
 					%>
-						<a class="nav-link custom-font-mont fs-15 text-info" href="${pageContext.request.contextPath}/analyticscustomer">Analytics</a>
+						<a class="nav-link custom-font-mont fs-15 text-info" href="${pageContext.request.contextPath}/analyticscustomer?page=1">Analytics</a>
 					<%
 					}
 					%>
