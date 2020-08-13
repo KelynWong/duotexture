@@ -92,7 +92,6 @@ public class ProductListingsServlet extends HttpServlet {
 				
 				// check if search bar is empty
 				if(keyword!=null){
-					System.out.println("Keyword not null");
 					// target java and parse in data - get products by category id and keyword
 					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 							.path("productservices/getproductsbycategoryidandkeyword").queryParam("categoryId", categoryId).queryParam("keyword", keyword);
