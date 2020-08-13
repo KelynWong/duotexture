@@ -147,7 +147,7 @@
 				  <%
 					  } else {
 						  System.out.println("(analytics-customer.jsp) Error: Pagination Error \n");
-						  response.sendRedirect("/index");
+						  response.sendRedirect(request.getContextPath() + "/index");
 					  }
 				  } catch (Exception e) {
 					  System.out.println("(analytics-customer.jsp) Error: " + e + "\n");      
