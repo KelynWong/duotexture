@@ -25,7 +25,7 @@ import javabeans.Category;
 import utils.AnalyticUtils;
 
 /**
- * Servlet implementation class AnalyticsServlet
+ * Servlet implementation class AnalyticsCustomerServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
@@ -39,13 +39,13 @@ import utils.AnalyticUtils;
  */
 
 @WebServlet("/analyticscustomer")
-public class AnalyticsServlet extends HttpServlet {
+public class AnalyticsCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnalyticsServlet() {
+    public AnalyticsCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
