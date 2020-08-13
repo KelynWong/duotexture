@@ -106,7 +106,16 @@
 				  <% 
 				  try {
 					  if(request.getParameter("page")!=null) {
+						  if(membersArrayList.size()==0){
+							  System.out.println("(analytics-customer.jsp) Error: Reject custom amendments to url \n");
+							  response.sendRedirect(request.getContextPath() + "/analyticscustomer?page=1");
+						  }
 						  int pageNumber = Integer.parseInt(request.getParameter("page")); 
+						  Boolean maxRecord = false;
+						  
+						  if(request.getParameter("maxRecord")!=null) {
+						    maxRecord = true;
+						  }
 
 						  if(pageNumber!=1){
 						  %>
@@ -115,8 +124,13 @@
 						  <%
 						  }
 				  %>
-					    <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>"><%=pageNumber%></a></li>
+					    <li class="page-item active"><a class="page-link" href="#"><%=pageNumber%></a></li>
+					    <%
+					    if(maxRecord==false){
+					    %>
 					    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>"><%=pageNumber+1%></a></li>
+				  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>">Next</a></li>
+				  		<%}%>
 				  <%
 					  } else {
 						  System.out.println("(analytics-customer.jsp) Error: Pagination Error \n");
@@ -126,7 +140,6 @@
 					  System.out.println("(analytics-customer.jsp) Error: " + e + "\n");      
 				  }
 				  %>
-					  <li class="page-item"><a class="page-link" href="#">Next</a></li>
 					</ul>
 				</nav>
 				
