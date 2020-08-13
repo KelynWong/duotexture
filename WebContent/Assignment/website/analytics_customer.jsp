@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.util.* , javabeans.*"%>
 <!DOCTYPE html>
 <html>
 <!-- 
@@ -82,46 +82,20 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+				  <%
+				  ArrayList<Member> membersArrayList = (ArrayList<Member>) request.getAttribute("membersArrayList");
+				  
+				  for(int x=0; x<membersArrayList.size(); x++) {
+				  %>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>Singapore</td>
-				      <td>Tampines Street 123</td>
-				      <td>123456</td>
+				      <th scope="row"><%=membersArrayList.get(x).getUserId()%></th>
+				      <td><%=membersArrayList.get(x).getFirstName()%></td>
+				      <td><%=membersArrayList.get(x).getLastName()%></td>
+				      <td><%=membersArrayList.get(x).getCountry()%></td>
+				      <td><%=membersArrayList.get(x).getAddress()%></td>
+				      <td><%=membersArrayList.get(x).getPostalCode()%></td>
 				    </tr>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>Singapore</td>
-				      <td>Tampines Street 123</td>
-				      <td>123456</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>Singapore</td>
-				      <td>Tampines Street 123</td>
-				      <td>123456</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>Singapore</td>
-				      <td>Tampines Street 123</td>
-				      <td>123456</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>Singapore</td>
-				      <td>Tampines Street 123</td>
-				      <td>123456</td>
-				    </tr>
+					<%}%>
 				  </tbody>
 				</table>
 				
