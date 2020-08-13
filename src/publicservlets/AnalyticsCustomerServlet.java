@@ -98,12 +98,12 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber);
 				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("(publicservlets/AnalyticsServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(publicservlets/AnalyticsServlet) Error: " + e + "\n");
+			System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
