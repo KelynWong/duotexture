@@ -65,10 +65,10 @@
 			  <a class="nav-link" id="v-pills-order-tab" href="/analyticsorder">Order</a>
 			</div>
 			
-			<!-- product content -->
+			<!-- customer content -->
 			<div class="tab-content col-8" id="v-pills-tabContent" style="margin:auto">
 			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel">
-			  		
+			  	<h5>Customer Analysis</h5>
 			  	  <!-- List of Customers -->
 				  <table class="table table-bordered">
 				  <thead class="thead-dark">
