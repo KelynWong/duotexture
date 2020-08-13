@@ -91,11 +91,23 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				
 				// get members
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
+				Boolean maxRecord = false;
 				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber);
+				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber+1);
+				if(nextMemberArrayList.size()==0) {
+					maxRecord = true;
+				}
 				request.setAttribute("membersArrayList", membersArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber);
+				RequestDispatcher requestDispatcher;
+				
+				if(maxRecord == false) {
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber);
+				} else {
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"maxRecord=true");
+				}
+				
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: Response not ok. \n");
