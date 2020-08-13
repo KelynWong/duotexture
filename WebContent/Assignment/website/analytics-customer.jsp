@@ -58,14 +58,16 @@
         <hr>
         
         <section class="row">
-	        <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			  <a class="nav-link active" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="#v-pills-customer" aria-selected="true">Customer</a>
-			  <a class="nav-link" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false">Product</a>
-			  <a class="nav-link" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">Order</a>
+        	<!-- tablist -->
+	        <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist">
+			  <a class="nav-link active" id="v-pills-customer-tab" href="#v-pills-customer">Customer</a>
+			  <a class="nav-link" id="v-pills-product-tab" href="/analyticsproduct" role="tab">Product</a>
+			  <a class="nav-link" id="v-pills-order-tab" href="/analyticsorder">Order</a>
 			</div>
 			
+			<!-- product content -->
 			<div class="tab-content col-8" id="v-pills-tabContent" style="margin:auto">
-			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel" aria-labelledby="v-pills-customer-tab">
+			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel">
 			  		
 			  	  <!-- List of Customers -->
 				  <table class="table table-bordered">
@@ -125,18 +127,37 @@
 				
 				<!-- Pagination -->
 				<nav>
-				  <ul class="pagination justify-content-end">
-				    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-				  </ul>
+					<ul class="pagination justify-content-end">
+						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				  <% 
+				  try {
+					  if(request.getParameter("page")!=null) {
+						  int pageNumber = Integer.parseInt(request.getParameter("page")); 
+						  
+						  if(pageNumber==1){
+						  %>
+						  <li class="page-item"><a class="page-link" disabled><%=pageNumber-1%></a></li>
+						  <%
+						  }else{
+				  %>
+					    <li class="page-item"><a class="page-link"><%=pageNumber-1%></a></li>
+					    <%}%>
+					    <li class="page-item active"><a class="page-link"><%=pageNumber%></a></li>
+					    <li class="page-item"><a class="page-link"><%=pageNumber+1%></a></li>
+				  <%
+					  } else {
+						  System.out.println("(analytics-customer.jsp) Error: Pagination Error \n");
+						  response.sendRedirect("/index");
+					  }
+				  } catch (Exception e) {
+					  System.out.println("(analytics-customer.jsp) Error: " + e + "\n");      
+				  }
+				  %>
+					  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+					</ul>
 				</nav>
 				
 			  </div>
-			  <div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">...</div>
-			  <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">...</div>
 			</div>
         </section>
         
