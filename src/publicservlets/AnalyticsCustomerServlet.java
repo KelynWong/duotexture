@@ -92,8 +92,8 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				// get members
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
 				Boolean maxRecord = false;
-				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber);
-				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber+1);
+				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1);
+				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber);
 				if(nextMemberArrayList.size()==0) {
 					maxRecord = true;
 				}
