@@ -36,7 +36,7 @@ import javabeans.Category;
  * 
  */
 
-@WebServlet("/analytics")
+@WebServlet("/analyticscustomer")
 public class AnalyticsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -88,7 +88,7 @@ public class AnalyticsServlet extends HttpServlet {
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics.jsp");
+				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics-customer.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(publicservlets/AnalyticsServlet) Error: Response not ok. \n");
