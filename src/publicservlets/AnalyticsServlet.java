@@ -20,7 +20,9 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javabeans.Member;
 import javabeans.Category;
+import utils.AnalyticUtils;
 
 /**
  * Servlet implementation class AnalyticsServlet
@@ -86,6 +88,9 @@ public class AnalyticsServlet extends HttpServlet {
 				
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
+				
+				ArrayList<Member> memberArrayList = AnalyticUtils.getMembers(1);
+				request.setAttribute("memberArrayList", memberArrayList);
 				
 				// forward request to jsp for display
 				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics-customer.jsp");
