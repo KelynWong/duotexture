@@ -128,22 +128,21 @@
 				<!-- Pagination -->
 				<nav>
 					<ul class="pagination justify-content-end">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						
 				  <% 
 				  try {
 					  if(request.getParameter("page")!=null) {
 						  int pageNumber = Integer.parseInt(request.getParameter("page")); 
-						  
-						  if(pageNumber==1){
+
+						  if(pageNumber!=1){
 						  %>
-						  <li class="page-item"><a class="page-link" disabled><%=pageNumber-1%></a></li>
+						  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>">Previous</a></li>
+						  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>"><%=pageNumber-1%></a></li>
 						  <%
-						  }else{
+						  }
 				  %>
-					    <li class="page-item"><a class="page-link"><%=pageNumber-1%></a></li>
-					    <%}%>
-					    <li class="page-item active"><a class="page-link"><%=pageNumber%></a></li>
-					    <li class="page-item"><a class="page-link"><%=pageNumber+1%></a></li>
+					    <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>"><%=pageNumber%></a></li>
+					    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>"><%=pageNumber+1%></a></li>
 				  <%
 					  } else {
 						  System.out.println("(analytics-customer.jsp) Error: Pagination Error \n");
