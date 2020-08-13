@@ -44,7 +44,7 @@
 				%>
 				
 				<section class="slide col-4">
-		          <img src="<%= productImage %>" class="d-block w-100"> <!-- note!!! -->
+		          <img src="<%= productImage %>" class="d-block w-100">
 		        </section>
 		
 		        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">

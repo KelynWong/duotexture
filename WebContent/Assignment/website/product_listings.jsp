@@ -73,7 +73,7 @@
 				
 				%>
 				<div class="card col-2 mx-2 mt-3" style="width: 18rem;">
-		            <img src="<%= image %>" class="card-img-top mt-3" alt="..."> <!-- note!!! -->
+		            <img src="<%= image %>" class="card-img-top mt-3" alt="...">
 		            <div class="card-body d-flex flex-column">
 		                <p class="card-title fs-14" style="font-weight: bold"><%= name %></p>
 		                <p class="card-text fs-13"><%= description %></p>
