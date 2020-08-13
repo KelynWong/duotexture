@@ -91,8 +91,8 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				
 				// get members
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
-				ArrayList<Member> memberArrayList = AnalyticUtils.getMembers(pageNumber);
-				request.setAttribute("memberArrayList", memberArrayList);
+				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber);
+				request.setAttribute("membersArrayList", membersArrayList);
 				
 				// forward request to jsp for display
 				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber);
