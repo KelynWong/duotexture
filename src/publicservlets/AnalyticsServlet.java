@@ -93,7 +93,7 @@ public class AnalyticsServlet extends HttpServlet {
 				request.setAttribute("memberArrayList", memberArrayList);
 				
 				// forward request to jsp for display
-				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics-customer.jsp");
+				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics-customer.jsp?page=1");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(publicservlets/AnalyticsServlet) Error: Response not ok. \n");
