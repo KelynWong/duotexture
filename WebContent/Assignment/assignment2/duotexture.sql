@@ -27,6 +27,10 @@ INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES
 INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer10@ichat.sp.edu.sg', 'customer10', 'password', 'Member');
 INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer11@ichat.sp.edu.sg', 'customer11', 'password', 'Member');
 INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer12@ichat.sp.edu.sg', 'customer12', 'password', 'Member');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer13@ichat.sp.edu.sg', 'customer13', 'password', 'Member');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer14@ichat.sp.edu.sg', 'customer14', 'password', 'Member');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer15@ichat.sp.edu.sg', 'customer15', 'password', 'Member');
+INSERT INTO duotexture.users(`email`, `username`, `password`, `userRole`) VALUES('customer16@ichat.sp.edu.sg', 'customer16', 'password', 'Member');
 
 -- Members Table
 CREATE TABLE `duotexture`.`members` (
@@ -50,6 +54,10 @@ INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, 
 INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '10', 'Singapore', 'Blk 123 Tampines Street 12 #01-234', '123456', 13);
 INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '11', 'United States', 'Los Angelus, Unit #21-222', '423233', 14);
 INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '12', 'Canada', 'Toronto 21 House 221 #01-234', '544542', 15);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '13', 'Canada', 'Toronto 21 House 221 #01-234', '544542', 15);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '14', 'Canada', 'Toronto 21 House 221 #01-234', '544542', 15);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '15', 'Canada', 'Toronto 21 House 221 #01-234', '544542', 15);
+INSERT INTO duotexture.members(`first_name`, `last_name`, `country`, `address`, `postal_code`, `userId`) VALUES('customer', '16', 'Canada', 'Toronto 21 House 221 #01-234', '544542', 15);
 
 -- Categories Table
 CREATE TABLE `duotexture`.`categories` (
