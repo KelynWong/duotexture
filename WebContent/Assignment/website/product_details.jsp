@@ -44,7 +44,7 @@
 				%>
 				
 				<section class="slide col-4">
-		          <img src="<%= productImage %>" class="d-block w-100">
+		          <img src="<%= productImage %>" class="d-block w-100"> <!-- note!!! -->
 		        </section>
 		
 		        <section class="col-7 px-5 py-3" style="background-color: rgba(0, 0, 0, 0.5)">
@@ -53,7 +53,9 @@
 		              <p class=""><%= productDescription %></p>
 		              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
 		              <p class="">Quantity: <%= productQuantity %></p>
-		              <button onclick="window.location.href='${pageContext.request.contextPath}/cart.jsp'" class="btn btn-danger mt-3" disabled>Add to cart</button>
+		              <form action="${pageContext.request.contextPath}/AddCartServlet?productId=<%=getProductId%>" method="post">
+		              	<button class="btn btn-danger mt-3">Add to cart</button>
+		              </form>
 		            </section>
 		        </section>
 			<% 
