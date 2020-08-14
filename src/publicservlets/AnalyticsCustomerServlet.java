@@ -89,21 +89,19 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
-				// get members
-				int pageNumber = Integer.parseInt(request.getParameter("page"));
+				// initialize fields
 				Boolean maxRecord = false;
-				
-				// get other fields
+				int pageNumber = Integer.parseInt(request.getParameter("page"));
 				String keyword = request.getParameter("keywordInput");
 				String order = request.getParameter("orderInput");
-				System.out.println(keyword);
-				System.out.println(order);
 				
-				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1);
-				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber);
+				// get members
+				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1, keyword, order);
+				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber, keyword, order);
 				if(nextMemberArrayList.size()==0) {
 					maxRecord = true;
 				}
+				
 				request.setAttribute("membersArrayList", membersArrayList);
 				
 				// forward request to jsp for display
