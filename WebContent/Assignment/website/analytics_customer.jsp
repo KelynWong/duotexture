@@ -72,7 +72,7 @@
 			  	<!-- search and add function -->
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticscustomer" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
-		            <input class="form-control col-7" name="keywordInput" type="search" placeholder="Search">
+		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
 		    			<option value="ASC" selected>Ascending</option>
 		    			<option value="DESC">Descending</option>
@@ -122,7 +122,9 @@
 							  <p>There are no records found.</p>
 							  <%
 						  } else {
-							  int pageNumber = Integer.parseInt(request.getParameter("page")); 
+							  int pageNumber = Integer.parseInt(request.getParameter("page"));
+							  String keywordInput = (String) request.getAttribute("keywordInput");
+							  String orderInput = (String) request.getAttribute("orderInput");
 							  Boolean maxRecord = false;
 							  
 							  if(request.getParameter("maxRecord")!=null) {
@@ -131,8 +133,8 @@
 	
 							  if(pageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>"><%=pageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -140,8 +142,8 @@
 						    <%
 						    if(maxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>"><%=pageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
