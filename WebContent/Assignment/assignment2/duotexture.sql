@@ -110,6 +110,7 @@ CREATE TABLE `duotexture`.`carts` (
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
+  `dateTime` DATETIME NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
   
@@ -118,6 +119,7 @@ CREATE TABLE `duotexture`.`orders` (
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
+  `dateTime` DATETIME NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
   
@@ -126,6 +128,7 @@ CREATE TABLE `duotexture`.`purchases` (
   `userId` INT NOT NULL,
   `productId` INT NOT NULL,
   `quantity` INT NOT NULL,
+  `dateTime` DATETIME NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `duotexture`.`users` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES `duotexture`.`products` (`productId`) ON DELETE CASCADE);
 
