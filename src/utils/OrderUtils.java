@@ -50,8 +50,7 @@ public class OrderUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 			
-		// statement, get all orders query and result
-		Statement stmt = conn.createStatement();
+		// prepared statement, get all orders query and result
 		String getOrdersByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, orders.quantity, orders.userId, orders.productId, orders.dateTime FROM products INNER JOIN orders ON orders.productId = products.productId WHERE userId = ?;";
 		PreparedStatement pstmt = conn.prepareStatement(getOrdersByUserIdQuery);
 		pstmt.setInt(1, userId);
@@ -90,8 +89,7 @@ public class OrderUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 				
-		// statement, get all orders query and result
-		Statement stmt = conn.createStatement();
+		// prepared statement, get one order by user id query and result
 		String getOrdersByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, orders.quantity, orders.userId, orders.productId, orders.dateTime FROM products INNER JOIN orders ON orders.productId = products.productId WHERE userId = ? AND orders.productId = ?;";
 		PreparedStatement pstmt = conn.prepareStatement(getOrdersByUserIdQuery);
 		pstmt.setInt(1, userId);
