@@ -40,6 +40,7 @@ public class PurchaseServices {
 				purchaseObject.put("userId", purchasesArrayList.get(x).getUserId());
 				purchaseObject.put("productId", purchasesArrayList.get(x).getProductId());
 				purchaseObject.put("quantity", purchasesArrayList.get(x).getQuantity());
+				purchaseObject.put("dateTime", purchasesArrayList.get(x).getDateTime());
 				
 				purchasesJSONArray.put(purchaseObject);
 			}
@@ -75,6 +76,7 @@ public class PurchaseServices {
 				purchaseObject.put("userId", purchasesArrayList.get(x).getUserId());
 				purchaseObject.put("productId", purchasesArrayList.get(x).getProductId());
 				purchaseObject.put("quantity", purchasesArrayList.get(x).getQuantity());
+				purchaseObject.put("dateTime", purchasesArrayList.get(x).getDateTime());
 				
 				purchasesJSONArray.put(purchaseObject);
 			}
