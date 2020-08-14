@@ -76,7 +76,7 @@ public class CardUtils {
 	}
 	
 	// add card
-	public static int insertCard (int userId, String cardOwner, int cardNumber, int expiryMonth, int expiryYear, int cvv) throws SQLException, ClassNotFoundException {
+	public static int insertCard (int userId, String cardOwner, String cardNumber, int expiryMonth, int expiryYear, int cvv) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
@@ -85,7 +85,7 @@ public class CardUtils {
 		PreparedStatement pstmt = conn.prepareStatement(addCardQuery);
 		pstmt.setInt(1, userId);
 	    pstmt.setString(2, cardOwner);
-	    pstmt.setInt(3, cardNumber);
+	    pstmt.setString(3, cardNumber);
 	    pstmt.setInt(4, expiryMonth);
 	    pstmt.setInt(5, expiryYear);
 	    pstmt.setInt(6, cvv);
