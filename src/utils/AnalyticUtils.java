@@ -12,15 +12,23 @@ import javabeans.Member;
 public class AnalyticUtils {
 	
 	// get all members
-	public static ArrayList<Member> getMembers (int count) throws SQLException, ClassNotFoundException {
+	public static ArrayList<Member> getMembers (int count, String keyword, String order) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
 		int limit = count*5;
+		
+		if(order.equals("null")) {
+			order = "";
+		}
+		
 		// prepared statement, get all member query and result
-		String getMembersQuery = "SELECT * FROM duotexture.members LIMIT ?, 5;";
+		String getMembersQuery = "SELECT * FROM duotexture.members WHERE members.country LIKE '%?%' OR members.address LIKE '%?%' ORDER BY members.userId ? LIMIT ?, 5;";
 		PreparedStatement pstmt = conn.prepareStatement(getMembersQuery);
-		pstmt.setInt(1, limit);
+		pstmt.setString(1, keyword);
+		pstmt.setString(2, keyword);
+		pstmt.setString(3, order);
+		pstmt.setInt(4, limit);
 		ResultSet getMembersResult = pstmt.executeQuery();
 		
 		// create new ArrayList of Members
