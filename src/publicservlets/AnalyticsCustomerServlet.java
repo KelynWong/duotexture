@@ -118,9 +118,9 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher;
 				
 				if(maxRecord == false) {
-					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber);
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"&keywordInput="+keyword+"&orderInput="+order);
 				} else {
-					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"&maxRecord=true");
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"&maxRecord=true&keywordInput="+keyword+"&orderInput="+order);
 				}
 				
 				requestDispatcher.forward(request, response);
