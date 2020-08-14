@@ -74,8 +74,7 @@
 		        	<input class="form-control" name="page" type="hidden" value="1">
 		            <input class="form-control col-7" name="keywordInput" type="search" placeholder="Search">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
-		    			<option value="NIL" selected>None</option>
-		    			<option value="ASC">Ascending</option>
+		    			<option value="ASC" selected>Ascending</option>
 		    			<option value="DESC">Descending</option>
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
