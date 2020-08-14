@@ -92,6 +92,13 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				// get members
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
 				Boolean maxRecord = false;
+				
+				// get other fields
+				String keyword = request.getParameter("keywordInput");
+				String order = request.getParameter("orderInput");
+				System.out.println(keyword);
+				System.out.println(order);
+				
 				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1);
 				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber);
 				if(nextMemberArrayList.size()==0) {
