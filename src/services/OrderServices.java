@@ -40,6 +40,7 @@ public class OrderServices {
 				orderObject.put("userId", ordersArrayList.get(x).getUserId());
 				orderObject.put("productId", ordersArrayList.get(x).getProductId());
 				orderObject.put("quantity", ordersArrayList.get(x).getQuantity());
+				orderObject.put("dateTime", ordersArrayList.get(x).getDateTime());
 				
 				ordersJSONArray.put(orderObject);
 			}
@@ -75,6 +76,7 @@ public class OrderServices {
 				orderObject.put("userId", ordersArrayList.get(x).getUserId());
 				orderObject.put("productId", ordersArrayList.get(x).getProductId());
 				orderObject.put("quantity", ordersArrayList.get(x).getQuantity());
+				orderObject.put("dateTime", ordersArrayList.get(x).getDateTime());
 				
 				ordersJSONArray.put(orderObject);
 			}
