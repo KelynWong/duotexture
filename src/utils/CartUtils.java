@@ -50,7 +50,7 @@ public class CartUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get carts by user id query and result
-		String getCartsByUserIdQuery = "SELECT * FROM duotexture.carts WHERE userId=?;";
+		String getCartsByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, carts.quantity, carts.userId, carts.productId, carts.dateTime FROM duotexture.products INNER JOIN duotexture.carts ON carts.productId = products.productId WHERE userId = ?;";
 		PreparedStatement pstmt = conn.prepareStatement(getCartsByUserIdQuery);
 		pstmt.setInt(1,  userId);
 		ResultSet getCartsByUserIdResult = pstmt.executeQuery();
