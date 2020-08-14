@@ -16,23 +16,33 @@ public class AnalyticUtils {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 		
+		// compute limit formula
 		int limit = count*5;
 		
+		// check keyword input
 		if(keyword == null) {
 			keyword = "";
 		}
 		
-		if(order.equals("NIL") || order == null) {
-			order = "";
+		// check order input
+		if(order == null) {
+			order = "ASC";
 		}
 		
 		// prepared statement, get all member query and result
-		String getMembersQuery = "SELECT * FROM duotexture.members WHERE members.country LIKE ? OR members.address LIKE ? ORDER BY members.userId ? LIMIT ?, 5;";
+		String getMembersQuery = "SELECT * FROM duotexture.members WHERE members.country LIKE ? OR members.address LIKE ? ORDER BY members.userId ";
+		
+		// prepared statement inserts string, which is denied, therefore validation required
+		if(order.equals("ASC")) {
+			getMembersQuery += "ASC LIMIT ?,5;";
+		}else {
+			getMembersQuery += "DESC LIMIT ?,5;";
+		}
+		
 		PreparedStatement pstmt = conn.prepareStatement(getMembersQuery);
 		pstmt.setString(1, "%" + keyword + "%");
 		pstmt.setString(2, "%" + keyword + "%");
-		pstmt.setString(3, order);
-		pstmt.setInt(4, limit);
+		pstmt.setInt(3, limit);
 		ResultSet getMembersResult = pstmt.executeQuery();
 		
 		// create new ArrayList of Members
