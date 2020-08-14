@@ -33,6 +33,7 @@ public class CartUtils {
 			cartBean.setUserId(getCartsResult.getInt("userId"));
 			cartBean.setProductId(getCartsResult.getInt("productId"));
 			cartBean.setQuantity(getCartsResult.getInt("quantity"));
+			cartBean.setDateTime(getCartsResult.getString("dateTime"));
 			
 			// add cartBean to cartsArrayList
 			cartsArrayList.add(cartBean);
@@ -65,6 +66,7 @@ public class CartUtils {
 			cartBean.setUserId(getCartsByUserIdResult.getInt("userId"));
 			cartBean.setProductId(getCartsByUserIdResult.getInt("productId"));
 			cartBean.setQuantity(getCartsByUserIdResult.getInt("quantity"));
+			cartBean.setDateTime(getCartsByUserIdResult.getString("dateTime"));
 			
 			// add cartBean to cartsArrayList
 			cartsArrayList.add(cartBean);
@@ -76,16 +78,17 @@ public class CartUtils {
 	}
 	
 	// add cart
-	public static int insertCart (int userId, int productId, int quantity) throws SQLException, ClassNotFoundException {
+	public static int insertCart (int userId, int productId, int quantity, String dateTime) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add cart query and result
-		String addCartQuery = "INSERT INTO duotexture.carts(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
+		String addCartQuery = "INSERT INTO duotexture.carts(`userId`, `productId`, `quantity`, `dateTime`) VALUES(?, ?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addCartQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
 		pstmt.setInt(3, quantity);
+		pstmt.setString(4, dateTime);
 	    
 		int count = pstmt.executeUpdate(); 
 		
@@ -94,26 +97,72 @@ public class CartUtils {
 		return count;
 	}
 	
-	// edit cart
-	public static int editCart (int userId, int productId, int quantity) throws SQLException, ClassNotFoundException {
+	// edit cart increase
+	public static int editCartIncrease (int userId, int productId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get cart quantity query and result
+		String getCartQuantityQuery = "SELECT quantity FROM duotexture.carts WHERE userId=? AND productId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(getCartQuantityQuery);
+		pstmt.setInt(1, userId);
+		pstmt.setInt(2, productId);
+		ResultSet getCartQuantityResult = pstmt.executeQuery();
+		
+		int quantity = 0;
+		while(getCartQuantityResult.next()) {
+			quantity = getCartQuantityResult.getInt("quantity");
+		}
+		quantity++;
 
-		// prepared statement, edit cart query and result
-		String updateCartQuery = "UPDATE duotexture.carts SET productId=?, quantity=? WHERE userId=? AND productId=?"; 
-		PreparedStatement pstmt = conn.prepareStatement(updateCartQuery);
-		pstmt.setInt(1, productId);
-		pstmt.setInt(2, quantity);
-		pstmt.setInt(3, userId);
-		pstmt.setInt(4, productId);
-		int count = pstmt.executeUpdate(); 
+		// prepared statement, increase cart by editing cart query and result
+		String updateCartQuery = "UPDATE duotexture.carts SET quantity=? WHERE userId=? AND productId=?"; 
+		PreparedStatement pstmt2 = conn.prepareStatement(updateCartQuery);
+		pstmt2.setInt(1, quantity);
+		pstmt2.setInt(2, userId);
+		pstmt2.setInt(3, productId);
+		int count = pstmt2.executeUpdate(); 
 		
 		// close connection
 		conn.close();
 		return count;
 	}
 	
-	// delete cart
+	// edit cart decrease
+	public static int editCartDecrease (int userId, int productId) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+			
+		// prepared statement, get cart quantity query and result
+		String getCartQuantityQuery = "SELECT quantity FROM duotexture.carts WHERE userId=? AND productId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(getCartQuantityQuery);
+		pstmt.setInt(1, userId);
+		pstmt.setInt(2, productId);
+		ResultSet getCartQuantityResult = pstmt.executeQuery();
+			
+		int quantity = 0;
+		while(getCartQuantityResult.next()) {
+			quantity = getCartQuantityResult.getInt("quantity");
+		}
+		quantity--;
+
+		int count = 0;
+		if(quantity > 0) {
+			// prepared statement, increase cart quantity by editing cart query and result
+			String updateCartQuery = "UPDATE duotexture.carts SET quantity=? WHERE userId=? AND productId=?"; 
+			PreparedStatement pstmt2 = conn.prepareStatement(updateCartQuery);
+			pstmt2.setInt(1, quantity);
+			pstmt2.setInt(2, userId);
+			pstmt2.setInt(3, productId);
+			count = pstmt2.executeUpdate(); 
+		}
+		
+		// close connection
+		conn.close();
+		return count;
+	}
+	
+	// delete a cart product
 	public static int deleteCart (int userId, int productId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
@@ -130,17 +179,17 @@ public class CartUtils {
 		return count;
 	}
 	
-	// delete carts
-	public static int deleteCarts (int userId) throws SQLException, ClassNotFoundException {
+	// delete all of cart
+	public static int deleteAllCart (int userId) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
-		
+			
 		// prepared statement, delete cart query and result
-		String deleteCartQuery = "DELETE FROM duotexture.carts WHERE userId=?"; 
-		PreparedStatement pstmt = conn.prepareStatement(deleteCartQuery);
-	    pstmt.setInt(1, userId);
+		String deleteAllCartQuery = "DELETE FROM duotexture.carts WHERE userId=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(deleteAllCartQuery);
+		pstmt.setInt(1, userId);
 		int count = pstmt.executeUpdate(); 
-		
+			
 		// close connection
 		conn.close();
 		return count;
