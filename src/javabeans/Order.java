@@ -4,6 +4,7 @@ public class Order {
 	private int userId;
 	private int productId;
 	private int quantity;
+	private String dateTime;
 	
 	// default constructor
 	public Order() {
@@ -11,10 +12,11 @@ public class Order {
 	}
 	
 	// constructor overload
-	public Order(int userId, int productId, int quantity) {
+	public Order(int userId, int productId, int quantity, String dateTime) {
 		this.userId = userId;
 		this.productId = productId;
 		this.quantity = quantity;
+		this.dateTime = dateTime;
 	}
 	
 	// get user id
@@ -32,6 +34,11 @@ public class Order {
 		return quantity;
 	}
 	
+	// get date time
+	public String getDateTime() {
+		return dateTime;
+	}
+	
 	// set user id
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -45,5 +52,10 @@ public class Order {
 	// set quantity
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	// set date time
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 }
