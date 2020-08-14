@@ -19,16 +19,6 @@ public class AnalyticUtils {
 		// compute limit formula
 		int limit = count*5;
 		
-		// check keyword input
-		if(keyword == null) {
-			keyword = "";
-		}
-		
-		// check order input
-		if(order == null) {
-			order = "ASC";
-		}
-		
 		// prepared statement, get all member query and result
 		String getMembersQuery = "SELECT * FROM duotexture.members WHERE members.country LIKE ? OR members.address LIKE ? ORDER BY members.userId ";
 		

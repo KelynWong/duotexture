@@ -95,6 +95,16 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				String keyword = request.getParameter("keywordInput");
 				String order = request.getParameter("orderInput");
 				
+				// check keyword input
+				if(keyword == null) {
+					keyword = "";
+				}
+				
+				// check order input
+				if(order == null) {
+					order = "ASC";
+				}
+				
 				// get members
 				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1, keyword, order);
 				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber, keyword, order);
