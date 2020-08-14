@@ -97,6 +97,7 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				
 				// check keyword input
 				if(keyword == null) {
+					System.out.println(keyword);
 					keyword = "";
 				}
 				
@@ -113,16 +114,15 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				}
 				
 				request.setAttribute("membersArrayList", membersArrayList);
-				
-				// forward request to jsp for display
-				RequestDispatcher requestDispatcher;
-				
+				request.setAttribute("pageNumber", pageNumber);
+				request.setAttribute("keywordInput", keyword);
+				request.setAttribute("orderInput", order);
 				if(maxRecord == false) {
-					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"&keywordInput="+keyword+"&orderInput="+order);
-				} else {
-					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"&maxRecord=true&keywordInput="+keyword+"&orderInput="+order);
+					request.setAttribute("maxRecord", true);
 				}
 				
+				// forward request to jsp for display
+				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
 				System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: Response not ok. \n");
