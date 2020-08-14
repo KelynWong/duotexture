@@ -44,6 +44,46 @@ public class OrderUtils {
 		return OrdersArrayList;
 	}
 	
+	// get orders by user id
+	public static ArrayList<Order> getOrdersByUserId (int userId) throws SQLException, ClassNotFoundException {
+			
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+			
+		// statement, get all orders query and result
+		Statement stmt = conn.createStatement();
+		String getOrdersByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, orders.quantity, orders.userId, orders.productId, orders.dateTime FROM products INNER JOIN orders ON orders.productId = products.productId WHERE userId = ?;";
+		PreparedStatement pstmt = conn.prepareStatement(getOrdersByUserIdQuery);
+		pstmt.setInt(1, userId);
+		ResultSet getOrdersByUserIdResult = pstmt.executeQuery(); 
+			
+		// create new ArrayList of order
+		ArrayList<Order> OrdersArrayList = new ArrayList<Order>();
+			
+		// loop if there are new row
+		while(getOrdersByUserIdResult.next()) {
+			// create an instance of Order
+			Order OrderBean = new Order();
+				
+			OrderBean.setUserId(getOrdersByUserIdResult.getInt("userId"));
+			OrderBean.setProductId(getOrdersByUserIdResult.getInt("productId"));
+			OrderBean.setQuantity(getOrdersByUserIdResult.getInt("quantity"));
+			OrderBean.setDateTime(getOrdersByUserIdResult.getString("dateTime"));
+				
+			OrderBean.setProductName(getOrdersByUserIdResult.getString("name"));
+			OrderBean.setProductDescription(getOrdersByUserIdResult.getString("description"));
+			OrderBean.setProductCostPrice(getOrdersByUserIdResult.getDouble("cost_price"));
+			OrderBean.setProductImage(getOrdersByUserIdResult.getString("image"));
+				
+			// add orderBean to OrdersArrayList
+			OrdersArrayList.add(OrderBean);
+		}
+			
+		// close connection
+		conn.close();
+		return OrdersArrayList;
+	}
+	
 	// get one order by user id
 	public static ArrayList<Order> getOrderByUserId (int userId, int productId) throws SQLException, ClassNotFoundException {
 				
