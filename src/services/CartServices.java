@@ -40,6 +40,7 @@ public class CartServices {
 				cartObject.put("userId", cartsArrayList.get(x).getUserId());
 				cartObject.put("productId", cartsArrayList.get(x).getProductId());
 				cartObject.put("quantity", cartsArrayList.get(x).getQuantity());
+				cartObject.put("dateTime", cartsArrayList.get(x).getDateTime());
 				
 				cartsJSONArray.put(cartObject);
 			}
@@ -76,6 +77,7 @@ public class CartServices {
 				cartObject.put("userId", cartsArrayList.get(x).getUserId());
 				cartObject.put("productId", cartsArrayList.get(x).getProductId());
 				cartObject.put("quantity", cartsArrayList.get(x).getQuantity());
+				cartObject.put("dateTime", cartsArrayList.get(x).getDateTime());
 				
 				cartsJSONArray.put(cartObject);
 			}
