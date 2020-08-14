@@ -76,16 +76,17 @@ public class PurchaseUtils {
 	}
 	
 	// add purchase
-	public static int insertPurchase (int userId, int productId, int quantity) throws SQLException, ClassNotFoundException {
+	public static int insertPurchase (int userId, int productId, int quantity, String dateTime) throws SQLException, ClassNotFoundException {
 		// connect to database
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add purchase query and result
-		String addPurchaseQuery = "INSERT INTO duotexture.purchases(`userId`, `productId`, `quantity`) VALUES(?, ?, ?);";
+		String addPurchaseQuery = "INSERT INTO duotexture.purchases(`userId`, `productId`, `quantity`, `dateTime`) VALUES(?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addPurchaseQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
 		pstmt.setInt(3, quantity);
+		pstmt.setString(4, dateTime);
 	    
 		int count = pstmt.executeUpdate(); 
 		
