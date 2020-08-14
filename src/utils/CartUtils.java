@@ -68,6 +68,11 @@ public class CartUtils {
 			cartBean.setQuantity(getCartsByUserIdResult.getInt("quantity"));
 			cartBean.setDateTime(getCartsByUserIdResult.getString("dateTime"));
 			
+			cartBean.setProductName(getCartsByUserIdResult.getString("name"));
+			cartBean.setProductDescription(getCartsByUserIdResult.getString("description"));
+			cartBean.setProductCostPrice(getCartsByUserIdResult.getDouble("cost_price"));
+			cartBean.setProductImage(getCartsByUserIdResult.getString("image"));
+			
 			// add cartBean to cartsArrayList
 			cartsArrayList.add(cartBean);
 		}
