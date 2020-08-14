@@ -69,6 +69,17 @@
 			<div class="tab-content col-8" id="v-pills-tabContent" style="margin:auto">
 			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel">
 			  	<h5>Customer Analysis</h5>
+			  	<!-- search and add function -->
+		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticscustomer" method="get">
+		        	<input class="form-control" name="pageInput" type="hidden" value="1">
+		            <input class="form-control col-7" name="keywordInput" type="search" placeholder="Search">
+		            <select class="form-control mx-2" id="orderInput" name="orderInput">
+		    			<option value="NIL" selected>None</option>
+		    			<option value="ASC">Ascending</option>
+		    			<option value="DESC">Descending</option>
+	    			</select>
+		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
+		        </form>
 			  	  <!-- List of Customers -->
 				  <table class="table table-bordered">
 				  <thead class="thead-dark">
