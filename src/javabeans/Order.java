@@ -6,17 +6,27 @@ public class Order {
 	private int quantity;
 	private String dateTime;
 	
+	private String productName;
+	private String productDescription;
+	private double productCostPrice;
+	private String productImage;
+	
 	// default constructor
 	public Order() {
 		
 	}
 	
 	// constructor overload
-	public Order(int userId, int productId, int quantity, String dateTime) {
+	public Order(int userId, int productId, int quantity, String dateTime, String productName, String productDescription, double productCostPrice, String productImage) {
 		this.userId = userId;
 		this.productId = productId;
 		this.quantity = quantity;
 		this.dateTime = dateTime;
+		
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.productCostPrice = productCostPrice;
+		this.productImage = productImage;
 	}
 	
 	// get user id
@@ -34,9 +44,29 @@ public class Order {
 		return quantity;
 	}
 	
-	// get date time
+	// get dateTime
 	public String getDateTime() {
 		return dateTime;
+	}
+	
+	// get product name
+	public String getProductName() {
+		return productName;
+	}
+			
+	// get product description
+	public String getProductDescription() {
+		return productDescription;
+	}
+			
+	// get product cost price
+	public double getProductCostPrice() {
+		return productCostPrice;
+	}
+		
+	// get product image
+	public String getProductImage() {
+		return productImage;
 	}
 	
 	// set user id
@@ -57,5 +87,25 @@ public class Order {
 	// set date time
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
+	}
+	
+	// set product name
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+			
+	// set product description
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+			
+	// set product cost price
+	public void setProductCostPrice(double productCostPrice) {
+		this.productCostPrice = productCostPrice;
+	}
+			
+	// set product image
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 }
