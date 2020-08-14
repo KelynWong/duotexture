@@ -35,55 +35,61 @@
 			if(request.getAttribute("categoriesArrayList") != null) {
 				categoriesArrayList = (ArrayList<Category>) request.getAttribute("categoriesArrayList");
 		
-		for(int x=0; x<categoriesArrayList.size(); x++) {
-		%>
-			<li class="nav-item">
-	          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
-	        </li>
-        <% 
-		} 
-			
-		try{
-           	if(session.getAttribute("accountType")!=null){
-           		// if account is admin, allow access to add function
-            	if(session.getAttribute("accountType").equals("admin")){
-                   	%>
-                   	<a class="nav-link custom-font-mont fs-15 text-success" href="${pageContext.request.contextPath}/addcategory" style="margin-left: 10px">Add</a>
-                   	<%
-                }
-           	}
-           	
-		} catch(Exception e){
-        	System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
-        } 
-		%>
-        </ul>
-        
-        <ul class="navbar-nav ml-auto">
-		<%
-		try{
-			// check if user's account and retrieve their username
-			if(session.getAttribute("accountType")!=null){ %>
-					<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/editprofile?userId=<%=session.getAttribute("userId")%>"><%=session.getAttribute("username")%></a>
-					<%
-					if(session.getAttribute("accountType").equals("admin")){
+			for(int x=0; x<categoriesArrayList.size(); x++) {
+			%>
+				<li class="nav-item">
+		          <a class="nav-link custom-font-mont fs-15" href="${pageContext.request.contextPath}/productlistings?categoryId=<%= categoriesArrayList.get(x).getCategoryId() %>" role="button"><%= categoriesArrayList.get(x).getName() %></a>
+		        </li>
+	        <% 
+			} 
+				
+			try{
+	           	if(session.getAttribute("accountType")!=null){
+	           		// if account is admin, allow access to add function
+	            	if(session.getAttribute("accountType").equals("admin")){
+	                   	%>
+	                   	<a class="nav-link custom-font-mont fs-15 text-success" href="${pageContext.request.contextPath}/addcategory" style="margin-left: 10px">Add</a>
+	                   	<%
+	                }
+	           	}
+	           	
+			} catch(Exception e){
+	        	System.out.println("(navigation.jsp) Admin Add Access Error: " + e + "\n");
+	        } 
+			%>
+	        </ul>
+	        
+	        <ul class="navbar-nav ml-auto">
+			<%
+			try{
+				// check if user's account and retrieve their username
+				if(session.getAttribute("accountType")!=null){ %>
+						<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/editprofile?userId=<%=session.getAttribute("userId")%>"><%=session.getAttribute("username")%></a>
+						<%
+						if(session.getAttribute("accountType").equals("admin")){
+						%>
+							<a class="nav-link custom-font-mont fs-15 text-info" href="${pageContext.request.contextPath}/analyticscustomer?page=1">Analytics</a>
+						<%
+						} else {
+						%>
+							<a class="nav-link custom-font-mont fs-15 text-success" href="${pageContext.request.contextPath}/cart" style="margin-left: 10px">Cart</a>
+							<a class="nav-link custom-font-mont fs-15 text-success" href="${pageContext.request.contextPath}/orders" style="margin-left: 10px">Orders</a>
+							<a class="nav-link custom-font-mont fs-15 text-success" href="${pageContext.request.contextPath}/purchases" style="margin-left: 10px">Purchases</a>
+						<%
+						}
+						%>
+						<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/SignOutServlet">Log Out</a>
+						<%
+				}else{
 					%>
-						<a class="nav-link custom-font-mont fs-15 text-info" href="${pageContext.request.contextPath}/analyticscustomer?page=1">Analytics</a>
+		        	<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/login">Login</a>
+		        	<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/signup">Sign Up</a>
 					<%
-					}
-					%>
-					<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/SignOutServlet">Log Out</a>
-					<%
-			}else{
-				%>
-	        	<a class="nav-link custom-font-mont fs-15 text-primary" href="${pageContext.request.contextPath}/login">Login</a>
-	        	<a class="nav-link custom-font-mont fs-15 text-danger" href="${pageContext.request.contextPath}/signup">Sign Up</a>
-				<%
+				}
+				
+			} catch(Exception e){ 
+				System.out.println("(navigation.jsp) Error: " + e + "\n");
 			}
-			
-		} catch(Exception e){ 
-			System.out.println("(navigation.jsp) Error: " + e + "\n");
-		}
 		
 		
 		} else {
