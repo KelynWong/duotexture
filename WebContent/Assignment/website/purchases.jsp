@@ -66,24 +66,57 @@
 							  <tbody>
 		  					<%
 		  					for(int x=0; x<purchaseArrayList.size(); x++) {
+		  						
+		  						String dateTime = purchaseArrayList.get(x).getDateTime();
+		  						String productImage = purchaseArrayList.get(x).getProductImage();
+		  						String productName = purchaseArrayList.get(x).getProductName();
+		  						String productCostPrice = String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice());
+		  						int productQuantity = purchaseArrayList.get(x).getQuantity();
+		  						String productTotalPrice = String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice()*purchaseArrayList.get(x).getQuantity());
+		  						
+		  						// check if product has the same purchase date and time
+		  						Boolean similarCart = false;
+		  						
+		  						if(x==0){
+		  							similarCart = false;
+		  						} else if(x==purchaseArrayList.size()-1){
+		  							similarCart = purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x-1).getDateTime());
+		  						} else {
+		  							similarCart = purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x+1).getDateTime()) || purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x-1).getDateTime());
+		  						}
+								
+		  						if(similarCart){
 		  							%>
 		  							<tr>
-		  							  <th scope="row"><%=purchaseArrayList.get(x).getDateTime()%></th>
-								      <td><img src="<%=purchaseArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></td>
-								      <td><%=purchaseArrayList.get(x).getProductName()%></td>
-								      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice())%></td>
-								      <td><%=purchaseArrayList.get(x).getQuantity()%></td>
-								      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice()*purchaseArrayList.get(x).getQuantity())%></td>
+		  							  <th scope="row"></th>
+								      <td><img src="<%=productImage%>" style="height:50px" alt="..."></td>
+								      <td><%=productName%></td>
+								      <td>$<%=productCostPrice%></td>
+								      <td><%=productQuantity%></td>
+								      <td>$<%=productTotalPrice%></td>
 								    </tr>
 								    <%
+		  						} else {
+		  							%>
+		  							<tr><th scope="row"><%=dateTime%></th></tr>
+		  							<tr>
+		  							  <th scope="row"></th>
+								      <td><img src="<%=productImage%>" style="height:50px" alt="..."></td>
+								      <td><%=productName%></td>
+								      <td>$<%=productCostPrice%></td>
+								      <td><%=productQuantity%></td>
+								      <td>$<%=productTotalPrice%></td>
+								    </tr>
+		  							<%
 		  						}
+		  					}
 		  						%>
 		  						</tbody>
 							</table>
 						</div>
 						
-						<form action="${pageContext.request.contextPath}/index">
-							<button type="submit" class="btn btn-outline-success">Home</button>
+						<form action="${pageContext.request.contextPath}/orders">
+							<button type="submit" class="btn btn-outline-success">View Existing Orders</button>
 						</form>
 		  				<%	
 	        			} else { %>
