@@ -31,18 +31,9 @@ import utils.CategoryUtils;
 public class EditCartDecreaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditCartDecreaseServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -52,6 +43,7 @@ public class EditCartDecreaseServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is member
 				if(!session.getAttribute("accountType").equals("member")){
 					out.println("<script type='text/javascript'>");
@@ -73,10 +65,9 @@ public class EditCartDecreaseServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -86,6 +77,7 @@ public class EditCartDecreaseServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is member
 				if(!session.getAttribute("accountType").equals("member")){
 					out.println("<script type='text/javascript'>");
@@ -95,14 +87,16 @@ public class EditCartDecreaseServlet extends HttpServlet {
 				} else {
 					try {       
 						if(request.getParameter("productId")!=null){
+							
+							// initialize variables
 							int userId = (int)session.getAttribute("userId");
 							int productId = Integer.parseInt(request.getParameter("productId"));
 							String currency = request.getParameter("currency");
 
 							// edit cart decrease
-							int count = CartUtils.editCartDecrease(userId, productId); 
+							int editCartDecreaseCount = CartUtils.editCartDecrease(userId, productId); 
 									
-							if(count > 0){
+							if(editCartDecreaseCount > 0){
 								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=success&currency="+currency); 
 							}else{
 								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=fail&currency="+currency);
