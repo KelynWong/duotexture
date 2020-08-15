@@ -31,18 +31,9 @@ import utils.MemberUtils;
 public class EditProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditProfileServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -51,8 +42,8 @@ public class EditProfileServlet extends HttpServlet {
 		
 		try{ 
 			// validate if user is logged in with an account type
-			if(session.getAttribute("accountType")!=null){
-				System.out.println("(adminservlets/EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile.\n"); 
+			if(session.getAttribute("accountType")!=null) {
+				System.out.println("(adminservlets/EditProfileServlet) There's no action to be taken for GET. Redirecting to edit_profile.jsp to edit profile. \n"); 
 				response.sendRedirect(request.getContextPath() + "/editprofile");
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -65,10 +56,9 @@ public class EditProfileServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
