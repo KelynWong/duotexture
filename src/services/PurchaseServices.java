@@ -42,6 +42,11 @@ public class PurchaseServices {
 				purchaseObject.put("quantity", purchasesArrayList.get(x).getQuantity());
 				purchaseObject.put("dateTime", purchasesArrayList.get(x).getDateTime());
 				
+				purchaseObject.put("productName", purchasesArrayList.get(x).getProductName());
+				purchaseObject.put("productDescription", purchasesArrayList.get(x).getProductDescription());
+				purchaseObject.put("productCostPrice", purchasesArrayList.get(x).getProductCostPrice());
+				purchaseObject.put("productImage", purchasesArrayList.get(x).getProductImage());
+				
 				purchasesJSONArray.put(purchaseObject);
 			}
 			
@@ -77,6 +82,11 @@ public class PurchaseServices {
 				purchaseObject.put("productId", purchasesArrayList.get(x).getProductId());
 				purchaseObject.put("quantity", purchasesArrayList.get(x).getQuantity());
 				purchaseObject.put("dateTime", purchasesArrayList.get(x).getDateTime());
+				
+				purchaseObject.put("productName", purchasesArrayList.get(x).getProductName());
+				purchaseObject.put("productDescription", purchasesArrayList.get(x).getProductDescription());
+				purchaseObject.put("productCostPrice", purchasesArrayList.get(x).getProductCostPrice());
+				purchaseObject.put("productImage", purchasesArrayList.get(x).getProductImage());
 				
 				purchasesJSONArray.put(purchaseObject);
 			}
