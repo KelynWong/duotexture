@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+import javabeans.Card;
 import javabeans.Cart;
 import javabeans.Category;
 
@@ -107,62 +110,124 @@ public class AddPaymentServlet extends HttpServlet {
     						String dateTime = dateFormat.format(new Date());
 									
 							if(Pattern.matches("^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$", checkCardNumber) == true) {
-								Date d=new Date();  
-						        int year=d.getYear();  
-						        int currentYear=year+1900;
+								Date date = new Date();  
+								LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						        int currentYear = localDate.getYear();  
+						        int currentMonth = localDate.getMonthValue();
+						        
+						        // check year
 								if(expiryYear >= currentYear) {
-									int month=d.getMonth();  
-							        int currentMonth=month+1;
-							        
-							        if(expiryMonth >= currentMonth) {
-							        	int userId = (int)session.getAttribute("userId");
-
-										// add payment
-										int count = CardUtils.insertCard(userId, cardOwner, checkCardNumber, expiryMonth, expiryYear, cvv);
-											
-										if(count > 0){
-											ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
-											cartArrayList = CartUtils.getCartsByUserId(userId);
+									// check month
+									if(expiryMonth < 12) {
+										
+										// check year and month
+										if(expiryYear == currentYear) {
+											if(expiryMonth >= currentMonth) {
+												int userId = (int)session.getAttribute("userId");
+												
+												// update payment by deleting before adding
+												CardUtils.deleteCard(userId);
 													
-											if(cartArrayList.size() != 0) {
-												int count2 = 0;
-												// transfer to order
-												for (int x=0; x<cartArrayList.size(); x++) {
-						    						// add order
-													count2 = OrderUtils.insertOrder(cartArrayList.get(x).getUserId(), cartArrayList.get(x).getProductId(), cartArrayList.get(x).getQuantity(), dateTime);
-												}
-														
-												if(count2 > 0) {
-													// delete cart
-													int count3 = CartUtils.deleteAllCart(userId); 
+												// add payment
+												int count = CardUtils.insertCard(userId, cardOwner, checkCardNumber, expiryMonth, expiryYear, cvv);
+												
+												if(count > 0){
+													ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
+													cartArrayList = CartUtils.getCartsByUserId(userId);
 															
-													if(count3 > 0) {
-														response.sendRedirect(request.getContextPath() + "/payment?payment=success"); 
+													if(cartArrayList.size() != 0) {
+														int count2 = 0;
+														
+														// transfer to order
+														for (int x=0; x<cartArrayList.size(); x++) {
+								    						// add order
+															count2 = OrderUtils.insertOrder(cartArrayList.get(x).getUserId(), cartArrayList.get(x).getProductId(), cartArrayList.get(x).getQuantity(), dateTime);
+														}
+																
+														if(count2 > 0) {
+															// delete cart
+															int count3 = CartUtils.deleteAllCart(userId); 
+																	
+															if(count3 > 0) {
+																response.sendRedirect(request.getContextPath() + "/payment?payment=success"); 
+															}else {
+																System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to delete cart\n");
+																response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+															}
+															
+														}else {
+															System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to insert to order\n");
+															response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+														}
 													}else {
-														System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to delete cart\n");
+														System.out.println("(adminservlets/AddPaymentServlet) Error: CartArrayList is empty\n");
+														response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+													}
+												} else{
+													System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to insert card\n");
+													response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+												}
+											} else{
+												System.out.println("(adminservlets/AddPaymentServlet) Error: Card Expired (Month in Year) \n");
+												response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+											}
+										} else {
+											int userId = (int)session.getAttribute("userId");
+											
+											// update payment by deleting before adding
+											CardUtils.deleteCard(userId);
+											System.out.println("here");
+											// add payment
+											int count = CardUtils.insertCard(userId, cardOwner, checkCardNumber, expiryMonth, expiryYear, cvv);
+												
+											if(count > 0){
+												ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
+												cartArrayList = CartUtils.getCartsByUserId(userId);
+												System.out.println("here2");
+												if(cartArrayList.size() != 0) {
+													int count2 = 0;
+													
+													// transfer to order
+													for (int x=0; x<cartArrayList.size(); x++) {
+														System.out.println("here4");
+							    						// add order
+														count2 = OrderUtils.insertOrder(cartArrayList.get(x).getUserId(), cartArrayList.get(x).getProductId(), cartArrayList.get(x).getQuantity(), dateTime);
+													}
+															
+													if(count2 > 0) {
+														// delete cart
+														int count3 = CartUtils.deleteAllCart(userId); 
+														System.out.println("here3");
+														if(count3 > 0) {
+															response.sendRedirect(request.getContextPath() + "/payment?payment=success"); 
+														}else {
+															System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to delete cart\n");
+															response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+														}
+														
+													}else {
+														System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to insert to order\n");
 														response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
 													}
 												}else {
-													System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to insert to order\n");
+													System.out.println("(adminservlets/AddPaymentServlet) Error: CartArrayList is empty\n");
 													response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
 												}
-											}else {
-												System.out.println("(adminservlets/AddPaymentServlet) Error: CartArrayList is empty\n");
+											} else{
+												System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to insert card\n");
 												response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
 											}
-										} else{
-											response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
-										}
-							        }else {
-							        	System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired\n");
+										}   
+							        } else {
+										System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired (Month) \n");
 										response.sendRedirect(request.getContextPath() + "/payment?payment=expired");
-							        }
+									}
 								}else {
-									System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired\n");
+									System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired (Year) \n");
 									response.sendRedirect(request.getContextPath() + "/payment?payment=expired");
 								}
 							}else {
-								System.out.println("(adminservlets/AddPaymentServlet) Error: Wrong card information\n");
+								System.out.println("(adminservlets/AddPaymentServlet) Error: Failed formatting validation\n");
 								response.sendRedirect(request.getContextPath() + "/payment?payment=cardFail");
 							}
 						} else{
