@@ -62,7 +62,7 @@
 								<%
 								ArrayList<Rate> ratesArrayList = (ArrayList<Rate>) request.getAttribute("ratesArrayList");
 								String currency = (String) request.getAttribute("currency");
-								System.out.println(currency);
+								
 								for(int x=0; x<ratesArrayList.size(); x++){
 									if(ratesArrayList.get(x).getRateType().equals(currency)){
 										%>
@@ -75,15 +75,13 @@
 								}%>
 							</select>
 							</div>
-							<div style="float: left">
-								<button type="submit" class="btn btn-success">Convert</button>
+							<div class="ml-2" style="float: left">
+								<button type="submit" class="btn btn-info">Convert</button>
 							</div>
 						</form>
 					</div>
 			    </div>
 			</div>
-
-			<span>You are now viewing the price in <%=currency%></span>
         <hr>
         
         	<div class="mx-auto col-12 bo-rad-10" style="background-color: rgb(255, 255, 255)">
@@ -95,87 +93,57 @@
 		        		// display cart
 		        		if(request.getAttribute("cartArrayList") != null){
 		        			ArrayList<Cart> cartArrayList = (ArrayList<Cart>) request.getAttribute("cartArrayList");
-		        			if(cartArrayList.size() != 0){
+		        			if(cartArrayList.size() == 0){
+								%>
+								<p>You currently do not have any items in your cart.</p>
+								<a class="btn btn-primary" href="${pageContext.request.contextPath}/categories" role="button">Explore</a>
+								<%
+							} else {
 		        				%>
-		        				<table class="table w-auto">
-								  <thead class="thead-dark">
+		        				<p>You are now viewing the price in <span class="text-info"><%=currency%></span></p>
+		        				<table class="table table-bordered">
+								  <thead class="table-dark">
 								    <tr>
 								      <th scope="col">Image</th>
 								      <th scope="col">Product Name</th>
 								      <th scope="col">Price</th>
-								      <th scope="col">Qty</th>
-								      <th scope="col"></th>
-								      <th scope="col"></th>
+								      <th scope="col">Quantity</th>
 								      <th scope="col">Total</th>
-								      <th scope="col"></th>
+								      <th scope="col" style="min-width: 10vw">Action</th>
 								    </tr>
 								  </thead>
 								  <tbody>
 								<%
 								for(int x=0; x<cartArrayList.size(); x++) {
-									if(request.getAttribute("rate") != null){
-										Double rate = (Double) request.getAttribute("rate");
+									Double rate = (Double) request.getAttribute("rate");
+									String productImage = cartArrayList.get(x).getProductImage();
+									String productName = cartArrayList.get(x).getProductName();
+									String productCost = String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*rate);
+									int productQuantity = cartArrayList.get(x).getQuantity();
+									String productTotalCost = String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate);
 									%>
 									<tr>
-								      <th><img src="<%=cartArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></th>
-								      <td><%=cartArrayList.get(x).getProductName()%></td>
-								      <td>$<%=String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*rate)%></td>
-								      <td><%=cartArrayList.get(x).getQuantity()%></td>
-								      <td>
-								      	<form action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
-										  	<button type="submit" class="btn btn-danger">-</button>
+								      <th><img src="<%=productImage%>" style="height:50px" alt="Product Image"></th>
+								      <td><%=productName%></td>
+								      <td>$<%=productCost%></td>
+								      <td><%=productQuantity%></td>
+								      <td>$<%=productTotalCost%></td>
+								      <td class="row justify-content-center" style="border-width:0px">
+								      	<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
+										  	<button type="submit" class="btn btn-warning">-</button>
 										</form>
-								      </td>
-								      <td>
-								      	<form action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
-									      	<button type="submit" class="btn btn-success">+</button>
+										<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
+									      	<button type="submit" class="btn btn-info">+</button>
 									    </form>
-								      </td>
-								      <td>$<%=String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate)%></td>
-								      <td>
-								      	<form action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
+									    <form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
 									    	<button type="submit" class="btn btn-danger">Delete</button>
 									 	</form>	
-									  </td>
+								      </td>
 								    </tr>
 							        <% 
 							        	totalAmount += cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate;
-									}else{ %>
-										<tr>
-									      <th scope="row"><img src="<%=cartArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></th>
-									      <td><%=cartArrayList.get(x).getProductName()%></td>
-									      <td>$<%=String.format("%.2f", cartArrayList.get(x).getProductCostPrice())%></td>
-										  <td><%=cartArrayList.get(x).getQuantity()%></td>
-									      <td>
-									      	<form action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
-											  	<button type="submit" class="btn btn-danger">-</button>
-											</form>
-									      </td>
-									      <td>
-									      	<form action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
-										      	<button type="submit" class="btn btn-success">+</button>
-										    </form>
-									      </td>
-									      <td>$<%=String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity())%></td>
-									      <td>
-									      	<form action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
-										    	<button type="submit" class="btn btn-danger">Delete</button>
-										 	</form>	
-										  </td>
-									    </tr>
-								        <% 
-								        	totalAmount += cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity();
-									}
-								} 	
-		        			}else{ %>
-		        				<p>You currently don't have any items in your cart.</p>
-		        				<hr>
-		        		<%	}
-		        		}
-		        	} catch(Exception e){
-			        	System.out.println("(cart.jsp) Message Error: " + e + "\n");
-			        }
-			        %>
+								} 
+								%>
 			        	</tbody>
 					</table>
 				</div>
@@ -209,6 +177,13 @@
 		        <form action="${pageContext.request.contextPath}/checkout">
 	      			<button type="submit" class="btn btn-primary">Checkout</button>
 	      		</form>
+	      		<%
+	       			}
+	       		}
+	       	} catch(Exception e){
+	        	System.out.println("(cart.jsp) Message Error: " + e + "\n");
+	        }
+	        %>
 	    	</div>
       </div>
     </section>
