@@ -121,6 +121,8 @@
 									String productCost = String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*rate);
 									int productQuantity = cartArrayList.get(x).getQuantity();
 									String productTotalCost = String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate);
+									int productId = cartArrayList.get(x).getProductId();
+									totalAmount += cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate;
 									%>
 									<tr>
 								      <th><img src="<%=productImage%>" style="height:50px" alt="Product Image"></th>
@@ -129,19 +131,18 @@
 								      <td><%=productQuantity%></td>
 								      <td>$<%=productTotalCost%></td>
 								      <td class="row justify-content-center" style="border-width:0px">
-								      	<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
+								      	<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
 										  	<button type="submit" class="btn btn-warning">-</button>
 										</form>
-										<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
+										<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=productId%>&currency=<%=currency%>"  method="post">
 									      	<button type="submit" class="btn btn-info">+</button>
 									    </form>
-									    <form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=cartArrayList.get(x).getProductId()%>" method="post">
+									    <form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
 									    	<button type="submit" class="btn btn-danger">Delete</button>
 									 	</form>	
 								      </td>
 								    </tr>
-							        <% 
-							        	totalAmount += cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate;
+							        <%
 								} 
 								%>
 			        	</tbody>

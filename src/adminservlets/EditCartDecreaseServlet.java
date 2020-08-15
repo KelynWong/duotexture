@@ -97,14 +97,15 @@ public class EditCartDecreaseServlet extends HttpServlet {
 						if(request.getParameter("productId")!=null){
 							int userId = (int)session.getAttribute("userId");
 							int productId = Integer.parseInt(request.getParameter("productId"));
+							String currency = request.getParameter("currency");
 
 							// edit cart decrease
 							int count = CartUtils.editCartDecrease(userId, productId); 
 									
 							if(count > 0){
-								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=success"); 
+								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=success&currency="+currency); 
 							}else{
-								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=fail");
+								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=fail&currency="+currency);
 							}
 									
 						}else{

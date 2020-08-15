@@ -94,28 +94,30 @@ public class DeleteCartServlet extends HttpServlet {
 					out.println("</script>");
 				} else {
 					try {
+						String currency = "SGD";
 						if(request.getParameter("productId")!=null){
 							
 								int userId = (int)session.getAttribute("userId");
 								int productId = Integer.parseInt(request.getParameter("productId"));
+								currency = request.getParameter("currency");
 								
 								// delete cart
 								int count = CartUtils.deleteCart(userId, productId); 
 								
 								if(count > 0){
 									out.println("<script type='text/javascript'>");
-									out.println("window.location.href='../ST0510-JAD-Assignment/cart';");
+									out.println("window.location.href='../ST0510-JAD-Assignment/cart?currency="+currency+"';");
 									out.println("alert('Item has successfully been deleted.');");
 									out.println("</script>");
 								} else{
 									out.println("<script type='text/javascript'>");
-									out.println("window.location.href='../ST0510-JAD-Assignment/cart';");
+									out.println("window.location.href='../ST0510-JAD-Assignment/cart?currency="+currency+";");
 									out.println("alert('Failed to delete cart.');");
 									out.println("</script>");
 								}    
 							} else{
 								out.println("<script type='text/javascript'>");
-								out.println("window.location.href='../ST0510-JAD-Assignment/cart';");
+								out.println("window.location.href='../ST0510-JAD-Assignment/cart?currency="+currency+";");
 								out.println("alert('Failed to delete cart.');");
 								out.println("</script>");
 							}
