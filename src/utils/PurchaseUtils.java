@@ -81,7 +81,7 @@ public class PurchaseUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add purchase query and result
-		String addPurchaseQuery = "INSERT INTO duotexture.purchases(`userId`, `productId`, `quantity`, `dateTime`) VALUES(?, ?, ?);";
+		String addPurchaseQuery = "INSERT INTO duotexture.purchases(`userId`, `productId`, `quantity`, `dateTime`) VALUES(?, ?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addPurchaseQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
