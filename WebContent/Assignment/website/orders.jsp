@@ -26,7 +26,7 @@
 			if(!session.getAttribute("accountType").equals("member")){
 				%>
 				<script type="text/javascript">
-				window.location.href='index.jsp';
+				window.location.href='${pageContext.request.contextPath}/index';
 				alert("You do not have access rights.");
 				</script>
 				<%
@@ -34,7 +34,7 @@
 		}else{
 			%>
 			<script type="text/javascript">
-			window.location.href='index.jsp';
+			window.location.href='${pageContext.request.contextPath}/index';
 			alert("You do not have access rights.");
 			</script>
 			<%
@@ -44,7 +44,7 @@
 	}
 	%>
 </head>
-<% //double totalAmount = 0; %>
+
 <body class="d-block w-100 vh-100 bg-img">
 	
 	<!-- import navigation bar -->

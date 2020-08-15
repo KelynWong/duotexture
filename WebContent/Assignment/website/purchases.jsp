@@ -30,7 +30,7 @@
 	if(session.getAttribute("userId") == null){
 			%>
 		<script type="text/javascript">
-		window.location.href='index.jsp';
+		window.location.href='${pageContext.request.contextPath}/index';
 		alert("You do not have access rights.");
 		</script>
 		<%
