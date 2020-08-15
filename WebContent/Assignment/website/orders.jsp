@@ -62,7 +62,6 @@
 	        		if(request.getAttribute("orderArrayList") != null){
 	        			ArrayList<Order> orderArrayList = (ArrayList<Order>) request.getAttribute("orderArrayList");
 	        			
-	        			SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
 	        			if(orderArrayList.size() != 0){
 	        				%>
 	        				<table class="table table-bordered">
@@ -82,8 +81,8 @@
 		  					for(int x=0; x<orderArrayList.size(); x++) {
 		  							%>
 		  							<tr>
-		  							  <td><%=orderArrayList.get(x).getDateTime().split(" ")[0]%></td>
-								      <th scope="row"><img src="<%=orderArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></th>
+		  							  <th scope="row"><%=orderArrayList.get(x).getDateTime().split(" ")[0]%></td>
+								      <td><img src="<%=orderArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></th>
 								      <td><%=orderArrayList.get(x).getProductName()%></td>
 								      <td>$<%=String.format("%.2f", orderArrayList.get(x).getProductCostPrice())%></td>
 								      <td><%=orderArrayList.get(x).getQuantity()%></td>
