@@ -31,18 +31,9 @@ import utils.S3Utils;
 public class DeleteCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteCategoryServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -73,10 +64,9 @@ public class DeleteCategoryServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -108,9 +98,9 @@ public class DeleteCategoryServlet extends HttpServlet {
 								S3Utils.deleteFile(object_name);
 								
 								// delete category
-								int count = CategoryUtils.deleteCategory(categoryId); 
+								int deleteCategoryCount = CategoryUtils.deleteCategory(categoryId); 
 								
-								if(count > 0){
+								if(deleteCategoryCount > 0){
 									out.println("<script type='text/javascript'>");
 									out.println("window.location.href='../ST0510-JAD-Assignment/categories';");
 									out.println("alert('Category has successfully been deleted.');");
