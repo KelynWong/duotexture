@@ -101,7 +101,7 @@
 							            
 					<div class="form-group col-md-12">
 						<label for="cvv">CVV</label>
-						<input type="text" class="form-control" id="cvv" name="cvv" placeholder="352" minlength="3" maxlength="3" required>
+						<input type="text" class="form-control" id="cvv" name="cvv" placeholder="352" minlength="3" maxlength="4" required>
 					</div>           
 				</div>
 				<button type="submit" class="btn btn-outline-success">Pay</button>
