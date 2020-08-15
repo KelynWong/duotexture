@@ -28,18 +28,9 @@ import javax.servlet.http.HttpSession;
 public class SignOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SignOutServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -47,9 +38,11 @@ public class SignOutServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		// validate if user is logged in with an account type
-		if(session.getAttribute("accountType")!=null){			
+		if(session.getAttribute("accountType")!=null) {		
+			
 			// mark session invalid and destroy
-			session.invalidate();  
+			session.invalidate();
+
 			response.sendRedirect(request.getContextPath() + "/index");
 			System.out.println("(adminservlets/SignOutServlet) Logged out!\n");
 		} else {
@@ -60,10 +53,9 @@ public class SignOutServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -72,10 +64,10 @@ public class SignOutServlet extends HttpServlet {
 		
 		try{ 
 			// validate if user is logged in with an account type
-			if(session.getAttribute("accountType")!=null){
+			if(session.getAttribute("accountType")!=null) {
 				System.out.println("(adminservlets/SignOutServlet) There's no action to be taken for POST. Redirecting to index.jsp.\n"); 
 				response.sendRedirect(request.getContextPath() + "/index");
-			} else{
+			} else {
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='../ST0510-JAD-Assignment/login';");
 				out.println("alert('You are not logged in.');");
