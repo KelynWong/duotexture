@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import javabeans.Cart;
 import javabeans.Category;
+import javabeans.Rate;
 
 /**
  * Servlet implementation class GetCart
@@ -99,7 +100,7 @@ public class CartServlet extends HttpServlet {
 	        				
 	        			// store in request
 	        			request.setAttribute("categoriesArrayList", categoriesArrayList);
-	        				
+	        			
 	    				// declare client
 	    				client = ClientBuilder.newClient();
 	    				
@@ -139,47 +140,64 @@ public class CartServlet extends HttpServlet {
 	    					// store in request
 	    					request.setAttribute("cartArrayList", cartArrayList);
 	    					
+	    					// declare client
+		        			client = ClientBuilder.newClient();
+		        			
+		        			// target java and parse in data - get currency rates for display
+		        			target = client.target("https://api.exchangeratesapi.io/latest?base=SGD");
+		        			
+		        			// declare media is an application/json
+		        			invoBuilder = target.request(MediaType.APPLICATION_JSON);
+		        			
+		        			// get response
+		        			resp = invoBuilder.get();
+		        			
+		        			// set base as SGD
 	    					String currency = "SGD";
+	    					
+	    					// reset currency value if there are changes
 	    					if(request.getParameter("currency") !=null) {
 	    						currency = request.getParameter("currency");
 	    					}
-	    					
-	    					if(!currency.equals("SGD")) {
-		    					// declare client
-			        			client = ClientBuilder.newClient();
-			        			
-			        			// target java and parse in data - get currency rates for conversion
-			        			target = client.target("https://api.exchangeratesapi.io/latest?base=SGD");
-			        			
-			        			// declare media is an application/json
-			        			invoBuilder = target.request(MediaType.APPLICATION_JSON);
-			        			
-			        			// get response
-			        			resp = invoBuilder.get();
-			        			
-			        			// if response status is ok
-			        			if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
-			        				// read from response
-			        				JSONObject currencyObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
-			        				JSONObject ratesObject = currencyObject.getJSONObject("rates");
-			        				
-			        				Double rate = ratesObject.getDouble(String.format("%s", currency));
-			        				
-			        				// store in request
-			        				request.setAttribute("rate", rate);
-				    				
-			        				// forward request to jsp for display
-				    				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/cart.jsp");
-				    				requestDispatcher.forward(request, response);
-			        			}else {
-			        				System.out.println("(publicservlets/CartServlet) Error: Response not ok. \n");
-				        			response.sendRedirect(request.getContextPath() + "/index");
-			        			}
-	    					}else {
+		        			
+		        			if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+		        				// read from response
+		        				JSONObject exchangeRateObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+		        				
+		        				// get object rates
+		        				JSONObject ratesObject = exchangeRateObject.getJSONObject("rates");
+		        				
+		        				ArrayList<Rate> ratesArrayList = new ArrayList<Rate>();
+		        				
+		        				for(int x=0; x<ratesObject.names().length(); x++) {
+		        					String rateType = ratesObject.names().getString(x);
+		        					Double rateAmount = (Double) ratesObject.get(rateType);
+		        					
+		        					System.out.println(rateType);
+		        					System.out.println(rateAmount);
+		        					
+		        					Rate rate = new Rate(rateType, rateAmount);
+		        					ratesArrayList.add(rate);
+		        				}
+		        				
+		        				// store in request
+		    					request.setAttribute("ratesArrayList", ratesArrayList);
+		    					
+		    					if(!currency.contentEquals("SGD")) {
+		    						Double convertingRate = ratesObject.getDouble(String.format("%s", currency));
+		    						
+		    						// store in request
+			        				request.setAttribute("rate", convertingRate);
+		    					}
+
 	    						// forward request to jsp for display
 			    				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/cart.jsp");
 			    				requestDispatcher.forward(request, response);
-	    					}
+			    				
+		        			} else {
+		        				System.out.println("(publicservlets/CartServlet) Error: Currency Response not ok. \n");
+			        			response.sendRedirect(request.getContextPath() + "/index");
+		        			}
 	    				} else {
 	    					System.out.println("(publicservlets/CartServlet) Error: Response not ok. \n");
 	    					response.sendRedirect(request.getContextPath() + "/index");
