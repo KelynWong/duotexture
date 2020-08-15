@@ -31,27 +31,17 @@ import utils.UserUtils;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		System.out.println("(adminservlets/LoginServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
 		response.sendRedirect(request.getContextPath() + "/index");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -60,18 +50,20 @@ public class LoginServlet extends HttpServlet {
 		
 		try{ 
 			// validate if user is logged in with an account type
-			if(session.getAttribute("accountType")==null){
+			if(session.getAttribute("accountType")==null) {
 				try{
 					if(request.getParameter("emailInput")!=null){
 						String emailInput = request.getParameter("emailInput");
 						String passwordInput = request.getParameter("passwordInput");
 						
+						// initialize variables
 						Boolean isAdmin = false;
 						Boolean isMember = false;
 						
 						// get all users
 						ArrayList<User> UsersArray = UserUtils.getUsers();
 						
+						// loop user against all users
 						for (int x=0; x<UsersArray.size(); x++) {
 							String userEmail = UsersArray.get(x).getEmail();
 							String userPassword = UsersArray.get(x).getPassword();
@@ -96,16 +88,17 @@ public class LoginServlet extends HttpServlet {
 							}
 						}
 						
+						// if account does not exist
 						if(isAdmin == false && isMember == false){
 							response.sendRedirect(request.getContextPath() + "/login?accountType=none");
 						}
 						
 					}else{
 						response.sendRedirect("login.jsp");
-						System.out.println("(adminservlets/LoginServlet) Error: Wrong Flow\n");
+						System.out.println("(adminservlets/LoginServlet) Error: Wrong Flow \n");
 					}
 				}catch(Exception e){
-					System.out.println("(adminservlets/LoginServlet) Error: " + e + "\n");
+					System.out.println("(adminservlets/LoginServlet) Error: " + e + " \n");
 				}
 			} else{
 				out.println("<script type='text/javascript'>");
@@ -114,7 +107,7 @@ public class LoginServlet extends HttpServlet {
 				out.println("</script>");
 			}
 		} catch (Exception e){
-			System.out.println("(adminservlets/LoginServlet) Validation Error: " + e + "\n");
+			System.out.println("(adminservlets/LoginServlet) Validation Error: " + e + " \n");
 		}
 	}
 }
