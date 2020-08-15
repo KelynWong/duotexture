@@ -27,6 +27,7 @@ import java.util.regex.*;
 import utils.CardUtils;
 import utils.CartUtils;
 import utils.OrderUtils;
+import utils.PaymentUtils;
 
 /**
  * Servlet implementation class AddPaymentServlet
@@ -100,7 +101,7 @@ public class AddPaymentServlet extends HttpServlet {
 					try {       
 						if(request.getParameter("cardName")!=null){
 							String cardOwner = request.getParameter("cardName");
-							String checkCardNumber = request.getParameter("cardNumber");
+							String cardNumber = request.getParameter("cardNumber");
 							int expiryMonth = Integer.parseInt(request.getParameter("expMonth"));
 							int expiryYear = Integer.parseInt(request.getParameter("expYear"));
 							int cvv = Integer.parseInt(request.getParameter("cvv"));
@@ -108,8 +109,13 @@ public class AddPaymentServlet extends HttpServlet {
 							// get current date
 							DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     						String dateTime = dateFormat.format(new Date());
-									
-							if(Pattern.matches("^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$", checkCardNumber) == true) {
+							
+    						Boolean luhnAlgorithmValidation = false;
+    						
+    						luhnAlgorithmValidation = PaymentUtils.validateCreditCardNumber(cardNumber);
+    						
+							if(luhnAlgorithmValidation) {
+								
 								Date date = new Date();  
 								LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						        int currentYear = localDate.getYear();  
@@ -119,7 +125,6 @@ public class AddPaymentServlet extends HttpServlet {
 								if(expiryYear >= currentYear) {
 									// check month
 									if(expiryMonth < 12) {
-										
 										// check year and month
 										if(expiryYear == currentYear) {
 											if(expiryMonth >= currentMonth) {
@@ -129,7 +134,7 @@ public class AddPaymentServlet extends HttpServlet {
 												CardUtils.deleteCard(userId);
 													
 												// add payment
-												int count = CardUtils.insertCard(userId, cardOwner, checkCardNumber, expiryMonth, expiryYear, cvv);
+												int count = CardUtils.insertCard(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
 												
 												if(count > 0){
 													ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
@@ -178,7 +183,7 @@ public class AddPaymentServlet extends HttpServlet {
 											CardUtils.deleteCard(userId);
 											System.out.println("here");
 											// add payment
-											int count = CardUtils.insertCard(userId, cardOwner, checkCardNumber, expiryMonth, expiryYear, cvv);
+											int count = CardUtils.insertCard(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
 												
 											if(count > 0){
 												ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
@@ -217,7 +222,10 @@ public class AddPaymentServlet extends HttpServlet {
 												System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to insert card\n");
 												response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
 											}
-										}   
+										} 
+										
+										// card expiry validation below
+										
 							        } else {
 										System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired (Month) \n");
 										response.sendRedirect(request.getContextPath() + "/payment?payment=expired");
@@ -226,6 +234,9 @@ public class AddPaymentServlet extends HttpServlet {
 									System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired (Year) \n");
 									response.sendRedirect(request.getContextPath() + "/payment?payment=expired");
 								}
+								
+								// card number validation below
+								
 							}else {
 								System.out.println("(adminservlets/AddPaymentServlet) Error: Failed formatting validation\n");
 								response.sendRedirect(request.getContextPath() + "/payment?payment=cardFail");
