@@ -109,7 +109,7 @@
 								      <th scope="col">Price</th>
 								      <th scope="col">Quantity</th>
 								      <th scope="col">Total</th>
-								      <th scope="col" style="min-width: 10vw">Action</th>
+								      <th scope="col" style="min-width: 10vw">Actions</th>
 								    </tr>
 								  </thead>
 								  <tbody>
@@ -130,16 +130,18 @@
 								      <td>$<%=productCost%></td>
 								      <td><%=productQuantity%></td>
 								      <td>$<%=productTotalCost%></td>
-								      <td class="row justify-content-center" style="border-width:0px">
-								      	<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
-										  	<button type="submit" class="btn btn-warning">-</button>
-										</form>
-										<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=productId%>&currency=<%=currency%>"  method="post">
-									      	<button type="submit" class="btn btn-info">+</button>
-									    </form>
-									    <form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
-									    	<button type="submit" class="btn btn-danger">Delete</button>
-									 	</form>	
+								      <td class="justify-content-center pt-3">
+							      		<div class="justify-content-center" style="display: flex">
+							      			<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartDecreaseServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
+										  		<button type="submit" class="btn btn-warning">-</button>
+											</form>
+											<form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/EditCartIncreaseServlet?productId=<%=productId%>&currency=<%=currency%>"  method="post">
+										      	<button type="submit" class="btn btn-info">+</button>
+										    </form>
+										    <form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
+										    	<button type="submit" class="btn btn-danger">Delete</button>
+										 	</form>	
+							      		</div>
 								      </td>
 								    </tr>
 							        <%
