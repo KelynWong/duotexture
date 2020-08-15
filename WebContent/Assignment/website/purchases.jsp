@@ -68,7 +68,7 @@
 		  					for(int x=0; x<purchaseArrayList.size(); x++) {
 		  							%>
 		  							<tr>
-		  							  <th scope="row"><%=purchaseArrayList.get(x).getDateTime().split(" ")[0]%></th>
+		  							  <th scope="row"><%=purchaseArrayList.get(x).getDateTime()%></th>
 								      <td><img src="<%=purchaseArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></td>
 								      <td><%=purchaseArrayList.get(x).getProductName()%></td>
 								      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice())%></td>
