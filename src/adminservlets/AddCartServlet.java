@@ -47,18 +47,9 @@ import utils.CartUtils;
 public class AddCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddCartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -68,6 +59,7 @@ public class AddCartServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is member
 				if(!session.getAttribute("accountType").equals("member")){
 					out.println("<script type='text/javascript'>");
@@ -89,10 +81,9 @@ public class AddCartServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -105,6 +96,7 @@ public class AddCartServlet extends HttpServlet {
 				try {
 					if(request.getParameter("productId")!=null){
 						int productId = Integer.parseInt(request.getParameter("productId"));
+						
 						// validate if user executing request is member
 						if(!session.getAttribute("accountType").equals("member")){
 							out.println("<script type='text/javascript'>");
@@ -112,6 +104,8 @@ public class AddCartServlet extends HttpServlet {
 							out.println("alert('You have to login as member to add to cart.');");
 							out.println("</script>");
 						} else{ 
+							
+							// get user id
 							int userId = (int)session.getAttribute("userId");
 									
 							// declare client
@@ -129,11 +123,13 @@ public class AddCartServlet extends HttpServlet {
 				    			
 				    		// if response status is ok
 				    		if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+				    			
 				    			// get results from java class
 				    			JSONArray cartJSONArray = new JSONArray(resp.readEntity(new GenericType<String>() {}));
-				    			ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
-				    					
+				    			
 				    			boolean existInCart = false;
+				    			
+				    			// exist in cart validation
 				    			for(int x=0; x<cartJSONArray.length(); x++) {
 				    				JSONObject cartObject = (JSONObject) cartJSONArray.get(x);
 				    						
@@ -143,7 +139,7 @@ public class AddCartServlet extends HttpServlet {
 				    					existInCart = true;
 				    				}
 				    			}
-				    					
+				    			
 				    			if(existInCart == false) {
 				    				int quantity = 1;
 									
@@ -152,29 +148,29 @@ public class AddCartServlet extends HttpServlet {
 		    						String dateTime = dateFormat.format(new Date());
 		    						
 					    			// insert cart
-					    			int count = CartUtils.insertCart(userId, productId, quantity, dateTime); 
+					    			int insertCartCount = CartUtils.insertCart(userId, productId, quantity, dateTime); 
 										
-					    			if(count > 0){
+					    			if(insertCartCount > 0) {
 					    				out.println("<script type='text/javascript'>");
 					    				out.println(String.format("window.location.href='../ST0510-JAD-Assignment/productdetails?productId=%d';", productId));
 					    				out.println("alert('Item added to cart.');");
 					    				out.println("</script>");
-					    			} else{
+					    			} else {
 					    				out.println("<script type='text/javascript'>");
 					    				out.println(String.format("window.location.href='../ST0510-JAD-Assignment/productdetails?productId=%d';", productId));
 					    				out.println("alert('Failed to insert cart.');");
 					    				out.println("</script>");
 					    			}   
-				    			}else {
+				    			} else {
 				    				// edit cart increase
-									int count = CartUtils.editCartIncrease(userId, productId); 
+									int editCartIncreaseCount = CartUtils.editCartIncrease(userId, productId); 
 													
-									if(count > 0){
+									if(editCartIncreaseCount > 0){
 										out.println("<script type='text/javascript'>");
 										out.println(String.format("window.location.href='../ST0510-JAD-Assignment/productdetails?productId=%d';", productId));
 					    				out.println("alert('Added one item in cart.');");
 					    				out.println("</script>");
-									}else{
+									}else {
 										out.println("<script type='text/javascript'>");
 										out.println(String.format("window.location.href='../ST0510-JAD-Assignment/productdetails?productId=%d';", productId));
 					    				out.println("alert('Failed to increase product quantity.');");
@@ -186,7 +182,7 @@ public class AddCartServlet extends HttpServlet {
 				    			response.sendRedirect(request.getContextPath() + "/index");
 				    		}
 						}
-					} else{
+					} else {
 						out.println("<script type='text/javascript'>");
 						out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 						out.println("alert('Failed to insert cart.');");
