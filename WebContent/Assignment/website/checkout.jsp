@@ -51,12 +51,11 @@
 	<!-- import navigation bar -->
     <%@ include file = "components/navigation.jsp" %>
 
-	<div class="row" style="max-width: 100vw">
+	<div class="row" style="max-width: 99vw; min-height: 100vh">
 		<section class="col-7 ml-5 mt-5">
        
-       	<%if(request.getParameter("cards").equals("noCard")){ %>
 	    <!-- checkout form -->
-	    <div class="mx-auto col-9 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
+		<div class="mx-auto col-9 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
 			<div class="row">
 			    <div class="col-md-9 custom-font-playfair fs-15">D u o - T e x t u r e - C h e c k o u t</div>
 			    <div class="col-md-3 text-right">
@@ -64,6 +63,7 @@
 			    </div>
 			</div>
 	     	<hr>
+	     	<%if(request.getParameter("cards").equals("noCard")){ %>
 	     	<form action="${pageContext.request.contextPath}/AddPaymentServlet" method="post">
 		     	<div class="form-row">
 			     	<div class="form-group col-md-12">
@@ -116,17 +116,6 @@
 				int cardExpiryYear = card.getExpiryYear();
 				int cardCvv = card.getCvv();
 	      %>
-	      <!-- checkout form -->
-	    <div class="mx-auto col-9 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
-			<div class="row">
-			    <div class="col-md-9 custom-font-playfair fs-15">D u o - T e x t u r e - C h e c k o u t</div>
-			    <div class="col-md-3 text-right">
-			    	<form action="${pageContext.request.contextPath}/cart">
-						<button type="submit" class="btn btn-success">Back</button>
-					</form>
-			    </div>
-			</div>
-	     	<hr>
 	     	<form action="${pageContext.request.contextPath}/AddPaymentServlet" method="post">
 		     	<div class="form-row">
 			     	<div class="form-group col-md-12">
@@ -171,43 +160,79 @@
 	      <%} %>
 	    </section>
 	    
+	    <!-- cart content -->
 	    <% 
 		double totalAmount=0;
 		%>
 	    <section class="col-4 mt-5 mr-5">
 		    <div class="col-12">
 		    	<div class="mx-auto col-12 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
-		      		<h4 class="col-9 custom-font-playfair p-0">Your cart</h4>
-		      		<hr>
-	      		<div style="max-height: 340px; overflow: auto;">
-	      		<%
-	        	try{
-	        		// display cart
-	        		if(request.getAttribute("cartArrayList") != null){
-	        			ArrayList<Cart> cartArrayList = (ArrayList<Cart>) request.getAttribute("cartArrayList");
-						
-						for(int x=0; x<cartArrayList.size(); x++) {
-						%>
-						      	<p>
-						      		<span><%=cartArrayList.get(x).getProductName()%></span>
-						      		<br>
-						      		<span class="price">$<%=cartArrayList.get(x).getProductCostPrice()%> x <%=cartArrayList.get(x).getQuantity()%> = $<%=cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()%></span>
-						      	</p> 
-						      	<hr>
-				        <% 
-				        	totalAmount += cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity();
-						} 	
-	        		}
-	        	} catch(Exception e){
-		        	System.out.println("(checkout.jsp) Message Error: " + e + "\n");
-		        }
-		        %>
-	      		</div>
-	      		<p>Total (without GST): <span class="price" style="color:black"><b>$<%=String.format("%.2f", totalAmount)%></b></span></p>
-	      		<p>GST (7%): <span class="price" style="color:black"><b>$<%=String.format("%.2f", totalAmount*0.07)%></b></span></p>
-	      		<p>Total (with GST): <span class="price" style="color:black"><b>$<%=String.format("%.2f", totalAmount*1.07)%></b></span></p>
-	    	</div>
-	  	</div>
+		    		<div class="row">
+			    		<h4 class="col-4 custom-font-playfair p-0"><span><i class="fa fa-shopping-cart"></i></span>   Your cart</h4>
+			    		<div class="ml-auto">
+			    		<div class="float-right">
+				    		<form action="${pageContext.request.contextPath}/checkout">
+					    	<div style="float: left">
+								<select class="form-control" name="currency">
+									<%
+									ArrayList<Rate> ratesArrayList = (ArrayList<Rate>) request.getAttribute("ratesArrayList");
+									String currency = (String) request.getAttribute("currency");
+									
+									for(int x=0; x<ratesArrayList.size(); x++){
+										if(ratesArrayList.get(x).getRateType().equals(currency)){
+											%>
+											<option selected><%=ratesArrayList.get(x).getRateType()%></option>
+											<%
+										}else{
+											%>
+											<option><%=ratesArrayList.get(x).getRateType()%></option>
+										<%}
+									}%>
+								</select>
+								</div>
+								<div class="ml-2" style="float: left">
+									<button type="submit" class="btn btn-info">Convert</button>
+								</div>
+							</form>
+						</div>
+				    	</div>
+		    		</div>
+		    		<hr>
+		      		<div style="max-height: 51vh; overflow-y: auto;">
+		      		<%
+		        	try{
+		        		// display cart
+		        		if(request.getAttribute("cartArrayList") != null){
+		        			ArrayList<Cart> cartArrayList = (ArrayList<Cart>) request.getAttribute("cartArrayList");
+		        			Double rate = (Double) request.getAttribute("rate");
+							
+							for(int x=0; x<cartArrayList.size(); x++) {
+							String productCostPrice = String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*rate);
+							int productQuantity = cartArrayList.get(x).getQuantity();
+							String productTotalPrice = String.format("%.2f", cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate);
+							%>
+							      	<p>
+							      		<span><%=cartArrayList.get(x).getProductName()%></span>
+							      		<br>
+							      		<span class="price">$<%=productCostPrice%> x <%=productQuantity%> = $<%=productTotalPrice%></span>
+							      	</p> 
+							      	<hr>
+					        <% 
+					        	totalAmount += cartArrayList.get(x).getProductCostPrice()*cartArrayList.get(x).getQuantity()*rate;
+							}
+							%>
+							</div>
+				      		<p>Total (without GST): <span class="price" style="color:black"><b>$<%=String.format("%.2f", totalAmount*rate)%></b></span></p>
+				      		<p>GST (7%): <span class="price" style="color:black"><b>$<%=String.format("%.2f", totalAmount*0.07*rate)%></b></span></p>
+				      		<p>Total (with GST): <span class="price" style="color:black"><b>$<%=String.format("%.2f", totalAmount*1.07*rate)%></b></span></p>
+							<%
+		        		}
+		        	} catch(Exception e){
+			        	System.out.println("(checkout.jsp) Message Error: " + e + "\n");
+			        }
+			        %>
+		    	</div>
+		  	</div>
 	  	</section>
 	</div>
     <!--===============================================================================================-->
