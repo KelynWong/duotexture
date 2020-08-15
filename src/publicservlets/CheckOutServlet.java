@@ -33,13 +33,13 @@ import javabeans.Category;
  * Servlet implementation class CheckOutServlet
  */
 @WebServlet("/checkout")
-public class CheckOutServlet extends HttpServlet {
+public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckOutServlet() {
+    public CheckoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -178,10 +178,10 @@ public class CheckOutServlet extends HttpServlet {
 		        						request.setAttribute("card", card);
 		        						
 		        						// forward request to jsp for display
-		            					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/check_out.jsp?cards=haveCard");
+		            					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/checkout.jsp?cards=haveCard");
 		            					requestDispatcher.forward(request, response);
 		    						}else {
-		    							requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/check_out.jsp?cards=noCard");
+		    							requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/checkout.jsp?cards=noCard");
 		    							requestDispatcher.forward(request, response);
 		    						}
 		    					} else {
