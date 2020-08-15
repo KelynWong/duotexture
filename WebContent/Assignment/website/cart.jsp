@@ -177,9 +177,7 @@
 		        	System.out.println("(cart.jsp) Message Error: " + e + "\n");
 		        }
 		        %>
-		        <form action="${pageContext.request.contextPath}/checkout">
-	      			<button type="submit" class="btn btn-primary">Checkout</button>
-	      		</form>
+		        <a class="btn btn-primary" href="${pageContext.request.contextPath}/checkout" role="button">Checkout</a>
 	      		<%
 	       			}
 	       		}

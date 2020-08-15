@@ -30,8 +30,19 @@ import javabeans.Cart;
 import javabeans.Category;
 
 /**
- * Servlet implementation class CheckOutServlet
+ * Servlet implementation class CheckoutServlet
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
  */
+
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -102,7 +113,7 @@ public class CheckoutServlet extends HttpServlet {
 	    				// declare client
 	    				client = ClientBuilder.newClient();
 	    				
-	    				// target java and parse in data - get categories for navigation and page
+	    				// target java and parse in data - get carts by user id query and result
 	    				target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
 	    						.path("cartservices/getcartsbyuserid").queryParam("userId", (int)session.getAttribute("userId"));
 	    				

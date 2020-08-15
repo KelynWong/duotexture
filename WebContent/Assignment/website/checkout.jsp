@@ -40,7 +40,7 @@
 			<%
 		}
 	} catch (Exception e){
-		System.out.println("(check_out.jsp) Admin Validation Error: " + e + "\n");
+		System.out.println("(checkout.jsp) Admin Validation Error: " + e + "\n");
 	}
 	%>
 </head>
@@ -198,7 +198,7 @@
 						} 	
 	        		}
 	        	} catch(Exception e){
-		        	System.out.println("(check_out.jsp) Message Error: " + e + "\n");
+		        	System.out.println("(checkout.jsp) Message Error: " + e + "\n");
 		        }
 		        %>
 	      		</div>
