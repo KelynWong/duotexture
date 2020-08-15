@@ -50,7 +50,7 @@ public class PurchaseUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get all purchases query and result
-		String getPurchasesByUserIdQuery = "SELECT * FROM duotexture.purchases WHERE userId=?;";
+		String getPurchasesByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, purchases.quantity, purchases.userId, purchases.productId, purchases.dateTime FROM duotexture.products INNER JOIN duotexture.purchases ON purchases.productId = products.productId WHERE userId = ?;";
 		PreparedStatement pstmt = conn.prepareStatement(getPurchasesByUserIdQuery);
 		pstmt.setInt(1, userId);
 		ResultSet getPurchasesByUserIdResult = pstmt.executeQuery();
@@ -67,6 +67,11 @@ public class PurchaseUtils {
 			PurchaseBean.setProductId(getPurchasesByUserIdResult.getInt("productId"));
 			PurchaseBean.setQuantity(getPurchasesByUserIdResult.getInt("quantity"));
 			PurchaseBean.setDateTime(getPurchasesByUserIdResult.getString("dateTime"));
+			
+			PurchaseBean.setProductName(getPurchasesByUserIdResult.getString("name"));
+			PurchaseBean.setProductDescription(getPurchasesByUserIdResult.getString("description"));
+			PurchaseBean.setProductCostPrice(getPurchasesByUserIdResult.getDouble("cost_price"));
+			PurchaseBean.setProductImage(getPurchasesByUserIdResult.getString("image"));
 			
 			// add purchaseBean to PurchasesArrayList
 			PurchasesArrayList.add(PurchaseBean);
