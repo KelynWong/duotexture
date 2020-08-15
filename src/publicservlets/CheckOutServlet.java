@@ -2,11 +2,7 @@ package publicservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +24,7 @@ import org.json.JSONObject;
 import javabeans.Card;
 import javabeans.Cart;
 import javabeans.Category;
+import javabeans.Rate;
 
 /**
  * Servlet implementation class CheckoutServlet
@@ -154,46 +151,97 @@ public class CheckoutServlet extends HttpServlet {
 		    					
 		    					// get user id	
 		    					int userId = (int) session.getAttribute("userId");
-		    					
+
 		    					// declare client
-		    					client = ClientBuilder.newClient();
+			        			client = ClientBuilder.newClient();
+			        			
+			        			// target java and parse in data - get currency rates for display
+			        			target = client.target("https://api.exchangeratesapi.io/latest?base=SGD");
+			        			
+			        			// declare media is an application/json
+			        			invoBuilder = target.request(MediaType.APPLICATION_JSON);
+			        			
+			        			// get response
+			        			resp = invoBuilder.get();
+			        			
+			        			// set base as SGD
+		    					String currency = "SGD";
 		    					
-		    					// target java and parse in data - get card by id
-		    					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
-		    							.path("cardservices/getcardbyuserid").queryParam("userId", userId);
-		    					
-		    					// declare media is an application/json
-		    					invoBuilder = target.request(MediaType.APPLICATION_JSON);
-		    					
-		    					// get response
-		    					resp = invoBuilder.get();
-		    					
-		    					RequestDispatcher requestDispatcher = null;
-		    					
-		    					// if response status is ok
-		    					if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
-		    						JSONObject cardObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+		    					// reset currency value if there are changes
+		    					if(request.getParameter("currency") !=null) {
+		    						currency = request.getParameter("currency");
+		    					}
+			        			
+			        			if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+			        				// read from response
+			        				JSONObject exchangeRateObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+			        				
+			        				// get object rates
+			        				JSONObject ratesObject = exchangeRateObject.getJSONObject("rates");
+			        				
+			        				ArrayList<Rate> ratesArrayList = new ArrayList<Rate>();
+			        				
+			        				for(int x=0; x<ratesObject.names().length(); x++) {
+			        					String rateType = ratesObject.names().getString(x);
+			        					Double rateAmount = (Double) ratesObject.get(rateType);
+			        					
+			        					Rate rate = new Rate(rateType, rateAmount);
+			        					ratesArrayList.add(rate);
+			        				}
+			        				
+			        				// store in request
+			    					request.setAttribute("ratesArrayList", ratesArrayList);
+			    					
+			    					
+		    						Double convertingRate = ratesObject.getDouble(String.format("%s", currency));
 		    						
-		    						if(cardObject.getInt("cvv") != 0) {
-		    							String cardOwner = cardObject.getString("cardOwner");
-		        						String cardNumber = cardObject.getString("cardNumber");
-		        						int expiryMonth = cardObject.getInt("expiryMonth");
-		        						int expiryYear = cardObject.getInt("expiryYear");
-		        						int cvv = cardObject.getInt("cvv");
-		        						
-		        						// create Card
-		        						Card card = new Card(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
-		        						
-		        						// store in request
-		        						request.setAttribute("card", card);
-		        						
-		        						// forward request to jsp for display
-		            					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/checkout.jsp?cards=haveCard");
-		            					requestDispatcher.forward(request, response);
-		    						}else {
-		    							requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/checkout.jsp?cards=noCard");
-		    							requestDispatcher.forward(request, response);
-		    						}
+		    						// store in request
+		    						request.setAttribute("currency", currency);
+			        				request.setAttribute("rate", convertingRate);
+		    					
+			    					// declare client
+			    					client = ClientBuilder.newClient();
+			    					
+			    					// target java and parse in data - get card by id
+			    					target = client.target("http://localhost:8080/ST0510-JAD-Assignment/api/")
+			    							.path("cardservices/getcardbyuserid").queryParam("userId", userId);
+			    					
+			    					// declare media is an application/json
+			    					invoBuilder = target.request(MediaType.APPLICATION_JSON);
+			    					
+			    					// get response
+			    					resp = invoBuilder.get();
+			    					
+			    					RequestDispatcher requestDispatcher = null;
+			    					
+			    					// if response status is ok
+			    					if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+			    						JSONObject cardObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
+			    						
+			    						if(cardObject.getInt("cvv") != 0) {
+			    							String cardOwner = cardObject.getString("cardOwner");
+			        						String cardNumber = cardObject.getString("cardNumber");
+			        						int expiryMonth = cardObject.getInt("expiryMonth");
+			        						int expiryYear = cardObject.getInt("expiryYear");
+			        						int cvv = cardObject.getInt("cvv");
+			        						
+			        						// create Card
+			        						Card card = new Card(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
+			        						
+			        						// store in request
+			        						request.setAttribute("card", card);
+			        						
+			        						// forward request to jsp for display
+			            					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/checkout.jsp?cards=haveCard");
+			            					requestDispatcher.forward(request, response);
+			    						}else {
+			    							requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/checkout.jsp?cards=noCard");
+			    							requestDispatcher.forward(request, response);
+			    						}
+			    					} else {
+				        				System.out.println("(publicservlets/CheckOutServlet) Error: Currency Response not ok. \n");
+					        			response.sendRedirect(request.getContextPath() + "/index");
+				        			}
 		    					} else {
 		    						System.out.println("(publicservlets/CheckOutServlet) Error: Card Response not ok. \n");
 		    						response.sendRedirect(request.getContextPath() + "/index");
