@@ -197,6 +197,7 @@
 						</div>
 				    	</div>
 		    		</div>
+		    		<p class="mt-3">You are now viewing the price in <span class="text-info"><%=currency%></span></p>
 		    		<hr>
 		      		<div style="max-height: 51vh; overflow-y: auto;">
 		      		<%

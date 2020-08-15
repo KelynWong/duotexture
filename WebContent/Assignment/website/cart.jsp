@@ -177,7 +177,7 @@
 		        	System.out.println("(cart.jsp) Message Error: " + e + "\n");
 		        }
 		        %>
-		        <a class="btn btn-primary" href="${pageContext.request.contextPath}/checkout" role="button">Checkout</a>
+		        <a class="btn btn-primary" href="${pageContext.request.contextPath}/checkout?currency=<%=currency%>" role="button">Checkout</a>
 	      		<%
 	       			}
 	       		}
