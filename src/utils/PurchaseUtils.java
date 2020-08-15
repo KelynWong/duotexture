@@ -33,6 +33,7 @@ public class PurchaseUtils {
 			PurchaseBean.setUserId(getPurchasesResult.getInt("userId"));
 			PurchaseBean.setProductId(getPurchasesResult.getInt("productId"));
 			PurchaseBean.setQuantity(getPurchasesResult.getInt("quantity"));
+			PurchaseBean.setDateTime(getPurchasesResult.getString("dateTime"));
 			
 			// add purchaseBean to PurchasesArrayList
 			PurchasesArrayList.add(PurchaseBean);
@@ -65,6 +66,7 @@ public class PurchaseUtils {
 			PurchaseBean.setUserId(getPurchasesByUserIdResult.getInt("userId"));
 			PurchaseBean.setProductId(getPurchasesByUserIdResult.getInt("productId"));
 			PurchaseBean.setQuantity(getPurchasesByUserIdResult.getInt("quantity"));
+			PurchaseBean.setDateTime(getPurchasesByUserIdResult.getString("dateTime"));
 			
 			// add purchaseBean to PurchasesArrayList
 			PurchasesArrayList.add(PurchaseBean);
