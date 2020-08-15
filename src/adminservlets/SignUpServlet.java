@@ -33,26 +33,16 @@ import utils.MemberUtils;
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SignUpServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		System.out.println("(adminservlets/SignUpServlet) There's no action to be taken for GET. Redirecting to index.jsp.\n"); 
 		response.sendRedirect(request.getContextPath() + "/index");		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -61,9 +51,11 @@ public class SignUpServlet extends HttpServlet {
 		
 		try{ 
 			// if user is logged in with an account type
-			if(session.getAttribute("accountType")==null){
+			if(session.getAttribute("accountType")==null) {
 				try {
-					if(request.getParameter("inputEmail")!=null){
+					
+					// flow validation
+					if(request.getParameter("inputEmail")!=null) {
 						String inputEmail = request.getParameter("inputEmail");
 						String inputUsername = request.getParameter("inputUsername");
 						String inputPassword = request.getParameter("inputPassword");
@@ -76,6 +68,7 @@ public class SignUpServlet extends HttpServlet {
 						// get all users
 						ArrayList<User> UsersArray = UserUtils.getUsers();
 
+						// duplicate validation
 						for (int x=0; x<UsersArray.size(); x++) {
 							String userEmail = UsersArray.get(x).getEmail();							
 							
@@ -94,26 +87,28 @@ public class SignUpServlet extends HttpServlet {
 							session.setAttribute("accountType", "member");
 							
 							// add member
-							int count = MemberUtils.insertMember(inputFirstName, inputLastName, inputCountry, inputAddress, inputPostalCode, userId);
+							int insertMemberCount = MemberUtils.insertMember(inputFirstName, inputLastName, inputCountry, inputAddress, inputPostalCode, userId);
 							
-							if(count > 0){
+							// if insert member success
+							if(insertMemberCount > 0){
 								response.sendRedirect(request.getContextPath() + "/index");
-							}else{
+							}else {
 								response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
+								System.out.println("(adminservlets/SignUpServlet) Error: Failed to insert member \n");
 							}
 						}
-					}else{
+					} else {
 						response.sendRedirect(request.getContextPath() + "/signup");
-						System.out.println("(adminservlets/SignUpServlet) Error: Wrong Flow\n");
+						System.out.println("(adminservlets/SignUpServlet) Error: Wrong Flow \n");
 					}
-				} catch(java.sql.SQLIntegrityConstraintViolationException e){
-					System.out.println("(adminservlets/SignUpServlet) Error: Duplicate Entry\n");
+				} catch(java.sql.SQLIntegrityConstraintViolationException e) {
+					System.out.println("(adminservlets/SignUpServlet) Error: Duplicate Entry \n");
 					response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
-				} catch(Exception e){
-					System.out.println("(adminservlets/SignUpServlet) Error: " + e + "\n");
+				} catch(Exception e) {
+					System.out.println("(adminservlets/SignUpServlet) Error: " + e + " \n");
 					response.sendRedirect(request.getContextPath() + "/signup?registration=fail"); 
 				}
-			} else{
+			} else {
 				out.println("<script type='text/javascript'>");
 				out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 				out.println("alert('You are already logged in.');");
