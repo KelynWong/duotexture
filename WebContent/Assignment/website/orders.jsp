@@ -81,8 +81,8 @@
 		  					for(int x=0; x<orderArrayList.size(); x++) {
 		  							%>
 		  							<tr>
-		  							  <th scope="row"><%=orderArrayList.get(x).getDateTime().split(" ")[0]%></td>
-								      <td><img src="<%=orderArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></th>
+		  							  <th scope="row"><%=orderArrayList.get(x).getDateTime().split(" ")[0]%></th>
+								      <td><img src="<%=orderArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></td>
 								      <td><%=orderArrayList.get(x).getProductName()%></td>
 								      <td>$<%=String.format("%.2f", orderArrayList.get(x).getProductCostPrice())%></td>
 								      <td><%=orderArrayList.get(x).getQuantity()%></td>
