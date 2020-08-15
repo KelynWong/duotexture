@@ -105,14 +105,14 @@ public class AnalyticsProductServlet extends HttpServlet {
 					order = "ASC";
 				}
 				
-				// get members
-				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1, keyword, order);
-				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber, keyword, order);
-				if(nextMemberArrayList.size()==0) {
+				// get products
+				ArrayList<Member> productsArrayList = AnalyticUtils.getMembers(pageNumber-1, keyword, order);
+				ArrayList<Member> nextProductsArrayList = AnalyticUtils.getMembers(pageNumber, keyword, order);
+				if(nextProductsArrayList.size()==0) {
 					maxRecord = true;
 				}
 				
-				request.setAttribute("membersArrayList", membersArrayList);
+				request.setAttribute("membersArrayList", productsArrayList);
 				request.setAttribute("keywordInput", keyword);
 				request.setAttribute("orderInput", order);
 				
@@ -120,19 +120,19 @@ public class AnalyticsProductServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher;
 				
 				if(maxRecord == false) {
-					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber);
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_product.jsp?page="+pageNumber);
 				} else {
-					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_customer.jsp?page="+pageNumber+"&maxRecord=true");
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_product.jsp?page="+pageNumber+"&maxRecord=true");
 				}
 				
 				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/AnalyticsProductServlet) Error: Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
 		} catch (Exception e) {
-			System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: " + e + "\n");
+			System.out.println("(publicservlets/AnalyticsProductServlet) Error: " + e + "\n");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 
