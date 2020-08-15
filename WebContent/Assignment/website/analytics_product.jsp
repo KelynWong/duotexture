@@ -60,17 +60,17 @@
         <section class="row">
         	<!-- tablist -->
 	        <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist">
-			  <a class="nav-link active" id="v-pills-customer-tab" href="#v-pills-customer">Customer</a>
-			  <a class="nav-link" id="v-pills-product-tab" href="/analyticsproduct" role="tab">Product</a>
-			  <a class="nav-link" id="v-pills-order-tab" href="/analyticsorder">Order</a>
+			  <a class="nav-link" id="v-pills-customer-tab" href="${pageContext.request.contextPath}/analyticscustomer?page=1">Customer</a>
+			  <a class="nav-link active" id="v-pills-product-tab" href="#" role="tab">Product</a>
+			  <a class="nav-link" id="v-pills-order-tab" href="${pageContext.request.contextPath}/analyticsorder?page=1">Order</a>
 			</div>
 			
-			<!-- customer content -->
+			<!-- product content -->
 			<div class="tab-content col-8" id="v-pills-tabContent" style="margin:auto">
-			  <div class="tab-pane fade show active" id="v-pills-customer" role="tabpanel">
-			  	<h5>Customer Analysis</h5>
+			  <div class="tab-pane fade show active" id="v-pills-product" role="tabpanel">
+			  	<h5>Product Analysis</h5>
 			  	<!-- search and add function -->
-		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticscustomer" method="get">
+		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
 		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
@@ -79,7 +79,7 @@
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
 		        </form>
-			  	  <!-- List of Customers -->
+			  	  <!-- List of Products -->
 				  <table class="table table-bordered">
 				  <thead class="thead-dark">
 				    <tr>
@@ -133,8 +133,8 @@
 	
 							  if(pageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -142,17 +142,17 @@
 						    <%
 						    if(maxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticscustomer?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
 					  } else {
-						  System.out.println("(analytics-customer.jsp) Error: Pagination Error \n");
+						  System.out.println("(analytics-product.jsp) Error: Pagination Error \n");
 						  response.sendRedirect(request.getContextPath() + "/index");
 					  }
 				  } catch (Exception e) {
-					  System.out.println("(analytics-customer.jsp) Error: " + e + "\n");      
+					  System.out.println("(analytics-product.jsp) Error: " + e + "\n");      
 				  }
 				  %>
 					</ul>
