@@ -32,19 +32,10 @@ import utils.S3Utils;
 public class DeleteProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/// get current session
+		
+		// get current session
 		HttpSession session=request.getSession();
 
 		// get writer
@@ -53,6 +44,7 @@ public class DeleteProductServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
@@ -74,10 +66,9 @@ public class DeleteProductServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -90,6 +81,8 @@ public class DeleteProductServlet extends HttpServlet {
 		try {
 			if(session.getAttribute("categoryId")!=null){
 				if(request.getParameter("productId")!=null){
+					
+					// initalize variables
 					categoryId = (int) session.getAttribute("categoryId");
 					int productId = Integer.parseInt(request.getParameter("productId"));
 					
@@ -100,9 +93,9 @@ public class DeleteProductServlet extends HttpServlet {
 					S3Utils.deleteFile(object_name);
 					
 					// delete product
-					int count = ProductUtils.deleteProduct(productId); 
+					int deleteProductCount = ProductUtils.deleteProduct(productId); 
 					
-					if(count > 0){
+					if(deleteProductCount > 0){
 						out.println("<script type='text/javascript'>");
 						out.println("window.location.href='../ST0510-JAD-Assignment/productlistings?categoryId=" + categoryId + "';");
 						out.println("alert('Product has successfully been deleted.');");
