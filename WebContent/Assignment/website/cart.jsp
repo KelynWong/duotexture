@@ -59,39 +59,20 @@
 				    	<form action="${pageContext.request.contextPath}/cart">
 				    	<div style="float: left">
 							<select class="form-control" name="currency">
-								<option>SGD</option>
-								<option>CAD</option>
-								<option>HKD</option>
-								<option>ISK</option>
-								<option>PHP</option>
-								<option>DKK</option>
-								<option>HUF</option>
-								<option>CZK</option>
-								<option>GBP</option>
-								<option>RON</option>
-								<option>SEK</option>
-								<option>IDR</option>
-								<option>INR</option>
-								<option>BRL</option>
-								<option>RUB</option>
-								<option>HRK</option>
-								<option>JPY</option>
-								<option>THB</option>
-								<option>CHF</option>
-								<option>EUR</option>
-								<option>MYR</option>
-								<option>BGN</option>
-								<option>TRY</option>
-								<option>CNY</option>
-								<option>NOK</option>
-								<option>NZD</option>
-								<option>ZAR</option>
-								<option>USD</option>
-								<option>MXN</option>
-								<option>AUD</option>
-								<option>ILS</option>
-								<option>KRW</option>
-								<option>PLN</option>
+								<%
+								ArrayList<Rate> ratesArrayList = (ArrayList<Rate>) request.getAttribute("ratesArrayList");
+								String currency = (String) request.getAttribute("currency");
+								System.out.println(currency);
+								for(int x=0; x<ratesArrayList.size(); x++){
+									if(ratesArrayList.get(x).getRateType().equals(currency)){
+										%>
+										<option selected><%=ratesArrayList.get(x).getRateType()%></option>
+										<%
+									}else{
+										%>
+										<option><%=ratesArrayList.get(x).getRateType()%></option>
+									<%}
+								}%>
 							</select>
 							</div>
 							<div style="float: left">
@@ -101,20 +82,15 @@
 					</div>
 			    </div>
 			</div>
-			<%if(request.getParameter("currency") != null){ 
-				String currency = request.getParameter("currency");
-			%>
+
 			<span>You are now viewing the price in <%=currency%></span>
-			<%}else{ %>
-			<span>You are now viewing the price in SGD</span>
-			<%} %>
         <hr>
-        <% 
-		double totalAmount=0;
-		%>
+        
         	<div class="mx-auto col-12 bo-rad-10" style="background-color: rgb(255, 255, 255)">
         		<div class="table-responsive-sm">
 		      		<%
+		      		double totalAmount=0;
+		      		
 		        	try{
 		        		// display cart
 		        		if(request.getAttribute("cartArrayList") != null){

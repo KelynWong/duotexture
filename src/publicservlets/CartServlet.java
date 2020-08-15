@@ -173,9 +173,6 @@ public class CartServlet extends HttpServlet {
 		        					String rateType = ratesObject.names().getString(x);
 		        					Double rateAmount = (Double) ratesObject.get(rateType);
 		        					
-		        					System.out.println(rateType);
-		        					System.out.println(rateAmount);
-		        					
 		        					Rate rate = new Rate(rateType, rateAmount);
 		        					ratesArrayList.add(rate);
 		        				}
@@ -183,12 +180,13 @@ public class CartServlet extends HttpServlet {
 		        				// store in request
 		    					request.setAttribute("ratesArrayList", ratesArrayList);
 		    					
-		    					if(!currency.contentEquals("SGD")) {
-		    						Double convertingRate = ratesObject.getDouble(String.format("%s", currency));
-		    						
-		    						// store in request
-			        				request.setAttribute("rate", convertingRate);
-		    					}
+		    					
+	    						Double convertingRate = ratesObject.getDouble(String.format("%s", currency));
+	    						
+	    						// store in request
+	    						request.setAttribute("currency", currency);
+		        				request.setAttribute("rate", convertingRate);
+		    					
 
 	    						// forward request to jsp for display
 			    				RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/cart.jsp");
