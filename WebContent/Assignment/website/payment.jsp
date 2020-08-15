@@ -95,6 +95,13 @@
 		            		</form>
 		            		<%
 		            	}
+	        		} else {
+	        			%>
+	        			<script type="text/javascript">
+	        			window.location.href='${pageContext.request.contextPath}/index';
+	        			alert("Please purchase items before accessing this page.");
+	        			</script>
+	        			<%
 	        		}
 	        	} catch(Exception e){
 		        	System.out.println("(payment.jsp) Message Error: " + e + "\n");
