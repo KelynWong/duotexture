@@ -42,18 +42,9 @@ import utils.AnalyticUtils;
 public class AnalyticsCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AnalyticsCustomerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
 			// declare client
 			Client client = ClientBuilder.newClient();
@@ -89,7 +80,7 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
-				// initialize fields
+				// initialize variables
 				Boolean maxRecord = false;
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
 				String keyword = request.getParameter("keywordInput");
@@ -107,11 +98,14 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				
 				// get members
 				ArrayList<Member> membersArrayList = AnalyticUtils.getMembers(pageNumber-1, keyword, order);
+				
+				// get next members (last page validation)
 				ArrayList<Member> nextMemberArrayList = AnalyticUtils.getMembers(pageNumber, keyword, order);
 				if(nextMemberArrayList.size()==0) {
 					maxRecord = true;
 				}
 				
+				// store in request
 				request.setAttribute("membersArrayList", membersArrayList);
 				request.setAttribute("keywordInput", keyword);
 				request.setAttribute("orderInput", order);
@@ -127,7 +121,7 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 				
 				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: Response not ok. \n");
+				System.out.println("(publicservlets/AnalyticsCustomerServlet) Error: Categories Response not ok. \n");
 				response.sendRedirect(request.getContextPath() + "/index");
 			}
 			
@@ -137,12 +131,4 @@ public class AnalyticsCustomerServlet extends HttpServlet {
 		}
 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
-	}
-
 }
