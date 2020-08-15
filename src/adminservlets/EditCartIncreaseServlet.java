@@ -31,18 +31,9 @@ import utils.CategoryUtils;
 public class EditCartIncreaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditCartIncreaseServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+   /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -73,10 +64,9 @@ public class EditCartIncreaseServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -86,6 +76,7 @@ public class EditCartIncreaseServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("member")){
 					out.println("<script type='text/javascript'>");
@@ -100,9 +91,9 @@ public class EditCartIncreaseServlet extends HttpServlet {
 							String currency = request.getParameter("currency");
 							
 							// edit cart
-							int count = CartUtils.editCartIncrease(userId, productId); 
+							int editCartCount = CartUtils.editCartIncrease(userId, productId); 
 									
-							if(count > 0){
+							if(editCartCount > 0){
 								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=success&currency="+currency); 
 							}else{
 								response.sendRedirect(request.getContextPath() + "/cart?cartEdit=fail&currency="+currency);
