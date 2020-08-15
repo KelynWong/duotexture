@@ -59,9 +59,7 @@
 			<div class="row">
 			    <div class="col-md-9 custom-font-playfair fs-15">D u o - T e x t u r e - C h e c k o u t</div>
 			    <div class="col-md-3 text-right">
-			    	<form action="${pageContext.request.contextPath}/cart">
-						<button type="submit" class="btn btn-success">Back</button>
-					</form>
+			    <a class="btn btn-success" href="${pageContext.request.contextPath}/cart" role="button">Back</a>
 			    </div>
 			</div>
 	     	<hr>
