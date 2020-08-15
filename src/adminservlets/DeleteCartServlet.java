@@ -30,17 +30,7 @@ import utils.CartUtils;
 public class DeleteCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteCartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
 		HttpSession session=request.getSession();
@@ -72,10 +62,9 @@ public class DeleteCartServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -102,9 +91,9 @@ public class DeleteCartServlet extends HttpServlet {
 								currency = request.getParameter("currency");
 								
 								// delete cart
-								int count = CartUtils.deleteCart(userId, productId); 
+								int deleteCartCount = CartUtils.deleteCart(userId, productId); 
 								
-								if(count > 0){
+								if(deleteCartCount > 0){
 									out.println("<script type='text/javascript'>");
 									out.println("window.location.href='../ST0510-JAD-Assignment/cart?currency="+currency+"';");
 									out.println("alert('Item has successfully been deleted.');");
