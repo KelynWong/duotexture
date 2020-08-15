@@ -235,4 +235,37 @@ public class ProductUtils {
 		conn.close();
 		return productImageUrl;
 	}
+	
+	// update product quantity by product id
+	public static int editProductQuantity (int productId, int quantity) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get a product by product id query and result
+		String getProductQuantityQuery = "SELECT products.quantity FROM duotexture.products WHERE productId=? LIMIT 1;";
+		PreparedStatement pstmt = conn.prepareStatement(getProductQuantityQuery);
+		pstmt.setInt(1,  productId);
+		ResultSet getProductQuantityResult = pstmt.executeQuery();
+		
+		// predefine variable
+		int count = 0;
+		
+		// if there is a new row
+		if(getProductQuantityResult.next()) {
+			int initialQuantity = getProductQuantityResult.getInt("quantity");
+			int updatedQuantity = initialQuantity - quantity;
+			
+			// prepared statement, edit product quantity query and result
+			String updateProductQuantityQuery = "UPDATE duotexture.products SET quantity=? WHERE productId=?;"; 
+			pstmt = conn.prepareStatement(updateProductQuantityQuery);
+			pstmt.setInt(1, updatedQuantity);
+		    pstmt.setInt(2, productId);
+			count = pstmt.executeUpdate(); 
+		}
+		
+		// close connection
+		conn.close();
+		return count;
+	}
+	
 }
