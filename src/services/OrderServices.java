@@ -42,6 +42,11 @@ public class OrderServices {
 				orderObject.put("quantity", ordersArrayList.get(x).getQuantity());
 				orderObject.put("dateTime", ordersArrayList.get(x).getDateTime());
 				
+				orderObject.put("productName", ordersArrayList.get(x).getProductName());
+				orderObject.put("productDescription", ordersArrayList.get(x).getProductDescription());
+				orderObject.put("productCostPrice", ordersArrayList.get(x).getProductCostPrice());
+				orderObject.put("productImage", ordersArrayList.get(x).getProductImage());
+				
 				ordersJSONArray.put(orderObject);
 			}
 			
@@ -77,6 +82,11 @@ public class OrderServices {
 				orderObject.put("productId", ordersArrayList.get(x).getProductId());
 				orderObject.put("quantity", ordersArrayList.get(x).getQuantity());
 				orderObject.put("dateTime", ordersArrayList.get(x).getDateTime());
+				
+				orderObject.put("productName", ordersArrayList.get(x).getProductName());
+				orderObject.put("productDescription", ordersArrayList.get(x).getProductDescription());
+				orderObject.put("productCostPrice", ordersArrayList.get(x).getProductCostPrice());
+				orderObject.put("productImage", ordersArrayList.get(x).getProductImage());
 				
 				ordersJSONArray.put(orderObject);
 			}
