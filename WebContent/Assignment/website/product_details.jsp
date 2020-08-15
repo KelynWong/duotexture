@@ -51,7 +51,7 @@
 		            <p class="text-white custom-font-playfair fs-50 text-center mb-5"><%= productName %></p>
 		            <section class="text-white custom-font-mont">
 		              <p class=""><%= productDescription %></p>
-		              <p class="">Price: <span> $<%= productRetailPrice %></span></p>
+		              <p class="">Price: <span> $<%= productCostPrice %></span></p>
 		              <p class="">Quantity: <%= productQuantity %></p>
 		              <div class="row mt-3">
 			              <a class="btn btn-success mx-3" href="${pageContext.request.contextPath}/productlistings?categoryId=<%=productCategoryId%>" role="button">Back</a>
