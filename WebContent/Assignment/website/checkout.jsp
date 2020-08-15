@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>duo-texture</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Assignment/website/assets/css/styles.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Assignment/website/assets/css/util.css" />
     <%
@@ -50,8 +51,8 @@
 	<!-- import navigation bar -->
     <%@ include file = "components/navigation.jsp" %>
 
-	<div class="row">
-		<section class="col-8 p-5">
+	<div class="row" style="max-width: 100vw">
+		<section class="col-7 ml-5 mt-5">
        
        	<%if(request.getParameter("cards").equals("noCard")){ %>
 	    <!-- checkout form -->
@@ -59,7 +60,7 @@
 			<div class="row">
 			    <div class="col-md-9 custom-font-playfair fs-15">D u o - T e x t u r e - C h e c k o u t</div>
 			    <div class="col-md-3 text-right">
-			    <a class="btn btn-success" href="${pageContext.request.contextPath}/cart" role="button">Back</a>
+			    <a class="btn btn-primary" href="${pageContext.request.contextPath}/cart" role="button">Back</a>
 			    </div>
 			</div>
 	     	<hr>
@@ -67,12 +68,14 @@
 		     	<div class="form-row">
 			     	<div class="form-group col-md-12">
 						<h3>Payment</h3>
-						<label for="fname">Accepted Cards</label>
-						<div class="icon-container">
-							<i class="fa fa-cc-visa" style="color:navy;"></i>
-							<i class="fa fa-cc-amex" style="color:blue;"></i>
-							<i class="fa fa-cc-mastercard" style="color:red;"></i>
-							<i class="fa fa-cc-discover" style="color:orange;"></i>
+						<div class="row" style="margin-left: 3px">
+							<label for="fname">Accepted Cards</label>
+							<div class="icon-container mx-3">
+								<i class="fa fa-cc-visa" style="color:navy;"><!-- Visa --></i>
+								<i class="fa fa-cc-amex" style="color:blue;"></i>
+								<i class="fa fa-cc-mastercard" style="color:red;"></i>
+								<i class="fa fa-cc-discover" style="color:orange;"></i>
+							</div>
 						</div>
 					</div>
 							        
@@ -171,10 +174,10 @@
 	    <% 
 		double totalAmount=0;
 		%>
-	    <section class="col-4 p-5">
+	    <section class="col-4 mt-5 mr-5">
 		    <div class="col-12">
 		    	<div class="mx-auto col-12 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
-		      		<h1 class="col-md-9 custom-font-playfair fs-15">Your cart</h4>
+		      		<h4 class="col-9 custom-font-playfair p-0">Your cart</h4>
 		      		<hr>
 	      		<div style="max-height: 340px; overflow: auto;">
 	      		<%
