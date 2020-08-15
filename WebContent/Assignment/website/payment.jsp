@@ -61,45 +61,98 @@
 		        		String errorMessage = "";
 		            	String payment = request.getParameter("payment");
 		            	
-		            	if(payment.equals("fail")){
+		            	if(payment.equals("cardFail")){
 		            		%>
-		            		<h1>Payment Failed</h1>
-		            		<h2>Try checking if your card details is right!</h2>
-		            		<form action="${pageContext.request.contextPath}/checkout">
-		            			<button class="btn btn-primary">Back</button>
-		            		</form>
+		            		<p>Dear Duo-Texture Customer, <span class="text-info"><%=session.getAttribute("username")%></span>,</p>
+		            		<p>
+			            		Unfortuantely, the credit card which you have input has failed our validation. <br>
+			            		Please check if the details which you have input are correct. <br>
+			            		A few criteria for you to check are as follow.
+			            	</p>
+			            	
+		            		<ol class="mx-3">
+		            			<li class="text-danger">Valid card number</li>
+		            			<li>Valid expiry month</li>
+		            			<li>Valid expiry year</li>
+		            		</ol>
+		            		
+		            		<p>Your card has seemingly failed according to <span style="text-decoration: underline;">Luhn Algorithm</span>.<br>Please try again.</p>
+		            		
+		            		<a class="btn btn-primary" href="${pageContext.request.contextPath}/checkout" role="button">Back to Checkout</a>
 		            		<%
 		            	}else if(payment.equals("expired")){
+		            		String expired = request.getParameter("expired");
 		            		%>
-		            		<h1>Payment Failed</h1>
-		            		<h2>Your card has expired! Try using another card.</h2>
-		            		<form action="${pageContext.request.contextPath}/checkout">
-		            			<button class="btn btn-primary">Back</button>
-		            		</form>
+		            		<p>Dear Duo-Texture Customer, <span class="text-info"><%=session.getAttribute("username")%></span>,</p>
+		            		<p>
+			            		Unfortuantely, the credit card which you have input has failed our validation. <br>
+			            		Please check if the details which you have input are correct. <br>
+			            		A few criteria for you to check are as follow.
+			            	</p>
+			            	
+		            		<ol class="mx-3">
+		            			<li>Valid card number</li>
+		            			<% 
+		            			if(expired.equals("month")){
+		            				%>
+		            				<li class="text-danger">Valid expiry month</li>
+		            				<li>Valid expiry year</li>
+		            				</ol>
+		            				<p>It does seems like your card has either expired or the expiry inputs were wrong. <br>Please do <span class="text-warning">input your expiry month</span> again. Thank you.</p>
+		            				<%
+		            			}else {
+		            			%>
+			            			<li>Valid expiry month</li>
+			            			<li class="text-danger">Valid expiry year</li>
+			            			</ol>
+			            			<p>It does seems like your card has either expired or the expiry inputs were wrong. <br>Please do <span class="text-warning">input your expiry year</span> again. Thank you.</p>
+		            			<%}%>
+		            		
+		            		<a class="btn btn-primary" href="${pageContext.request.contextPath}/checkout" role="button">Back to Checkout</a>
 		            		<%
 		            	}else if(payment.equals("success")){
 		            		%>
-		            		<h1>Payment Successful</h1>
-		            		<h2>Thank you for shopping with duotexture!</h2>
-		            		<p>Your items are on it's way to you! Once you have received your items, don't forget to head to orders tab to confirm the delivery :)</p>
-		            		<form action="${pageContext.request.contextPath}/index">
-		            			<button class="btn btn-primary">Continue shopping</button>
-		            		</form>
+		            		<p>Dear Duo-Texture Customer, <span class="text-info"><%=session.getAttribute("username")%></span>,</p>
+		            		<p>
+		            			Thank you for shopping at Duo-Texture,<br>
+			            		Your payment was made <span class="text-success">successfully</span>.<br><br>
+			            		Please do wait patiently as we prepare the items you have bought and ship over.<br>
+			            		The estimated shipping duration is around <span class="text-danger">7-8 working days</span>.<br>
+			            		Once received, please kindly head over to the <span style="color: purple;">orders management to confirm the delivery</span>.<br><br>
+			            		
+			            		If you have any concerns or enquire, please feel free to dial <span class="text-primary">+65 8876 3325</span>. Thank you!
+			            	</p>
+		            		
+		            		<div class="row">
+			            		<a class="btn btn-primary mx-3" href="${pageContext.request.contextPath}/categories" role="button">Continue Shopping</a>
+			            		<a class="btn btn-info" href="${pageContext.request.contextPath}/orders" role="button">Orders Management</a>
+		            		</div>
 		            		<%
 		            	}else{
 		            		%>
-		            		<h1>Payment Failed</h1>
-		            		<h2>Card does not exist! Please try again!</h2>
-		            		<form action="${pageContext.request.contextPath}/checkout">
-		            			<button class="btn btn-primary">Back</button>
-		            		</form>
+		            		<p>Dear Duo-Texture Customer, <span class="text-info"><%=session.getAttribute("username")%></span>,</p>
+		            		<p>
+			            		Unfortuantely, the credit card which you have input has failed our validation. <br>
+			            		Please check if the details which you have input are correct. <br>
+			            		A few criteria for you to check are as follow.
+			            	</p>
+			            	
+		            		<ol class="mx-3">
+		            			<li>Valid card number</li>
+		            			<li>Valid expiry month</li>
+		            			<li>Valid expiry year</li>
+		            		</ol>
+		            		
+		            		<p>Something went wrong.<br>Please try again.</p>
+		            		
+		            		<a class="btn btn-primary" href="${pageContext.request.contextPath}/checkout" role="button">Back to Checkout</a>
 		            		<%
 		            	}
 	        		} else {
 	        			%>
 	        			<script type="text/javascript">
 	        			window.location.href='${pageContext.request.contextPath}/index';
-	        			alert("Please purchase items before accessing this page.");
+	        			alert("Please purchase an item.");
 	        			</script>
 	        			<%
 	        		}
