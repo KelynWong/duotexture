@@ -199,7 +199,7 @@ public class AddPaymentServlet extends HttpServlet {
 												
 											} else {
 												System.out.println("(adminservlets/AddPaymentServlet) Error: Card Expired (Month in Year) \n");
-												response.sendRedirect(request.getContextPath() + "/payment?payment=fail");
+												response.sendRedirect(request.getContextPath() + "/payment?payment=fail&expired=month");
 											}
 											
 										// if card expiry year does not match the current year
@@ -274,11 +274,11 @@ public class AddPaymentServlet extends HttpServlet {
 										
 							        } else {
 										System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired (Month) \n");
-										response.sendRedirect(request.getContextPath() + "/payment?payment=expired");
+										response.sendRedirect(request.getContextPath() + "/payment?payment=expired&expired=month");
 									}
 								} else {
 									System.out.println("(adminservlets/AddPaymentServlet) Error: Card expired (Year) \n");
-									response.sendRedirect(request.getContextPath() + "/payment?payment=expired");
+									response.sendRedirect(request.getContextPath() + "/payment?payment=expired&expired=year");
 								}
 								
 								// card number validation below
