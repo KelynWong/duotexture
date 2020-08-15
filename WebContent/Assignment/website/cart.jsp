@@ -139,7 +139,7 @@
 										      	<button type="submit" class="btn btn-info">+</button>
 										    </form>
 										    <form class="row col-3 p-0 m-0" action="${pageContext.request.contextPath}/DeleteCartServlet?productId=<%=productId%>&currency=<%=currency%>" method="post">
-										    	<button type="submit" class="btn btn-danger">Delete</button>
+										    	<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
 										 	</form>	
 							      		</div>
 								      </td>
