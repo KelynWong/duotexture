@@ -77,40 +77,80 @@
 							    </tr>
 							  </thead>
 							  <tbody>
+							  <% String date = orderArrayList.get(0).getDateTime(); %>
 		  					<%
 		  					for(int x=0; x<orderArrayList.size(); x++) {
+		  						String dateTime = orderArrayList.get(x).getDateTime();
+		  						String productImage = orderArrayList.get(x).getProductImage();
+		  						String productName = orderArrayList.get(x).getProductName();
+		  						String productCostPrice = String.format("%.2f", orderArrayList.get(x).getProductCostPrice());
+		  						int productQuantity = orderArrayList.get(x).getQuantity();
+		  						String productTotalPrice = String.format("%.2f", orderArrayList.get(x).getProductCostPrice()*orderArrayList.get(x).getQuantity());
+		  						
+		  						// check if product has the same purchase date and time
+		  						Boolean similarCart = false;
+		  						
+		  						if(x==0){
+		  							similarCart = false;
+		  						} else if(x==orderArrayList.size()-1){
+		  							similarCart = orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
+		  						} else {
+		  							similarCart = orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x+1).getDateTime()) || orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
+		  						}
+								
+	  							if(similarCart){
+	  							%>
+	  							<tr>
+	  							  <th scope="row"></th>
+							      <td><img src="<%=productImage%>" style="height:50px" alt="..."></td>
+							      <td><%=productName%></td>
+							      <td>$<%=productCostPrice%></td>
+							      <td><%=productQuantity%></td>
+							      <td>$<%=productTotalPrice%></td>
+							      <td>
+								   	  <form action="${pageContext.request.contextPath}/EditOneOrderServlet?productId=<%=orderArrayList.get(x).getProductId()%>" method="post">
+									    <button type="submit" class="btn btn-outline-success">Delivered</button>
+									  </form>
+								  </td>
+							    </tr>
+							    <%
+	  							} else {
 		  							%>
+		  							<tr><th scope="row"><%=dateTime%></th></tr>
 		  							<tr>
-		  							  <th scope="row"><%=orderArrayList.get(x).getDateTime().split(" ")[0]%></th>
-								      <td><img src="<%=orderArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></td>
-								      <td><%=orderArrayList.get(x).getProductName()%></td>
-								      <td>$<%=String.format("%.2f", orderArrayList.get(x).getProductCostPrice())%></td>
-								      <td><%=orderArrayList.get(x).getQuantity()%></td>
-								      <td>$<%=String.format("%.2f", orderArrayList.get(x).getProductCostPrice()*orderArrayList.get(x).getQuantity())%></td>
+		  							  <th scope="row"></th>
+								      <td><img src="<%=productImage%>" style="height:50px" alt="..."></td>
+								      <td><%=productName%></td>
+								      <td>$<%=productCostPrice%></td>
+								      <td><%=productQuantity%></td>
+								      <td>$<%=productTotalPrice%></td>
 								      <td>
-								      	<form action="${pageContext.request.contextPath}/EditOneOrderServlet?productId=<%=orderArrayList.get(x).getProductId()%>" method="post">
-									    	<button type="submit" class="btn btn-outline-success">Delivered</button>
-									    </form>
+									   	  <form action="${pageContext.request.contextPath}/EditOneOrderServlet?productId=<%=orderArrayList.get(x).getProductId()%>" method="post">
+										    <button type="submit" class="btn btn-outline-success">Delivered</button>
+										  </form>
 									  </td>
 								    </tr>
-								    <%
+		  							<%
+		  							}
 		  						}
-		  					%>
+			  						%>
 			  					</tbody>
 							</table>
 						</div>
 						
 				        <form action="${pageContext.request.contextPath}/EditOrdersServlet" method="post">
-				        	<button type="submit" class="btn btn-outline-success">All my orders are delivered</button>
+				        	<button type="submit" class="btn btn-outline-success">All Orders Delivered</button>
 				        </form>
 		  					<%
-	        			}else{ %>
+	        			} else { %>
 	        				<p>You currently don't have any orders.</p>
-        			<%	}
+        				<%}
 	        		}
+	        		
 	        	} catch(Exception e){
 		        	System.out.println("(orders.jsp) Message Error: " + e + "\n");
 		        }
+		     	
 		        %>
 	      </div>
 	    </section>
