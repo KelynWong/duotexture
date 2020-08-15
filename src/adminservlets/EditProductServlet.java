@@ -42,18 +42,9 @@ import utils.S3Utils;
 public class EditProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+   /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -89,7 +80,9 @@ public class EditProductServlet extends HttpServlet {
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
     private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
     
+    /* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -165,6 +158,7 @@ public class EditProductServlet extends HttpServlet {
 				        	    }
 				        	}
 							
+				        	// initialize variables
 							int inputProductId = (int) Integer.parseInt(valueArrayList.get(0));
 							String inputProductName = (String) valueArrayList.get(1);
 							String inputProductDescription = (String) valueArrayList.get(2);
@@ -173,6 +167,7 @@ public class EditProductServlet extends HttpServlet {
 							int inputQuantity = (int) Integer.parseInt(valueArrayList.get(5));
 							int inputCategoryId = (int) Integer.parseInt(valueArrayList.get(6));
 							
+							// image url validation
 							String inputImageUrl;
 							if(imageUrl == null) {
 								inputImageUrl = (String) valueArrayList.get(7);
@@ -181,9 +176,9 @@ public class EditProductServlet extends HttpServlet {
 							}
 							
 							// edit product
-							int count = ProductUtils.editProduct(inputProductId, inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
+							int editProductCount = ProductUtils.editProduct(inputProductId, inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
 						
-							if(count > 0){
+							if(editProductCount > 0){
 								response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + inputProductId + "&productEdit=success"); 
 							}else{
 								response.sendRedirect(request.getContextPath() + "/editproduct?productId=" + inputProductId + "&productEdit=fail");
