@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Assignment/website/assets/css/styles.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Assignment/website/assets/css/util.css" />
 </head>
-<% //double totalAmount = 0; %>
+
 <body class="d-block w-100 vh-100 bg-img">
 	
 	<!-- import navigation bar -->
@@ -36,6 +36,7 @@
 		<%
 		}else{
 			int userId = (int)session.getAttribute("userId");
+			
 	%>
 	<div class="row">
 		<section class="col-12 p-5">
@@ -43,77 +44,60 @@
 			<p class="custom-font-playfair fs-15">D u o - T e x t u r e - P u r c h a s e s</p>
 	     	<hr>
 	     	<div class="table-responsive-sm">
-				     	<%
-				        	try{
-				        		// display purchases
-				        		if(request.getAttribute("purchaseArrayList") != null){
-				        			ArrayList<Purchase> purchaseArrayList = (ArrayList<Purchase>) request.getAttribute("purchaseArrayList");
-									
-				        			SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-				        			if(purchaseArrayList.size() != 0){
-				        				%>
-				        				<table class="table w-auto">
-										  <thead class="thead-dark">
-										    <tr>
-										      <th scope="col">Image</th>
-										      <th scope="col">Product Name</th>
-										      <th scope="col">Price</th>
-										      <th scope="col">Qty</th>
-										      <th scope="col">Total</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										  	<% String date = purchaseArrayList.get(0).getDateTime().split(" ")[0]; %>
-					  						<th scope="row"><%=date%></th>
-					  					<%
-					  					for(int x=1; x<purchaseArrayList.size(); x++) {
-						  				    Date d1 = sdformat.parse(purchaseArrayList.get(x-1).getDateTime());
-						  				    Date d2 = sdformat.parse(purchaseArrayList.get(x).getDateTime());
-					  						if(d1.compareTo(d2) == 0){
-					  							%>
-					  							<tr>
-											      <th scope="row"><img src="<%=purchaseArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></th>
-											      <td><%=purchaseArrayList.get(x).getProductName()%></td>
-											      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice())%></td>
-											      <td><%=purchaseArrayList.get(x).getQuantity()%></td>
-											      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice()*purchaseArrayList.get(x).getQuantity())%></td>
-											    </tr>
-											    <%
-					  						}else{
-					  							date = purchaseArrayList.get(x).getDateTime().split(" ")[0];
-					  							%>
-					  							<tr><th scope="row"><%=date%></th></tr>
-					  							<tr>
-											      <th scope="row"><img src="<%=purchaseArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></th>
-											      <td><%=purchaseArrayList.get(x).getProductName()%></td>
-											      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice())%></td>
-											      <td><%=purchaseArrayList.get(x).getQuantity()%></td>
-											      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice()*purchaseArrayList.get(x).getQuantity())%></td>
-											    </tr>
-					  							<%
-					  						}
-					  					}
-				        			}else{ %>
-				        				<p>You haven't made any purchases.</p>
-				        				<hr>
-				        		<%	}
-				        		}
-				        	} catch(Exception e){
-					        	System.out.println("(purchases.jsp) Message Error: " + e + "\n");
-					        }
-					        %>
-		        		</tbody>
-					</table>
-				</div>
-				<form action="${pageContext.request.contextPath}/index">
-					<button type="submit" class="btn btn-outline-success">Home</button>
-				</form>
+		     	<%
+	        	try{
+	        		// display purchases
+	        		if(request.getAttribute("purchaseArrayList") != null){
+	        			ArrayList<Purchase> purchaseArrayList = (ArrayList<Purchase>) request.getAttribute("purchaseArrayList");
+	        			
+	        			if(purchaseArrayList.size() != 0){
+	        				%>
+	        				<table class="table table-bordered">
+							  <thead class="thead-dark">
+							    <tr>
+							      <th scope="col">Date of Purchase</th>
+							      <th scope="col">Image</th>
+							      <th scope="col">Product Name</th>
+							      <th scope="col">Price</th>
+							      <th scope="col">Quantity</th>
+							      <th scope="col">Total</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+		  					<%
+		  					for(int x=0; x<purchaseArrayList.size(); x++) {
+		  							%>
+		  							<tr>
+		  							  <th scope="row"><%=purchaseArrayList.get(x).getDateTime().split(" ")[0]%></td>
+								      <td><img src="<%=purchaseArrayList.get(x).getProductImage()%>" style="height:50px" alt="..."></th>
+								      <td><%=purchaseArrayList.get(x).getProductName()%></td>
+								      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice())%></td>
+								      <td><%=purchaseArrayList.get(x).getQuantity()%></td>
+								      <td>$<%=String.format("%.2f", purchaseArrayList.get(x).getProductCostPrice()*purchaseArrayList.get(x).getQuantity())%></td>
+								    </tr>
+								    <%
+		  						}
+		  						%>
+		  						</tbody>
+							</table>
+						</div>
+						
+						<form action="${pageContext.request.contextPath}/index">
+							<button type="submit" class="btn btn-outline-success">Home</button>
+						</form>
+		  				<%	
+	        			} else { %>
+	        				<p>You haven't made any purchases.</p>
+	        			<%}
+	        		}
+	        	} catch(Exception e){
+		        	System.out.println("(purchases.jsp) Message Error: " + e + "\n");
+		        }
+			}
+		    %>
 	      </div>
 	    </section>
 	</div>
-    <%
-	}
-    %>
     <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
