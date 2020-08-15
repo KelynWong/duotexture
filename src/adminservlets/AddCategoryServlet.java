@@ -43,11 +43,9 @@ import utils.S3Utils;
 public class AddCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public AddCategoryServlet() {
-        super();
-    }
-
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -84,7 +82,9 @@ public class AddCategoryServlet extends HttpServlet {
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
     private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
     
+    /* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 		
@@ -143,18 +143,17 @@ public class AddCategoryServlet extends HttpServlet {
 				        	    	imageUrl = S3Utils.uploadFile(fileName, fileInputStream);
 				        	    }
 				        	}
-				            
 
-							// get fields
+							// initialize variables
 							String inputCategoryName = (String) valueArrayList.get(0);
 							String inputCategoryDescription = (String) valueArrayList.get(1);
 							String inputCategoryImageUrl = imageUrl;
 							
 							// add category
-							int count = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
+							int addCategoryCount = CategoryUtils.insertCategory(inputCategoryName, inputCategoryDescription, inputCategoryImageUrl);
 							
 							// check count
-							if(count > 0){
+							if(addCategoryCount > 0){
 								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=success"); 
 							} else{
 								response.sendRedirect(request.getContextPath() + "/addcategory?categoryAddition=fail");
