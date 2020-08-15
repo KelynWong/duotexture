@@ -83,27 +83,31 @@
 				  <table class="table table-bordered">
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">User Id</th>
-				      <th scope="col">First Name</th>
-				      <th scope="col">Last Name</th>
-				      <th scope="col">Country</th>
-				      <th scope="col">Address</th>
-				      <th scope="col">Postal Code</th>
+				      <th scope="col">Product Id</th>
+				      <th scope="col">Image</th>
+				      <th scope="col">Name</th>
+				      <th scope="col">Description</th>
+				      <th scope="col">Cost Price</th>
+				      <th scope="col">Retail Price</th>
+				      <th scope="col">Quantity</th>
+				      <th scope="col">CategoryId</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				  <%
-				  ArrayList<Member> membersArrayList = (ArrayList<Member>) request.getAttribute("membersArrayList");
+				  ArrayList<Product> productsArrayList = (ArrayList<Product>) request.getAttribute("productsArrayList");
 				  
-				  for(int x=0; x<membersArrayList.size(); x++) {
+				  for(int x=0; x<productsArrayList.size(); x++) {
 				  %>
 				    <tr>
-				      <th scope="row"><%=membersArrayList.get(x).getUserId()%></th>
-				      <td><%=membersArrayList.get(x).getFirstName()%></td>
-				      <td><%=membersArrayList.get(x).getLastName()%></td>
-				      <td><%=membersArrayList.get(x).getCountry()%></td>
-				      <td><%=membersArrayList.get(x).getAddress()%></td>
-				      <td><%=membersArrayList.get(x).getPostalCode()%></td>
+				      <th scope="row"><%=productsArrayList.get(x).getProductId()%></th>
+				      <td><img src="<%=productsArrayList.get(x).getImage()%>" style="height:50px" alt="Product Image"></td>
+				      <td><%=productsArrayList.get(x).getName()%></td>
+				      <td><%=productsArrayList.get(x).getDescription()%></td>
+				      <td><%=productsArrayList.get(x).getCostPrice()%></td>
+				      <td><%=productsArrayList.get(x).getRetailPrice()%></td>
+				      <td><%=productsArrayList.get(x).getQuantity()%></td>
+				      <td><%=productsArrayList.get(x).getCategoryId()%></td>
 				    </tr>
 					<%}%>
 				  </tbody>
@@ -116,7 +120,7 @@
 				  <% 
 				  try {
 					  if(request.getParameter("page")!=null) {
-						  if(membersArrayList.size()==0){
+						  if(productsArrayList.size()==0){
 							  %>
 							  </ul>
 							  <p>There are no records found.</p>

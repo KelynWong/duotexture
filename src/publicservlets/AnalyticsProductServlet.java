@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Member;
+import javabeans.Product;
 import javabeans.Category;
 import utils.AnalyticUtils;
 
@@ -106,13 +107,13 @@ public class AnalyticsProductServlet extends HttpServlet {
 				}
 				
 				// get products
-				ArrayList<Member> productsArrayList = AnalyticUtils.getMembers(pageNumber-1, keyword, order);
-				ArrayList<Member> nextProductsArrayList = AnalyticUtils.getMembers(pageNumber, keyword, order);
+				ArrayList<Product> productsArrayList = AnalyticUtils.getProducts(pageNumber-1, keyword, order);
+				ArrayList<Product> nextProductsArrayList = AnalyticUtils.getProducts(pageNumber, keyword, order);
 				if(nextProductsArrayList.size()==0) {
 					maxRecord = true;
 				}
 				
-				request.setAttribute("membersArrayList", productsArrayList);
+				request.setAttribute("productsArrayList", productsArrayList);
 				request.setAttribute("keywordInput", keyword);
 				request.setAttribute("orderInput", order);
 				
