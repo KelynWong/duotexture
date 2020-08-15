@@ -181,29 +181,29 @@ public class AddPaymentServlet extends HttpServlet {
 											
 											// update payment by deleting before adding
 											CardUtils.deleteCard(userId);
-											System.out.println("here");
+											
 											// add payment
-											int count = CardUtils.insertCard(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
+											int addCardReturnCount = CardUtils.insertCard(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
 												
-											if(count > 0){
+											if(addCardReturnCount > 0){
 												ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
 												cartArrayList = CartUtils.getCartsByUserId(userId);
-												System.out.println("here2");
+												
 												if(cartArrayList.size() != 0) {
-													int count2 = 0;
+													int addOrderReturnCount = 0;
 													
 													// transfer to order
 													for (int x=0; x<cartArrayList.size(); x++) {
-														System.out.println("here4");
+														
 							    						// add order
-														count2 = OrderUtils.insertOrder(cartArrayList.get(x).getUserId(), cartArrayList.get(x).getProductId(), cartArrayList.get(x).getQuantity(), dateTime);
+														addOrderReturnCount = OrderUtils.insertOrder(cartArrayList.get(x).getUserId(), cartArrayList.get(x).getProductId(), cartArrayList.get(x).getQuantity(), dateTime);
 													}
 															
-													if(count2 > 0) {
+													if(addOrderReturnCount > 0) {
 														// delete cart
-														int count3 = CartUtils.deleteAllCart(userId); 
-														System.out.println("here3");
-														if(count3 > 0) {
+														int deleteCartReturnCount = CartUtils.deleteAllCart(userId); 
+														
+														if(deleteCartReturnCount > 0) {
 															response.sendRedirect(request.getContextPath() + "/payment?payment=success"); 
 														}else {
 															System.out.println("(adminservlets/AddPaymentServlet) Error: Failed to delete cart\n");
