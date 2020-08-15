@@ -3,27 +3,27 @@ package utils;
 public class PaymentUtils {
 	
 	// validate credit card number
-	public static Boolean validateCreditCardNumber(String cardNo) {
-		int nDigits = cardNo.length(); 
-		  
-	    int nSum = 0; 
-	    boolean isSecond = false; 
-	    for (int i = nDigits - 1; i >= 0; i--)  
-	    { 
-	  
-	        int d = cardNo.charAt(i) - '0'; 
-	  
-	        if (isSecond == true) 
-	            d = d * 2; 
-	  
-	        // We add two digits to handle 
-	        // cases that make two digits  
-	        // after doubling 
-	        nSum += d / 10; 
-	        nSum += d % 10; 
-	  
-	        isSecond = !isSecond; 
-	    } 
-	    return (nSum % 10 == 0); 
+	public static Boolean validateCreditCardNumber(String cc) {
+		int[] ints = new int[cc.length()];
+		for (int i = 0; i < cc.length(); i++) {
+			ints[i] = Integer.parseInt(cc.substring(i, i + 1));
+		}
+		for (int i = ints.length - 2; i >= 0; i = i - 2) {
+			int j = ints[i];
+			j = j * 2;
+			if (j > 9) {
+				j = j % 10 + 1;
+			}
+			ints[i] = j;
+		}
+		int sum = 0;
+		for (int i = 0; i < ints.length; i++) {
+			sum += ints[i];
+		}
+		if (sum % 10 == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
