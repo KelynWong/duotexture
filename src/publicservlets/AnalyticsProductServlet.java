@@ -43,18 +43,9 @@ import utils.AnalyticUtils;
 public class AnalyticsProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AnalyticsProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
 			// declare client
 			Client client = ClientBuilder.newClient();
@@ -90,7 +81,7 @@ public class AnalyticsProductServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
-				// initialize fields
+				// initialize variables
 				Boolean maxRecord = false;
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
 				String keyword = request.getParameter("keywordInput");
@@ -108,11 +99,14 @@ public class AnalyticsProductServlet extends HttpServlet {
 				
 				// get products
 				ArrayList<Product> productsArrayList = AnalyticUtils.getProducts(pageNumber-1, keyword, order);
+				
+				// get next products (last page validation)
 				ArrayList<Product> nextProductsArrayList = AnalyticUtils.getProducts(pageNumber, keyword, order);
 				if(nextProductsArrayList.size()==0) {
 					maxRecord = true;
 				}
 				
+				// store in request
 				request.setAttribute("productsArrayList", productsArrayList);
 				request.setAttribute("keywordInput", keyword);
 				request.setAttribute("orderInput", order);
@@ -138,12 +132,4 @@ public class AnalyticsProductServlet extends HttpServlet {
 		}
 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
-	}
-
 }
