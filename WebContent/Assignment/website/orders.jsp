@@ -50,7 +50,7 @@
 	<!-- import navigation bar -->
     <%@ include file = "components/navigation.jsp" %>
 
-	<div class="row">
+	<div>
 		<section class="col-12 p-5">
 	      <div class="mx-auto col-10 p-5 bo-rad-10" style="background-color: rgb(255, 255, 255)">
 			<p class="custom-font-playfair fs-15">D u o - T e x t u r e - O r d e r s</p>
