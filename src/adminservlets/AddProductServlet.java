@@ -41,18 +41,9 @@ import utils.S3Utils;
 public class AddProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -88,7 +79,9 @@ public class AddProductServlet extends HttpServlet {
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
     private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
     
+    /* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -98,6 +91,7 @@ public class AddProductServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is admin
 				if(!session.getAttribute("accountType").equals("admin")){
 					out.println("<script type='text/javascript'>");
@@ -147,6 +141,7 @@ public class AddProductServlet extends HttpServlet {
 				        	    }
 				        	}
 				            
+				        	// initialize variables
 				        	String inputProductName = (String) valueArrayList.get(0);
 							String inputProductDescription = (String) valueArrayList.get(1);
 							Double inputCostPrice = (Double) Double.parseDouble(valueArrayList.get(2));
@@ -156,9 +151,9 @@ public class AddProductServlet extends HttpServlet {
 							String inputImageUrl = imageUrl;
 							
 							// add product
-							int count = ProductUtils.insertProduct(inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
+							int addProductCount = ProductUtils.insertProduct(inputProductName, inputProductDescription, inputCostPrice, inputRetailPrice, inputQuantity, inputCategoryId, inputImageUrl);
 						
-							if(count > 0){
+							if(addProductCount > 0){
 								response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=success"); 
 							}else{
 								response.sendRedirect(request.getContextPath() + "/addproduct?productAddition=fail");
