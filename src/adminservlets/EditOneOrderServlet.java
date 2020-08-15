@@ -2,11 +2,7 @@ package adminservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,23 +16,25 @@ import utils.PurchaseUtils;
 
 /**
  * Servlet implementation class EditOneOrderServlet
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
  */
+
 @WebServlet("/EditOneOrderServlet")
 public class EditOneOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditOneOrderServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 
@@ -67,10 +65,9 @@ public class EditOneOrderServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Post Method */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
 		HttpSession session=request.getSession();
 								
@@ -80,6 +77,7 @@ public class EditOneOrderServlet extends HttpServlet {
 		try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is member
 				if(!session.getAttribute("accountType").equals("member")){
 					out.println("<script type='text/javascript'>");
@@ -87,42 +85,41 @@ public class EditOneOrderServlet extends HttpServlet {
 					out.println("alert('You have to log in as member.');");
 					out.println("</script>");
 				} else {	
+					
+					// initialize variables
 					int userId = (int)session.getAttribute("userId");
 					int productId = Integer.parseInt(request.getParameter("productId"));
-							
-					ArrayList<Order> orderArrayList = new ArrayList<Order>();
-					orderArrayList = OrderUtils.getOrderByUserId(userId, productId);
+					
+					// get an order by user id
+					ArrayList<Order> orderArrayList = OrderUtils.getOrderByUserId(userId, productId);
 											
 					if(orderArrayList.size() != 0) {
-						int count = 0;
-						// transfer to purchase
+						int insertPurchaseCount = 0;
+						
+						// transfer an order to purchase
 						for (int x=0; x<orderArrayList.size(); x++) {
-							// get current date
-							DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				    		String dateTime = dateFormat.format(new Date());
-				    		
 				    		// add purchase
-							count = PurchaseUtils.insertPurchase(orderArrayList.get(x).getUserId(), orderArrayList.get(x).getProductId(), orderArrayList.get(x).getQuantity(), dateTime);
+							insertPurchaseCount = PurchaseUtils.insertPurchase(orderArrayList.get(x).getUserId(), orderArrayList.get(x).getProductId(), orderArrayList.get(x).getQuantity(), orderArrayList.get(x).getDateTime());
 						}
 												
-						if(count > 0) {
+						if(insertPurchaseCount > 0) {
 							// delete one order
-							int count2 = OrderUtils.deleteOneOrder(userId, productId); 
+							int deleteAnOrderCount = OrderUtils.deleteOneOrder(userId, productId); 
 													
-							if(count2 > 0) {
+							if(deleteAnOrderCount > 0) {
 								out.println("<script type='text/javascript'>");
 								out.println("window.location.href='../ST0510-JAD-Assignment/orders';");
 								out.println("alert('Item have be confirmed that it is delivered!');");
 								out.println("</script>");
-							}else {
-								System.out.println("(adminservlets/EditOneOrderServlet) Error: Failed to delete order\n");
+							} else {
+								System.out.println("(adminservlets/EditOneOrderServlet) Error: Failed to delete order \n");
 								response.sendRedirect(request.getContextPath() + "/purchases");
 							}
-						}else {
-							System.out.println("(adminservlets/EditOneOrderServlet) Error: Failed to insert to purchases\n");
+						} else {
+							System.out.println("(adminservlets/EditOneOrderServlet) Error: Failed to insert to purchases \n");
 							response.sendRedirect(request.getContextPath() + "/purchases");
 						}
-					}else {
+					} else {
 						out.println("<script type='text/javascript'>");
 						out.println("window.location.href='../ST0510-JAD-Assignment/orders';");
 						out.println("alert('You have no orders!');");
