@@ -60,9 +60,9 @@
         <section class="row">
         	<!-- tablist -->
 	        <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist">
-			  <a class="nav-link active" id="v-pills-customer-tab" href="#v-pills-customer">Customer</a>
-			  <a class="nav-link" id="v-pills-product-tab" href="/analyticsproduct" role="tab">Product</a>
-			  <a class="nav-link" id="v-pills-order-tab" href="/analyticsorder">Order</a>
+			  <a class="nav-link active" id="v-pills-customer-tab" href="#">Customer</a>
+			  <a class="nav-link" id="v-pills-product-tab" href="${pageContext.request.contextPath}/analyticsproduct?page=1" role="tab">Product</a>
+			  <a class="nav-link" id="v-pills-order-tab" href="${pageContext.request.contextPath}/analyticsorder?page=1">Order</a>
 			</div>
 			
 			<!-- customer content -->
