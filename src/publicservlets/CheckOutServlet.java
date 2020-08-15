@@ -47,18 +47,9 @@ import javabeans.Category;
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckoutServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// get current session
     	HttpSession session=request.getSession();
     	
@@ -68,13 +59,15 @@ public class CheckoutServlet extends HttpServlet {
     	try{ 
 			// validate if user is logged in with an account type
 			if(session.getAttribute("accountType")!=null){
+				
 				// validate if user executing request is member
 				if(!session.getAttribute("accountType").equals("member")){
 					out.println("<script type='text/javascript'>");
 					out.println("window.location.href='../ST0510-JAD-Assignment/index';");
 					out.println("alert('You have to login as member to checkout.');");
 					out.println("</script>");
-				}else {
+				} else {
+					
 	        		try {
 	        			// declare client
 	        			Client client = ClientBuilder.newClient();
@@ -91,6 +84,7 @@ public class CheckoutServlet extends HttpServlet {
 	        			
 	        			// if response status is ok
 	        			if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+	        				
 	        				// get results from java class
 	        				JSONArray categoriesJSONArray = new JSONArray(resp.readEntity(new GenericType<String>() {}));
 	        				ArrayList<Category> categoriesArrayList = new ArrayList<Category>();
@@ -125,6 +119,7 @@ public class CheckoutServlet extends HttpServlet {
 	    				
 	    				// if response status is ok
 	    				if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
+	    					
 	    					// get results from java class
 	    					JSONArray cartJSONArray = new JSONArray(resp.readEntity(new GenericType<String>() {}));
 	    					ArrayList<Cart> cartArrayList = new ArrayList<Cart>();
@@ -134,7 +129,9 @@ public class CheckoutServlet extends HttpServlet {
 	    						out.println("window.location.href='../ST0510-JAD-Assignment/cart';");
 	    						out.println("alert('You have an empty cart.');");
 	    						out.println("</script>");
-	    					}else {
+	    					} else {
+	    						
+	    						// create and store Cart into cartArrayList
 		    					for(int x=0; x<cartJSONArray.length(); x++) {
 		    						JSONObject cartObject = (JSONObject) cartJSONArray.get(x);
 		    						
@@ -172,6 +169,7 @@ public class CheckoutServlet extends HttpServlet {
 		    					resp = invoBuilder.get();
 		    					
 		    					RequestDispatcher requestDispatcher = null;
+		    					
 		    					// if response status is ok
 		    					if(resp.getStatus() == Response.Status.OK.getStatusCode()) {
 		    						JSONObject cardObject = new JSONObject(resp.readEntity(new GenericType<String>() {}));
@@ -183,6 +181,7 @@ public class CheckoutServlet extends HttpServlet {
 		        						int expiryYear = cardObject.getInt("expiryYear");
 		        						int cvv = cardObject.getInt("cvv");
 		        						
+		        						// create Card
 		        						Card card = new Card(userId, cardOwner, cardNumber, expiryMonth, expiryYear, cvv);
 		        						
 		        						// store in request
@@ -196,16 +195,16 @@ public class CheckoutServlet extends HttpServlet {
 		    							requestDispatcher.forward(request, response);
 		    						}
 		    					} else {
-		    						System.out.println("(publicservlets/CheckOutServlet) Error: Response not ok. \n");
+		    						System.out.println("(publicservlets/CheckOutServlet) Error: Card Response not ok. \n");
 		    						response.sendRedirect(request.getContextPath() + "/index");
 		    					}
 		    				}
 	    				} else {
-	    					System.out.println("(publicservlets/CheckOutServlet) Error: Response not ok. \n");
+	    					System.out.println("(publicservlets/CheckOutServlet) Error: Cart Response not ok. \n");
 	    					response.sendRedirect(request.getContextPath() + "/index");
 	    				}
 	        		} else {
-	        			System.out.println("(publicservlets/CheckOutServlet) Error: Response not ok. \n");
+	        			System.out.println("(publicservlets/CheckOutServlet) Error: Categories Response not ok. \n");
 	        			response.sendRedirect(request.getContextPath() + "/index");
 	        		}
 	    				
@@ -224,12 +223,4 @@ public class CheckoutServlet extends HttpServlet {
 			System.out.println("(publicservlets/CheckOutServlet) Member Validation Error: " + e + "\n");
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
-	}
-
 }
