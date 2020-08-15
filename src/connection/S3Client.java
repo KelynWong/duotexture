@@ -1,5 +1,18 @@
 package connection;
 
+/**
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
+ */
+
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -10,7 +23,6 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 public class S3Client {
 	// global variables
 	public final static String BUCKET_NAME = "jad-bucket";
-	public final static String FOLDER_NAME = "images";
 	public final static String SUFFIX = "/";
 	
 	public static AmazonS3 CreateS3Client() throws Exception{
