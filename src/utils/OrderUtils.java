@@ -129,7 +129,7 @@ public class OrderUtils {
 		Connection conn = Database.connectToDatabase();
 
 		// prepared statement, add order query and result
-		String addOrderQuery = "INSERT INTO duotexture.orders(`userId`, `productId`, `quantity`, `dateTime`) VALUES(?, ?, ?);";
+		String addOrderQuery = "INSERT INTO duotexture.orders(`userId`, `productId`, `quantity`, `dateTime`) VALUES(?, ?, ?, ?);";
 		PreparedStatement pstmt = conn.prepareStatement(addOrderQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);
