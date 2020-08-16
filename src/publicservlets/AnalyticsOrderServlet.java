@@ -163,10 +163,10 @@ public class AnalyticsOrderServlet extends HttpServlet {
 				}
 				
 				// get orders (minus one as page started at 1)
-				ArrayList<AnalyticsOrder> purchaseLogArrayList = AnalyticUtils.getPurchasesLog(purchaseLogPageNumber-1, orderKeyword, orderOrder);
+				ArrayList<AnalyticsOrder> purchaseLogArrayList = AnalyticUtils.getPurchasesLog(purchaseLogPageNumber-1, purchaseLogKeyword, purchaseLogOrder);
 				
 				// get next orders (last page validation)
-				ArrayList<AnalyticsOrder> nextPurchaseLogArrayList = AnalyticUtils.getPurchasesLog(purchaseLogPageNumber, orderKeyword, orderOrder);
+				ArrayList<AnalyticsOrder> nextPurchaseLogArrayList = AnalyticUtils.getPurchasesLog(purchaseLogPageNumber, purchaseLogKeyword, purchaseLogOrder);
 				if(nextPurchaseLogArrayList.size()==0) {
 					purchaseLogMaxRecord = true;
 				}
