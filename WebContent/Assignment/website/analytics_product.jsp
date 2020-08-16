@@ -172,8 +172,8 @@
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
 		            <input class="form-control col-7" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
-		    			<option value="ASC" selected>Ascending</option>
-		    			<option value="DESC">Descending</option>
+		    			<option value="DESC" selected>Least to Best Selling Product</option>
+		    			<option value="ASC">Best to Least Selling Product</option>
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
 		        </form>
