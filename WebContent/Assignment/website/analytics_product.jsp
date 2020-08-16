@@ -76,7 +76,7 @@
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
-		            <input class="form-control col-5" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
+		            <input class="form-control col-5" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search by product's name">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
 		    			<%
 		    			String order = (String) request.getAttribute("orderInput");
@@ -198,7 +198,7 @@
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
-		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
+		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search by product's name">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
 		    			<%
 		    			String bestLeastOrder = (String) request.getAttribute("bestLeastOrderInput");
