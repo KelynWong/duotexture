@@ -76,10 +76,28 @@
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
-		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
+		            <input class="form-control col-5" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
-		    			<option value="ASC" selected>Ascending</option>
-		    			<option value="DESC">Descending</option>
+		    			<%
+		    			String order = (String) request.getAttribute("orderInput");
+		    			ArrayList<Dropdown> orderArrayList = new ArrayList<Dropdown>();
+		    			orderArrayList.add(new Dropdown("ASCProdId", "Ascending Product Id"));
+		    			orderArrayList.add(new Dropdown("DESCProdId", "Descending Product Id"));
+		    			orderArrayList.add(new Dropdown("ASCLowStock", "Products with Low Stock"));
+		    			orderArrayList.add(new Dropdown("ASCModerateStock", "Products with Moderate Stock"));
+		    			orderArrayList.add(new Dropdown("ASCHighStock", "Products with High Stock"));
+		    			
+		    			for(int x=0; x<orderArrayList.size(); x++){
+		    				String orderType = orderArrayList.get(x).getOrderType();
+		    				String orderDisplay = orderArrayList.get(x).getOrderDisplay();
+		    				
+		    				if(order.equals(orderType)){
+		    					%><option selected value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				} else {
+		    					%><option value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				}
+		    			}
+		    			%>
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
 		        </form>
@@ -90,10 +108,10 @@
 				      <th scope="col">Product Id</th>
 				      <th scope="col">Image</th>
 				      <th scope="col">Name</th>
-				      <th scope="col">Description</th>
 				      <th scope="col">Cost Price</th>
 				      <th scope="col">Retail Price</th>
 				      <th scope="col">Quantity</th>
+				      <th scope="col">Stock Status</th>
 				      <th scope="col">CategoryId</th>
 				    </tr>
 				  </thead>
@@ -102,15 +120,23 @@
 				  ArrayList<Product> productsArrayList = (ArrayList<Product>) request.getAttribute("productsArrayList");
 				  
 				  for(int x=0; x<productsArrayList.size(); x++) {
+					  int productQuantity = productsArrayList.get(x).getQuantity();
 				  %>
 				    <tr>
 				      <th scope="row"><%=productsArrayList.get(x).getProductId()%></th>
 				      <td><img src="<%=productsArrayList.get(x).getImage()%>" style="height:50px" alt="Product Image"></td>
 				      <td><%=productsArrayList.get(x).getName()%></td>
-				      <td><%=productsArrayList.get(x).getDescription()%></td>
 				      <td>$<%=productsArrayList.get(x).getCostPrice()%></td>
 				      <td>$<%=productsArrayList.get(x).getRetailPrice()%></td>
-				      <td><%=productsArrayList.get(x).getQuantity()%></td>
+				      <td><%=productQuantity%></td>
+				      <td><% if(productQuantity<=20){
+				    	  %><span class="text-danger">Low</span><%
+				    	  }else if(productQuantity<=50){%>
+				    	  <span class="text-warning">Moderate</span>
+				    	  <%}else{%>
+				    	  <span class="text-success">High</span>
+				    	  <%}%>
+			    	  </td>
 				      <td><%=productsArrayList.get(x).getCategoryId()%></td>
 				    </tr>
 					<%}%>
@@ -127,7 +153,7 @@
 						  if(productsArrayList.size()==0){
 							  %>
 							  </ul>
-							  <p>There are no records found.</p>
+							  <p class="mb-5"'>There are no records found.</p>
 							  <%
 						  } else {
 							  int pageNumber = Integer.parseInt(request.getParameter("page"));
@@ -186,7 +212,6 @@
 				      <th scope="col">Product Id</th>
 				      <th scope="col">Image</th>
 				      <th scope="col">Name</th>
-				      <th scope="col">Description</th>
 				      <th scope="col">Cost Price</th>
 				      <th scope="col">Retail Price</th>
 				      <th scope="col">Quantity Sold</th>
@@ -204,7 +229,6 @@
 				      <th scope="row"><%=bestLeastProductsArrayList.get(x).getProductId()%></th>
 				      <td><img src="<%=bestLeastProductsArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getProductName()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getProductDescription()%></td>
 				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()%></td>
 				      <td>$<%=bestLeastProductsArrayList.get(x).getProductRetailPrice()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getQuantity()%></td>
@@ -225,7 +249,7 @@
 						  if(bestLeastProductsArrayList.size()==0){
 							  %>
 							  </ul>
-							  <p>There are no records found.</p>
+							  <p class="mb-5">There are no records found.</p>
 							  <%
 						  } else {
 							  int bestLeastPageNumber = Integer.parseInt(request.getParameter("bestLeastPage"));
