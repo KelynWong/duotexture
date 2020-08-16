@@ -108,8 +108,8 @@
 				      <td><img src="<%=productsArrayList.get(x).getImage()%>" style="height:50px" alt="Product Image"></td>
 				      <td><%=productsArrayList.get(x).getName()%></td>
 				      <td><%=productsArrayList.get(x).getDescription()%></td>
-				      <td><%=productsArrayList.get(x).getCostPrice()%></td>
-				      <td><%=productsArrayList.get(x).getRetailPrice()%></td>
+				      <td>$<%=productsArrayList.get(x).getCostPrice()%></td>
+				      <td>$<%=productsArrayList.get(x).getRetailPrice()%></td>
 				      <td><%=productsArrayList.get(x).getQuantity()%></td>
 				      <td><%=productsArrayList.get(x).getCategoryId()%></td>
 				    </tr>
@@ -141,8 +141,8 @@
 	
 							  if(pageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>&bestLeastPage=1">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber-1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>&bestLeastPage=1"><%=pageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -150,8 +150,8 @@
 						    <%
 						    if(maxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>"><%=pageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>&bestLeastPage=1"><%=pageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=pageNumber+1%>&keywordInput=<%=keywordInput%>&orderInput=<%=orderInput%>&bestLeastPage=1">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
@@ -174,8 +174,8 @@
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
 		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
-		    			<option value="DESC" selected>Least to Best Selling Product</option>
-		    			<option value="ASC">Best to Least Selling Product</option>
+		    			<option value="DESC" selected>Best to Least Selling Product</option>
+		    			<option value="ASC">Least to Best Selling Product</option>
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
 		        </form>
@@ -189,7 +189,8 @@
 				      <th scope="col">Description</th>
 				      <th scope="col">Cost Price</th>
 				      <th scope="col">Retail Price</th>
-				      <th scope="col">Quantity</th>
+				      <th scope="col">Quantity Sold</th>
+				      <th scope="col">Profit</th>
 				      <th scope="col">CategoryId</th>
 				    </tr>
 				  </thead>
@@ -204,9 +205,10 @@
 				      <td><img src="<%=bestLeastProductsArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getProductName()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getProductDescription()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getProductCostPrice()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getProductRetailPrice()%></td>
+				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()%></td>
+				      <td>$<%=bestLeastProductsArrayList.get(x).getProductRetailPrice()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getQuantity()%></td>
+				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()*bestLeastProductsArrayList.get(x).getQuantity()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getProductCategoryId()%></td>
 				    </tr>
 					<%}%>
@@ -237,8 +239,8 @@
 	
 							  if(bestLeastPageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=bestLeastPageNumber-1%>&keywordInput=<%=bestLeastKeywordInput%>&orderInput=<%=bestLeastOrderInput%>">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=bestLeastPageNumber-1%>&keywordInput=<%=bestLeastKeywordInput%>&orderInput=<%=bestLeastOrderInput%>"><%=bestLeastPageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?bestLeastPage=<%=bestLeastPageNumber-1%>&bestLeastKeywordInput=<%=bestLeastKeywordInput%>&bestLeastOrderInput=<%=bestLeastOrderInput%>&page=1">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?bestLeastPage=<%=bestLeastPageNumber-1%>&bestLeastKeywordInput=<%=bestLeastKeywordInput%>&bestLeastOrderInput=<%=bestLeastOrderInput%>&page=1"><%=bestLeastPageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -246,8 +248,8 @@
 						    <%
 						    if(bestLeastMaxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=bestLeastPageNumber+1%>&keywordInput=<%=bestLeastKeywordInput%>&orderInput=<%=bestLeastOrderInput%>"><%=bestLeastPageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?page=<%=bestLeastPageNumber+1%>&keywordInput=<%=bestLeastKeywordInput%>&orderInput=<%=bestLeastOrderInput%>">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?bestLeastPage=<%=bestLeastPageNumber-1%>&bestLeastKeywordInput=<%=bestLeastKeywordInput%>&bestLeastOrderInput=<%=bestLeastOrderInput%>&page=1"><%=bestLeastPageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?bestLeastPage=<%=bestLeastPageNumber-1%>&bestLeastKeywordInput=<%=bestLeastKeywordInput%>&bestLeastOrderInput=<%=bestLeastOrderInput%>&page=1">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
