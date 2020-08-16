@@ -23,6 +23,7 @@ public class Purchase {
 	private String productDescription;
 	private double productCostPrice;
 	private double productRetailPrice;
+	private double productProfit;
 	private String productImage;
 	private int productCategoryId;
 	
@@ -31,7 +32,7 @@ public class Purchase {
 		
 	}
 	
-	// constructor overload ( without productRetailPrice and productCategoryId for purchases )
+	// constructor overload ( without productRetailPrice, productProfit and productCategoryId for purchases )
 	public Purchase(int userId, int productId, int quantity, String dateTime, String productName, String productDescription, double productCostPrice, String productImage) {
 		this.userId = userId;
 		this.productId = productId;
@@ -83,6 +84,11 @@ public class Purchase {
 	public double getProductRetailPrice() {
 		return productRetailPrice;
 	}
+	
+	// get product profit
+	public double getProductProfit() {
+		return productRetailPrice;
+	}
 		
 	// get product image
 	public String getProductImage() {
@@ -132,6 +138,11 @@ public class Purchase {
 	// set product retail price
 	public void setProductRetailPrice(double productRetailPrice) {
 		this.productRetailPrice = productRetailPrice;
+	}
+	
+	// set product retail price
+	public void setProductProfit(double productProfit) {
+		this.productProfit = productProfit;
 	}
 			
 	// set product image
