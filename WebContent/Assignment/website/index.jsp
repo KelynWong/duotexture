@@ -36,13 +36,13 @@
             </ol>
             <section class="carousel-inner">
                 <section class="carousel-item active">
-                <img src="${pageContext.request.contextPath}/Assignment/website/assets/images/image1.jpg" class="d-block w-100" alt="sunglasses">
+                <img src="https://jad-bucket.s3.us-east-2.amazonaws.com/image1.jpg" class="d-block w-100" placeholder ="https://jad-bucket.s3.us-east-2.amazonaws.com/image2.jpg" alt="sunglasses">
                 </section>
                 <section class="carousel-item">
-                <img src="${pageContext.request.contextPath}/Assignment/website/assets/images/image2.jpg" class="d-block w-100" alt="shoes">
+                <img src="https://jad-bucket.s3.us-east-2.amazonaws.com/image2.jpg" class="d-block w-100" alt="shoes">
                 </section>
                 <section class="carousel-item">
-                <img src="${pageContext.request.contextPath}/Assignment/website/assets/images/image3.jpg" class="d-block w-100" alt="kid model">
+                <img src="https://jad-bucket.s3.us-east-2.amazonaws.com/image3.jpg" class="d-block w-100" alt="kid model">
                 </section>
             </section>
             <a class="carousel-control-prev" href="#carousellIndicators" role="button" data-slide="prev">
