@@ -203,8 +203,8 @@
 		    			<%
 		    			String bestLeastOrder = (String) request.getAttribute("bestLeastOrderInput");
 		    			ArrayList<Dropdown> bestLeastOrderArrayList = new ArrayList<Dropdown>();
-		    			bestLeastOrderArrayList.add(new Dropdown("DESCBestLeast", "Best to Least Selling Product"));
-		    			bestLeastOrderArrayList.add(new Dropdown("ASCBestLeast", "Least to Best Selling Product"));
+		    			bestLeastOrderArrayList.add(new Dropdown("ASCBestLeast", "Best to Least Selling Product"));
+		    			bestLeastOrderArrayList.add(new Dropdown("DESCBestLeast", "Least to Best Selling Product"));
 		    			bestLeastOrderArrayList.add(new Dropdown("DESCProfit", "Highest to Lowest Profit"));
 		    			bestLeastOrderArrayList.add(new Dropdown("ASCProfit", "Lowest to Highest Profit"));
 

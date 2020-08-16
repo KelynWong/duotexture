@@ -126,7 +126,7 @@
 				      <td><img src="<%=ordersArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></td>
 				      <td><%=ordersArrayList.get(x).getProductName()%></td>
 				      <td>$<%=ordersArrayList.get(x).getProductCostPrice()%></td>
-				      <td>$<%=ordersArrayList.get(x).getProductQuantity()%></td>
+				      <td><%=ordersArrayList.get(x).getProductQuantity()%></td>
 				      <td><%=ordersArrayList.get(x).getDateTime()%></td>
 				    </tr>
 					<%}%>
@@ -157,8 +157,8 @@
 	
 							  if(orderPageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1"><%=orderPageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber-1%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber-1%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1"><%=orderPageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -166,8 +166,8 @@
 						    <%
 						    if(orderMaxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1"><%=orderPageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber+1%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1"><%=orderPageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?orderPage=<%=orderPageNumber+1%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
@@ -259,8 +259,8 @@
 	
 							  if(top10PageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1"><%=top10PageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1"><%=top10PageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -268,8 +268,8 @@
 						    <%
 						    if(top10MaxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1"><%=top10PageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber+1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1"><%=top10PageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?top10Page=<%=top10PageNumber+1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
@@ -372,8 +372,8 @@
 	
 							  if(purchaseLogPageNumber!=1){
 							  %>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1">Previous</a></li>
-							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1"><%=purchaseLogPageNumber-1%></a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber-1%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber-1%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1"><%=purchaseLogPageNumber-1%></a></li>
 							  <%
 							  }
 				  			%>
@@ -381,8 +381,8 @@
 						    <%
 						    if(purchaseLogMaxRecord==false){
 						    %>
-						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber-1%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1"><%=purchaseLogPageNumber+1%></a></li>
-					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber-1%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1">Next</a></li>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber+1%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1"><%=purchaseLogPageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsorder?purchaseLogPage=<%=purchaseLogPageNumber+1%>&purchaseLogKeywordInput=<%=purchaseLogKeywordInput%>&purchaseLogOrderInput=<%=purchaseLogOrderInput%>&orderPage=1&top10Page=1">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
