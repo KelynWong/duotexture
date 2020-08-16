@@ -75,6 +75,7 @@
 			  	<!-- search and add function -->
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
+		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
 		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
 		    			<option value="ASC" selected>Ascending</option>
@@ -169,6 +170,7 @@
 			  	<h6 class="text-info mt-3">Best and Least Selling Product Analysis by Purchases</h6>
 			  	<!-- search and add function -->
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
+		        	<input class="form-control" name="page" type="hidden" value="1">
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
 		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
