@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connection.Database;
+import javabeans.AnalyticsOrder;
 import javabeans.Member;
 import javabeans.Product;
 import javabeans.Purchase;
@@ -184,5 +185,64 @@ public class AnalyticUtils {
 		// close connection
 		conn.close();
 		return bestLeastProductArrayList;
+	}
+	
+	// get all orders
+	public static ArrayList<AnalyticsOrder> getOrders (int count, String keyword, String order) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// compute limit formula
+		int limit = count*5;
+		
+		// prepared statement, get all orders query and result
+		String getOrdersQuery = "SELECT users.userId, CONCAT(members.first_name,' ',members.last_name) AS fullName, orders.productId, products.image, products.name, products.cost_price, orders.quantity, orders.dateTime FROM duotexture.orders INNER JOIN duotexture.products ON orders.productId = products.productId INNER JOIN duotexture.users ON users.userId = orders.userId INNER JOIN duotexture.members ON users.userId = members.userId WHERE products.name LIKE ? ";
+		
+		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
+		if(order.equals("DESCUserId")) {
+			getOrdersQuery += "ORDER BY users.userId DESC LIMIT ?,5;";
+		}else { // "ASCUserId"
+			getOrdersQuery += "ORDER BY users.productId ASC LIMIT ?,5;";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(getOrdersQuery);
+		pstmt.setString(1, "%" + keyword + "%");
+		pstmt.setInt(2, limit);
+		ResultSet getOrdersResult = pstmt.executeQuery();
+		
+		// create new ArrayList of AnalyticsOrder
+		ArrayList<AnalyticsOrder> analyticsOrderArrayList = new ArrayList<AnalyticsOrder>();
+		
+		// loop if there are new row
+		while(getOrdersResult.next()) {
+			// create an instance of AnalyticsOrder
+			AnalyticsOrder analyticsOrderBean = new AnalyticsOrder();
+			
+			// initialize variables
+			int userId = getOrdersResult.getInt("userId");
+			String fullName = getOrdersResult.getString("fullName");
+			int productId = getOrdersResult.getInt("productId");
+			String productImage = getOrdersResult.getString("image");
+			String productName = getOrdersResult.getString("name");
+			Double productCostPrice = getOrdersResult.getDouble("cost_price");
+			int productQuantity = getOrdersResult.getInt("quantity");
+			String dateTime = getOrdersResult.getString("dateTime");
+			
+			analyticsOrderBean.setUserId(userId);
+			analyticsOrderBean.setFullName(fullName);
+			analyticsOrderBean.setProductId(productId);
+			analyticsOrderBean.setProductImage(productImage);
+			analyticsOrderBean.setProductName(productName);
+			analyticsOrderBean.setProductCostPrice(productCostPrice);
+			analyticsOrderBean.setProductQuantity(productQuantity);
+			analyticsOrderBean.setDateTime(dateTime);
+			
+			// add analyticsOrderBean to analyticsOrderArrayList
+			analyticsOrderArrayList.add(analyticsOrderBean);
+		}
+		
+		// close connection
+		conn.close();
+		return analyticsOrderArrayList;
 	}
 }
