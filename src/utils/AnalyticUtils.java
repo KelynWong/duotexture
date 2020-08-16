@@ -83,7 +83,7 @@ public class AnalyticUtils {
 		int limit = count*5;
 		
 		// prepared statement, get all products query and result
-		String getProductsQuery = "SELECT * FROM duotexture.products WHERE (products.name LIKE ? OR products.description LIKE ?) ";
+		String getProductsQuery = "SELECT * FROM duotexture.products WHERE (products.name LIKE ?) ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
 		if(order.equals("ASCProdId")) {
@@ -102,8 +102,7 @@ public class AnalyticUtils {
 		
 		PreparedStatement pstmt = conn.prepareStatement(getProductsQuery);
 		pstmt.setString(1, "%" + keyword + "%");
-		pstmt.setString(2, "%" + keyword + "%");
-		pstmt.setInt(3, limit);
+		pstmt.setInt(2, limit);
 		ResultSet getProductsResult = pstmt.executeQuery();
 		
 		// create new ArrayList of Product
@@ -116,7 +115,6 @@ public class AnalyticUtils {
 			
 			productBean.setProductId(getProductsResult.getInt("productId"));
 			productBean.setName(getProductsResult.getString("name"));
-			productBean.setDescription(getProductsResult.getString("description"));
 			productBean.setCostPrice(getProductsResult.getDouble("cost_price"));
 			productBean.setRetailPrice(getProductsResult.getDouble("retail_price"));
 			productBean.setQuantity(getProductsResult.getInt("quantity"));
@@ -141,7 +139,7 @@ public class AnalyticUtils {
 		int limit = count*5;
 		
 		// prepared statement, get best to least products query and result
-		String getBestLeastProductsQuery = "SELECT pro.name, pro.description, pro.cost_price, pro.retail_price, pro.categoryId, pro.image, sum(pur.quantity) as quantity, pro.cost_price*sum(pur.quantity) as profit, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE (pro.name LIKE ? OR pro.description LIKE ?) GROUP BY pro.name ";
+		String getBestLeastProductsQuery = "SELECT pro.name, pro.cost_price, pro.retail_price, pro.categoryId, pro.image, sum(pur.quantity) as quantity, pro.cost_price*sum(pur.quantity) as profit, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE (pro.name LIKE ?) GROUP BY pro.name ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
 		if(order.equals("DESCBestLeast")) {
@@ -158,8 +156,7 @@ public class AnalyticUtils {
 		
 		PreparedStatement pstmt = conn.prepareStatement(getBestLeastProductsQuery);
 		pstmt.setString(1, "%" + keyword + "%");
-		pstmt.setString(2, "%" + keyword + "%");
-		pstmt.setInt(3, limit);
+		pstmt.setInt(2, limit);
 		ResultSet getBestLeastProductsResult = pstmt.executeQuery();
 		
 		// create new ArrayList of Purchase
@@ -174,7 +171,6 @@ public class AnalyticUtils {
 			purchaseBean.setQuantity(getBestLeastProductsResult.getInt("quantity"));
 			
 			purchaseBean.setProductName(getBestLeastProductsResult.getString("name"));
-			purchaseBean.setProductDescription(getBestLeastProductsResult.getString("description"));
 			purchaseBean.setProductCostPrice(getBestLeastProductsResult.getDouble("cost_price"));
 			purchaseBean.setProductRetailPrice(getBestLeastProductsResult.getDouble("retail_price"));
 			purchaseBean.setProductRetailPrice(getBestLeastProductsResult.getDouble("profit"));
