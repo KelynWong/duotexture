@@ -252,7 +252,7 @@ public class AnalyticUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get top 10 customers query and result
-		String getTop10CustomersQuery = "SELECT CONCAT(members.first_name,' ',members.last_name) AS fullName, SUM(products.cost_price*purchases.quantity) AS total_profit FROM duotexture.members INNER JOIN duotexture.purchases ON members.userId = purchases.userId INNER JOIN duotexture.products ON purchases.productId = products.productId WHERE CONCAT(members.first_name,' ',members.last_name) LIKE ? GROUP BY fullName ";
+		String getTop10CustomersQuery = "SELECT users.userId, CONCAT(members.first_name,' ',members.last_name) AS fullName, SUM(products.cost_price*purchases.quantity) AS total_profit FROM duotexture.members INNER JOIN duotexture.purchases ON members.userId = purchases.userId INNER JOIN duotexture.products ON purchases.productId = products.productId INNER JOIN duotexture.users ON users.userId = members.userId WHERE CONCAT(members.first_name,' ',members.last_name) LIKE ? GROUP BY fullName ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
 		if(order.equals("ASCProfit")) {
@@ -274,9 +274,11 @@ public class AnalyticUtils {
 			AnalyticsOrder analyticsOrderBean = new AnalyticsOrder();
 			
 			// initialize variables
+			int userId = getTop10CustomersResult.getInt("userId");
 			String fullName = getTop10CustomersResult.getString("fullName");
 			Double totalProfit = getTop10CustomersResult.getDouble("total_profit");
 			
+			analyticsOrderBean.setUserId(userId);
 			analyticsOrderBean.setFullName(fullName);
 			analyticsOrderBean.setTotalProfit(totalProfit);
 			
