@@ -136,10 +136,8 @@ public class AnalyticsOrderServlet extends HttpServlet {
 				ArrayList<AnalyticsOrder> top10ArrayList = AnalyticUtils.getTop10Customers(top10Keyword, top10Order);
 				
 				// get next orders (last page validation)
-				ArrayList<AnalyticsOrder> nextTop10ArrayList = AnalyticUtils.getTop10Customers(top10Keyword, top10Order);
-				if(nextTop10ArrayList.size()==0) {
-					top10MaxRecord = true;
-				}
+				top10MaxRecord = true;
+				
 				
 				// store in request
 				request.setAttribute("top10ArrayList", top10ArrayList);
