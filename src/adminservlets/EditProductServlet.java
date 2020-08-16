@@ -20,7 +20,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import utils.CategoryUtils;
 import utils.ProductUtils;
 import utils.S3Utils;
 

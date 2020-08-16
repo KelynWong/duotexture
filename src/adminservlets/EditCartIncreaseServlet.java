@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utils.CartUtils;
-import utils.CategoryUtils;
 
 /**
  * Servlet implementation class DeleteCategoryServlet
