@@ -300,7 +300,7 @@ public class AnalyticUtils {
 		int limit = count*5;
 		
 		// prepared statement, get purchases log query and result
-		String purchasesLogQuery = "SELECT users.userId, CONCAT(members.first_name,' ',members.last_name) AS fullName, products.productId, products.image, products.name, products.cost_price, SUM(purchases.quantity) as total_quantity, purchases.dateTime FROM duotexture.purchases INNER JOIN duotexture.products ON purchases.productId = products.productId INNER JOIN duotexture.users ON users.userId = purchases.userId INNER JOIN duotexture.members ON users.userId = members.userId WHERE products.name LIKE ? GROUP BY products.name ";
+		String purchasesLogQuery = "SELECT users.userId, CONCAT(members.first_name,' ',members.last_name) AS fullName, products.productId, products.image, products.name, products.cost_price, SUM(purchases.quantity) as total_quantity, purchases.dateTime FROM duotexture.purchases INNER JOIN duotexture.products ON purchases.productId = products.productId INNER JOIN duotexture.users ON users.userId = purchases.userId INNER JOIN duotexture.members ON users.userId = members.userId WHERE products.name LIKE ? GROUP BY products.name, users.userId ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
 		if(order.equals("ASCUserId")) {
