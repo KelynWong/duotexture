@@ -94,8 +94,10 @@
 		  							similarCart = false;
 		  						} else if(x==orderArrayList.size()-1){
 		  							similarCart = orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
+		  						} else if(orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x+1).getDateTime())){
+		  							similarCart = false;
 		  						} else {
-		  							similarCart = orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x+1).getDateTime()) || orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
+		  							similarCart =  orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
 		  						}
 								
 	  							if(similarCart){

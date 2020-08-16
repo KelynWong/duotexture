@@ -103,7 +103,7 @@ public class OrderUtils {
 		Connection conn = Database.connectToDatabase();
 				
 		// prepared statement, get one order by user id query and result
-		String getOrdersByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, orders.quantity, orders.userId, orders.productId, orders.dateTime FROM duotexture.products INNER JOIN duotexture.orders ON orders.productId = products.productId WHERE userId = ? AND orders.productId = ?;";
+		String getOrdersByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, orders.quantity, orders.userId, orders.productId, orders.dateTime FROM duotexture.products INNER JOIN duotexture.orders ON orders.productId = products.productId WHERE userId = ? AND orders.productId = ? ORDER BY orders.dateTime DESC;";
 		PreparedStatement pstmt = conn.prepareStatement(getOrdersByUserIdQuery);
 		pstmt.setInt(1, userId);
 		pstmt.setInt(2, productId);

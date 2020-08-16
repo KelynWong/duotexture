@@ -63,7 +63,7 @@ public class PurchaseUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get all purchases query and result
-		String getPurchasesByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, purchases.quantity, purchases.userId, purchases.productId, purchases.dateTime FROM duotexture.products INNER JOIN duotexture.purchases ON purchases.productId = products.productId WHERE userId = ?;";
+		String getPurchasesByUserIdQuery = "SELECT products.name, products.description, products.cost_price, products.image, purchases.quantity, purchases.userId, purchases.productId, purchases.dateTime FROM duotexture.products INNER JOIN duotexture.purchases ON purchases.productId = products.productId WHERE userId = ? ORDER BY purchases.dateTime DESC;";
 		PreparedStatement pstmt = conn.prepareStatement(getPurchasesByUserIdQuery);
 		pstmt.setInt(1, userId);
 		ResultSet getPurchasesByUserIdResult = pstmt.executeQuery();

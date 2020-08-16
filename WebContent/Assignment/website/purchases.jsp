@@ -81,8 +81,10 @@
 		  							similarCart = false;
 		  						} else if(x==purchaseArrayList.size()-1){
 		  							similarCart = purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x-1).getDateTime());
+		  						} else if(purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x+1).getDateTime())){
+		  							similarCart = false;
 		  						} else {
-		  							similarCart = purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x+1).getDateTime()) || purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x-1).getDateTime());
+		  							similarCart =  purchaseArrayList.get(x).getDateTime().equals(purchaseArrayList.get(x-1).getDateTime());
 		  						}
 								
 		  						if(similarCart){
