@@ -249,7 +249,7 @@
 				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()%></td>
 				      <td>$<%=bestLeastProductsArrayList.get(x).getProductRetailPrice()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getQuantity()%></td>
-				      <td>$<%=bestLeastProductsArrayList.get(x).getProductProfit()%></td>
+				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()*bestLeastProductsArrayList.get(x).getQuantity()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getProductCategoryId()%></td>
 				    </tr>
 					<%}%>
