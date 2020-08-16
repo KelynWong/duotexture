@@ -201,21 +201,21 @@
 		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
 		    			<%
-		    			String bestLeastOrder = (String) request.getAttribute("bestLeastOrder");
+		    			String bestLeastOrder = (String) request.getAttribute("bestLeastOrderInput");
 		    			ArrayList<Dropdown> bestLeastOrderArrayList = new ArrayList<Dropdown>();
-		    			orderArrayList.add(new Dropdown("DESCBestLeast", "Best to Least Selling Product"));
-		    			orderArrayList.add(new Dropdown("ASCBestLeast", "Least to Best Selling Product"));
-		    			orderArrayList.add(new Dropdown("DESCProfit", "Highest to Lowest Profit"));
-		    			orderArrayList.add(new Dropdown("ASCProfit", "Lowest to Highest Profit"));
+		    			bestLeastOrderArrayList.add(new Dropdown("DESCBestLeast", "Best to Least Selling Product"));
+		    			bestLeastOrderArrayList.add(new Dropdown("ASCBestLeast", "Least to Best Selling Product"));
+		    			bestLeastOrderArrayList.add(new Dropdown("DESCProfit", "Highest to Lowest Profit"));
+		    			bestLeastOrderArrayList.add(new Dropdown("ASCProfit", "Lowest to Highest Profit"));
 
-		    			for(int x=0; x<orderArrayList.size(); x++){
-		    				String orderType = orderArrayList.get(x).getOrderType();
-		    				String orderDisplay = orderArrayList.get(x).getOrderDisplay();
+		    			for(int x=0; x<bestLeastOrderArrayList.size(); x++){
+		    				String bestLeastOrderType = bestLeastOrderArrayList.get(x).getOrderType();
+		    				String bestLeastOrderDisplay = bestLeastOrderArrayList.get(x).getOrderDisplay();
 		    				
-		    				if(order.equals(orderType)){
-		    					%><option selected value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				if(bestLeastOrder.equals(bestLeastOrderType)){
+		    					%><option selected value="<%=bestLeastOrderType%>"><%=bestLeastOrderDisplay%></option><%
 		    				} else {
-		    					%><option value="<%=orderType%>"><%=orderDisplay%></option><%
+		    					%><option value="<%=bestLeastOrderType%>"><%=bestLeastOrderDisplay%></option><%
 		    				}
 		    			}
 		    			%>
@@ -249,7 +249,7 @@
 				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()%></td>
 				      <td>$<%=bestLeastProductsArrayList.get(x).getProductRetailPrice()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getQuantity()%></td>
-				      <td>$<%=bestLeastProductsArrayList.get(x).getProductCostPrice()*bestLeastProductsArrayList.get(x).getQuantity()%></td>
+				      <td>$<%=bestLeastProductsArrayList.get(x).getProductProfit()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getProductCategoryId()%></td>
 				    </tr>
 					<%}%>
