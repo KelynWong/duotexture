@@ -77,7 +77,7 @@
 		        	<input class="form-control" name="orderPage" type="hidden" value="1">
 		        	<input class="form-control" name="top10Page" type="hidden" value="1">
 		        	<input class="form-control" name="purchaseLogPage" type="hidden" value="1">
-		            <input class="form-control col-5" name="orderKeywordInput" type="search" value="<%=request.getAttribute("orderKeywordInput")%>" placeholder="Search">
+		            <input class="form-control col-5" name="orderKeywordInput" type="search" value="<%=request.getAttribute("orderKeywordInput")%>" placeholder="Search by product's name">
 		            <select class="form-control mx-2" id="orderOrderInput" name="orderOrderInput">
 		    			<%
 		    			String orderOrder = (String) request.getAttribute("orderOrderInput");
@@ -189,7 +189,7 @@
 		        	<input class="form-control" name="orderPage" type="hidden" value="1">
 		        	<input class="form-control" name="top10Page" type="hidden" value="1">
 		        	<input class="form-control" name="purchaseLogPage" type="hidden" value="1">
-		            <input class="form-control col-5" name="top10KeywordInput" type="search" value="<%=request.getAttribute("top10KeywordInput")%>" placeholder="Search">
+		            <input class="form-control col-5" name="top10KeywordInput" type="search" value="<%=request.getAttribute("top10KeywordInput")%>" placeholder="Search by customer's full name">
 		            <select class="form-control mx-2" id="top10OrderInput" name="top10OrderInput">
 		    			<%
 		    			String top10Order = (String) request.getAttribute("top10OrderInput");
@@ -291,7 +291,7 @@
 		        	<input class="form-control" name="orderPage" type="hidden" value="1">
 		        	<input class="form-control" name="top10Page" type="hidden" value="1">
 		        	<input class="form-control" name="purchaseLogPage" type="hidden" value="1">
-		            <input class="form-control col-5" name="purchaseLogKeywordInput" type="search" value="<%=request.getAttribute("purchaseLogKeywordInput")%>" placeholder="Search">
+		            <input class="form-control col-5" name="purchaseLogKeywordInput" type="search" value="<%=request.getAttribute("purchaseLogKeywordInput")%>" placeholder="Search by product's name">
 		            <select class="form-control mx-2" id="purchaseLogOrderInput" name="purchaseLogOrderInput">
 		    			<%
 		    			String purchaseLogOrder = (String) request.getAttribute("purchaseLogOrderInput");
