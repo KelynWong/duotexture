@@ -12,9 +12,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javabeans.Member;
-import javabeans.Order;
 import utils.MemberUtils;
-import utils.OrderUtils;
+
+/**
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
+ */
 
 @Path("memberservices")
 public class MemberServices {
