@@ -200,8 +200,25 @@
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
 		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
-		    			<option value="DESC" selected>Best to Least Selling Product</option>
-		    			<option value="ASC">Least to Best Selling Product</option>
+		    			<%
+		    			String bestLeastOrder = (String) request.getAttribute("bestLeastOrder");
+		    			ArrayList<Dropdown> bestLeastOrderArrayList = new ArrayList<Dropdown>();
+		    			orderArrayList.add(new Dropdown("DESCBestLeast", "Best to Least Selling Product"));
+		    			orderArrayList.add(new Dropdown("ASCBestLeast", "Least to Best Selling Product"));
+		    			orderArrayList.add(new Dropdown("DESCProfit", "Highest to Lowest Profit"));
+		    			orderArrayList.add(new Dropdown("ASCProfit", "Lowest to Highest Profit"));
+
+		    			for(int x=0; x<orderArrayList.size(); x++){
+		    				String orderType = orderArrayList.get(x).getOrderType();
+		    				String orderDisplay = orderArrayList.get(x).getOrderDisplay();
+		    				
+		    				if(order.equals(orderType)){
+		    					%><option selected value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				} else {
+		    					%><option value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				}
+		    			}
+		    			%>
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
 		        </form>
