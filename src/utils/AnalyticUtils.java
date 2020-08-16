@@ -252,13 +252,13 @@ public class AnalyticUtils {
 		Connection conn = Database.connectToDatabase();
 		
 		// prepared statement, get top 10 customers query and result
-		String getTop10CustomersQuery = "SELECT CONCAT(members.first_name,' ',members.last_name) AS fullName, SUM(products.cost_price*purchases.quantity) AS total_profit FROM duotexture.members INNER JOIN duotexture.purchases ON members.userId = purchases.userId INNER JOIN duotexture.products ON purchases.productId = products.productId WHERE CONCAT(members.first_name,' ',members.last_name) LIKE '%%' GROUP BY fullName ";
+		String getTop10CustomersQuery = "SELECT CONCAT(members.first_name,' ',members.last_name) AS fullName, SUM(products.cost_price*purchases.quantity) AS total_profit FROM duotexture.members INNER JOIN duotexture.purchases ON members.userId = purchases.userId INNER JOIN duotexture.products ON purchases.productId = products.productId WHERE CONCAT(members.first_name,' ',members.last_name) LIKE ? GROUP BY fullName ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
-		if(order.equals("DESCProfit")) {
-			getTop10CustomersQuery += "ORDER BY total_profit DESC LIMIT 10;";
-		}else { // "ASCProfit"
-			getTop10CustomersQuery += "ORDER BY users.productId ASC LIMIT ?,5;";
+		if(order.equals("ASCProfit")) {
+			getTop10CustomersQuery += "ORDER BY total_profit ASC LIMIT 10;";
+		}else { // "DESCProfit"
+			getTop10CustomersQuery += "ORDER BY users.productId DESC LIMIT 10;";
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(getTop10CustomersQuery);
@@ -287,5 +287,64 @@ public class AnalyticUtils {
 		// close connection
 		conn.close();
 		return getTop10CustomersArrayList;
+	}
+	
+	// get purchases log
+	public static ArrayList<AnalyticsOrder> getPurchasesLog (int count, String keyword, String order) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// compute limit formula
+		int limit = count*5;
+		
+		// prepared statement, get purchases log query and result
+		String purchasesLogQuery = "SELECT users.userId, CONCAT(members.first_name,' ',members.last_name) AS fullName, products.productId, products.image, products.name, products.cost_price, SUM(purchases.quantity) as total_quantity, purchases.dateTime FROM duotexture.purchases INNER JOIN duotexture.products ON purchases.productId = products.productId INNER JOIN duotexture.users ON users.userId = purchases.userId INNER JOIN duotexture.members ON users.userId = members.userId WHERE products.name LIKE ? GROUP BY products.name ";
+		
+		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
+		if(order.equals("ASCUserId")) {
+			purchasesLogQuery += "ORDER BY users.userId ASC LIMIT ?,5;";
+		}else { // "ASCUserId"
+			purchasesLogQuery += "ORDER BY users.userId DESC LIMIT ?,5;";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(purchasesLogQuery);
+		pstmt.setString(1, "%" + keyword + "%");
+		pstmt.setInt(2, limit);
+		ResultSet purchasesLogResult = pstmt.executeQuery();
+		
+		// create new ArrayList of AnalyticsOrder
+		ArrayList<AnalyticsOrder> purchasesLogArrayList = new ArrayList<AnalyticsOrder>();
+		
+		// loop if there are new row
+		while(purchasesLogResult.next()) {
+			// create an instance of AnalyticsOrder
+			AnalyticsOrder analyticsOrderBean = new AnalyticsOrder();
+			
+			// initialize variables
+			int userId = purchasesLogResult.getInt("userId");
+			String fullName = purchasesLogResult.getString("fullName");
+			int productId = purchasesLogResult.getInt("productId");
+			String productImage = purchasesLogResult.getString("image");
+			String productName = purchasesLogResult.getString("name");
+			Double productCostPrice = purchasesLogResult.getDouble("cost_price");
+			int productTotalQuantity = purchasesLogResult.getInt("total_quantity");
+			String dateTime = purchasesLogResult.getString("dateTime");
+			
+			analyticsOrderBean.setUserId(userId);
+			analyticsOrderBean.setFullName(fullName);
+			analyticsOrderBean.setProductId(productId);
+			analyticsOrderBean.setProductImage(productImage);
+			analyticsOrderBean.setProductName(productName);
+			analyticsOrderBean.setProductCostPrice(productCostPrice);
+			analyticsOrderBean.setProductQuantity(productTotalQuantity);
+			analyticsOrderBean.setDateTime(dateTime);
+			
+			// add analyticsOrderBean to purchasesLogArrayList
+			purchasesLogArrayList.add(analyticsOrderBean);
+		}
+		
+		// close connection
+		conn.close();
+		return purchasesLogArrayList;
 	}
 }
