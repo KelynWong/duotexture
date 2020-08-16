@@ -158,11 +158,13 @@ public class AnalyticUtils {
 			
 			purchaseBean.setProductId(getBestLeastProductsResult.getInt("productId"));
 			purchaseBean.setQuantity(getBestLeastProductsResult.getInt("quantity"));
-							
+			
 			purchaseBean.setProductName(getBestLeastProductsResult.getString("name"));
 			purchaseBean.setProductDescription(getBestLeastProductsResult.getString("description"));
 			purchaseBean.setProductCostPrice(getBestLeastProductsResult.getDouble("cost_price"));
+			purchaseBean.setProductRetailPrice(getBestLeastProductsResult.getDouble("retail_price"));
 			purchaseBean.setProductImage(getBestLeastProductsResult.getString("image"));
+			purchaseBean.setProductCategoryId(getBestLeastProductsResult.getInt("categoryId"));
 			
 			// add purchaseBean to bestLeastProductArrayList
 			bestLeastProductArrayList.add(purchaseBean);
