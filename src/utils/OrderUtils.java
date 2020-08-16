@@ -34,11 +34,6 @@ public class OrderUtils {
 			OrderBean.setProductId(getOrdersResult.getInt("productId"));
 			OrderBean.setQuantity(getOrdersResult.getInt("quantity"));
 			OrderBean.setDateTime(getOrdersResult.getString("dateTime"));
-
-			OrderBean.setProductName(getOrdersResult.getString("name"));
-			OrderBean.setProductDescription(getOrdersResult.getString("description"));
-			OrderBean.setProductCostPrice(getOrdersResult.getDouble("cost_price"));
-			OrderBean.setProductImage(getOrdersResult.getString("image"));
 			
 			// add orderBean to OrdersArrayList
 			OrdersArrayList.add(OrderBean);
