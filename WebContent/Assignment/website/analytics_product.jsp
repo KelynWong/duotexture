@@ -40,7 +40,7 @@
 			<%
 		}
 	} catch (Exception e){
-		System.out.println("(analytics.jsp) Admin Validation Error: " + e + "\n");
+		System.out.println("(analytics_product.jsp) Admin Validation Error: " + e + "\n");
 	}
 	%>
 </head>
@@ -182,11 +182,11 @@
 				  			<%
 						  }
 					  } else {
-						  System.out.println("(analytics-product.jsp) Error: Pagination Error \n");
+						  System.out.println("(analytics_product.jsp) Error: Pagination Error \n");
 						  response.sendRedirect(request.getContextPath() + "/index");
 					  }
 				  } catch (Exception e) {
-					  System.out.println("(analytics-product.jsp) Error: " + e + "\n");      
+					  System.out.println("(analytics_product.jsp) Error: " + e + "\n");      
 				  }
 				  %>
 					</ul>
@@ -295,11 +295,11 @@
 				  			<%
 						  }
 					  } else {
-						  System.out.println("(analytics-product.jsp) Error: Best Least Pagination Error \n");
+						  System.out.println("(analytics_product.jsp) Error: Best Least Pagination Error \n");
 						  response.sendRedirect(request.getContextPath() + "/index");
 					  }
 				  } catch (Exception e) {
-					  System.out.println("(analytics-product.jsp) Error: " + e + "\n");      
+					  System.out.println("(analytics_product.jsp) Error: " + e + "\n");      
 				  }
 				  %>
 					</ul>
