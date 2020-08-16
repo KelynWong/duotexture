@@ -62,7 +62,7 @@
 	        <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist">
 			  <a class="nav-link" id="v-pills-customer-tab" href="${pageContext.request.contextPath}/analyticscustomer?page=1">Customer</a>
 			  <a class="nav-link active" id="v-pills-product-tab" href="#" role="tab">Product</a>
-			  <a class="nav-link" id="v-pills-order-tab" href="${pageContext.request.contextPath}/analyticsorder?page=1">Order</a>
+			  <a class="nav-link" id="v-pills-order-tab" href="${pageContext.request.contextPath}/analyticsorder?orderPageNumber=1&top10PageNumber=1&purchaseLogPageNumber=1">Order</a>
 			</div>
 			
 			<!-- product content -->
