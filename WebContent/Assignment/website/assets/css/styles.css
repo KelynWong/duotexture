@@ -16,7 +16,7 @@
 }
 
 .bg-img {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../images/background.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://jad-bucket.s3.us-east-2.amazonaws.com/background.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: repeat-y;
