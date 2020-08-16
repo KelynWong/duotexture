@@ -74,8 +74,23 @@
 		        	<input class="form-control" name="page" type="hidden" value="1">
 		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
-		    			<option value="ASC" selected>Ascending</option>
-		    			<option value="DESC">Descending</option>
+		    			<%
+		    			String order = (String) request.getAttribute("orderInput");
+		    			ArrayList<Dropdown> orderArrayList = new ArrayList<Dropdown>();
+		    			orderArrayList.add(new Dropdown("ASC", "Ascending User Id"));
+		    			orderArrayList.add(new Dropdown("DESC", "Descending User Id"));
+		    			
+		    			for(int x=0; x<orderArrayList.size(); x++){
+		    				String orderType = orderArrayList.get(x).getOrderType();
+		    				String orderDisplay = orderArrayList.get(x).getOrderDisplay();
+		    				
+		    				if(order.equals(orderType)){
+		    					%><option selected value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				} else {
+		    					%><option value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				}
+		    			}
+		    			%>
 	    			</select>
 		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
 		        </form>
