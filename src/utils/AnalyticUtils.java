@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import connection.Database;
 import javabeans.Member;
 import javabeans.Product;
+import javabeans.Purchase;
 
 /**
  * 
@@ -114,12 +115,61 @@ public class AnalyticUtils {
 			productBean.setCategoryId(getProductsResult.getInt("categoryId"));
 			productBean.setImage(getProductsResult.getString("image"));
 			
-			// add ProductBean to productArrayList
+			// add productBean to productArrayList
 			productArrayList.add(productBean);
 		}
 		
 		// close connection
 		conn.close();
 		return productArrayList;
+	}
+	
+	// get best to least products
+	public static ArrayList<Purchase> getBestLeastProducts (int count, String keyword, String order) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// compute limit formula
+		int limit = count*5;
+		
+		// prepared statement, get best to least products query and result
+		String getBestLeastProductsQuery = "SELECT pro.name, pro.description, pro.cost_price, pro.image,  sum(pur.quantity) as quantity, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE pro.name LIKE ? OR pro.description LIKE ? GROUP BY pro.name ORDER BY quantity";
+		
+		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
+		if(order.equals("ASC")) {
+			getBestLeastProductsQuery += "ASC LIMIT ?,5;";
+		}else {
+			getBestLeastProductsQuery += "DESC LIMIT ?,5;";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(getBestLeastProductsQuery);
+		pstmt.setString(1, "%" + keyword + "%");
+		pstmt.setString(2, "%" + keyword + "%");
+		pstmt.setInt(3, limit);
+		ResultSet getBestLeastProductsResult = pstmt.executeQuery();
+		
+		// create new ArrayList of Purchase
+		ArrayList<Purchase> bestLeastProductArrayList = new ArrayList<Purchase>();
+		
+		// loop if there are new row
+		while(getBestLeastProductsResult.next()) {
+			// create an instance of Purchase
+			Purchase purchaseBean = new Purchase();
+			
+			purchaseBean.setProductId(getBestLeastProductsResult.getInt("productId"));
+			purchaseBean.setQuantity(getBestLeastProductsResult.getInt("quantity"));
+							
+			purchaseBean.setProductName(getBestLeastProductsResult.getString("name"));
+			purchaseBean.setProductDescription(getBestLeastProductsResult.getString("description"));
+			purchaseBean.setProductCostPrice(getBestLeastProductsResult.getDouble("cost_price"));
+			purchaseBean.setProductImage(getBestLeastProductsResult.getString("image"));
+			
+			// add purchaseBean to bestLeastProductArrayList
+			bestLeastProductArrayList.add(purchaseBean);
+		}
+		
+		// close connection
+		conn.close();
+		return bestLeastProductArrayList;
 	}
 }
