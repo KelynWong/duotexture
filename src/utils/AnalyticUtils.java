@@ -133,7 +133,7 @@ public class AnalyticUtils {
 		int limit = count*5;
 		
 		// prepared statement, get best to least products query and result
-		String getBestLeastProductsQuery = "SELECT pro.name, pro.description, pro.cost_price, pro.image,  sum(pur.quantity) as quantity, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE pro.name LIKE ? OR pro.description LIKE ? GROUP BY pro.name ORDER BY quantity";
+		String getBestLeastProductsQuery = "SELECT pro.name, pro.description, pro.cost_price, pro.retail_price, pro.categoryId, pro.image, sum(pur.quantity) as quantity, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE pro.name LIKE ? OR pro.description LIKE ? GROUP BY pro.name ORDER BY quantity ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
 		if(order.equals("ASC")) {
