@@ -338,7 +338,7 @@ public class AnalyticUtils {
 			analyticsOrderBean.setProductImage(productImage);
 			analyticsOrderBean.setProductName(productName);
 			analyticsOrderBean.setProductCostPrice(productCostPrice);
-			analyticsOrderBean.setProductQuantity(productTotalQuantity);
+			analyticsOrderBean.setTotalQuantity(productTotalQuantity);
 			analyticsOrderBean.setDateTime(dateTime);
 			
 			// add analyticsOrderBean to purchasesLogArrayList
