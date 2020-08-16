@@ -245,4 +245,47 @@ public class AnalyticUtils {
 		conn.close();
 		return analyticsOrderArrayList;
 	}
+	
+	// get top 10 customers
+	public static ArrayList<AnalyticsOrder> getTop10Customers (String keyword, String order) throws SQLException, ClassNotFoundException {
+		// connect to database
+		Connection conn = Database.connectToDatabase();
+		
+		// prepared statement, get top 10 customers query and result
+		String getTop10CustomersQuery = "SELECT CONCAT(members.first_name,' ',members.last_name) AS fullName, SUM(products.cost_price*purchases.quantity) AS total_profit FROM duotexture.members INNER JOIN duotexture.purchases ON members.userId = purchases.userId INNER JOIN duotexture.products ON purchases.productId = products.productId WHERE CONCAT(members.first_name,' ',members.last_name) LIKE '%%' GROUP BY fullName ";
+		
+		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
+		if(order.equals("DESCProfit")) {
+			getTop10CustomersQuery += "ORDER BY total_profit DESC LIMIT 10;";
+		}else { // "ASCProfit"
+			getTop10CustomersQuery += "ORDER BY users.productId ASC LIMIT ?,5;";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(getTop10CustomersQuery);
+		pstmt.setString(1, "%" + keyword + "%");
+		ResultSet getTop10CustomersResult = pstmt.executeQuery();
+		
+		// create new ArrayList of AnalyticsOrder
+		ArrayList<AnalyticsOrder> getTop10CustomersArrayList = new ArrayList<AnalyticsOrder>();
+		
+		// loop if there are new row
+		while(getTop10CustomersResult.next()) {
+			// create an instance of AnalyticsOrder
+			AnalyticsOrder analyticsOrderBean = new AnalyticsOrder();
+			
+			// initialize variables
+			String fullName = getTop10CustomersResult.getString("fullName");
+			Double totalProfit = getTop10CustomersResult.getDouble("totalProfit");
+			
+			analyticsOrderBean.setFullName(fullName);
+			analyticsOrderBean.setTotalProfit(totalProfit);
+			
+			// add analyticsOrderBean to getTop10CustomersArrayList
+			getTop10CustomersArrayList.add(analyticsOrderBean);
+		}
+		
+		// close connection
+		conn.close();
+		return getTop10CustomersArrayList;
+	}
 }
