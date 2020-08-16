@@ -97,7 +97,7 @@ public class AnalyticsProductServlet extends HttpServlet {
 				
 				// check order input
 				if(order == null) {
-					order = "ASC";
+					order = "ASCProdId";
 				}
 				
 				// get products (minus one as page started at 1)
