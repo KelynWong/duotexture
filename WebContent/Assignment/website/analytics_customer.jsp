@@ -40,7 +40,7 @@
 			<%
 		}
 	} catch (Exception e){
-		System.out.println("(analytics.jsp) Admin Validation Error: " + e + "\n");
+		System.out.println("(analytics_customer.jsp) Admin Validation Error: " + e + "\n");
 	}
 	%>
 </head>
@@ -163,11 +163,11 @@
 				  			<%
 						  }
 					  } else {
-						  System.out.println("(analytics-customer.jsp) Error: Pagination Error \n");
+						  System.out.println("(analytics_customer.jsp) Error: Pagination Error \n");
 						  response.sendRedirect(request.getContextPath() + "/index");
 					  }
 				  } catch (Exception e) {
-					  System.out.println("(analytics-customer.jsp) Error: " + e + "\n");      
+					  System.out.println("(analytics_customer.jsp) Error: " + e + "\n");      
 				  }
 				  %>
 					</ul>
