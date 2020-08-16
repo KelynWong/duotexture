@@ -90,16 +90,18 @@
 		  						// check if product has the same purchase date and time
 		  						Boolean similarCart = false;
 		  						
-		  						if(x==0){
+		  						if(x==0) { // the first row
 		  							similarCart = false;
-		  						} else if(x==orderArrayList.size()-1){
+		  						} else if (x==orderArrayList.size()-1) { // if it's the last result
 		  							similarCart = orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
-		  						} else if(orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x+1).getDateTime())){
+		  						} else if (orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x+1).getDateTime()) && orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime())) { // if the previous and next is the same
+		  							similarCart = true;
+		  						} else if (orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x+1).getDateTime())) { // if the next result is the same
 		  							similarCart = false;
-		  						} else {
+		  						} else { // if the previous result is the same
 		  							similarCart =  orderArrayList.get(x).getDateTime().equals(orderArrayList.get(x-1).getDateTime());
 		  						}
-								
+		  						
 	  							if(similarCart){
 	  							%>
 	  							<tr>
