@@ -170,7 +170,7 @@
 			  	<!-- search and add function -->
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsproduct" method="get">
 		        	<input class="form-control" name="bestLeastPage" type="hidden" value="1">
-		            <input class="form-control col-7" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
+		            <input class="form-control col-6" name="bestLeastKeywordInput" type="search" value="<%=request.getAttribute("bestLeastKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="bestLeastOrderInput" name="bestLeastOrderInput">
 		    			<option value="DESC" selected>Least to Best Selling Product</option>
 		    			<option value="ASC">Best to Least Selling Product</option>
@@ -193,19 +193,19 @@
 				  </thead>
 				  <tbody>
 				  <%
-				  ArrayList<Product> bestLeastProductsArrayList = (ArrayList<Product>) request.getAttribute("bestLeastproductsArrayList");
+				  ArrayList<Purchase> bestLeastProductsArrayList = (ArrayList<Purchase>) request.getAttribute("bestLeastProductsArrayList");
 				  
 				  for(int x=0; x<bestLeastProductsArrayList.size(); x++) {
 				  %>
 				    <tr>
 				      <th scope="row"><%=bestLeastProductsArrayList.get(x).getProductId()%></th>
-				      <td><img src="<%=bestLeastProductsArrayList.get(x).getImage()%>" style="height:50px" alt="Product Image"></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getName()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getDescription()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getCostPrice()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getRetailPrice()%></td>
+				      <td><img src="<%=bestLeastProductsArrayList.get(x).getProductImage()%>" style="height:50px" alt="Product Image"></td>
+				      <td><%=bestLeastProductsArrayList.get(x).getProductName()%></td>
+				      <td><%=bestLeastProductsArrayList.get(x).getProductDescription()%></td>
+				      <td><%=bestLeastProductsArrayList.get(x).getProductCostPrice()%></td>
+				      <td><%=bestLeastProductsArrayList.get(x).getProductRetailPrice()%></td>
 				      <td><%=bestLeastProductsArrayList.get(x).getQuantity()%></td>
-				      <td><%=bestLeastProductsArrayList.get(x).getCategoryId()%></td>
+				      <td><%=bestLeastProductsArrayList.get(x).getProductCategoryId()%></td>
 				    </tr>
 					<%}%>
 				  </tbody>
