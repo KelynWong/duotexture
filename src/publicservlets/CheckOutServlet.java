@@ -41,7 +41,7 @@ import javabeans.Rate;
  */
 
 @WebServlet("/checkout")
-public class CheckoutServlet extends HttpServlet {
+public class CheckOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /* Get Method */
