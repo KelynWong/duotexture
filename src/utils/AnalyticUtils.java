@@ -96,6 +96,8 @@ public class AnalyticUtils {
 			getProductsQuery += "AND products.quantity>20 AND products.quantity<=50 ORDER BY products.quantity DESC LIMIT ?,5;";
 		}else if(order.equals("ASCHighStock")) {
 			getProductsQuery += "AND products.quantity>50 ORDER BY products.quantity DESC LIMIT ?,5;";
+		}else {
+			getProductsQuery += "ORDER BY products.productId ASC LIMIT ?,5;";
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(getProductsQuery);
@@ -139,13 +141,19 @@ public class AnalyticUtils {
 		int limit = count*5;
 		
 		// prepared statement, get best to least products query and result
-		String getBestLeastProductsQuery = "SELECT pro.name, pro.description, pro.cost_price, pro.retail_price, pro.categoryId, pro.image, sum(pur.quantity) as quantity, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE pro.name LIKE ? OR pro.description LIKE ? GROUP BY pro.name ORDER BY quantity ";
+		String getBestLeastProductsQuery = "SELECT pro.name, pro.description, pro.cost_price, pro.retail_price, pro.categoryId, pro.image, sum(pur.quantity) as quantity, pro.cost_price*sum(pur.quantity) as profit, pur.productId FROM duotexture.products pro INNER JOIN duotexture.purchases pur ON pur.productId = pro.productId WHERE (pro.name LIKE ? OR pro.description LIKE ?) GROUP BY pro.name ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
-		if(order.equals("ASC")) {
-			getBestLeastProductsQuery += "ASC LIMIT ?,5;";
+		if(order.equals("DESCBestLeast")) {
+			getBestLeastProductsQuery += "ORDER BY quantity ASC LIMIT ?,5;";
+		}else if (order.equals("ASCBestLeast")) {
+			getBestLeastProductsQuery += "ORDER BY quantity DESC LIMIT ?,5;";
+		}else if (order.equals("DESCProfit")) {
+			getBestLeastProductsQuery += "ORDER BY profit DESC LIMIT ?,5;";
+		}else if (order.equals("ASCProfit")) {
+			getBestLeastProductsQuery += "ORDER BY profit ASC LIMIT ?,5;";
 		}else {
-			getBestLeastProductsQuery += "DESC LIMIT ?,5;";
+			getBestLeastProductsQuery += "ORDER BY quantity ASC LIMIT ?,5;";
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(getBestLeastProductsQuery);
@@ -169,6 +177,7 @@ public class AnalyticUtils {
 			purchaseBean.setProductDescription(getBestLeastProductsResult.getString("description"));
 			purchaseBean.setProductCostPrice(getBestLeastProductsResult.getDouble("cost_price"));
 			purchaseBean.setProductRetailPrice(getBestLeastProductsResult.getDouble("retail_price"));
+			purchaseBean.setProductRetailPrice(getBestLeastProductsResult.getDouble("profit"));
 			purchaseBean.setProductImage(getBestLeastProductsResult.getString("image"));
 			purchaseBean.setProductCategoryId(getBestLeastProductsResult.getInt("categoryId"));
 			
