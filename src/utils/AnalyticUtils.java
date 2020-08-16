@@ -202,7 +202,7 @@ public class AnalyticUtils {
 		if(order.equals("DESCUserId")) {
 			getOrdersQuery += "ORDER BY users.userId DESC LIMIT ?,5;";
 		}else { // "ASCUserId"
-			getOrdersQuery += "ORDER BY users.productId ASC LIMIT ?,5;";
+			getOrdersQuery += "ORDER BY users.userId ASC LIMIT ?,5;";
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(getOrdersQuery);
@@ -258,7 +258,7 @@ public class AnalyticUtils {
 		if(order.equals("ASCProfit")) {
 			getTop10CustomersQuery += "ORDER BY total_profit ASC LIMIT 10;";
 		}else { // "DESCProfit"
-			getTop10CustomersQuery += "ORDER BY users.productId DESC LIMIT 10;";
+			getTop10CustomersQuery += "ORDER BY total_profit DESC LIMIT 10;";
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(getTop10CustomersQuery);
@@ -275,7 +275,7 @@ public class AnalyticUtils {
 			
 			// initialize variables
 			String fullName = getTop10CustomersResult.getString("fullName");
-			Double totalProfit = getTop10CustomersResult.getDouble("totalProfit");
+			Double totalProfit = getTop10CustomersResult.getDouble("total_profit");
 			
 			analyticsOrderBean.setFullName(fullName);
 			analyticsOrderBean.setTotalProfit(totalProfit);
