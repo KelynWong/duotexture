@@ -129,7 +129,7 @@ public class AnalyticsProductServlet extends HttpServlet {
 				
 				// check order input
 				if(bestLeastOrder == null) {
-					bestLeastOrder = "DESC";
+					bestLeastOrder = "DESCBestLeast";
 				}
 				
 				// get products by purchases (minus one as page started at 1)
