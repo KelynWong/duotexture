@@ -27,7 +27,7 @@ import javabeans.Category;
 import javabeans.Rate;
 
 /**
- * Servlet implementation class CheckoutServlet
+ * Servlet implementation class CheckOutServlet
  * 
  * Class: DIT/FT/2B/21
  * Group: 1
