@@ -80,16 +80,16 @@
 		            <input class="form-control col-5" name="orderKeywordInput" type="search" value="<%=request.getAttribute("orderKeywordInput")%>" placeholder="Search">
 		            <select class="form-control mx-2" id="orderOrderInput" name="orderOrderInput">
 		    			<%
-		    			String order = (String) request.getAttribute("orderOrderInput");
-		    			ArrayList<Dropdown> orderArrayList = new ArrayList<Dropdown>();
-		    			orderArrayList.add(new Dropdown("ASCUserId", "Ascending User Id"));
-		    			orderArrayList.add(new Dropdown("DESCUserId", "Descending User Id"));
+		    			String orderOrder = (String) request.getAttribute("orderOrderInput");
+		    			ArrayList<Dropdown> orderOrderArrayList = new ArrayList<Dropdown>();
+		    			orderOrderArrayList.add(new Dropdown("ASCUserId", "Ascending User Id"));
+		    			orderOrderArrayList.add(new Dropdown("DESCUserId", "Descending User Id"));
 		    			
-		    			for(int x=0; x<orderArrayList.size(); x++){
-		    				String orderType = orderArrayList.get(x).getOrderType();
-		    				String orderDisplay = orderArrayList.get(x).getOrderDisplay();
+		    			for(int x=0; x<orderOrderArrayList.size(); x++){
+		    				String orderType = orderOrderArrayList.get(x).getOrderType();
+		    				String orderDisplay = orderOrderArrayList.get(x).getOrderDisplay();
 		    				
-		    				if(order.equals(orderType)){
+		    				if(orderOrder.equals(orderType)){
 		    					%><option selected value="<%=orderType%>"><%=orderDisplay%></option><%
 		    				} else {
 		    					%><option value="<%=orderType%>"><%=orderDisplay%></option><%
@@ -168,6 +168,108 @@
 						    %>
 						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?orderPage=<%=orderPageNumber-1%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1"><%=orderPageNumber+1%></a></li>
 					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?orderPage=<%=orderPageNumber-1%>&orderKeywordInput=<%=orderKeywordInput%>&orderOrderInput=<%=orderOrderInput%>&top10Page=1&purchaseLogPage=1">Next</a></li>
+					  		<%}%>
+				  			<%
+						  }
+					  } else {
+						  System.out.println("(analytics_order.jsp) Error: Pagination Error \n");
+						  response.sendRedirect(request.getContextPath() + "/index");
+					  }
+				  } catch (Exception e) {
+					  System.out.println("(analytics_order.jsp) Error: " + e + "\n");      
+				  }
+				  %>
+					</ul>
+				</nav>
+			  	
+			  	<!-- Top 10 Analysis -->
+			  	<h6 class="text-info mt-3">Top 10 Customers by Purchase Value Analysis</h6>
+			  	<!-- search and add function -->
+		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticsorder" method="get">
+		        	<input class="form-control" name="orderPage" type="hidden" value="1">
+		        	<input class="form-control" name="top10Page" type="hidden" value="1">
+		        	<input class="form-control" name="purchaseLogPage" type="hidden" value="1">
+		            <input class="form-control col-5" name="top10KeywordInput" type="search" value="<%=request.getAttribute("top10KeywordInput")%>" placeholder="Search">
+		            <select class="form-control mx-2" id="top10OrderInput" name="top10OrderInput">
+		    			<%
+		    			String top10Order = (String) request.getAttribute("top10OrderInput");
+		    			ArrayList<Dropdown> top10OrderArrayList = new ArrayList<Dropdown>();
+		    			top10OrderArrayList.add(new Dropdown("ASCUserId", "Ascending User Id"));
+		    			top10OrderArrayList.add(new Dropdown("DESCUserId", "Descending User Id"));
+		    			
+		    			for(int x=0; x<top10OrderArrayList.size(); x++){
+		    				String orderType = top10OrderArrayList.get(x).getOrderType();
+		    				String orderDisplay = top10OrderArrayList.get(x).getOrderDisplay();
+		    				
+		    				if(top10Order.equals(orderType)){
+		    					%><option selected value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				} else {
+		    					%><option value="<%=orderType%>"><%=orderDisplay%></option><%
+		    				}
+		    			}
+		    			%>
+	    			</select>
+		            <button class="btn btn-outline-danger mx-2 search-btn" type="submit">Render</button>
+		        </form>
+			  	  <!-- List of Orders -->
+				  <table class="table table-bordered">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">User Id</th>
+				      <th scope="col">Full Name</th>
+				      <th scope="col">Total Purchased Value</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  <%
+				  ArrayList<AnalyticsOrder> top10ArrayList = (ArrayList<AnalyticsOrder>) request.getAttribute("top10ArrayList");
+				  
+				  for(int x=0; x<top10ArrayList.size(); x++) {
+				  %>
+				    <tr>
+				      <th scope="row"><%=top10ArrayList.get(x).getUserId()%></th>
+				      <td><%=top10ArrayList.get(x).getFullName()%></td>
+				      <td>$<%=top10ArrayList.get(x).getTotalProfit()%></td>
+				    </tr>
+					<%}%>
+				  </tbody>
+				</table>
+				
+				<!-- Pagination -->
+				<nav>
+					<ul class="pagination justify-content-end">
+						
+				  <% 
+				  try {
+					  if(request.getParameter("page")!=null) {
+						  if(top10ArrayList.size()==0){
+							  %>
+							  </ul>
+							  <p class="mb-5">There are no records found.</p>
+							  <%
+						  } else {
+							  int top10PageNumber = Integer.parseInt(request.getParameter("top10Page"));
+							  String top10KeywordInput = (String) request.getAttribute("top10KeywordInput");
+							  String top10OrderInput = (String) request.getAttribute("top10OrderInput");
+							  Boolean top10MaxRecord = false;
+							  
+							  if(request.getParameter("top10MaxRecord")!=null) {
+								  top10MaxRecord = true;
+							  }
+	
+							  if(top10PageNumber!=1){
+							  %>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1">Previous</a></li>
+							  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1"><%=top10PageNumber-1%></a></li>
+							  <%
+							  }
+				  			%>
+						    <li class="page-item active"><a class="page-link" href="#"><%=top10PageNumber%></a></li>
+						    <%
+						    if(top10MaxRecord==false){
+						    %>
+						    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1"><%=top10PageNumber+1%></a></li>
+					  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/analyticsproduct?top10Page=<%=top10PageNumber-1%>&top10KeywordInput=<%=top10KeywordInput%>&top10OrderInput=<%=top10OrderInput%>&orderPage=1&purchaseLogPage=1">Next</a></li>
 					  		<%}%>
 				  			<%
 						  }
