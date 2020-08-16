@@ -83,13 +83,19 @@ public class AnalyticUtils {
 		int limit = count*5;
 		
 		// prepared statement, get all products query and result
-		String getProductsQuery = "SELECT * FROM duotexture.products WHERE products.name LIKE ? OR products.description LIKE ? ORDER BY products.productId ";
+		String getProductsQuery = "SELECT * FROM duotexture.products WHERE (products.name LIKE ? OR products.description LIKE ?) ";
 		
 		// prepared statement inserts string, which is denied for ORDER BY, therefore if else validation required
-		if(order.equals("ASC")) {
-			getProductsQuery += "ASC LIMIT ?,5;";
-		}else {
-			getProductsQuery += "DESC LIMIT ?,5;";
+		if(order.equals("ASCProdId")) {
+			getProductsQuery += "ORDER BY products.productId ASC LIMIT ?,5;";
+		}else if(order.equals("DESCProdId")) {
+			getProductsQuery += "ORDER BY products.productId DESC LIMIT ?,5;";
+		}else if(order.equals("ASCLowStock")) {
+			getProductsQuery += "AND products.quantity<=20 ORDER BY products.quantity DESC LIMIT ?,5;";
+		}else if(order.equals("ASCModerateStock")) {
+			getProductsQuery += "AND products.quantity>20 AND products.quantity<=50 ORDER BY products.quantity DESC LIMIT ?,5;";
+		}else if(order.equals("ASCHighStock")) {
+			getProductsQuery += "AND products.quantity>50 ORDER BY products.quantity DESC LIMIT ?,5;";
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(getProductsQuery);
