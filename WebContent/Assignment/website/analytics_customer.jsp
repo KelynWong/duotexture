@@ -72,7 +72,7 @@
 			  	<!-- search and add function -->
 		        <form class="form-inline col-12 justify-content-left my-4 p-0" action="${pageContext.request.contextPath}/analyticscustomer" method="get">
 		        	<input class="form-control" name="page" type="hidden" value="1">
-		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search">
+		            <input class="form-control col-7" name="keywordInput" type="search" value="<%=request.getAttribute("keywordInput")%>" placeholder="Search by customer's country or address">
 		            <select class="form-control mx-2" id="orderInput" name="orderInput">
 		    			<%
 		    			String order = (String) request.getAttribute("orderInput");
