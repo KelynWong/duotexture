@@ -20,9 +20,6 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javabeans.Member;
-import javabeans.Product;
-import javabeans.Purchase;
 import javabeans.AnalyticsOrder;
 import javabeans.Category;
 import utils.AnalyticUtils;

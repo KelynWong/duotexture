@@ -26,23 +26,24 @@ import javabeans.Category;
 import javabeans.Purchase;
 
 /**
- * Servlet implementation class OrdersServlet
+ * Servlet implementation class PurchasesServlet
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
  */
+
 @WebServlet("/purchases")
 public class PurchasesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PurchasesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
     	HttpSession session=request.getSession();

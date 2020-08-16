@@ -1,7 +1,6 @@
 package publicservlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -22,33 +20,29 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javabeans.Card;
-import javabeans.Cart;
 import javabeans.Category;
 
 /**
  * Servlet implementation class PaymentServlet
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
  */
+
 @WebServlet("/payment")
 public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PaymentServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// get current session
-			HttpSession session=request.getSession();
-			
 			// declare client
 			Client client = ClientBuilder.newClient();
 			
@@ -96,12 +90,4 @@ public class PaymentServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
-	}
-
 }

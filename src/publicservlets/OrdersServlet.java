@@ -27,22 +27,23 @@ import javabeans.Order;
 
 /**
  * Servlet implementation class OrdersServlet
+ * 
+ * Class: DIT/FT/2B/21
+ * Group: 1
+ * 
+ * Name: LEE ZONG XUN RENFRED
+ * Admin Number: P1935392 
+ * 
+ * Name: WONG EN TING KELYN
+ * Admin Number: P1935800
+ * 
  */
+
 @WebServlet("/orders")
 public class OrdersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrdersServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get current session
     	HttpSession session=request.getSession();
@@ -160,12 +161,4 @@ public class OrdersServlet extends HttpServlet {
 			System.out.println("(publicservlets/OrdersServlet) Member Validation Error: " + e + "\n");
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
-	}
-
 }

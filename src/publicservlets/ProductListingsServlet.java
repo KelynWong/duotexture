@@ -41,10 +41,7 @@ import javabeans.Product;
 public class ProductListingsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ProductListingsServlet() {
-        super();
-    }
-
+	/* Get Method */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// declare client
@@ -150,12 +147,4 @@ public class ProductListingsServlet extends HttpServlet {
 		}
 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
-	}
-
 }

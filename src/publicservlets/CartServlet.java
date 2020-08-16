@@ -2,13 +2,7 @@ package publicservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,17 +32,7 @@ import javabeans.Rate;
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /* Get Method */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
     	// get current session
     	HttpSession session=request.getSession();
@@ -219,12 +203,5 @@ public class CartServlet extends HttpServlet {
 		} catch (Exception e){
 			System.out.println("(publicservlets/CartServlet) Member Validation Error: " + e + "\n");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// do nothing
 	}
 }
