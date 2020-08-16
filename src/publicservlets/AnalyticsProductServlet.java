@@ -100,7 +100,7 @@ public class AnalyticsProductServlet extends HttpServlet {
 					order = "ASC";
 				}
 				
-				// get products
+				// get products (minus one as page started at 1)
 				ArrayList<Product> productsArrayList = AnalyticUtils.getProducts(pageNumber-1, keyword, order);
 				
 				// get next products (last page validation)
@@ -132,11 +132,11 @@ public class AnalyticsProductServlet extends HttpServlet {
 					bestLeastOrder = "ASC";
 				}
 				
-				// get products by purchases
-				ArrayList<Purchase> bestLeastProductsArrayList = AnalyticUtils.getBestLeastProducts(pageNumber-1, keyword, order);
+				// get products by purchases (minus one as page started at 1)
+				ArrayList<Purchase> bestLeastProductsArrayList = AnalyticUtils.getBestLeastProducts(bestLeastPageNumber-1, bestLeastKeyword, bestLeastOrder);
 				
 				// get next products (last page validation)
-				ArrayList<Purchase> nextBestLeastProductsArrayList = AnalyticUtils.getBestLeastProducts(pageNumber, keyword, order);
+				ArrayList<Purchase> nextBestLeastProductsArrayList = AnalyticUtils.getBestLeastProducts(bestLeastPageNumber, bestLeastKeyword, bestLeastOrder);
 				if(nextBestLeastProductsArrayList.size()==0) {
 					bestLeastMaxRecord = true;
 				}
