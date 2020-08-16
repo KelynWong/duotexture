@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import javabeans.Member;
 import javabeans.Product;
+import javabeans.Purchase;
 import javabeans.Category;
 import utils.AnalyticUtils;
 
@@ -81,6 +82,8 @@ public class AnalyticsProductServlet extends HttpServlet {
 				// store in request
 				request.setAttribute("categoriesArrayList", categoriesArrayList);
 				
+				/* All Product Analysis */
+				
 				// initialize variables
 				Boolean maxRecord = false;
 				int pageNumber = Integer.parseInt(request.getParameter("page"));
@@ -111,13 +114,49 @@ public class AnalyticsProductServlet extends HttpServlet {
 				request.setAttribute("keywordInput", keyword);
 				request.setAttribute("orderInput", order);
 				
+				/* Best Least Purchases Analysis */
+				
+				// initialize variables
+				Boolean bestLeastMaxRecord = false;
+				int bestLeastPageNumber = Integer.parseInt(request.getParameter("bestLeastPage"));
+				String bestLeastKeyword = request.getParameter("bestLeastKeywordInput");
+				String bestLeastOrder = request.getParameter("bestLeastOrderInput");
+				
+				// check keyword input
+				if(bestLeastKeyword == null) {
+					bestLeastKeyword = "";
+				}
+				
+				// check order input
+				if(bestLeastOrder == null) {
+					bestLeastOrder = "ASC";
+				}
+				
+				// get products by purchases
+				ArrayList<Purchase> bestLeastProductsArrayList = AnalyticUtils.getBestLeastProducts(pageNumber-1, keyword, order);
+				
+				// get next products (last page validation)
+				ArrayList<Purchase> nextBestLeastProductsArrayList = AnalyticUtils.getBestLeastProducts(pageNumber, keyword, order);
+				if(nextBestLeastProductsArrayList.size()==0) {
+					bestLeastMaxRecord = true;
+				}
+				
+				// store in request
+				request.setAttribute("bestLeastProductsArrayList", bestLeastProductsArrayList);
+				request.setAttribute("bestLeastKeywordInput", bestLeastKeyword);
+				request.setAttribute("bestLeastOrderInput", bestLeastOrder);
+				
 				// forward request to jsp for display
 				RequestDispatcher requestDispatcher;
 				
-				if(maxRecord == false) {
+				if(maxRecord == false && bestLeastMaxRecord == false) {
 					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_product.jsp?page="+pageNumber);
-				} else {
+				} else if (maxRecord == true && bestLeastMaxRecord == false){
 					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_product.jsp?page="+pageNumber+"&maxRecord=true");
+				} else if (maxRecord == false && bestLeastMaxRecord == true) {
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_product.jsp?page="+pageNumber+"&bestLeastMaxRecord=true");
+				} else {
+					requestDispatcher = request.getServletContext().getRequestDispatcher("/Assignment/website/analytics_product.jsp?page="+pageNumber+"&maxRecord=true&bestLeastMaxRecord=true");
 				}
 				
 				requestDispatcher.forward(request, response);
